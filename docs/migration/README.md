@@ -49,7 +49,7 @@ Alle 24 am Stichtag sichtbaren internen, externen und Fragmentziele sind in der 
 | Bisheriger Bereich | Entscheidung | Vorgesehenes Ziel |
 |---|---|---|
 | Gottesdienste, Sonntag, Dreiklang | überarbeiten | `/gottesdienste` |
-| Konzerte, aktuelle/vergangene Konzerte, SHMF, Ansprechpartner | extern verlinken | `https://konzerte-petruskirche.de/programm` bzw. `/programm/archiv` |
+| Konzerte, aktuelle/vergangene Konzerte, SHMF, Ansprechpartner | extern verlinken | `https://konzerte-petruskirche.de/programm` bzw. `https://konzerte-petruskirche.de/programm/archiv` |
 | Aktuelles, Gemeindeleben, Kalender | überarbeiten | `/aktuelles` |
 | Predigten auf `2019.akg-kiel.de` | entfallen lassen | kein Nachfolger; begründete Ausnahme bis 2026-10-02 |
 | Intern | extern verlinken | ChurchTools-Login |
@@ -91,7 +91,7 @@ ChurchTools bleibt der externe interne Zugang und wird zugleich die einzige Quel
 
 ## Offene Entscheidungen und Termine
 
-Die Matrix nennt für jeden Eintrag die koordinierende Person, benötigte Freigabe, offenen Punkt und Fälligkeit. `noah.zepner@akg-kiel.de` ist aufgrund der Linear-Zuordnung Projektkoordination, nicht automatisch fachliche oder rechtliche Freigabestelle.
+Die Matrix nennt für jeden Eintrag die koordinierende Person, benötigte Freigabe und den offenen Punkt. Jeder offene Punkt hat eine Fälligkeit; bei `offener_punkt=Keine` bleibt `faellig` bewusst leer. `noah.zepner@akg-kiel.de` ist aufgrund der Linear-Zuordnung Projektkoordination, nicht automatisch fachliche oder rechtliche Freigabestelle.
 
 | Offener Punkt | Verantwortlicher Vorgang | Fällig | Standard ohne Freigabe |
 |---|---|---:|---|
