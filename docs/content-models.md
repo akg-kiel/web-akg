@@ -45,13 +45,13 @@ Für Website AKG bildet diese Freigabe die ChurchTools-seitige Whitelist. Produk
 
 ## Kleines internes Inhaltsmodell
 
-Alle Datumswerte werden als ISO-8601-Werte mit eindeutigem Zeitzonenbezug übernommen. Freitext wird standardmäßig als Text ausgegeben; ChurchTools-Inhalt darf nie ungeprüft als HTML injiziert werden.
+Alle Datumswerte werden als ISO-8601-Werte mit eindeutigem Zeitzonenbezug übernommen. Freitext wird standardmäßig als Text ausgegeben; ChurchTools-Inhalt darf nie ungeprüft als HTML injiziert werden. `externalUrl` und `contactUrl` werden nur als absolute `https:`-URLs ohne Zugangsdaten übernommen; andere Schemata werden verworfen.
 
 ### Gottesdienste und Termine: `EventItem`
 
 | Feld | Pflicht | ChurchTools-Feld |
 |---|---:|---|
-| `id` | ja | `appointment.calculated.iCalUid` der konkreten Wiederholung |
+| `id` | ja | stabiler Schlüssel aus `appointment.base.calendar.id`, `appointment.base.id` und `appointment.calculated.startDate` |
 | `kind` | ja | `service` für Kalender-ID 2, sonst `event` |
 | `title` | ja | `appointment.base.title` |
 | `start` | ja | `appointment.calculated.startDate` |
@@ -69,7 +69,7 @@ Veröffentlichung:
 - Sonstige Gemeindetermine kommen ausschließlich aus **Kalender 1 „Sonstige Veranstaltungen“**.
 - Kalender 3 „Konzerte“ bleibt Website Konzerte vorbehalten. Kalender 4 „Regelmäßige Veranstaltungen, Gruppen und Kreise“ wird nicht zusätzlich als Terminquelle geladen, weil diese Inhalte bereits über Gruppen gepflegt werden. Feiertage sind kein AKG-Inhaltstyp.
 - Der Kalender muss öffentlich sein; der Termin muss `isInternal=false` haben und sein berechnetes Ende darf nicht in der Vergangenheit liegen.
-- Bei Wiederholungen werden die Werte unter `calculated` verwendet, nicht die Basiszeit der Serie.
+- Bei Wiederholungen werden die Werte unter `calculated` verwendet, nicht die Basiszeit der Serie. Kalender-ID, Basis-Termin-ID und berechneter Start bilden gemeinsam den eindeutigen Schlüssel jeder Wiederholung; `iCalUid` ist nur Interoperabilitätsmetadatum.
 - Fehlen `id`, `title`, `start` oder `end`, wird nur der betroffene Datensatz verworfen und protokolliert.
 
 Aktueller Datenstand: Kalender 1 enthält im Prüfzeitraum 80 Termine, davon 10 mit Adresse; Kalender 2 enthält 32 Gottesdienste, davon **keinen mit Adresse**. Beide Kalender verwenden derzeit keine Termin-Tags. Formate, Zielgruppe, Ort und bestätigte Barrierefreiheitsangaben können daher momentan nicht zuverlässig strukturiert ausgegeben werden (B2).
@@ -89,7 +89,7 @@ Veröffentlichung:
 
 - Zulässig sind nur Beiträge aus Gruppen, die in `/api/website/data` als `posts-in-group` freigegeben sind. Aktuell sind dies die Gruppen-IDs **18, 21 und 183**; die Integration liest die Freigaben dynamisch und führt keine zweite ID-Liste.
 - Zusätzlich müssen `groupVisibility=public`, `visibility=group_visible` und `isBanned=false` gelten.
-- `publicationDate`, sofern gesetzt, darf nicht in der Zukunft liegen; `expirationDate`, sofern gesetzt, muss in der Zukunft liegen.
+- `publishedAt` (Quelle: `publishedDate`) darf nicht in der Zukunft liegen; `expiresAt` (Quelle: `expirationDate`) muss, sofern gesetzt, in der Zukunft liegen.
 - Autor, Kommentare, Reaktionen, Personen-IDs und Bearbeiter-Metadaten werden nicht in das interne Modell übernommen.
 - Eine Meldung ohne Text darf als kurzer Hinweis mit Titel und Datum erscheinen. Eine fehlende Meldung wird nicht aus WordPress ersetzt.
 
@@ -184,7 +184,7 @@ Die namentliche Besetzung dieser Funktionsrollen ist B6 und bis **2026-10-02** z
 ## Verhalten bei leeren, fehlerhaften und veralteten Daten
 
 - AKG-59 lädt ausschließlich serverseitig und hält das gemappte öffentliche Modell **30 Minuten** im Cache.
-- Bei einem ChurchTools-Ausfall darf der letzte erfolgreiche, unveränderte Cache höchstens **6 Stunden** weiterverwendet werden. Er ist ein technischer Cache, keine zweite redaktionelle Quelle.
+- Bei einem ChurchTools-Ausfall darf der letzte erfolgreiche, unveränderte Cache höchstens **6 Stunden** weiterverwendet werden. Er ist ein technischer Cache, keine zweite redaktionelle Quelle. `Responsibility`-Daten werden wegen möglicher Einwilligungswiderrufe nie stale ausgeliefert.
 - Danach bleibt nur der betroffene Abschnitt leer bzw. zeigt „Daten derzeit nicht verfügbar“. Die statische Website und andere Inhaltstypen bleiben nutzbar.
 - Eine erfolgreiche leere Antwort zeigt „Derzeit sind keine Inhalte veröffentlicht“. Ein Fehler darf nicht als echte Leermenge dargestellt werden.
 - Einzelne ungültige Datensätze werden verworfen und serverseitig protokolliert; sie blockieren nicht die übrigen Datensätze.
@@ -194,6 +194,7 @@ Die namentliche Besetzung dieser Funktionsrollen ist B6 und bis **2026-10-02** z
 ## Datenschutz- und Berechtigungsgrenze für AKG-59
 
 - REST-API mit nativem serverseitigem `fetch`; keine alte AJAX-API und kein zusätzlicher ChurchTools-Client.
+- Authentifizierte Requests verwenden `redirect: "error"`. Jede `3xx`-Antwort ist ein isolierter Quellenfehler; es wird kein Redirect-Request erzeugt und der `Authorization`-Header gelangt weder an eine andere Origin noch über einen HTTPS-zu-HTTP-Downgrade.
 - Ein dedizierter technischer Benutzer erhält nur Leserechte auf Website-Freigaben, öffentliche Kalender/Beiträge/Gruppen, benötigte Gruppenstammdaten sowie die freigegebenen Rollenmitgliedschaften und den Einwilligungsmarker.
 - Kein allgemeiner Zugriff auf `/api/persons`, Finanzen, Check-in, interne Gruppen, Kommentare oder sonstige Personendaten.
 - Der Login-Token liegt ausschließlich als Server-Secret vor, nie im Repository, Browser-Bundle, HTML, Cache-Key oder Log.
@@ -202,15 +203,15 @@ Die namentliche Besetzung dieser Funktionsrollen ist B6 und bis **2026-10-02** z
 
 ## Entschiedene technische Vorgaben für AKG-59
 
-1. Basis-URL: `https://akg-kiel.church.tools/api`; Authentifizierung per `Authorization: Login <token>` ausschließlich serverseitig.
+1. Basis-URL: `https://akg-kiel.church.tools/api`; Authentifizierung per `Authorization: Login <token>` ausschließlich serverseitig und ohne Redirect-Following.
 2. REST-Endpunkte: `/website/data`, `/posts`, `/calendars/{id}/appointments`, `/groups` und die benötigten `/group/*`-Stammdaten.
-3. Stabile öffentliche Schlüssel: Post-/Gruppen-GUID und Termin-`iCalUid`; keine aus Titeln erzeugten Identitäten.
+3. Stabile öffentliche Schlüssel: Post-/Gruppen-GUID sowie bei Terminen die Kombination aus Kalender-ID, Basis-Termin-ID und berechnetem Start; keine aus Titeln oder einem nicht garantiert eindeutigen `iCalUid` erzeugten Identitäten.
 4. Termine: Kalender 1 und 2, berechnete Wiederholungen, rollierendes Fenster von heute bis zwölf Monate in die Zukunft.
 5. News: nur freigegebene Beitragsgruppen plus Sichtbarkeits-, Publikations- und Ablaufprüfung.
 6. Gruppen: öffentliche, laufende Datensätze der Typen 1, 2, 3 und 5; keine manuelle Gruppenliste im Repository.
 7. Personen: nur der Schnitt aus freigegebener Gruppe/Rolle, `staff` und Einwilligungsgruppe 564; keine allgemeine Personenabfrage.
 8. Cache: 30 Minuten frisch, maximal 6 Stunden stale-if-error; Fehler pro Inhaltstyp isolieren.
-9. Tests: je ein Mapping-Check mit anonymisierten Fixtures und ein Fehler-/Stale-Check; keine echten Personendaten in Fixtures.
+9. Tests: anonymisierte Fixtures prüfen Mapping, unterschiedliche Schlüssel zweier Wiederholungen, URL-Schemata und den Fehler-/Stale-Fall ohne stale `Responsibility`-Daten. Separate Sicherheitschecks müssen Cross-Origin-Redirects und HTTPS-zu-HTTP-Downgrade-Redirects ablehnen; echte Personendaten bleiben aus Fixtures ausgeschlossen.
 
 ## Erledigter Zugangspunkt und Folgeissues
 
