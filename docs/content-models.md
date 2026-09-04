@@ -65,7 +65,7 @@ Alle Datumswerte werden als ISO-8601-Werte mit eindeutigem Zeitzonenbezug übern
 
 Veröffentlichung:
 
-- Gottesdienste kommen ausschließlich aus **Kalender 2 „Gottesdienste“**.
+- Gottesdienste kommen ausschließlich aus **Kalender 2 „Gottesdienste“**. Dessen MVP-Allowlist überschreibt die optionale Feldtabelle oben: Gemappt werden nur `id`, `kind`, `title`, `start`, `end` und `allDay`; `subtitle`, `description`, `location`, `tags` und `externalUrl` bleiben deaktiviert.
 - **Kalender 1 „Sonstige Veranstaltungen“ bleibt im MVP vollständig deaktiviert**, bis AKG-75 alle anonym sichtbaren Privat-/Betriebstermine bereinigt und die öffentlichen Termine fachlich freigegeben hat. Es gibt keine lokale ID-Liste und keine Titelheuristik als Ersatz.
 - Kalender 3 „Konzerte“ bleibt Website Konzerte vorbehalten. Kalender 4 „Regelmäßige Veranstaltungen, Gruppen und Kreise“ wird nicht zusätzlich als Terminquelle geladen, weil diese Inhalte bereits über Gruppen gepflegt werden. Feiertage sind kein AKG-Inhaltstyp.
 - Der Kalender muss öffentlich sein; der Termin muss `isInternal=false` haben und sein berechnetes Ende darf nicht in der Vergangenheit liegen.
@@ -172,7 +172,7 @@ Namentliche Fachverantwortliche sind in den freigegebenen Projektunterlagen nich
 | Inhalt | Pflege in ChurchTools/Repository | Fachliche Freigabe | Rhythmus |
 |---|---|---|---|
 | Gottesdienste | Besitzer:innen des ChurchTools-Kalenders „Gottesdienste“ | Pastorat bzw. benannte Gottesdienstverantwortung | bei jeder Änderung; Website-Abruf alle 30 Minuten |
-| sonstige Termine | Besitzer:innen des Kalenders „Sonstige Veranstaltungen“ | veranstaltende Gruppe oder benannte Terminverantwortung | bei jeder Änderung; Website-Abruf alle 30 Minuten |
+| sonstige Termine | Besitzer:innen des Kalenders „Sonstige Veranstaltungen“ | veranstaltende Gruppe oder benannte Terminverantwortung | bei jeder Änderung; kein Website-Abruf vor Abschluss von AKG-75, danach alle 30 Minuten |
 | News | berechtigte Autor:innen der freigegebenen Beitragsgruppen | jeweilige Gruppenleitung; Öffentlichkeitsarbeit verwaltet die Gruppenfreigabe | Veröffentlichung/Ablauf im Beitrag; Abruf alle 30 Minuten |
 | Angebote/Gruppen | jeweilige Gruppenleitung | jeweilige Gruppenleitung; ChurchTools-Gruppenredaktion prüft öffentliche Sichtbarkeit | bei Änderungen; zusätzlich vierteljährliche Bestandsprüfung |
 | Zuständigkeiten | jeweilige Gruppenleitung pflegt Rolle; Öffentlichkeitsarbeit pflegt Website-Freigabe | betroffene Person (Einwilligung) und jeweilige Gruppenleitung | sofort bei Rollen-/Einwilligungsänderung; Abruf alle 30 Minuten |
