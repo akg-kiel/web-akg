@@ -66,13 +66,13 @@ Alle Datumswerte werden als ISO-8601-Werte mit eindeutigem Zeitzonenbezug übern
 Veröffentlichung:
 
 - Gottesdienste kommen ausschließlich aus **Kalender 2 „Gottesdienste“**.
-- Sonstige Gemeindetermine kommen ausschließlich aus **Kalender 1 „Sonstige Veranstaltungen“**.
+- **Kalender 1 „Sonstige Veranstaltungen“ bleibt im MVP vollständig deaktiviert**, bis AKG-75 alle anonym sichtbaren Privat-/Betriebstermine bereinigt und die öffentlichen Termine fachlich freigegeben hat. Es gibt keine lokale ID-Liste und keine Titelheuristik als Ersatz.
 - Kalender 3 „Konzerte“ bleibt Website Konzerte vorbehalten. Kalender 4 „Regelmäßige Veranstaltungen, Gruppen und Kreise“ wird nicht zusätzlich als Terminquelle geladen, weil diese Inhalte bereits über Gruppen gepflegt werden. Feiertage sind kein AKG-Inhaltstyp.
 - Der Kalender muss öffentlich sein; der Termin muss `isInternal=false` haben und sein berechnetes Ende darf nicht in der Vergangenheit liegen.
 - Bei Wiederholungen werden die Werte unter `calculated` verwendet, nicht die Basiszeit der Serie. Kalender-ID, Basis-Termin-ID und berechneter Start bilden gemeinsam den eindeutigen Schlüssel jeder Wiederholung; `iCalUid` ist nur Interoperabilitätsmetadatum.
 - Fehlen `id`, `title`, `start` oder `end`, wird nur der betroffene Datensatz verworfen und protokolliert.
 
-Aktueller Datenstand: Kalender 1 enthält im Prüfzeitraum 80 Termine, davon 10 mit Adresse; Kalender 2 enthält 32 Gottesdienste, davon **keinen mit Adresse**. Beide Kalender verwenden derzeit keine Termin-Tags. Formate, Zielgruppe, Ort und bestätigte Barrierefreiheitsangaben können daher momentan nicht zuverlässig strukturiert ausgegeben werden (B2).
+Live-Audit für 2026-09-03 bis 2027-09-04: Kalender 1 liefert anonym 84 Wiederholungen aus 46 Basis-Terminen, darunter ungeprüfte Privat-/Betriebstermine; nur 2 Basis-Termine haben eine Adresse. Kalender 2 liefert 37 Gottesdienste aus 28 Basis-Terminen, **keinen mit Adresse**. Beide Kalender verwenden keine Termin-Tags. Im MVP werden aus Kalender 2 deshalb nur Titel und Zeit ausgegeben; Format, Zielgruppe, Ort und Barrierefreiheitsangaben bleiben ohne bestätigte strukturierte Felder weg (B2).
 
 ### Aktuelles: `NewsItem`
 
@@ -206,7 +206,7 @@ Die namentliche Besetzung dieser Funktionsrollen ist B6 und bis **2026-10-02** z
 1. Basis-URL: `https://akg-kiel.church.tools/api`; Authentifizierung per `Authorization: Login <token>` ausschließlich serverseitig und ohne Redirect-Following.
 2. REST-Endpunkte: `/website/data`, `/posts`, `/calendars/{id}/appointments`, `/groups` und die benötigten `/group/*`-Stammdaten.
 3. Stabile öffentliche Schlüssel: Post-/Gruppen-GUID sowie bei Terminen die Kombination aus Kalender-ID, Basis-Termin-ID und berechnetem Start; keine aus Titeln oder einem nicht garantiert eindeutigen `iCalUid` erzeugten Identitäten.
-4. Termine: Kalender 1 und 2, berechnete Wiederholungen, rollierendes Fenster von heute bis zwölf Monate in die Zukunft.
+4. Termine: im MVP nur Kalender 2, berechnete Wiederholungen und ein rollierendes Fenster von heute bis zwölf Monate in die Zukunft; Kalender 1 erst nach Abschluss von AKG-75.
 5. News: nur freigegebene Beitragsgruppen plus Sichtbarkeits-, Publikations- und Ablaufprüfung.
 6. Gruppen: öffentliche, laufende Datensätze der Typen 1, 2, 3 und 5; keine manuelle Gruppenliste im Repository.
 7. Personen: nur der Schnitt aus freigegebener Gruppe/Rolle, `staff` und Einwilligungsgruppe 564; keine allgemeine Personenabfrage.
@@ -219,7 +219,7 @@ B1 ist am 2026-09-03 technisch behoben und mit dem eingeschränkten API-Benutzer
 
 | ID | Folgeissue | Typ | Befund und Standardverhalten |
 |---|---|---|---|
-| B2 | [AKG-75](https://linear.app/akg-kiel/issue/AKG-75/churchtools-termine-um-orte-formate-und-tags-vervollstandigen) | **Blocker Detailangaben** | Kein Gottesdienst im Prüfzeitraum hat eine Adresse; beide verwendeten Kalender haben keine Tags. Ort, Format, Zielgruppe und strukturierte Veranstaltungsdaten bleiben weg, bis diese Felder in ChurchTools gepflegt und fachlich bestätigt sind. |
+| B2 | [AKG-75](https://linear.app/akg-kiel/issue/AKG-75/churchtools-termine-um-orte-formate-und-tags-vervollstandigen) | **Bewusste MVP-Einschränkung** | Kalender 1 bleibt wegen anonym sichtbarer ungeprüfter Privat-/Betriebstermine deaktiviert. Kalender 2 liefert Gottesdienste vorläufig nur mit Titel und Zeit; Ort, Format und Zielgruppe bleiben ohne bestätigte ChurchTools-Felder weg. |
 | B3 | [AKG-74](https://linear.app/akg-kiel/issue/AKG-74/offentliche-churchtools-gruppen-als-website-angebote-fachlich-prufen) | **Blocker Angebote** | 75 öffentliche, technisch geeignete Gruppen stehen 39 Alt-Migrationskandidaten gegenüber; nur 24 Namen stimmen exakt überein. Alle geeigneten ChurchTools-Gruppen müssen fachlich als aktuelles Website-Angebot geprüft werden. Keine automatische Titelzuordnung. |
 | B4 | [AKG-77](https://linear.app/akg-kiel/issue/AKG-77/bildfreigaben-und-alternativtexte-fur-churchtools-inhalte-klaren) | **Bewusste Inhaltslücke** | Postbilder haben kein API-Feld für Alternativtext; Gruppenbilder haben aktuell keine `imageAnnotation`. Bilder bleiben dekorativ oder entfallen. |
 | B5 | [AKG-79](https://linear.app/akg-kiel/issue/AKG-79/autoritative-orts-und-barrierefreiheitsangaben-freigeben) | **Blocker Orte** | Vollständige, bestätigte Orts-, Anfahrts- und Barrierefreiheitsdaten fehlen als autoritative Quelle. Keine Angaben aus WordPress übernehmen. |
