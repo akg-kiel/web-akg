@@ -1,0 +1,16 @@
+---
+import { detailPath, formatServiceTime } from '../lib/site';
+import type { EventItem } from '../lib/server/churchtools';
+interface Props { items: EventItem[]; headingLevel?: 'h2' | 'h3' }
+const { items, headingLevel: Heading = 'h2' } = Astro.props;
+---
+<ul class="service-list">
+  {items.map((item) => (
+    <li>
+      <article class="service-item">
+        <p class="event-time"><time datetime={item.start}>{formatServiceTime(item)}</time></p>
+        <Heading><a href={detailPath('gottesdienste', item.id)}>{item.title}<span class="item-arrow" aria-hidden="true">↗</span></a></Heading>
+      </article>
+    </li>
+  ))}
+</ul>

@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ChurchPhoto from '../components/ChurchPhoto.astro';
+import SourceState from '../components/SourceState.astro';
+import ServiceList from '../components/ServiceList.astro';
+import NewsList from '../components/NewsList.astro';
+import { loadNews, loadServices } from '../lib/content';
+import { externalLinks, places } from '../lib/site';
+
+export const prerender = false;
+const [services, news] = await Promise.all([loadServices(), loadNews()]);
+Astro.response.headers.set('Cache-Control', 'no-store');
+const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
+---
+<Layout title="Schön, dass du da bist" description="Willkommen in der Apostel-Kirchengemeinde Kiel. Lerne unsere Gemeinde kennen und entdecke Gottesdienste und Begegnungen. Website-Entwurf.">
+  <section class="welcome-hero" aria-labelledby="willkommen">
+    <div class="welcome-copy">
+      <p class="eyebrow">Apostel-Kirchengemeinde Kiel</p>
+      <h1 id="willkommen">Schön, dass<br />du da bist.</h1>
+      <p class="hero-intro">Ob du zum ersten Mal vorbeischaust oder schon lange zur Gemeinde gehörst: Wir freuen uns auf dich.</p>
+      <div class="hero-actions">
+        <a class="button" href="/gemeinde">Gemeinde kennenlernen <span aria-hidden="true">→</span></a>
+        <a class="text-link" href="/gottesdienste">Gottesdienste <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <ChurchPhoto hero />
+  </section>
+
+  <section class="container home-services section" aria-labelledby="gottesdienst">
+    <div>
+      <p class="eyebrow">Gottesdienste</p>
+      <h2 id="gottesdienst">Zeit für Gott.<br />Und füreinander.</h2>
+    </div>
+    <div class="prose">
+      <p>Zur Ruhe kommen, gemeinsam glauben, neue Gedanken mitnehmen. Gottesdienst ist eine Einladung – auch mit offenen Fragen.</p>
+      <a class="text-link" href="/gottesdienste">Mehr über Gottesdienste <span aria-hidden="true">→</span></a>
+      <SourceState status={services.status} kind="services" updatedAt={services.updatedAt} compact />
+      {services.items.length > 0 && <ServiceList items={services.items.slice(0, 1)} headingLevel="h3" />}
+    </div>
+  </section>
+
+  <section class="community-band section" aria-labelledby="miteinander">
+    <div class="container community-layout">
+      <div>
+        <p class="eyebrow">Unsere Orte</p>
+        <h2 id="miteinander">Petruskirche und<br />Gemeindehäuser</h2>
+
+        <div class="journey-links">
+          {places.map(({ href, label }) => <a href={href}><span><strong>{label}</strong><small>{href === '/petruskirche' ? 'Architektur und Geschichte' : 'Ortsprofil in Vorbereitung'}</small></span><span class="arrow" aria-hidden="true">→</span></a>)}
+        </div>
+      </div>
+      <aside class="cafe-note">
+        <h3>Café Dreimaster</h3>
+        <p>Lerne das Café kennen und finde die aktuellen Informationen für deinen Besuch – auf der Dreimaster-Website.</p>
+        {cafe && <a class="text-link" href={cafe.href}>Zum Café Dreimaster <span class="external-label">extern ↗</span></a>}
+      </aside>
+    </div>
+  </section>
+
+  <section class:list={['container section news-section', { 'news-compact': news.items.length === 0 }]} aria-labelledby="neuigkeiten">
+    <div class="section-heading">
+      <div><h2 id="neuigkeiten">Neuigkeiten aus der AKG</h2></div>
+      <a class="text-link" href="/aktuelles">Alle Meldungen <span aria-hidden="true">→</span></a>
+    </div>
+    <SourceState status={news.status} kind="news" updatedAt={news.updatedAt} compact />
+    {news.items.length > 0 && <NewsList items={news.items.slice(0, 3)} headingLevel="h3" />}
+  </section>
+</Layout>

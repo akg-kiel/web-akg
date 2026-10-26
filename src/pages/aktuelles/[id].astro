@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import SourceState from '../../components/SourceState.astro';
+import DetailMissing from '../../components/DetailMissing.astro';
+import { loadNews } from '../../lib/content';
+import { detailPath, formatDate, sourceIdFromPath } from '../../lib/site';
+
+export const prerender = false;
+const news = await loadNews();
+const item = news.items.find((entry) => entry.id === sourceIdFromPath(Astro.url.pathname));
+const unavailable = news.status === 'unavailable' || news.status === 'disabled' || (news.status === 'stale' && !item);
+Astro.response.status = unavailable ? 503 : item ? 200 : 404;
+Astro.response.headers.set('Cache-Control', 'no-store');
+if (unavailable) Astro.response.headers.set('Retry-After', '1800');
+const title = item?.title ?? (unavailable ? 'Meldung gerade nicht abrufbar' : 'Meldung nicht gefunden');
+---
+<Layout title={title} description="Meldung aus der Apostel-Kirchengemeinde Kiel. Nicht öffentliche Vorschau." canonicalPath={item ? detailPath('aktuelles', item.id) : undefined}>
+  <PageIntro title={title} eyebrow="Aus der Gemeinde" />
+  {item ? (
+    <article class="container narrow section-end">
+      <SourceState status={news.status} kind="news" updatedAt={news.updatedAt} />
+      <p class="article-meta">Veröffentlicht am <time datetime={item.publishedAt}>{formatDate(item.publishedAt)}</time></p>
+      {item.updatedAt && item.updatedAt !== item.publishedAt && <p class="small-note">Bearbeitet am <time datetime={item.updatedAt}>{formatDate(item.updatedAt)}</time></p>}
+      {item.body ? <div class="article-body">{item.body}</div> : <p class="article-body">Zu dieser Meldung ist kein weiterer Text veröffentlicht.</p>}
+      <a class="button" href="/aktuelles">Alle Meldungen <span aria-hidden="true">→</span></a>
+    </article>
+  ) : <DetailMissing unavailable={unavailable} section="aktuelles" />}
+</Layout>

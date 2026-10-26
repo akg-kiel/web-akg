@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { externalLinks } from '../lib/site';
+export const prerender = true;
+const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
+---
+<Layout title="Angebote & Gruppen" description="Du möchtest die Apostel-Kirchengemeinde kennenlernen? Hier findest du erste Wege zu Gottesdiensten, Gemeinde und Café Dreimaster.">
+  <PageIntro title="Dein Weg in die Gemeinde" eyebrow="Angebote & Gruppen" description="Du möchtest Glauben teilen, Menschen kennenlernen oder dich einbringen? Ein erster Schritt darf klein sein." />
+  <section class="container content-split section-end" aria-labelledby="kennenlernen-titel">
+    <div class="prose">
+      <h2 id="kennenlernen-titel">Erst einmal kennenlernen.</h2>
+      <p>Was ist dir wichtig, wenn du an Gemeinde denkst? Gemeinsam glauben, etwas bewegen oder mit anderen ins Gespräch kommen? Unser Leitbild verbindet den Glauben an Jesus Christus mit dem Wunsch nach einem achtsamen Miteinander.</p>
+      <p>Auf der Gemeindeseite erfährst du mehr darüber. Wenn dich Gottesdienste interessieren, findest du in einem eigenen Bereich eine kurze Einführung und den Stand der Terminübersicht.</p>
+      <a class="button" href="/gottesdienste">Gottesdienste kennenlernen <span aria-hidden="true">→</span></a>
+      <div class="source-state" data-source-state="disabled">
+        <p class="state-title">Die Gruppenübersicht folgt.</p>
+        <p>Welche Angebote du hier konkret kennenlernen kannst, wird noch bestätigt. Deshalb enthält diese Vorschau keine Gruppenliste und keine Treffzeiten.</p>
+      </div>
+    </div>
+    <aside class="editorial-note">
+      <p class="eyebrow">Auch einen Blick wert</p>
+      <h2>Café Dreimaster</h2>
+      <p>Du suchst das Café Dreimaster? Informationen zum Café findest du auf seiner eigenen Website.</p>
+      {cafe && <a class="text-link" href={cafe.href}>Zur Café-Website <span class="external-label">extern ↗</span></a>}
+      <a class="text-link" href="/gemeinde">Was uns als Gemeinde verbindet <span aria-hidden="true">→</span></a>
+    </aside>
+  </section>
+</Layout>

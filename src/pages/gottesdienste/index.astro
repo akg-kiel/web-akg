@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import SourceState from '../../components/SourceState.astro';
+import ServiceList from '../../components/ServiceList.astro';
+import { loadServices } from '../../lib/content';
+import { externalLinks } from '../../lib/site';
+
+export const prerender = false;
+const services = await loadServices();
+Astro.response.headers.set('Cache-Control', 'no-store');
+const youtube = externalLinks.find((link) => link.label === 'YouTube-Kanal');
+---
+<Layout title="Gottesdienste" description="Gottesdienst als Einladung, Gott zu begegnen und im Glauben zu wachsen. Lerne die Gemeinde kennen und finde den Stand der nächsten Termine.">
+  <PageIntro title="Gottesdienste" eyebrow="Zusammenkommen" description="Ob du mit dem Glauben vertraut bist oder erst nach Antworten suchst: Du bist willkommen." />
+  <div class="container section-end">
+    <section class="content-split" aria-labelledby="einladung-titel">
+      <div class="prose">
+        <h2 id="einladung-titel">Gott begegnen. Im Glauben wachsen.</h2>
+        <p>So beschreibt unser Leitbild die Einladung zum Gottesdienst. Wir möchten den Glauben miteinander teilen und ihm Raum im Leben geben. Auch deine Fragen dürfen dabei ihren Platz haben.</p>
+        <a class="text-link" href="/gemeinde">Mehr über unsere Gemeinde <span aria-hidden="true">→</span></a>
+      </div>
+      <aside class="editorial-note">
+        <h2>Ein Blick auf YouTube</h2>
+        <p>Wenn du dich online umsehen möchtest, kannst du unseren YouTube-Kanal besuchen. Der Link führt zu YouTube; auf dieser Seite wird kein Video geladen.</p>
+        {youtube && <a class="text-link" href={youtube.href}>Zum YouTube-Kanal <span class="external-label">extern ↗</span></a>}
+      </aside>
+    </section>
+    <section class="places-section" aria-labelledby="termine-titel">
+      <p class="eyebrow">Termine</p>
+      <h2 id="termine-titel">Die nächsten Gottesdienste</h2>
+      <div class="prose section-description">
+        <p class="small-note">Hier erscheinen bestätigte Titel und Zeiten. Die Uhrzeiten gelten für Deutschland. Hinweise zum Ort und zum Ablauf sind noch in Prüfung.</p>
+        <SourceState status={services.status} kind="services" updatedAt={services.updatedAt} />
+        {services.items.length > 0 && <ServiceList items={services.items} headingLevel="h3" />}
+      </div>
+    </section>
+  </div>
+</Layout>

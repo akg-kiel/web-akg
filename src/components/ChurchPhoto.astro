@@ -1,0 +1,35 @@
+---
+interface Props { view?: 'outside' | 'ceiling'; hero?: boolean }
+const { view = 'outside', hero = false } = Astro.props;
+const photos = {
+  outside: {
+    name: 'petruskirche',
+    height: 768,
+    alt: 'Die Petruskirche in Kiel-Wik: Backsteinturm und Vorplatz unter blauem Himmel.',
+    source: 'Petruskirche-Wik-2024-msu-2530.jpg'
+  },
+  ceiling: {
+    name: 'petruskirche-dach',
+    height: 640,
+    alt: 'Blick hinauf in den offenen hölzernen Dachstuhl der Petruskirche.',
+    source: 'Petruskirche-Kiel-2026-09-msu--3400.jpg'
+  }
+};
+const photo = photos[view];
+---
+<figure class={hero ? 'welcome-photo' : 'feature-picture'}>
+  <img
+    src={`/images/${photo.name}-960.webp`}
+    srcset={[640, 960, 1440].map((width) => `/images/${photo.name}-${width}.webp ${width}w`).join(', ')}
+    sizes={hero ? '(min-width: 768px) 50vw, 100vw' : '(min-width: 1280px) 560px, (min-width: 768px) 45vw, 90vw'}
+    width="960"
+    height={photo.height}
+    alt={photo.alt}
+    loading={hero ? 'eager' : 'lazy'}
+    fetchpriority={hero ? 'high' : 'auto'}
+    decoding="async"
+  />
+  <figcaption class="photo-credit">
+    Foto: <a href={`https://commons.wikimedia.org/wiki/File:${photo.source}`}>Matthias Süßen ↗</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 ↗</a> · Bildausschnitt, komprimiert
+  </figcaption>
+</figure>

@@ -1,0 +1,47 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { siteName, siteOrigin } from '../lib/site';
+import '../styles/globals.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+}
+
+const { title, description, canonicalPath = Astro.url.pathname } = Astro.props;
+const canonical = new URL(canonicalPath.replace(/\/+$/, '') || '/', siteOrigin).href;
+const pageTitle = `${title} · ${siteName}`;
+---
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" type="image/png" href="/images/apostel-logo.png" />
+    <link rel="preload" href="/fonts/figtree-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body>
+    <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+    <div class="preview-banner">
+      <div class="container">
+        <span>Website-Entwurf · Inhalte und Rechtstexte noch nicht zur Veröffentlichung freigegeben.</span>
+      </div>
+    </div>
+    <Header />
+    <main id="inhalt" tabindex="-1"><slot /></main>
+    <Footer />
+  </body>
+</html>
