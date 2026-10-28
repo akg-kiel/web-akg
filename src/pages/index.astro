@@ -12,12 +12,11 @@ const [services, news] = await Promise.all([loadServices(), loadNews()]);
 Astro.response.headers.set('Cache-Control', 'no-store');
 const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
 ---
-<Layout title="Schön, dass du da bist" description="Willkommen in der Apostel-Kirchengemeinde Kiel. Lerne unsere Gemeinde kennen und entdecke Gottesdienste und Begegnungen. Website-Entwurf.">
+<Layout title="Apostel in Kiel" description="Willkommen in der Apostel-Kirchengemeinde Kiel. Lerne unsere Gemeinde und die Petruskirche kennen. Website-Entwurf.">
   <section class="welcome-hero" aria-labelledby="willkommen">
     <div class="welcome-copy">
-      <p class="eyebrow">Apostel-Kirchengemeinde Kiel</p>
-      <h1 id="willkommen">Schön, dass<br />du da bist.</h1>
-      <p class="hero-intro">Ob du zum ersten Mal vorbeischaust oder schon lange zur Gemeinde gehörst: Wir freuen uns auf dich.</p>
+      <h1 id="willkommen">Apostel in Kiel</h1>
+      <p class="hero-intro">Evangelisch-lutherische Kirchengemeinde in Kiel. Schön, dass du da bist.</p>
       <div class="hero-actions">
         <a class="button" href="/gemeinde">Gemeinde kennenlernen <span aria-hidden="true">→</span></a>
         <a class="text-link" href="/gottesdienste">Gottesdienste <span aria-hidden="true">→</span></a>
@@ -27,10 +26,7 @@ const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
   </section>
 
   <section class="container home-services section" aria-labelledby="gottesdienst">
-    <div>
-      <p class="eyebrow">Gottesdienste</p>
-      <h2 id="gottesdienst">Zeit für Gott.<br />Und füreinander.</h2>
-    </div>
+    <h2 id="gottesdienst">Gottesdienst.<br />Zeit füreinander.</h2>
     <div class="prose">
       <p>Zur Ruhe kommen, gemeinsam glauben, neue Gedanken mitnehmen. Gottesdienst ist eine Einladung – auch mit offenen Fragen.</p>
       <a class="text-link" href="/gottesdienste">Mehr über Gottesdienste <span aria-hidden="true">→</span></a>
@@ -39,12 +35,30 @@ const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
     </div>
   </section>
 
+  <section class="container church-story section" aria-labelledby="petruskirche">
+    <div class="section-heading">
+      <h2 id="petruskirche">Die Petruskirche</h2>
+      <a class="text-link" href="/petruskirche">Architektur und Geschichte <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="church-gallery">
+      <ChurchPhoto view="ceiling" enlarge />
+      <ChurchPhoto view="portal" enlarge />
+      <ChurchPhoto view="side" enlarge />
+    </div>
+    <div class="church-history">
+      <p>Seit 2008 gemeinsam</p>
+      <div class="prose">
+        <p>Aus Petrus-Süd und Jakobi-West wurde die Apostel-Kirchengemeinde. Im März 2016 zog sie in die Petruskirche ein.</p>
+        <a class="text-link" href="/gemeinde">Geschichte und Leitbild <span aria-hidden="true">→</span></a>
+        <p class="small-note">Historische Angaben als Textentwurf · redaktionelle Abnahme ausstehend.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="community-band section" aria-labelledby="miteinander">
     <div class="container community-layout">
       <div>
-        <p class="eyebrow">Unsere Orte</p>
-        <h2 id="miteinander">Petruskirche und<br />Gemeindehäuser</h2>
-
+        <h2 id="miteinander">Kirche und<br />Gemeindehäuser</h2>
         <div class="journey-links">
           {places.map(({ href, label }) => <a href={href}><span><strong>{label}</strong><small>{href === '/petruskirche' ? 'Architektur und Geschichte' : 'Ortsprofil in Vorbereitung'}</small></span><span class="arrow" aria-hidden="true">→</span></a>)}
         </div>
@@ -59,10 +73,63 @@ const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
 
   <section class:list={['container section news-section', { 'news-compact': news.items.length === 0 }]} aria-labelledby="neuigkeiten">
     <div class="section-heading">
-      <div><h2 id="neuigkeiten">Neuigkeiten aus der AKG</h2></div>
+      <h2 id="neuigkeiten">Neuigkeiten aus der AKG</h2>
       <a class="text-link" href="/aktuelles">Alle Meldungen <span aria-hidden="true">→</span></a>
     </div>
     <SourceState status={news.status} kind="news" updatedAt={news.updatedAt} compact />
     {news.items.length > 0 && <NewsList items={news.items.slice(0, 3)} headingLevel="h3" />}
   </section>
+
+  <dialog class="photo-dialog" aria-label="Foto der Petruskirche">
+    <div class="photo-dialog-actions">
+      <a class="text-link" data-photo-file>Bilddatei öffnen <span aria-hidden="true">→</span></a>
+      <form method="dialog"><button class="button" autofocus>Schließen</button></form>
+    </div>
+    <figure data-photo-content></figure>
+  </dialog>
 </Layout>
+<script>
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  if (!motion.matches && 'IntersectionObserver' in window) {
+    const targets = document.querySelectorAll<HTMLElement>(
+      '.welcome-copy h1, .hero-intro, .hero-actions, .home-services > *, .church-story .section-heading, .church-gallery figure, .church-history > *, .community-layout h2, .journey-links a, .cafe-note > *, .news-section .section-heading, .news-section .source-state',
+    );
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(({ target, isIntersecting }) => {
+        if (!isIntersecting) return;
+        target.classList.add('is-entering');
+        target.addEventListener('animationend', () => target.classList.remove('is-entering'), { once: true });
+        observer.unobserve(target);
+      });
+    }, { threshold: 0.1 });
+    targets.forEach((target) => observer.observe(target));
+    motion.addEventListener('change', () => {
+      if (!motion.matches) return;
+      observer.disconnect();
+      targets.forEach((target) => target.classList.remove('is-entering'));
+    });
+  }
+
+  const dialog = document.querySelector<HTMLDialogElement>('.photo-dialog');
+  const content = dialog?.querySelector('[data-photo-content]');
+  const fileLink = dialog?.querySelector<HTMLAnchorElement>('[data-photo-file]');
+  if (dialog && content && fileLink && typeof dialog.showModal === 'function') {
+    document.querySelectorAll<HTMLAnchorElement>('[data-enlarge]').forEach((link) => {
+      link.addEventListener('click', (event) => {
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        const original = link.querySelector('img');
+        const caption = link.closest('figure')?.querySelector('figcaption');
+        if (!original || !caption) return;
+        event.preventDefault();
+        const image = original.cloneNode() as HTMLImageElement;
+        image.removeAttribute('srcset');
+        image.removeAttribute('sizes');
+        image.loading = 'eager';
+        image.src = link.href;
+        content.replaceChildren(image, caption.cloneNode(true));
+        fileLink.href = link.href;
+        dialog.showModal();
+      });
+    });
+  }
+</script>

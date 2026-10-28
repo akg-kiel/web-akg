@@ -6,10 +6,9 @@ import { places } from '../lib/site';
 export const prerender = true;
 ---
 <Layout title="Gemeinde & Orte" description="Was uns als Apostel-Kirchengemeinde Kiel verbindet: unser Glaube, unser Miteinander und ein Blick in unsere Geschichte.">
-  <PageIntro title="Unsere Gemeinde" eyebrow="Glauben & Leben" description="Wir möchten Glauben und Leben miteinander teilen. Lerne kennen, was uns verbindet und woher unsere Gemeinde kommt." />
+  <PageIntro title="Unsere Gemeinde" description="Wir möchten Glauben und Leben miteinander teilen. Lerne kennen, was uns verbindet und woher unsere Gemeinde kommt." />
   <div class="container section-end">
     <section id="orte" aria-labelledby="orte-titel">
-      <p class="eyebrow">Gemeinde & Orte</p>
       <h2 id="orte-titel">Kirche und Gemeindehäuser.</h2>
       <ul class="place-links">
         {places.map(({ href, label }) => (
@@ -21,7 +20,6 @@ export const prerender = true;
 
     <section id="leitbild" class="feature places-section" aria-labelledby="leitbild-titel">
       <div class="feature-copy">
-        <p class="eyebrow">Was uns verbindet</p>
         <h2 id="leitbild-titel">Glaube, der ins Leben gehört.</h2>
         <p>Jesus Christus steht im Mittelpunkt unseres Glaubens. Wir möchten ihm folgen und seine Liebe weitergeben: durch das, was wir sagen, und durch das, was wir tun.</p>
         <p>Unser Leitbild beschreibt eine einladende Gemeinde und einen Ort der Gnade. Menschen mit unterschiedlichen Erfahrungen und Begabungen sollen hier Platz finden. Dazu gehören gegenseitige Achtung, gemeinsames Gebet und ein barmherziger Umgang mit Fehlern.</p>
@@ -32,7 +30,6 @@ export const prerender = true;
 
     <section class="content-split section" aria-labelledby="geschichte-titel">
       <div class="prose">
-        <p class="eyebrow">Unsere Geschichte</p>
         <h2 id="geschichte-titel">Aus zwei Gemeinden wurde eine.</h2>
         <p>2008 schlossen sich Petrus-Süd und Jakobi-West zur Apostel-Kirchengemeinde zusammen. Der neue Name steht am Anfang einer gemeinsamen Geschichte.</p>
         <p>Im März 2016 zog die Gemeinde in die Petruskirche ein. Damit traf die junge Gemeinde auf ein Kirchengebäude mit einer mehr als hundertjährigen Geschichte.</p>

@@ -16,7 +16,7 @@ if (unavailable) Astro.response.headers.set('Retry-After', '1800');
 const title = item?.title ?? (unavailable ? 'Meldung gerade nicht abrufbar' : 'Meldung nicht gefunden');
 ---
 <Layout title={title} description="Meldung aus der Apostel-Kirchengemeinde Kiel. Nicht öffentliche Vorschau." canonicalPath={item ? detailPath('aktuelles', item.id) : undefined}>
-  <PageIntro title={title} eyebrow="Aus der Gemeinde" />
+  <PageIntro title={title} />
   {item ? (
     <article class="container narrow section-end">
       <SourceState status={news.status} kind="news" updatedAt={news.updatedAt} />

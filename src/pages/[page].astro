@@ -10,31 +10,26 @@ export function getStaticPaths() {
     {
       slug: 'kontakt',
       title: 'Kontakt',
-      eyebrow: 'In Verbindung kommen',
       intro: 'Kontaktangaben sind in dieser Vorschau noch nicht verfügbar.'
     },
     {
       slug: 'spenden',
       title: 'Spenden',
-      eyebrow: 'Gemeinde unterstützen',
       intro: 'Danke, dass du darüber nachdenkst, die Arbeit der Gemeinde zu unterstützen.'
     },
     {
       slug: 'impressum',
       title: 'Impressum',
-      eyebrow: 'Rechtliches · Entwurf',
       intro: 'Dies ist kein gültiges Impressum für eine öffentliche Website.'
     },
     {
       slug: 'datenschutz',
       title: 'Datenschutz',
-      eyebrow: 'Rechtliches · Entwurf',
       intro: 'Dies ist keine gültige, freigegebene Datenschutzerklärung.'
     },
     ...places.map(({ href, label }) => ({
       slug: href.slice(1),
       title: label,
-      eyebrow: 'Gemeinde & Orte',
       intro: href === '/petruskirche'
         ? 'Backstein, Licht und Holz: ein Blick auf die Architektur und Geschichte der Petruskirche in Kiel-Wik.'
         : `Du suchst das ${label}? Hier entsteht die Übersicht mit den Informationen für deinen Besuch.`
@@ -47,20 +42,18 @@ interface Props {
   page: {
     slug: string;
     title: string;
-    eyebrow: string;
     intro: string;
   };
 }
 const { page } = Astro.props;
 ---
 <Layout title={page.title} description={page.intro}>
-  <PageIntro title={page.title} eyebrow={page.eyebrow} description={page.intro} />
+  <PageIntro title={page.title} description={page.intro} />
   <div class="container section-end">
     {page.slug === 'petruskirche' ? (
       <>
         <section class="feature" aria-labelledby="architektur-titel">
           <div class="feature-copy">
-            <p class="eyebrow">Ein Kirchenraum mit Geschichte</p>
             <h2 id="architektur-titel">Ein Blick nach oben lohnt sich.</h2>
             <p>Von außen fällt der hohe Backsteinturm ins Auge. Im Inneren prägen große seitliche Fenster und die offene Holzkonstruktion des Dachs den Raum. Backstein und Holz lassen die Bauweise der Kirche sichtbar werden.</p>
             <p>Die Petruskirche wurde von 1905 bis 1907 als evangelische Garnisonkirche für die Marine errichtet. Die Architekten Curjel und Moser entwarfen das Gebäude.</p>

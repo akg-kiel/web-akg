@@ -10,7 +10,7 @@ const news = await loadNews();
 Astro.response.headers.set('Cache-Control', 'no-store');
 ---
 <Layout title="Aktuelles" description="Neuigkeiten und Hinweise aus der Apostel-Kirchengemeinde Kiel.">
-  <PageIntro title="Aktuelles aus der Gemeinde" eyebrow="Lesen & Entdecken" description="Was gibt es Neues? Hier ist Platz für Nachrichten und Hinweise aus dem Gemeindeleben." />
+  <PageIntro title="Aktuelles aus der Gemeinde" description="Was gibt es Neues? Hier ist Platz für Nachrichten und Hinweise aus dem Gemeindeleben." />
   <section class="container content-split section-end" aria-label="Aktuelle Meldungen">
     <div>
       <SourceState status={news.status} kind="news" updatedAt={news.updatedAt} />

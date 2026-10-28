@@ -2,6 +2,10 @@
 
 Arbeitsbranch: `t3/build-web-akg-mvp`. Umsetzung im Auftrag vom 2026-10-26. Keine Produktion, kein Merge, keine DNS-Änderung. Technischer Fortschritt ist keine redaktionelle oder rechtliche Freigabe.
 
+## Aktuelle Taste-Runde · 2026-10-28
+
+Die Startseite und gemeinsame Gestaltung werden unter AKG-127 erneut überarbeitet. Die nachfolgenden Prüfungen vom 2026-10-26 sind historisch, keine Abnahme dieses neuen Stands. Vier reale Petruskirchenfotos, native Fotoansicht und unabhängige Kritik sind umgesetzt; drei sichtgeprüfte Runden, 0 Inspector-FAILs sowie Prüfdetails und verbleibende Freigaben im [Taste-Review](redesign-taste-review.md). Kein neuer Commit/Push/Deploy.
+
 ## Arbeitspakete in Linear
 
 | Paket        | Aufgabe                                                                  | Grenze                                                               |

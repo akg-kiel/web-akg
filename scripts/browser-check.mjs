@@ -104,6 +104,17 @@ try {
   assert.equal(await page.locator(':focus').innerText(), 'Zum Inhalt springen');
   await page.keyboard.press('Enter');
   assert.equal(await page.locator(':focus').getAttribute('id'), 'inhalt');
+  let lastHeroLinkY = -1;
+  for (const link of await page.locator('.welcome-hero a').all()) {
+    await page.keyboard.press('Tab');
+    assert.equal(await link.evaluate((element) => element === document.activeElement), true);
+    const box = await link.boundingBox();
+    assert.ok(
+      box && box.y >= lastHeroLinkY - 1,
+      'Mobile hero tab order must follow the visual order'
+    );
+    lastHeroLinkY = box.y;
+  }
   await page.goto(new URL('/gottesdienste', origin).href);
   for (let i = 0; i < 3; i++) await page.keyboard.press('Tab');
   assert.equal(await page.locator(':focus').evaluate((node) => node.tagName), 'SUMMARY');
@@ -122,6 +133,118 @@ try {
   await page.keyboard.press('Enter');
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.waitForFunction(() => document.activeElement?.classList.contains('wordmark'));
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(origin.href);
+  await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
+  const photoLinks = page.locator('[data-enlarge]');
+  assert.equal(await photoLinks.count(), 3);
+  for (let index = 0; index < 3; index++) {
+    const opener = photoLinks.nth(index);
+    const imageUrl = await opener.getAttribute('href');
+    await opener.focus();
+    await page.keyboard.press('Enter');
+    assert.equal(await page.locator('.photo-dialog').evaluate((dialog) => dialog.open), true);
+    assert.equal(
+      await page
+        .locator('.photo-dialog button')
+        .evaluate((button) => button === document.activeElement),
+      true
+    );
+    await page.locator('.photo-dialog img').evaluate((image) => image.decode());
+    assert.ok(
+      await page.locator('.photo-dialog img').evaluate((image) => {
+        const box = image.getBoundingClientRect();
+        return Math.abs(box.width / box.height - image.naturalWidth / image.naturalHeight) < 0.01;
+      }),
+      'Dialog image must preserve its natural ratio without blank letterboxing'
+    );
+    assert.equal(
+      await page.locator('.photo-dialog img').getAttribute('src'),
+      new URL(imageUrl, origin).href
+    );
+    assert.equal(await page.locator('.photo-dialog .photo-credit a').count(), 2);
+    assert.equal(
+      await page.locator('[data-photo-file]').getAttribute('href'),
+      new URL(imageUrl, origin).href
+    );
+    const dialogFindings = await page.evaluate(
+      async () =>
+        (
+          await window.axe.run(document, {
+            runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'] }
+          })
+        ).violations
+    );
+    violations.push(
+      ...dialogFindings.map(({ id, impact }) => ({ route: '/', dialog: index, id, impact }))
+    );
+    for (let step = 0; step < 6; step++) {
+      await page.keyboard.press('Tab');
+      // Native dialogs may pass through browser chrome, never background page controls.
+      assert.equal(
+        await page.evaluate(
+          () =>
+            document.querySelector('.photo-dialog').contains(document.activeElement) ||
+            (document.activeElement === document.body && !document.hasFocus())
+        ),
+        true
+      );
+      if (
+        await page
+          .locator('.photo-dialog button')
+          .evaluate((button) => button === document.activeElement)
+      )
+        break;
+    }
+    assert.equal(
+      await page
+        .locator('.photo-dialog button')
+        .evaluate((button) => button === document.activeElement),
+      true
+    );
+    await page.keyboard.press('Shift+Tab');
+    assert.equal(
+      await page
+        .locator('.photo-dialog')
+        .evaluate((dialog) => dialog.contains(document.activeElement)),
+      true
+    );
+    await page.keyboard.press('Tab');
+    assert.equal(
+      await page
+        .locator('.photo-dialog button')
+        .evaluate((button) => button === document.activeElement),
+      true
+    );
+    if (index === 1) await page.keyboard.press('Enter');
+    else await page.keyboard.press('Escape');
+    assert.equal(await page.locator('.photo-dialog').evaluate((dialog) => dialog.open), false);
+    assert.equal(await opener.evaluate((link) => link === document.activeElement), true);
+  }
+
+  for (const viewport of [
+    { width: 390, height: 844 },
+    { width: 844, height: 390 }
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.evaluate(() => {
+      document.documentElement.style.fontSize = '200%';
+    });
+    await photoLinks.nth(1).focus();
+    await page.keyboard.press('Enter');
+    assert.equal(
+      await page
+        .locator('.photo-dialog')
+        .evaluate((dialog) => dialog.scrollWidth > dialog.clientWidth + 1),
+      false,
+      'Dialog must reflow at 200% text size'
+    );
+    await page.keyboard.press('Escape');
+    await page.evaluate(() => {
+      document.documentElement.style.fontSize = '';
+    });
+  }
+
   await page.setViewportSize({ width: 320, height: 900 });
   for (const route of routes) {
     await page.goto(new URL(route, origin).href);
@@ -141,10 +264,59 @@ try {
     viewport: { width: 320, height: 844 }
   });
   const basic = await noJavaScript.newPage();
+  await basic.route('**/images/petruskirche-portal-*.webp', (route) => route.abort());
   await basic.goto(origin.href);
+  assert.ok(
+    await basic.locator('.photo-portal img').evaluate((image) => {
+      const box = image.getBoundingClientRect();
+      return box.height > 0 && Math.abs(box.width / box.height - 2 / 3) < 0.01;
+    }),
+    'Reserve the portrait ratio before the lazy image loads'
+  );
+  await basic.unroute('**/images/petruskirche-portal-*.webp');
   await basic.locator('summary').click();
   assert.equal(await basic.locator('nav[aria-label="Hauptnavigation mobil"] a').count(), 5);
   assert.equal(await basic.locator('nav[aria-label="Hauptnavigation mobil"]').isVisible(), true);
+  await basic.locator('summary').click();
+  for (let index = 0; index < 3; index++) {
+    await basic.goto(origin.href);
+    const link = basic.locator('[data-enlarge]').nth(index);
+    const imageUrl = new URL(await link.getAttribute('href'), origin).href;
+    await link.click();
+    await basic.waitForURL(imageUrl);
+    await basic.locator('img').evaluate((image) => image.decode());
+    assert.equal(await basic.locator('img').evaluate((image) => image.naturalWidth > 0), true);
+  }
+  await noJavaScript.close();
+
+  const reduced = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+    reducedMotion: 'reduce'
+  });
+  const reducedPage = await reduced.newPage();
+  await reducedPage.goto(origin.href);
+  await reducedPage.locator('footer').scrollIntoViewIfNeeded();
+  assert.equal(
+    await reducedPage.evaluate(
+      () => document.getAnimations().filter((animation) => animation.playState === 'running').length
+    ),
+    0
+  );
+  assert.equal(
+    await reducedPage.locator('h1').evaluate((heading) => getComputedStyle(heading).opacity),
+    '1'
+  );
+  await reduced.close();
+
+  await page.goto(origin.href);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.locator('footer').scrollIntoViewIfNeeded();
+  assert.equal(
+    await page.evaluate(
+      () => document.getAnimations().filter((animation) => animation.playState === 'running').length
+    ),
+    0
+  );
 
   console.log(
     JSON.stringify(
@@ -156,6 +328,8 @@ try {
         thirdPartyRequests: [...thirdPartyRequests],
         keyboard: 'passed',
         noJavaScriptMenu: 'passed',
+        photoViewerAndFallback: 'passed',
+        reducedMotion: 'passed',
         textResize200: 'passed'
       },
       null,

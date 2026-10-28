@@ -16,7 +16,7 @@ if (unavailable) Astro.response.headers.set('Retry-After', '1800');
 const title = item?.title ?? (unavailable ? 'Gottesdienst gerade nicht abrufbar' : 'Gottesdienst nicht gefunden');
 ---
 <Layout title={title} description={item ? formatServiceTime(item) : 'Dieser Gottesdienst ist derzeit nicht verfügbar. Zurück zur Übersicht.'} canonicalPath={item ? detailPath('gottesdienste', item.id) : undefined}>
-  <PageIntro title={title} eyebrow="Gottesdienst" />
+  <PageIntro title={title} />
   {item ? (
     <article class="container narrow section-end">
       <SourceState status={services.status} kind="services" updatedAt={services.updatedAt} />

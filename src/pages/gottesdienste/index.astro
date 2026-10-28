@@ -12,7 +12,7 @@ Astro.response.headers.set('Cache-Control', 'no-store');
 const youtube = externalLinks.find((link) => link.label === 'YouTube-Kanal');
 ---
 <Layout title="Gottesdienste" description="Gottesdienst als Einladung, Gott zu begegnen und im Glauben zu wachsen. Lerne die Gemeinde kennen und finde den Stand der nächsten Termine.">
-  <PageIntro title="Gottesdienste" eyebrow="Zusammenkommen" description="Ob du mit dem Glauben vertraut bist oder erst nach Antworten suchst: Du bist willkommen." />
+  <PageIntro title="Gottesdienste" description="Ob du mit dem Glauben vertraut bist oder erst nach Antworten suchst: Du bist willkommen." />
   <div class="container section-end">
     <section class="content-split" aria-labelledby="einladung-titel">
       <div class="prose">
@@ -27,7 +27,6 @@ const youtube = externalLinks.find((link) => link.label === 'YouTube-Kanal');
       </aside>
     </section>
     <section class="places-section" aria-labelledby="termine-titel">
-      <p class="eyebrow">Termine</p>
       <h2 id="termine-titel">Die nächsten Gottesdienste</h2>
       <div class="prose section-description">
         <p class="small-note">Hier erscheinen bestätigte Titel und Zeiten. Die Uhrzeiten gelten für Deutschland. Hinweise zum Ort und zum Ablauf sind noch in Prüfung.</p>

@@ -31,7 +31,6 @@ const intern = externalLinks.find((link) => link.label === 'Intern (ChurchTools)
           </ul>
         </nav>
         <nav class="mobile-utilities" aria-label="Weitere Angebote">
-          <p class="eyebrow">Weitere Angebote</p>
           <ul>
             {externalLinks.map(({ href, label }) => (
               <li><a href={href}>{label}<span class="external-label">extern ↗</span></a></li>
