@@ -7,7 +7,8 @@
   "workers_dev": false,
   "preview_urls": true,
   "vars": {
-    "SERVICES_APPROVED": "false"
+    "SERVICES_APPROVED": "false",
+    "GROUPS_APPROVED": "false"
   },
   "assets": {
     "directory": "./dist",

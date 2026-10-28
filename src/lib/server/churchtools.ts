@@ -16,6 +16,17 @@ export interface NewsItem {
   updatedAt?: string;
 }
 
+export interface GroupOffer {
+  id: string;
+  name: string;
+  type: string;
+  description?: string;
+  meetingTime?: string;
+  weekday?: number;
+  contactUrl?: string;
+  endDate?: string;
+}
+
 export interface ContentResult<T> {
   status: 'ready' | 'empty' | 'stale' | 'unavailable' | 'disabled';
   items: T[];
@@ -224,18 +235,19 @@ async function readJson(response: Response, maxBytes = MAX_BYTES): Promise<unkno
   }
 }
 
-async function fetchRows(
+async function fetchEnvelope(
   path: string,
   options: Options,
   signal: AbortSignal,
   anonymous = false
-): Promise<unknown[]> {
+): Promise<ObjectData> {
   const response = await (options.fetch ?? fetch)(`${API}${path}`, {
     headers: {
       Accept: 'application/json',
       ...(!anonymous ? { Authorization: `Login ${options.token}` } : {})
     },
-    redirect: 'error',
+    // Workers has no redirect:error mode. Inspect responses without following them.
+    redirect: 'manual',
     signal,
     cache: 'no-store',
     credentials: 'omit'
@@ -257,7 +269,11 @@ async function fetchRows(
     object(envelope.meta).count !== envelope.data.length
   )
     throw INVALID_SOURCE;
-  return envelope.data;
+  return envelope;
+}
+
+async function fetchRows(path: string, options: Options, signal: AbortSignal, anonymous = false) {
+  return (await fetchEnvelope(path, options, signal, anonymous)).data as unknown[];
 }
 
 async function whitelist(
@@ -294,7 +310,7 @@ function projectItems<T extends { id: string }>(
 }
 
 async function content<T extends { id: string }>(
-  kind: 'services' | 'news',
+  kind: 'services' | 'news' | 'groups',
   options: Options,
   project: Project<T>,
   load: (signal: AbortSignal, now: number) => Promise<T[]>
@@ -351,17 +367,157 @@ async function content<T extends { id: string }>(
     }
     return result(items, updatedAt);
   } catch (error) {
-    if (error === INVALID_SOURCE) {
+    if (error === INVALID_SOURCE || kind === 'groups') {
       try {
         await options.cache?.delete(key);
       } catch {
         /* Cache may be unavailable. */
       }
     }
-    if (error !== INVALID_SOURCE && cached && now() - Date.parse(cached.updatedAt) <= MAX_AGE_MS)
+    // Group visibility has no independent grant snapshot; an expired cache fails closed.
+    if (
+      kind !== 'groups' &&
+      error !== INVALID_SOURCE &&
+      cached &&
+      now() - Date.parse(cached.updatedAt) <= MAX_AGE_MS
+    )
       return result(cached.items, cached.updatedAt, true);
     return { status: 'unavailable', items: [] };
   }
+}
+
+function httpsUrl(value: unknown): string | undefined {
+  if (typeof value !== 'string' || value.length > 2048) return undefined;
+  try {
+    const url = new URL(value);
+    return url.protocol === 'https:' && !url.username && !url.password ? url.href : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function publicGroup(value: unknown, now: number): GroupOffer | undefined {
+  const item = object(value);
+  if (!postId(item.id) || !text(item.name, 255) || !text(item.type, 255)) return undefined;
+  if (
+    item.endDate !== undefined &&
+    (typeof item.endDate !== 'string' ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(item.endDate) ||
+      !timestamp(`${item.endDate}T00:00:00Z`) ||
+      item.endDate < localDay.format(now))
+  )
+    return undefined;
+  const contactUrl = httpsUrl(item.contactUrl);
+  return {
+    id: item.id,
+    name: item.name,
+    type: item.type,
+    ...(text(item.description, 10000) ? { description: item.description } : {}),
+    ...(text(item.meetingTime, 100) ? { meetingTime: item.meetingTime } : {}),
+    ...(typeof item.weekday === 'number' &&
+    Number.isInteger(item.weekday) &&
+    item.weekday >= 0 &&
+    item.weekday <= 6
+      ? { weekday: item.weekday }
+      : {}),
+    ...(contactUrl ? { contactUrl } : {}),
+    ...(typeof item.endDate === 'string' ? { endDate: item.endDate } : {})
+  };
+}
+
+export async function getGroups(
+  options: Options & { groupsApproved?: boolean }
+): Promise<ContentResult<GroupOffer>> {
+  if (options.groupsApproved !== true) return { status: 'disabled', items: [] };
+  return content('groups', options, publicGroup, async (signal, now) => {
+    const types = new Map<string, string>();
+    for (const row of await fetchRows('/group/grouptypes', options, signal)) {
+      const type = object(row);
+      const id = numericId(type.id);
+      if (id && ['1', '2', '3', '5'].includes(id) && text(type.name, 255)) types.set(id, type.name);
+    }
+    if (!types.size) throw INVALID_SOURCE;
+    const items: GroupOffer[] = [];
+    const seen = new Set<string>();
+    const guids = new Set<string>();
+    let total: number | undefined;
+    for (let page = 1; page <= MAX_PAGES; page++) {
+      const query = new URLSearchParams({
+        visibility: 'public',
+        limit: String(PAGE_SIZE),
+        page: String(page)
+      });
+      // Anonymous reads prove public visibility independently of the token's permissions.
+      let envelope: ObjectData;
+      try {
+        envelope = await fetchEnvelope(`/groups?${query}`, options, signal, true);
+      } catch {
+        // A partially refreshed public list must not revive removed/private groups from cache.
+        throw INVALID_SOURCE;
+      }
+      const rows = envelope.data as unknown[];
+      const pagination = object(object(envelope.meta).pagination);
+      if (
+        typeof pagination.total !== 'number' ||
+        !Number.isSafeInteger(pagination.total) ||
+        pagination.total < 0 ||
+        pagination.total > MAX_ITEMS ||
+        pagination.current !== page ||
+        pagination.limit !== PAGE_SIZE ||
+        pagination.lastPage !== Math.max(1, Math.ceil(pagination.total / PAGE_SIZE)) ||
+        (total !== undefined && total !== pagination.total) ||
+        rows.length !== Math.min(PAGE_SIZE, Math.max(0, pagination.total - (page - 1) * PAGE_SIZE))
+      )
+        throw INVALID_SOURCE;
+      total = pagination.total;
+      for (const row of rows) {
+        const id = numericId(object(row).id);
+        if (!id || seen.has(id)) throw INVALID_SOURCE;
+        seen.add(id);
+        const guid = object(row).guid;
+        if (postId(guid)) {
+          if (guids.has(guid)) throw INVALID_SOURCE;
+          guids.add(guid);
+        }
+      }
+      items.push(
+        ...projectItems(
+          rows,
+          (row, current) => {
+            const group = object(row);
+            const info = object(group.information);
+            const settings = object(group.settings);
+            const type = types.get(numericId(info.groupTypeId) ?? '');
+            if (
+              !type ||
+              settings.visibility !== 'public' ||
+              settings.isHidden !== false ||
+              numericId(info.groupStatusId) !== '1'
+            )
+              return undefined;
+            return publicGroup(
+              {
+                id: group.guid,
+                name: group.name,
+                type,
+                description: info.note,
+                meetingTime: info.meetingTime,
+                weekday: info.weekday,
+                contactUrl: info.groupHomepageUrl,
+                endDate: info.endDate ?? undefined
+              },
+              current
+            );
+          },
+          now
+        )
+      );
+      if (page === pagination.lastPage) {
+        return items.sort((a, b) => a.name.localeCompare(b.name, 'de'));
+      }
+    }
+    throw INVALID_SOURCE;
+  });
 }
 
 export async function getServices(

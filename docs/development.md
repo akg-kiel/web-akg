@@ -22,10 +22,15 @@ mise run dev
 `mise exec -- pnpm install --frozen-lockfile`.
 
 Die lokale Website läuft auf `http://127.0.0.1:4321`. Keine Zugangsdaten sind
-für die Installation nötig. `.dev.vars.example` enthält ausschließlich einen
-leeren Token-Platzhalter. Nur falls später separat ein freigegebener Nur-Lese-Token
-bereitgestellt wird, die Vorlage nach `.dev.vars` kopieren und den Wert privat
-hinterlegen. Niemals Token in Quellcode, Browservariablen (`PUBLIC_*`), Logs,
+für die Installation nötig. `.dev.vars.example` enthält einen leeren Token-Platzhalter
+und geschlossene Freigabeschalter. Der eingeschränkte WEB-AKG-Lesezugang wurde
+am 28.10.2026 ausschließlich für den Test in der ignorierten lokalen `.dev.vars`
+bereitgestellt (Dateimodus 0600). Root- und generierte Kopie wurden anschließend
+entfernt; keine zusätzliche dauerhafte Tokenablage. Nur `WEB_AKG_CT_API_TOKEN` wurde als `CHURCHTOOLS_TOKEN`
+übernommen, nicht der separate Administrationszugang. Für die beauftragte private
+Sichtprüfung waren dort `SERVICES_APPROVED=true` und `GROUPS_APPROVED=true` gesetzt;
+die eingecheckte Worker-Konfiguration bleibt geschlossen. Das ist keine
+öffentliche Freigabe; den Entwicklungsserver ausschließlich an `127.0.0.1` binden. Niemals Token in Quellcode, Browservariablen (`PUBLIC_*`), Logs,
 Kommandoparameter oder Git übernehmen.
 
 `pnpm types` erzeugt `worker-configuration.d.ts` mit
@@ -36,7 +41,10 @@ gelesen. Nach Änderungen an der Worker-Konfiguration erneut ausführen.
 
 - `SERVICES_APPROVED = "false"` bleibt geschlossen, bis „in Planung“ in der
   Gottesdienstquelle bereinigt und die Veröffentlichung ausdrücklich freigegeben ist.
-- Es gibt keine Aktivierung von Gruppen, Personen oder zusätzlichen Kalendern.
+- `GROUPS_APPROVED = "false"` bleibt in der öffentlichen Konfiguration geschlossen,
+  bis AKG-74 fachlich bestätigt ist. Die private lokale Gruppenansicht verwendet
+  nur öffentlich anonym lesbare, aktive Angebote der Typen 1/2/3/5.
+- Personen, Mitgliederlisten, Gruppenbilder und zusätzliche Kalender bleiben aus.
 - Leere/nicht verfügbare Daten bleiben echte Fehler-/Leerzustände, keine
   WordPress- oder Demo-Fallbacks.
 - ChurchTools-Zugriff bleibt serverseitig. Ein erfolgreicher technischer Test
@@ -118,6 +126,10 @@ Entwicklungsabhängigkeiten; weder Browser noch Auditbibliothek gelangen in die 
 `pnpm test:browser <URL>` prüft zwölf Seiten bei 320/390/768/1024/1440 px, axe WCAG
 2.2 A/AA auf Mobil/Desktop, Skip-Link, Menütastatur, Escape, Fokus bei Breakpointwechsel,
 200-%-Textgröße, JavaScript-freie Navigation und das Ausbleiben externer Requests.
+Mit lokalen Live-Daten zusätzlich `EXPECT_LIVE_CHURCHTOOLS=1 pnpm test:preview`:
+Dies verlangt tatsächlich gerenderte Angebote und Gottesdienste und prüft
+Teaser-Ziele, aufgeklappte Angebote, Suche/Nulltreffer und Zurücksetzen ohne JS.
+Ohne Token bleiben die Standardtests reproduzierbar mit geschlossenen Gates.
 Das ersetzt keine echte Screenreader- oder Geräteprüfung.
 
 Build und lokale Server im selben Worktree nacheinander ausführen: parallele
@@ -137,7 +149,12 @@ mise exec -- pnpm exec wrangler deploy --dry-run --config dist/server/wrangler.j
 ```
 
 `dist/` und `.wrangler/` sind generiert und werden nicht eingecheckt. Kein
-Server-Bundle als öffentliches Asset veröffentlichen.
+Server-Bundle als öffentliches Asset veröffentlichen. Der Cloudflare-Vite-Adapter
+kopiert lokale `.dev.vars` beim Build nach `dist/server/.dev.vars` für `astro preview`.
+Nach Änderungen der lokalen Zugangsdaten deshalb neu bauen. Diese Datei ist nur
+ein lokales Geheimnisartefakt: nicht veröffentlichen, archivieren oder als CI-Artefakt
+hochladen; Dateimodus 0600 setzen. `server/` bleibt von öffentlichen Assets ausgeschlossen.
+Die HTTP-Checks verlangen 404 auch für `/server/.dev.vars`, `/.dev.vars` und `/.env`.
 
 ## Cloudflare Workers Builds
 

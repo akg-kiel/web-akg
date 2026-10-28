@@ -2,27 +2,28 @@
 import { formatUpdated } from '../lib/site';
 interface Props {
   status: 'ready' | 'empty' | 'stale' | 'unavailable' | 'disabled';
-  kind: 'services' | 'news';
+  kind: 'services' | 'news' | 'groups';
   updatedAt?: string;
   compact?: boolean;
 }
 const { status, kind, updatedAt, compact = false } = Astro.props;
 const service = kind === 'services';
+const groups = kind === 'groups';
 const messages = {
   disabled: {
-    title: service ? 'Termine sind in dieser Vorschau noch nicht freigeschaltet.' : 'Meldungen sind in dieser Vorschau noch nicht freigeschaltet.',
-    body: service
+    title: groups ? 'Angebote sind in dieser Vorschau noch nicht freigeschaltet.' : service ? 'Termine sind in dieser Vorschau noch nicht freigeschaltet.' : 'Meldungen sind in dieser Vorschau noch nicht freigeschaltet.',
+    body: groups ? 'Die Gruppenübersicht wird vor der Veröffentlichung fachlich geprüft.' : service
       ? 'Die Gottesdiensttermine werden vor der Anzeige geprüft. In dieser Vorschau sind sie noch nicht freigeschaltet.'
       : 'Die Meldungen sind in dieser Vorschau noch nicht freigeschaltet.'
   },
   empty: {
-    title: service ? 'Derzeit keine kommenden Gottesdienste veröffentlicht' : 'Derzeit keine Meldungen veröffentlicht',
-    body: service
+    title: groups ? 'Derzeit keine Angebote veröffentlicht' : service ? 'Derzeit keine kommenden Gottesdienste veröffentlicht' : 'Derzeit keine Meldungen veröffentlicht',
+    body: groups ? 'Neue Angebote erscheinen hier, sobald sie freigegeben sind.' : service
       ? 'Zurzeit sind keine kommenden Termine veröffentlicht. Schau später gern noch einmal vorbei.'
       : 'Neue, freigegebene Beiträge erscheinen hier, sobald sie veröffentlicht werden.'
   },
   unavailable: {
-    title: service ? 'Termine gerade nicht erreichbar' : 'Meldungen gerade nicht erreichbar',
+    title: groups ? 'Angebote gerade nicht erreichbar' : service ? 'Termine gerade nicht erreichbar' : 'Meldungen gerade nicht erreichbar',
     body: 'Versuche es später noch einmal. Die anderen Bereiche der Website kannst du weiterhin besuchen.'
   },
   stale: {

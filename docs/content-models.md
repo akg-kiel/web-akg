@@ -113,14 +113,16 @@ Aktuell erfüllen 15 Beiträge die Gruppenfreigabe; 2 davon haben keinen Text. E
 
 Veröffentlichung:
 
-- `settings.visibility=public`, `settings.isHidden=false` und kein vergangenes `information.endDate` sind zwingend.
+- `settings.visibility=public`, `settings.isHidden=false`, aktiver Quellstatus `information.groupStatusId=1` und kein vergangenes `information.endDate` sind zwingend. Der anonyme Gruppenabruf belegt öffentliche Lesbarkeit unabhängig vom Token. Status-ID 1 wurde am 28.10.2026 gegen ChurchTools `active` geprüft.
 - Als Angebote gelten nur die ChurchTools-Gruppentypen **1 Hauskreis/Kleingruppe**, **2 Dienst**, **3 Veranstaltung/Aktion** und **5 Regelmäßige Gruppe**.
 - Typ 4 „Merkmal“ ist ein Verwaltungsmarker; Typ 9 „Bereich“ dient nur der Struktur. Beide werden nicht als Angebot veröffentlicht.
 - Straßenangaben eines Treffpunkts werden nur verwendet, wenn `settings.showStreet=true` ist.
 - Persönliche Kontaktdaten werden nicht aus Gruppenmitgliedschaften abgeleitet. Nur eine vorhandene öffentliche Gruppenhomepage darf als Kontaktweg erscheinen.
 - Gruppenbilder ohne `imageAnnotation` werden dekorativ mit leerem Alternativtext verwendet oder weggelassen; es wird kein Alternativtext erfunden.
 
-Die aktuelle Instanz enthält 88 öffentliche Gruppen, davon 75 in den vier zulässigen Inhaltstypen. Das Migrationsinventar enthält 39 zu prüfende Altangebote; nur 24 Namen stimmen exakt mit einem öffentlichen ChurchTools-Datensatz überein. Titelähnlichkeit ist keine zulässige Zuordnung. Vor Veröffentlichung muss die Gruppenredaktion die 75 aktuellen Datensätze fachlich prüfen (B3).
+Technische Einbindung AKG-63 (28.10.2026): Startseiten-Vorschau und `/angebote` nutzen dasselbe serverseitige Modell, Pagination und private lokale Sichtprüfung. Name, Typ, Beschreibung, Wochentag, Treffzeit und sichere Gruppenhomepage werden verwendet; Zielgruppen, Altersgruppen, Orte, Bilder und Personen bleiben vorerst weg. Der öffentliche `GROUPS_APPROVED`-Schalter bleibt bis zur fachlichen Freigabe geschlossen; keine manuellen Angebotskopien.
+
+Der damalige Auditbestand enthielt 88 öffentliche Gruppen, davon 75 in den vier zulässigen Inhaltstypen. Das Migrationsinventar enthält 39 zu prüfende Altangebote; nur 24 Namen stimmen exakt mit einem öffentlichen ChurchTools-Datensatz überein. Titelähnlichkeit ist keine zulässige Zuordnung. Vor Veröffentlichung muss die Gruppenredaktion die 75 aktuellen Datensätze fachlich prüfen (B3).
 
 Die vorhandenen Felder sind lückenhaft: 81/88 Gruppen haben eine Beschreibung, 25 eine Treffzeit, 9 eine Zielgruppe, 6 Altersgruppen, 20 Treffpunkte und 14 eine öffentliche Gruppenhomepage. Keine Gruppe hat derzeit eine Bildannotation. Optionale fehlende Angaben werden nicht ersetzt.
 

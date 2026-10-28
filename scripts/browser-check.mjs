@@ -131,6 +131,65 @@ try {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(origin.href);
   await page.evaluate(() => document.fonts.ready);
+  const offerPage = await context.newPage();
+  await offerPage.goto(new URL('/angebote', origin).href);
+  const offerCount = await offerPage.locator('.offer-detail').count();
+  assert.ok(
+    (await offerPage.locator('.offer-detail > .prose').allTextContents()).every((text) =>
+      text.trim()
+    ),
+    'Offers without optional source fields need an honest empty state'
+  );
+  if (process.env.EXPECT_LIVE_CHURCHTOOLS === '1') {
+    assert.ok(offerCount > 0, 'Live offer data must reach the SSR page');
+    await offerPage.goto(new URL('/gottesdienste', origin).href);
+    assert.ok(
+      (await offerPage.locator('.service-item').count()) > 0,
+      'Live services must reach the SSR page'
+    );
+  }
+  await offerPage.close();
+  if (offerCount > 0) {
+    const noScriptOffers = await browser.newContext({
+      javaScriptEnabled: false,
+      viewport: { width: 390, height: 844 }
+    });
+    const offersPage = await noScriptOffers.newPage();
+    await offersPage.goto(origin.href);
+    const teaser = offersPage.locator('.offer-preview a').first();
+    assert.equal(await offersPage.locator('.offer-preview a').count(), Math.min(3, offerCount));
+    await teaser.click();
+    const selected = offersPage.locator('.offer-detail[open]');
+    assert.equal(await selected.count(), 1, 'Teaser must open its matching offer without JS');
+    const name = await selected.locator('h3').innerText();
+    await selected.locator('summary').focus();
+    await offersPage.keyboard.press('Enter');
+    assert.equal(await offersPage.locator('.offer-detail[open]').count(), 0);
+    await offersPage.keyboard.press('Enter');
+    assert.equal(await offersPage.locator('.offer-detail[open]').count(), 1);
+    const searchInput = offersPage.locator('input[name=q]');
+    await searchInput.fill(name.slice(0, 100));
+    const searchValue = await searchInput.inputValue();
+    await Promise.all([
+      offersPage.waitForURL((url) => url.searchParams.get('q') === searchValue),
+      searchInput.press('Enter')
+    ]);
+    assert.ok((await offersPage.locator('.offer-detail').count()) > 0);
+    assert.ok((await offersPage.locator('.offer-detail').count()) <= offerCount);
+    await offersPage.locator('input[name=q]').fill('zzzz-no-matching-offer-0000');
+    await Promise.all([
+      offersPage.waitForURL((url) => url.searchParams.get('q') === 'zzzz-no-matching-offer-0000'),
+      searchInput.press('Enter')
+    ]);
+    assert.equal(await offersPage.locator('.offer-detail').count(), 0);
+    assert.ok(
+      await offersPage.getByText('Kein passendes Angebot gefunden.', { exact: false }).isVisible()
+    );
+    await offersPage.getByRole('link', { name: 'Alle anzeigen', exact: true }).click();
+    assert.equal(await offersPage.locator('.offer-detail').count(), offerCount);
+    await noScriptOffers.close();
+  }
+  await page.bringToFront();
   const primaryAction = await page.locator('.welcome-copy .button').boundingBox();
   assert.ok(
     primaryAction && primaryAction.y + primaryAction.height <= 844,

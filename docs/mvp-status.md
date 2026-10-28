@@ -6,6 +6,10 @@ Arbeitsbranch der Gestaltung: `t3/akg-127-taste-redesign` (auf dem MVP-Branch au
 
 Der Architekturentwurf wurde auf Nutzerwunsch als `95c79dd` separat committet; sein [Taste-Review](redesign-taste-review.md) ist historisch. Die anschließende Nutzerkorrektur verkleinert den Hero und zeigt Menschen/Gemeindeleben statt einer Gebäude-Galerie. Vier Bestandsfotos aus akg-kiel.de sind ausschließlich im lokalen Entwurf ausgewählt; öffentliche Nutzung ist bis zur Rechte-/Personenfreigabe gesperrt. Aktuelle Prüfdetails: [Menschen und kompakter Hero](redesign-people-review.md). Die Menschenfassung ist inzwischen als `e02f40b` committet. Noch uncommittet: Rückkehr zum vom Nutzer bevorzugten hellblauen MVP-Hero mit Gemeindefoto und Entfernung der Gebäudeliste aus „Orte der Begegnung“. Kein neuer Commit/Push/Deploy. Der gewünschte Angebots-Sneak-Peek wartet auf eine konkrete fachliche Auswahl/Freigabe; AKG-74 wurde erneut geprüft und steht weiterhin im Backlog.
 
+## Gruppen und Live-Anbindung · AKG-63 · 2026-10-28
+
+Serverseitige Gruppenübersicht, Suche ohne JavaScript und drei echte Angebots-Teaser auf der Startseite sind implementiert. Der eingeschränkte WEB-AKG-Zugang versorgt ausschließlich die private lokale Sichtprüfung; öffentliche Worker-Schalter bleiben geschlossen. Kalender 2 verwendet weiterhin nur Titel/Zeit, News weiterhin beide Public-Filter plus Website-Gruppenfreigaben. Keine Personen-/Mitgliedschaftsdaten. Aktueller Prüfstand und Grenzen: [Gruppenintegration](groups-integration.md). Frühere Aussagen unten „keine Gruppenabrufe“ beschreiben den vorherigen MVP-Stand, nicht diese lokale Erweiterung.
+
 ## Arbeitspakete in Linear
 
 | Paket        | Aufgabe                                                                  | Grenze                                                               |
@@ -57,9 +61,9 @@ Der ursprüngliche Entwurf wurde vom Nutzer abgelehnt und grundlegend überarbei
 ## Vor Veröffentlichung erforderlich
 
 - **AKG-58:** IA im anderen Branch befindet sich im Review; dieses MVP nutzt dessen Routenentwurf, ohne den Branch oder das Migrationsinventar stillschweigend zu mergen.
-- **AKG-59/54:** Dedizierten eingeschränkten ChurchTools-Token sicher bereitstellen und Freigabeverhalten mit echter Installation prüfen. Ohne Token werden keine vermeintlich leeren Live-Listen behauptet.
+- **AKG-59/54:** Eingeschränkter ChurchTools-Token inzwischen lokal vorhanden; keine Remote-Secrets eingerichtet. Lokalen Live-Nachweis siehe Gruppenintegration. Ohne Token werden keine vermeintlich leeren Live-Listen behauptet.
 - **AKG-75:** Termin „in Planung“ in ChurchTools korrigieren oder intern setzen. Erst nach Bestätigung `SERVICES_APPROVED` aktivieren. Kalender 1 bleibt unabhängig davon deaktiviert.
-- **AKG-74:** Fachliche Angebotsfreigabe. Bis dahin keine Gruppen laden/anzeigen.
+- **AKG-74:** Fachliche Angebotsfreigabe vor öffentlicher Aktivierung. Die ausdrücklich beauftragte private lokale Sichtprüfung ist möglich; `GROUPS_APPROVED=false` bleibt in der eingecheckten Konfiguration.
 - **AKG-78:** Personen-/Einwilligungsfreigabe. Bis dahin keine ChurchTools-Personenprofile, Rollen oder Personenfotos laden/veröffentlichen. Die auf Nutzerwunsch ausgewählten alten Gemeindefotos bleiben ein lokaler Gestaltungsentwurf, keine Ausnahme von der öffentlichen Einwilligungsfreigabe.
 - **AKG-79/64:** Bestätigte Ortsprofile, Anfahrt und gegebenenfalls Barrierefreiheitsangaben. Keine Ableitung aus historischen Texten.
 - **AKG-61/72:** Kontakt, Zahlungsdaten, Impressum und Datenschutz durch die zuständigen Stellen bestätigen. Die Vorschauseiten sind ausdrücklich keine gültigen Rechtstexte.

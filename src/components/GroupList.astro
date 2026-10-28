@@ -1,0 +1,28 @@
+---
+import type { GroupOffer } from '../lib/server/churchtools';
+interface Props { items: GroupOffer[]; preview?: boolean; selectedId?: string }
+const { items, preview = false, selectedId } = Astro.props;
+const weekdays = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+---
+<ul class:list={['offer-list', { 'offer-preview': preview }]}>
+  {items.map((item) => (
+    <li>
+      {preview ? (
+        <article class="offer-teaser">
+          <h3><a href={`/angebote?angebot=${encodeURIComponent(item.id)}#angebot-${item.id}`}>{item.name}<span aria-hidden="true"> →</span></a></h3>
+          {item.description && <p>{item.description.length > 180 ? item.description.slice(0, 180).replace(/\s+\S*$/, '') + '…' : item.description}</p>}
+        </article>
+      ) : (
+        <details class="offer-detail" id={`angebot-${item.id}`} open={selectedId === item.id}>
+          <summary><h3>{item.name}</h3><span aria-hidden="true" class="offer-toggle">+</span></summary>
+          <div class="prose">
+            {!item.description && item.weekday === undefined && !item.meetingTime && !item.contactUrl && <p>Weitere Informationen sind hier noch nicht verfügbar.</p>}
+            {item.description && <p class="offer-description">{item.description}</p>}
+            {(item.weekday !== undefined || item.meetingTime) && <p><strong>Treffen:</strong> {[item.weekday !== undefined ? weekdays[item.weekday] : undefined, item.meetingTime].filter(Boolean).join(' · ')}</p>}
+            {item.contactUrl && <a class="text-link" href={item.contactUrl}>Website des Angebots <span class="external-label">extern ↗</span></a>}
+          </div>
+        </details>
+      )}
+    </li>
+  ))}
+</ul>

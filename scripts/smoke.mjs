@@ -17,6 +17,7 @@ const routes = [
 ];
 
 const checkedLinks = new Set();
+const missingStatuses = new Map();
 const request = (path, init = {}) =>
   fetch(new URL(path, origin), { ...init, signal: AbortSignal.timeout(10_000) });
 
@@ -29,6 +30,15 @@ for (const route of routes) {
     `${route}: missing preview protection`
   );
   const html = await response.text();
+  if (route === '/gottesdienste' || route === '/aktuelles') {
+    missingStatuses.set(
+      route,
+      /data-source-state="(?:disabled|unavailable|stale)"/.test(html) ? 503 : 404
+    );
+  }
+  if (['/', '/gottesdienste', '/aktuelles', '/angebote'].includes(route)) {
+    assert.equal(response.headers.get('cache-control'), 'no-store', route);
+  }
   assert.match(html, /<html[^>]+lang="de"/, `${route}: missing German document language`);
   assert.equal((html.match(/<main\b/g) ?? []).length, 1, `${route}: expected one main landmark`);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1, `${route}: expected one page heading`);
@@ -61,10 +71,14 @@ for (const route of ['/gottesdienste/nicht-vorhanden', '/aktuelles/nicht-vorhand
   const response = await request(route);
   assert.equal(
     response.status,
-    503,
-    `${route}: an unconfigured source is not evidence of a missing record`
+    missingStatuses.get(route.slice(0, route.lastIndexOf('/'))),
+    `${route}: distinguish confirmed absence from unavailable sources`
   );
-  assert.ok(response.headers.get('retry-after'), `${route}: unavailable detail needs a retry hint`);
+  if (response.status === 503)
+    assert.ok(
+      response.headers.get('retry-after'),
+      `${route}: unavailable detail needs a retry hint`
+    );
 }
 const robots = await request('/robots.txt');
 assert.equal(robots.status, 200);

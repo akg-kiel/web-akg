@@ -98,6 +98,7 @@ summary {
 }
 a:focus-visible,
 button:focus-visible,
+input:focus-visible,
 summary:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 5px;
@@ -595,7 +596,90 @@ body:has(.photo-dialog[open]) {
   font-size: 1.1rem;
   white-space: nowrap;
 }
-.service-list li {
+.offer-list {
+  margin-block: 1.5rem 2rem;
+}
+.offer-list > li + li {
+  margin-top: 0.75rem;
+}
+.offer-teaser {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 1rem 3rem;
+  padding-block: 1rem;
+}
+.offer-teaser h3,
+.offer-detail h3 {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: var(--text-lead);
+  line-height: 1.4;
+}
+.offer-teaser a {
+  display: block;
+  padding-block: 0.5rem;
+}
+.offer-teaser p,
+.offer-description {
+  white-space: pre-line;
+}
+.offer-category {
+  margin-top: 3rem;
+}
+.offer-detail {
+  background: var(--color-wash);
+  padding: 1rem 1.25rem;
+  scroll-margin-top: 2rem;
+}
+.offer-detail summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 44px;
+  cursor: pointer;
+  list-style: none;
+}
+.offer-detail summary::-webkit-details-marker {
+  display: none;
+}
+.offer-detail[open] .offer-toggle {
+  transform: rotate(45deg);
+}
+.offer-detail .prose {
+  margin-block: 1rem;
+}
+.offer-search {
+  max-width: 40rem;
+}
+.offer-search label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.offer-search > div,
+.offer-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.offer-search input {
+  flex: 1 1 12rem;
+  min-width: 0;
+  width: 100%;
+  border: 2px solid var(--color-muted);
+  padding: 0.75rem;
+  font: inherit;
+  color: var(--color-ink);
+  background: var(--color-paper);
+}
+.offer-results {
+  margin-block: 1.5rem;
+}
+@media (width < 48rem) {
+  .offer-teaser {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+  }
 }
 .service-item {
   padding-block: 1.5rem;

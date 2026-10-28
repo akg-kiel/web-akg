@@ -11,6 +11,7 @@ for (const config of [source, built]) {
   assert.equal(config.assets.run_worker_first, true);
   assert.ok(config.compatibility_flags.includes('fetch_iterable_type_support'));
   assert.equal(config.vars.SERVICES_APPROVED, 'false');
+  assert.equal(config.vars.GROUPS_APPROVED, 'false');
   assert.equal(config.vars.CHURCHTOOLS_TOKEN, undefined, 'Token must be a server-side secret');
   assert.equal(config.route, undefined);
   assert.deepEqual(config.routes ?? [], [], 'No production routes');
@@ -56,7 +57,10 @@ if (origin) {
     '/angebote/?q=preview',
     '/' + asset,
     '/__missing__',
-    '/server/wrangler.json'
+    '/server/wrangler.json',
+    '/server/.dev.vars',
+    '/.dev.vars',
+    '/.env'
   ]) {
     const response = await fetch(new URL(path, origin), {
       redirect: 'manual',
@@ -72,12 +76,12 @@ if (origin) {
       path
     );
     if (path === '/angebote/?q=preview') {
-      assert.equal(response.status, 308, 'Static URLs must drop trailing slashes');
+      assert.equal(response.status, 308, 'URLs must drop trailing slashes');
       const location = new URL(response.headers.get('location'), origin);
       assert.equal(location.pathname, '/angebote');
       assert.equal(location.search, '?q=preview');
     }
-    if (path === '/__missing__' || path.startsWith('/server/'))
+    if (['/__missing__', '/.dev.vars', '/.env'].includes(path) || path.startsWith('/server/'))
       assert.equal(response.status, 404, path);
     if (response.headers.get('content-type')?.includes('text/html')) {
       assert.match(

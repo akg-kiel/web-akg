@@ -1,2 +1,4 @@
 # Local development works without credentials. Never commit a real token.
 CHURCHTOOLS_TOKEN=
+SERVICES_APPROVED=false
+GROUPS_APPROVED=false

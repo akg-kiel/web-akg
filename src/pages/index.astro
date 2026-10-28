@@ -1,14 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Photo from '../components/Photo.astro';
+import GroupList from '../components/GroupList.astro';
 import SourceState from '../components/SourceState.astro';
 import ServiceList from '../components/ServiceList.astro';
 import NewsList from '../components/NewsList.astro';
-import { loadNews, loadServices } from '../lib/content';
+import { loadGroups, loadNews, loadServices } from '../lib/content';
 import { externalLinks } from '../lib/site';
 
 export const prerender = false;
-const [services, news] = await Promise.all([loadServices(), loadNews()]);
+const [services, news, groups] = await Promise.all([loadServices(), loadNews(), loadGroups()]);
 Astro.response.headers.set('Cache-Control', 'no-store');
 const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
 ---
@@ -43,6 +44,8 @@ const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
       </div>
       <a class="text-link" href="/angebote">Angebote &amp; Gruppen <span aria-hidden="true">→</span></a>
     </div>
+    <SourceState status={groups.status} kind="groups" updatedAt={groups.updatedAt} compact />
+    {groups.items.length > 0 && <GroupList items={groups.items.slice(0, 3)} preview />}
     <div class="community-gallery">
       <Photo view="conversation" enlarge />
       <Photo view="gathering" enlarge />

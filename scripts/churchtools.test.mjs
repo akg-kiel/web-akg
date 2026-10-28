@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { getServices, getNews } from '../src/lib/server/churchtools.ts';
+import { getGroups, getServices, getNews } from '../src/lib/server/churchtools.ts';
 
 // Entirely synthetic; never recorded API responses or production identifiers.
 const NOW = Date.parse('2026-10-26T10:00:00Z');
@@ -52,7 +52,7 @@ function source({ grants = allowlist, posts = [], appointments = [] } = {}) {
   const fetch = async (url, init) => {
     const parsed = new URL(url);
     assert.equal(parsed.origin, 'https://akg-kiel.church.tools');
-    assert.equal(init.redirect, 'error');
+    assert.equal(init.redirect, 'manual');
     assert.equal(init.credentials, 'omit');
     assert.equal(init.cache, 'no-store');
     assert.ok(init.signal instanceof AbortSignal);
@@ -97,6 +97,13 @@ test('missing token and explicit approval gate do not touch fetch or cache', asy
     status: 'unavailable',
     items: []
   });
+  assert.equal((await getGroups({ ...deps, groupsApproved: true })).status, 'unavailable');
+  for (const groupsApproved of [undefined, false, 'true']) {
+    assert.deepEqual(await getGroups(options({ ...deps, groupsApproved })), {
+      status: 'disabled',
+      items: []
+    });
+  }
   for (const servicesApproved of [undefined, false, 'true']) {
     assert.deepEqual(await getServices(options({ ...deps, servicesApproved })), {
       status: 'disabled',
@@ -410,7 +417,7 @@ test('3xx cross-origin and HTTPS downgrade destinations are never followed', asy
       const fetch = async (url, init) => {
         calls++;
         assert.equal(url, 'https://akg-kiel.church.tools/api/website/data');
-        assert.equal(init.redirect, 'error');
+        assert.equal(init.redirect, 'manual');
         assert.equal(init.headers.Authorization, `Login ${TOKEN}`);
         return new Response(null, { status, headers: { Location: location } });
       };
@@ -418,6 +425,220 @@ test('3xx cross-origin and HTTPS downgrade destinations are never followed', asy
       assert.equal(calls, 1);
     }
   }
+});
+
+const group = (id = 1, info = {}, settings = {}) => ({
+  id,
+  guid: `synthetic-group-${id}`,
+  name: `Synthetic group ${id}`,
+  information: { groupTypeId: 5, groupStatusId: 1, note: 'A public description', ...info },
+  settings: { visibility: 'public', isHidden: false, ...settings },
+  roles: ['NOT_PUBLIC'],
+  modifiedPerson: { id: 'NOT_PUBLIC' }
+});
+
+function groupSource(groups = [], alter = (value) => value) {
+  const calls = [];
+  return {
+    calls,
+    fetch: async (url, init) => {
+      const parsed = new URL(url);
+      calls.push(parsed);
+      assert.equal(parsed.origin, 'https://akg-kiel.church.tools');
+      assert.equal(init.redirect, 'manual');
+      assert.equal(init.credentials, 'omit');
+      assert.equal(init.cache, 'no-store');
+      if (parsed.pathname === '/api/group/grouptypes') {
+        assert.equal(init.headers.Authorization, `Login ${TOKEN}`);
+        return rows([1, 2, 3, 5].map((id) => ({ id, name: `Type ${id}` })));
+      }
+      assert.equal(parsed.pathname, '/api/groups');
+      assert.equal(init.headers.Authorization, undefined);
+      assert.equal(parsed.searchParams.get('visibility'), 'public');
+      assert.equal(parsed.searchParams.get('limit'), '100');
+      const page = Number(parsed.searchParams.get('page'));
+      const data = groups.slice((page - 1) * 100, page * 100);
+      return json(
+        alter(
+          {
+            data,
+            meta: {
+              count: data.length,
+              pagination: {
+                current: page,
+                limit: 100,
+                total: groups.length,
+                lastPage: Math.max(1, Math.ceil(groups.length / 100))
+              }
+            }
+          },
+          page
+        )
+      );
+    }
+  };
+}
+
+test('group pagination, public visibility, active status, types and field allowlist', async () => {
+  const mock = groupSource([
+    ...Array.from({ length: 101 }, (_, i) => group(i + 1)),
+    group(102, { groupTypeId: 4 }),
+    group(103, { groupTypeId: 9 }),
+    group(104, { groupStatusId: 2 }),
+    group(105, {}, { visibility: 'intern' }),
+    group(106, {}, { isHidden: true }),
+    group(107, {}, { isHidden: undefined }),
+    group(108, { endDate: '2026-10-25' }),
+    group(109, { endDate: '2026-02-30' }),
+    group(110, { groupStatusId: undefined }),
+    group(111, {
+      meetingTime: '10 Uhr',
+      weekday: 0,
+      groupHomepageUrl: 'https://example.org/offer',
+      endDate: '2026-10-27',
+      note: '<script>literal, never HTML</script>'
+    })
+  ]);
+  const result = await getGroups(options({ ...mock, groupsApproved: true }));
+  assert.equal(result.status, 'ready');
+  assert.equal(result.items.length, 102);
+  assert.equal(mock.calls.length, 3);
+  assert.equal(JSON.stringify(result).includes('NOT_PUBLIC'), false);
+  const item = result.items.find((item) => item.id === 'synthetic-group-111');
+  assert.deepEqual(Object.keys(item).sort(), [
+    'contactUrl',
+    'description',
+    'endDate',
+    'id',
+    'meetingTime',
+    'name',
+    'type',
+    'weekday'
+  ]);
+  assert.equal(item.weekday, 0);
+  assert.equal(item.description, '<script>literal, never HTML</script>');
+  for (const url of [
+    'javascript:alert(1)',
+    'http://example.org',
+    'https://user:secret@example.org'
+  ]) {
+    const invalid = await getGroups(
+      options({
+        ...groupSource([group(1, { groupHomepageUrl: url, weekday: 7 })]),
+        groupsApproved: true
+      })
+    );
+    assert.equal(invalid.items[0].contactUrl, undefined);
+    assert.equal(invalid.items[0].weekday, undefined);
+  }
+});
+
+test('group pagination rejects partial, duplicate, changed and oversized sources; empty is explicit', async () => {
+  assert.equal(
+    (await getGroups(options({ ...groupSource(), groupsApproved: true }))).status,
+    'empty'
+  );
+  const groups = Array.from({ length: 101 }, (_, i) => group(i + 1));
+  for (const alter of [
+    (value) => {
+      delete value.meta.pagination;
+      return value;
+    },
+    (value) => {
+      value.meta.pagination.total = 1001;
+      return value;
+    },
+    (value) => {
+      value.meta.pagination.current = 9;
+      return value;
+    },
+    (value) => {
+      value.data.pop();
+      value.meta.count--;
+      return value;
+    },
+    (value, page) => {
+      if (page === 2) value.data[0] = group(1);
+      return value;
+    },
+    (value, page) => {
+      if (page === 2) value.meta.pagination.total++;
+      return value;
+    },
+    (value) => {
+      value.data[0].guid = value.data[1]?.guid;
+      return value;
+    }
+  ]) {
+    const result = await getGroups(
+      options({
+        ...groupSource(
+          groups.map((item) => structuredClone(item)),
+          alter
+        ),
+        groupsApproved: true
+      })
+    );
+    assert.deepEqual(result, { status: 'unavailable', items: [] });
+  }
+});
+
+test('groups recheck end dates in cache, respect approval revocation and purge malformed refreshes', async () => {
+  const cache = memoryCache();
+  const now = Date.parse('2026-10-26T22:55:00Z');
+  const deps = options({
+    ...groupSource([group(1, { endDate: '2026-10-26' })]),
+    cache,
+    groupsApproved: true,
+    now: () => now
+  });
+  assert.equal((await getGroups(deps)).status, 'ready');
+  const stored = await [...cache.entries.values()][0].clone().text();
+  assert.equal(stored.includes(TOKEN) || stored.includes('NOT_PUBLIC'), false);
+  assert.equal((await getGroups({ ...deps, groupsApproved: false })).status, 'disabled');
+  assert.equal((await getGroups({ ...deps, now: () => now + 10 * 60_000 })).status, 'empty');
+  const bad = groupSource([], (value) => {
+    delete value.meta.pagination;
+    return value;
+  });
+  assert.equal(
+    (await getGroups({ ...deps, fetch: bad.fetch, now: () => now + 31 * 60_000 })).status,
+    'unavailable'
+  );
+  assert.equal(cache.entries.size, 0);
+});
+
+test('a failed later group page cannot restore previously public groups from cache', async () => {
+  const cache = memoryCache();
+  const deps = options({ ...groupSource([group()]), groupsApproved: true, cache });
+  assert.equal((await getGroups(deps)).status, 'ready');
+  const mock = groupSource(Array.from({ length: 101 }, (_, i) => group(i + 2)));
+  const fetch = (url, init) =>
+    new URL(url).searchParams.get('page') === '2'
+      ? Promise.resolve(new Response(null, { status: 503 }))
+      : mock.fetch(url, init);
+  assert.equal(
+    (await getGroups({ ...deps, fetch, now: () => NOW + 31 * 60_000 })).status,
+    'unavailable'
+  );
+  assert.equal(cache.entries.size, 0);
+});
+
+test('a failed group-type refresh also purges stale groups', async () => {
+  const cache = memoryCache();
+  const deps = options({ ...groupSource([group()]), groupsApproved: true, cache });
+  assert.equal((await getGroups(deps)).status, 'ready');
+  assert.equal(
+    (
+      await getGroups({
+        ...deps,
+        now: () => NOW + 31 * 60_000,
+        fetch: async () => new Response(null, { status: 503 })
+      })
+    ).status,
+    'unavailable'
+  );
+  assert.equal(cache.entries.size, 0);
 });
 
 test('the native abort signal bounds a hanging source request', { timeout: 12_000 }, async () => {
