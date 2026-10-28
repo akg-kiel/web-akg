@@ -4,11 +4,11 @@ Stand: 2026-10-28 · AKG-127. Gestaltungsvorschau, keine Inhalts-, Rechts- oder 
 
 ## Richtung
 
-**Menschen machen Gemeinde.** Nutzerkorrektur der bisherigen Richtung `place-carries-it` (Seed 111414565): Der Gebäudehero war zu groß, Menschen sollen den Auftritt tragen. Kein neuer Zufallsdraw; Hero-Komposition und Motive folgen ausdrücklich dieser Korrektur. Original-Logo, Figtree und Blau/Weiß bleiben erhalten. Ziel: Gemeinde kennenlernen; Gottesdienste bleiben unmittelbar erreichbar.
+**Menschen machen Gemeinde.** Nutzerkorrektur der bisherigen Richtung `place-carries-it` (Seed 111414565): Der Gebäudehero war zu groß, Menschen sollen den Auftritt tragen. Kein neuer Zufallsdraw; Hero-Komposition und Motive folgen ausdrücklich dieser Korrektur. Original-Logo, Figtree und Blau/Weiß bleiben erhalten. Auf den folgenden Nutzerhinweis übernimmt der Hero wieder die hellblaue, direkt an das Foto anschließende Fläche und „Schön, dass du da bist“ aus der [bevorzugten MVP-Vorschau](https://t3-build-web-akg-mvp-web-akg.noah-zepner.workers.dev/), aber mit dem Gemeindefoto statt der Kirche. Ziel: Gemeinde kennenlernen; Gottesdienste bleiben unmittelbar erreichbar.
 
-Startseite: kompakte Einladung mit Gemeindefoto → Gottesdienst → Gespräche und Gemeindeleben → Orte/Dreimaster → tatsächliche Meldungen oder ehrlicher Quellenzustand → blauer Abschluss. Architektur und Geschichte bleiben auf den passenden Unterseiten, statt die Startseite zu dominieren. Keine neuen aktuellen Gruppen, Personenrollen oder Termine aus den Fotos ableiten.
+Startseite: kompakte Einladung mit Gemeindefoto → Gottesdienst → Gespräche und Gemeindeleben → Begegnung/Dreimaster → tatsächliche Meldungen oder ehrlicher Quellenzustand → blauer Abschluss. Die Gebäudeliste entfällt auf der Startseite; „Orte der Begegnung“ zeigt zunächst das Café Dreimaster als eigenständiges Angebot. Für das Kirchengebäude plant der Nutzer eine eigene Website. Bis deren Ziel und Migration bestätigt sind, bleiben bestehende Unterseiten erreichbar; keine neue externe Adresse wird geraten. „Miteinander leben“ soll als nächstes konkrete Angebote statt einer reinen Fotogalerie zeigen, sobald die dafür nötige fachliche Gruppenfreigabe vorliegt. Keine neuen aktuellen Gruppen, Personenrollen oder Termine aus den Fotos ableiten.
 
-Desktop/Tablet: Text und Foto nebeneinander in zwei gleich breiten Spalten, ohne Fotoüberlagerung oder Scrim. Mobil: Einladung/CTAs vor dem verkleinerten Querformat; DOM-, Lese- und Fokusreihenfolge stimmen überein. Zwei historische Gemeindefotos bilden eine versetzte Galerie, das Caféfoto begleitet den externen Übergang. Alle vier Fotos werden proportional und ohne zusätzlichen Ausschnitt gezeigt.
+Desktop/Tablet: Text und Foto nebeneinander in zwei gleich breiten, direkt anschließenden Spalten auf hellblauem Grund, ohne Fotoüberlagerung oder Scrim. Der Hero reicht bis zu den Außenkanten; sein Text bleibt auf der gemeinsamen Inhaltskante. Mobil: Einladung/CTAs vor dem verkleinerten Querformat; DOM-, Lese- und Fokusreihenfolge stimmen überein. Zwei historische Gemeindefotos bilden eine versetzte Galerie, das Caféfoto begleitet den externen Übergang. Alle vier Fotos werden proportional und ohne zusätzlichen Ausschnitt gezeigt.
 
 ## Marke, Medien und Quellen
 
@@ -27,7 +27,7 @@ Planung, Draw, Baseline und Screenshots liegen lokal unter `.taste-skill/` (igno
 Quelle: `src/styles/globals.css`.
 
 - Figtree; Weiß `#ffffff`, Ink `#173b50`, Aktionsblau `#006c9e`, helle Fläche `#eaf3f7`.
-- Fünf sichtbare Größenrollen: kleine Hinweise 14 px, Fließtext/Navigation 17 px, Einleitung 18–22 px, Abschnittstitel 28–40 px, Homepage-H1 44–76 px. Unterseiten-H1 bleibt 36–44 px.
+- Fünf sichtbare Größenrollen: kleine Hinweise 14 px, Fließtext/Navigation 17 px, Einleitung 18–22 px, Abschnittstitel 28–40 px, Homepage-H1 40–60 px. Unterseiten-H1 bleibt 36–44 px.
 - Seitenränder 20–32 px, Inhaltsbreite maximal 88 rem; schmale Leseabsätze behalten ihr eigenes Maß.
 - Keine dekorativen Eyebrows, Hairlines, Kartenumrandungen, Schatten oder Verlaufsflächen. Der bisherige Fotografie-Scrim entfällt vollständig.
 - Vollflächiges Blau im Footer; quadratische, gefüllte Buttons. Fokus: 3 px mit 5 px Abstand, auf dunklem Grund helles Gold statt Orange.

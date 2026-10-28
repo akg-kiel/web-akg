@@ -70,11 +70,12 @@ try {
         `${route}: overflow at ${width}px`
       );
       if (route === '/') {
-        const heroImage = await page.locator('.welcome-photo img').boundingBox();
+        // The settling image scales inside its clipped frame; measure the visible photo area.
+        const heroImage = await page.locator('.welcome-photo .photo-frame').boundingBox();
         const hero = await page.locator('.welcome-hero').boundingBox();
         assert.ok(heroImage && hero, 'Homepage hero must be visible');
         assert.ok(
-          heroImage.height <= 400 && (width < 768 || hero.height <= 600),
+          heroImage.height <= 450 && (width < 768 || hero.height <= 600),
           'Keep the hero photograph compact, not a full-screen building'
         );
         if (width >= 768) {
@@ -82,7 +83,27 @@ try {
           assert.ok(copy && copy.x + copy.width <= heroImage.x, 'Text must sit beside the photo');
           assert.ok(heroImage.width <= width / 2, 'Hero photo uses at most half the desktop width');
         }
+        assert.equal(
+          (await page.locator('h1').innerText()).replace(/\s+/g, ' '),
+          'Schön, dass du da bist.'
+        );
+        assert.equal(
+          await page
+            .locator('.welcome-hero')
+            .evaluate((element) => getComputedStyle(element).backgroundColor),
+          'rgb(234, 243, 247)',
+          'Keep the pale-blue hero from the preferred MVP design'
+        );
         assert.equal(await page.locator('main img[src*="/images/petruskirche"]').count(), 0);
+        assert.equal(
+          await page
+            .locator(
+              '.community-band a[href="/petruskirche"], .community-band a[href^="/gemeindehaus-"]'
+            )
+            .count(),
+          0,
+          'The meeting section must not become a building directory'
+        );
       }
       if (width === 390 || width === 1440) {
         await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });

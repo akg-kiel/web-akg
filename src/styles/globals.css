@@ -21,7 +21,7 @@
   --color-sun: #f2d38b;
   --color-focus: #aa420d;
   --spacing-page: clamp(1.25rem, 2.25vw, 2rem);
-  --text-display: clamp(2.75rem, 5vw, 4.75rem);
+  --text-display: clamp(2.5rem, 4.5vw, 3.75rem);
   --text-heading: clamp(1.75rem, 3vw, 2.5rem);
   --text-lead: clamp(1.125rem, 2vw, 1.375rem);
   --text-body: 1.0625rem;
@@ -285,27 +285,28 @@ a[aria-current] {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
-  gap: clamp(2rem, 4vw, 4rem);
-  padding-block: 2rem 3rem;
+  background: var(--color-wash);
 }
 .welcome-hero > * {
   min-width: 0;
 }
 .welcome-copy {
-  max-width: 30rem;
+  padding: clamp(2rem, 3vw, 3rem) clamp(2rem, 4vw, 3.5rem) clamp(2rem, 3vw, 3rem)
+    max(var(--spacing-page), calc((100vw - 88rem) / 2));
 }
 .welcome-copy h1 {
   font-size: var(--text-display);
-  line-height: 1;
-  max-width: 8ch;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
 }
 .welcome-copy .hero-intro {
   font-size: var(--text-lead);
-  max-width: 32ch;
-  margin-top: 1.5rem;
+  max-width: 37ch;
+  margin-top: 1.75rem;
 }
 .welcome-photo .photo-credit {
-  margin-top: 0.5rem;
+  padding: 0.4rem var(--spacing-page);
+  background: var(--color-paper);
 }
 .photo-frame {
   display: block;
@@ -385,11 +386,10 @@ body:has(.photo-dialog[open]) {
 @media (width < 48rem) {
   .welcome-hero {
     grid-template-columns: minmax(0, 1fr);
-    gap: 1.5rem;
-    padding-block: 1.5rem;
   }
-  .welcome-copy,
-  .welcome-copy h1,
+  .welcome-copy {
+    padding: 1.5rem var(--spacing-page) 2rem;
+  }
   .welcome-copy .hero-intro {
     max-width: none;
   }
@@ -418,7 +418,6 @@ body:has(.photo-dialog[open]) {
   }
   .button,
   .text-link > span,
-  .journey-links .arrow,
   [data-enlarge] img {
     transition: transform 180ms cubic-bezier(0.25, 1, 0.5, 1);
   }
@@ -426,8 +425,7 @@ body:has(.photo-dialog[open]) {
     transform: scale(0.98);
   }
   @media (hover: hover) and (pointer: fine) {
-    .text-link:hover > span,
-    .journey-links a:hover .arrow {
+    .text-link:hover > span {
       transform: translateX(3px);
     }
     [data-enlarge]:hover img {
@@ -511,44 +509,9 @@ body:has(.photo-dialog[open]) {
 .community-layout .prose > p {
   margin-top: 1.5rem;
 }
-.journey-links {
+.community-layout h3 {
   margin-top: 1.75rem;
-}
-.journey-links a {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  justify-content: space-between;
-  padding-block: 1.5rem;
-  text-decoration: none;
-}
-.journey-links strong {
-  display: block;
   font-size: var(--text-lead);
-  line-height: 1.3;
-  font-weight: 600;
-}
-.journey-links small {
-  display: block;
-  font-size: var(--text-small);
-  margin-top: 0.35rem;
-  color: var(--color-muted);
-}
-.journey-links .arrow {
-  font-size: var(--text-body);
-}
-.cafe-note {
-  padding-top: 0.5rem;
-}
-.cafe-note figure {
-  margin-bottom: 2rem;
-}
-.cafe-note h3 {
-  font-size: var(--text-heading);
-  margin-bottom: 1rem;
-}
-.cafe-note .text-link {
-  margin-top: 1rem;
 }
 .section-heading {
   display: flex;
@@ -888,7 +851,6 @@ body:has(.photo-dialog[open]) {
     background: var(--color-ink);
     color: white;
   }
-  .journey-links a:hover strong,
   .place-links a:hover > span:first-child,
   .service-item a:hover,
   .news-item a:hover,
@@ -986,9 +948,6 @@ body:has(.photo-dialog[open]) {
   }
 }
 @media (width < 48rem) {
-  .cafe-note {
-    padding-top: 1.5rem;
-  }
   .section {
     padding-block: 3rem;
   }

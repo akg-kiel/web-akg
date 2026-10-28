@@ -2,6 +2,8 @@
 
 Stand: 2026-10-28. Lokale Nutzerkorrektur nach Commit `95c79dd` auf `t3/akg-127-taste-redesign`. **Keine öffentliche Medien-, Inhalts- oder Launchfreigabe.**
 
+Die folgenden zwei Runden dokumentieren die Menschenfassung bis Commit `e02f40b`. Die anschließende Anpassung an den vom Nutzer bevorzugten MVP-Hero steht im [Nachtrag](#nachtrag-bevorzugter-mvp-hero).
+
 ## Auftrag und Umsetzung
 
 Der Nutzer fand das Hero-Bild zu groß und wünschte mehr Menschen statt Gebäude, ausdrücklich auch mit Bildern von akg-kiel.de. Die bisherige Richtung `place-carries-it` (Seed 111414565) wird deshalb korrigiert, nicht durch einen neuen Zufallsdraw ersetzt. Original-Logo, Figtree, Blau/Weiß, Routen und Datenverträge bleiben bestehen.
@@ -73,4 +75,16 @@ Lokale Artefakte: `.taste-skill/people-v1/`, `.taste-skill/people-final/`, `/tmp
 
 ## Offene Abnahme
 
-Nutzerabnahme, Medien-/Personen-/Kunstwerkrechte, Text-/Rechtsabnahme, authentifizierte ChurchTools-E2E-Prüfung, Safari/Firefox und reale Assistenztechnik bleiben offen. Keine neue Freigabe aus einem bestandenen technischen Test ableiten. Kein Commit, Push, Deployment oder Issue-Abschluss dieser Änderungen.
+Nutzerabnahme, Medien-/Personen-/Kunstwerkrechte, Text-/Rechtsabnahme, authentifizierte ChurchTools-E2E-Prüfung, Safari/Firefox und reale Assistenztechnik bleiben offen. Keine neue Freigabe aus einem bestandenen technischen Test ableiten. Die Menschenfassung wurde anschließend als `e02f40b` committet; der folgende Nachtrag ist noch uncommittet. Kein automatischer Push, Deployment oder Issue-Abschluss.
+
+## Nachtrag: bevorzugter MVP-Hero
+
+Der Nutzer bevorzugt den Hero von [dieser bestehenden Vorschau](https://t3-build-web-akg-mvp-web-akg.noah-zepner.workers.dev/). Deren tatsächlich ausgeliefertes HTML und CSS wurden geprüft, nicht nur aus früheren Notizen rekonstruiert. Übernommen werden hellblaue Fläche, direkt anschließende gleich breite Bild-/Textspalten, eine kleinere Überschrift und die persönliche Einladung „Schön, dass du da bist“. Die Gemeindefotos und übrigen Abschnitte der Menschenfassung bleiben unverändert. Kein neues Asset, keine neue Abhängigkeit.
+
+Ein 60-px-H1 und das Foto auf halber Desktopbreite sind hier die ausdrückliche Gestaltungsreferenz. Die allgemeine Inspector-Forderung nach noch größerer Schrift oder bildschirmfüllenderem Foto wird deshalb nicht gegen den Nutzerwunsch durchgesetzt. Der `focal-point`-Rohbefund ist dokumentiert; ebenso bleibt die bereits unabhängig bestätigte `eyebrow`-Fehlklassifikation des echten Fotocredits transparent.
+
+Erster Render bei 1440/768/390 px: alle sechs Screenshots geöffnet. Einmalig waren drei Lazy-Fotos beim frühen Desktop-Capture noch nicht geladen (Tablet/Mobil vollständig), daher keine Abnahme dieses Captures. Zwei echte Korrekturen: Bildcredit mit den normalen 20–32-px-Rändern statt 12 px; Geometrietest misst den sichtbaren, begrenzenden Bildrahmen statt das während der Eingangsanimation übergroße, darin abgeschnittene `img`. Die Bilder bleiben unbeschnitten im ruhenden Zustand.
+
+Finale Prüfung dieses Hero-Nachtrags: `pnpm quality` und `pnpm test:preview` erfolgreich (17 Tests, zwölf Routen bei fünf Breiten, Tastatur, Dialog, 200%-Text, No-JS und Reduced Motion). Alle sechs finalen Aufnahmen unter `.taste-skill/reference-hero-final/` geöffnet; alle vier Fotos geladen, keine sichtbaren Überläufe. Inspector mit ausdrücklich dokumentiertem `--allow eyebrow,focal-point`: 0 FAIL, 1 WARN (weiterhin kein geeignetes freigegebenes Video). Keine dauerhaften Regeln abgeschaltet. Logs: `/tmp/akg-hero-reference-{quality,preview-check,final-inspect}.log`. Der Hero-Nachtrag bleibt uncommittet.
+
+Weitere Nutzerrückmeldung: „Miteinander leben“ soll eine Angebotsvorschau statt reiner Fotogalerie werden. „Orte der Begegnung“ soll Gemeinschaft statt Gebäude zeigen; für das Kirchengebäude ist eine eigene Website geplant. Die Gebäudeliste ist inzwischen entfernt; der Abschnitt zeigt das bereits belegte Café Dreimaster mit eigener Website. Bestehende Unterseiten bleiben erreichbar, bis die künftige Kirchen-Website und Migration geklärt sind. Konkrete freigegebene Gruppen fehlen weiterhin: AKG-74 samt Kommentaren erneut gelesen, Status Backlog, Alt-/Beispieldaten ausdrücklich ausgeschlossen. Der Angebots-Sneak-Peek wartet deshalb auf eine konkrete fachliche Auswahl/Freigabe statt erfundener Teaser. Auch die Folgeänderung ist geprüft: frisches `pnpm quality` und `pnpm test:preview` erfolgreich, alle sechs Screenshots unter `.taste-skill/encounters-final/` geöffnet. Inspector mit denselben zwei expliziten Ausnahmen: 0 FAIL, 2 WARN (`no-footage`, `still-page`). Kein beliebiges Video oder zusätzliche Bewegung nur für einen Zähler: vorhandene Einblendungen und Bild-/Linkinteraktionen bleiben erhalten, reduzierte Bewegung bleibt respektiert. Logs: `/tmp/akg-encounters-{quality,preview-check,inspect}.log`. Die Gestaltung ist technisch geprüft, aber wegen der fehlenden Angebotsvorschau noch kein vollständiger Abschluss des neuen Nutzerwunsches.

@@ -4,7 +4,7 @@ Arbeitsbranch der Gestaltung: `t3/akg-127-taste-redesign` (auf dem MVP-Branch au
 
 ## Aktuelle Taste-Runde · 2026-10-28
 
-Der Architekturentwurf wurde auf Nutzerwunsch als `95c79dd` separat committet; sein [Taste-Review](redesign-taste-review.md) ist historisch. Die anschließende Nutzerkorrektur verkleinert den Hero und zeigt Menschen/Gemeindeleben statt einer Gebäude-Galerie. Vier Bestandsfotos aus akg-kiel.de sind ausschließlich im lokalen Entwurf ausgewählt; öffentliche Nutzung ist bis zur Rechte-/Personenfreigabe gesperrt. Aktuelle Prüfdetails: [Menschen und kompakter Hero](redesign-people-review.md). Kein Commit/Push/Deploy dieser nachfolgenden Änderungen.
+Der Architekturentwurf wurde auf Nutzerwunsch als `95c79dd` separat committet; sein [Taste-Review](redesign-taste-review.md) ist historisch. Die anschließende Nutzerkorrektur verkleinert den Hero und zeigt Menschen/Gemeindeleben statt einer Gebäude-Galerie. Vier Bestandsfotos aus akg-kiel.de sind ausschließlich im lokalen Entwurf ausgewählt; öffentliche Nutzung ist bis zur Rechte-/Personenfreigabe gesperrt. Aktuelle Prüfdetails: [Menschen und kompakter Hero](redesign-people-review.md). Die Menschenfassung ist inzwischen als `e02f40b` committet. Noch uncommittet: Rückkehr zum vom Nutzer bevorzugten hellblauen MVP-Hero mit Gemeindefoto und Entfernung der Gebäudeliste aus „Orte der Begegnung“. Kein neuer Commit/Push/Deploy. Der gewünschte Angebots-Sneak-Peek wartet auf eine konkrete fachliche Auswahl/Freigabe; AKG-74 wurde erneut geprüft und steht weiterhin im Backlog.
 
 ## Arbeitspakete in Linear
 
