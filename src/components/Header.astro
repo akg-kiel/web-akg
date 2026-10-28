@@ -1,0 +1,66 @@
+---
+import { currentPage, externalLinks, navigation } from '../lib/site';
+const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const intern = externalLinks.find((link) => link.label === 'Intern (ChurchTools)');
+---
+<header class="site-header">
+  <div class="container masthead">
+    <a class="wordmark" href="/" aria-label="AKG · Apostel-Kirchengemeinde Kiel · Startseite">
+      <img src="/images/apostel-logo.png" width="250" height="136" alt="Apostel – Ev.-Luth. Apostel-Kirchengemeinde Kiel" />
+    </a>
+    <nav class="desktop-nav" aria-label="Hauptnavigation">
+      <ul>
+        {navigation.map(({ href, label }) => (
+          <li><a href={href} aria-current={currentPage(pathname, href)}>{label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    {intern && (
+      <a class="header-utility" href={intern.href}>
+        Intern <span class="sr-only">(ChurchTools)</span><span class="external-label">extern ↗</span>
+      </a>
+    )}
+    <details class="mobile-menu" data-mobile-menu>
+      <summary>Menü <span class="menu-symbol" aria-hidden="true"></span></summary>
+      <div class="menu-panel">
+        <nav aria-label="Hauptnavigation mobil">
+          <ul>
+            {navigation.map(({ href, label }) => (
+              <li><a href={href} aria-current={currentPage(pathname, href)}>{label}<span aria-hidden="true">→</span></a></li>
+            ))}
+          </ul>
+        </nav>
+        <nav class="mobile-utilities" aria-label="Weitere Angebote">
+          <ul>
+            {externalLinks.map(({ href, label }) => (
+              <li><a href={href}>{label}<span class="external-label">extern ↗</span></a></li>
+            ))}
+            <li><a href="/spenden">Spenden</a></li>
+          </ul>
+        </nav>
+      </div>
+    </details>
+  </div>
+</header>
+<script>
+  const menu = document.querySelector<HTMLDetailsElement>('[data-mobile-menu]');
+  const summary = menu?.querySelector('summary');
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menu?.open) {
+      menu.open = false;
+      summary?.focus();
+    }
+  });
+  // Hiding the mobile menu can reset activeElement before the media event arrives.
+  let focusInMenu = false;
+  document.addEventListener('focusin', (event) => {
+    focusInMenu = event.target instanceof Node && Boolean(menu?.contains(event.target));
+  });
+  const desktop = window.matchMedia('(min-width: 64rem)');
+  desktop.addEventListener('change', ({ matches }) => {
+    if (matches && menu?.open) {
+      menu.open = false;
+      if (focusInMenu) document.querySelector<HTMLAnchorElement>('.wordmark')?.focus();
+    }
+  });
+</script>

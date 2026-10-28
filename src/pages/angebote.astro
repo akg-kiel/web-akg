@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import GroupList from '../components/GroupList.astro';
+import SourceState from '../components/SourceState.astro';
+import { loadGroups } from '../lib/content';
+import { externalLinks } from '../lib/site';
+export const prerender = false;
+Astro.response.headers.set('Cache-Control', 'no-store');
+const groups = await loadGroups();
+const query = (Astro.url.searchParams.get('q') ?? '').trim().slice(0, 100);
+const selectedId = Astro.url.searchParams.get('angebot') ?? '';
+const filtered = groups.items.filter((item) =>
+  [item.name, item.type, item.description ?? ''].join(' ').toLocaleLowerCase('de').includes(query.toLocaleLowerCase('de'))
+);
+const types = [...new Set(filtered.map((item) => item.type))].sort((a, b) => a.localeCompare(b, 'de'));
+const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
+---
+<Layout title="Angebote & Gruppen" description="Entdecke Angebote und Gruppen der Apostel-Kirchengemeinde Kiel.">
+  <PageIntro title="Miteinander leben" description="Glauben teilen, Menschen kennenlernen, sich einbringen. Finde ein Angebot, das zu dir passt." />
+  <section class="container section-end" aria-label="Angebote und Gruppen">
+    <SourceState status={groups.status} kind="groups" updatedAt={groups.updatedAt} />
+    {groups.items.length > 0 && (
+      <>
+        <form action="/angebote" method="get" role="search" class="offer-search">
+          <label for="angebot-suche">Angebote suchen</label>
+          <div>
+            <input id="angebot-suche" name="q" type="search" value={query} maxlength="100" />
+            <button class="button" type="submit">Suchen</button>
+          </div>
+        </form>
+        <p class="offer-results">{filtered.length} {filtered.length === 1 ? 'Angebot' : 'Angebote'}{query && <> für „{query}“ · <a href="/angebote">Alle anzeigen</a></>}</p>
+        {filtered.length === 0 ? <p>Kein passendes Angebot gefunden. Versuche einen anderen Suchbegriff.</p> : (
+          <>
+            <nav aria-label="Angebotsarten" class="offer-types">
+              {types.map((type, index) => <a class="text-link" href={`#typ-${index}`}>{type}</a>)}
+            </nav>
+            {types.map((type, index) => (
+              <section class="offer-category" aria-labelledby={`typ-${index}`}>
+                <h2 id={`typ-${index}`}>{type}</h2>
+                <GroupList items={filtered.filter((item) => item.type === type)} selectedId={selectedId} />
+              </section>
+            ))}
+          </>
+        )}
+      </>
+    )}
+  </section>
+  <section class="community-band section">
+    <div class="container content-split">
+      <div class="prose">
+        <h2>Erst einmal kennenlernen.</h2>
+        <p>Was uns als Gemeinde verbindet, erfährst du in unserem Leitbild. Auch über Gottesdienste kannst du dir hier einen ersten Eindruck verschaffen.</p>
+        <a class="text-link" href="/gemeinde#leitbild">Unser Leitbild <span aria-hidden="true">→</span></a>
+        <a class="text-link" href="/gottesdienste">Gottesdienste kennenlernen <span aria-hidden="true">→</span></a>
+      </div>
+      <aside class="prose">
+        <h2>Café Dreimaster</h2>
+        <p>Informationen zum Café findest du auf seiner eigenen Website.</p>
+        {cafe && <a class="text-link" href={cafe.href}>Zur Café-Website <span class="external-label">extern ↗</span></a>}
+      </aside>
+    </div>
+  </section>
+</Layout>

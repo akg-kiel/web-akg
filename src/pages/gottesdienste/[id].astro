@@ -1,0 +1,32 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import SourceState from '../../components/SourceState.astro';
+import DetailMissing from '../../components/DetailMissing.astro';
+import { loadServices } from '../../lib/content';
+import { detailPath, formatServiceTime, sourceIdFromPath } from '../../lib/site';
+
+export const prerender = false;
+const services = await loadServices();
+const item = services.items.find((entry) => entry.id === sourceIdFromPath(Astro.url.pathname));
+const unavailable = services.status === 'unavailable' || services.status === 'disabled' || (services.status === 'stale' && !item);
+Astro.response.status = unavailable ? 503 : item ? 200 : 404;
+Astro.response.headers.set('Cache-Control', 'no-store');
+if (unavailable) Astro.response.headers.set('Retry-After', '1800');
+const title = item?.title ?? (unavailable ? 'Gottesdienst gerade nicht abrufbar' : 'Gottesdienst nicht gefunden');
+---
+<Layout title={title} description={item ? formatServiceTime(item) : 'Dieser Gottesdienst ist derzeit nicht verfügbar. Zurück zur Übersicht.'} canonicalPath={item ? detailPath('gottesdienste', item.id) : undefined}>
+  <PageIntro title={title} />
+  {item ? (
+    <article class="container narrow section-end">
+      <SourceState status={services.status} kind="services" updatedAt={services.updatedAt} />
+      <p class="detail-time"><time datetime={item.start}>{formatServiceTime(item)}</time></p>
+      <p class="small-note">Zeitangaben: Europe/Berlin</p>
+      <div class="editorial-note detail-note">
+        <h2>Hinweis zu diesem Termin</h2>
+        <p>Für diesen Gottesdienst werden nur Titel und Zeit veröffentlicht. Ein Veranstaltungsort und weitere praktische Angaben sind noch nicht bestätigt.</p>
+      </div>
+      <a class="button" href="/gottesdienste">Alle Gottesdienste <span aria-hidden="true">→</span></a>
+    </article>
+  ) : <DetailMissing unavailable={unavailable} section="gottesdienste" />}
+</Layout>
