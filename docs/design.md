@@ -1,18 +1,18 @@
 # Gestaltung und UI-Vertrag · AKG-MVP
 
-Stand: 2026-10-28 · AKG-127. Gestaltungsvorschau, keine Inhalts-, Rechts- oder Launchfreigabe. Aktueller Prüfstand: [Taste-Review](redesign-taste-review.md); ältere positive Prüfungen gelten nicht automatisch für diese Fassung.
+Stand: 2026-10-28 · AKG-127. Gestaltungsvorschau, keine Inhalts-, Rechts- oder Launchfreigabe. Aktueller Prüfstand: [Menschen und kompakter Hero](redesign-people-review.md); ältere positive Prüfungen gelten nicht automatisch für diese Fassung.
 
 ## Richtung
 
-**place-carries-it**, Seed **111414565**, mit beibehaltener Palette und Schrift. Die tatsächliche Petruskirche trägt die Gestaltung: unverändertes Original-Logo, Figtree, Blau/Weiß, Backstein und Holz statt erfundener Wortmarke oder generischer Gemeindefotos. Ziel: Gemeinde kennenlernen; Gottesdienste bleiben unmittelbar erreichbar.
+**Menschen machen Gemeinde.** Nutzerkorrektur der bisherigen Richtung `place-carries-it` (Seed 111414565): Der Gebäudehero war zu groß, Menschen sollen den Auftritt tragen. Kein neuer Zufallsdraw; Hero-Komposition und Motive folgen ausdrücklich dieser Korrektur. Original-Logo, Figtree und Blau/Weiß bleiben erhalten. Ziel: Gemeinde kennenlernen; Gottesdienste bleiben unmittelbar erreichbar.
 
-Startseite: große Außenansicht und konkrete Einladung → Gottesdienst → drei ergänzende Architekturaufnahmen und Geschichte → Gemeindeorte/Dreimaster → tatsächliche Meldungen oder ehrlicher Quellenzustand → blauer Abschluss mit notwendigen Wegen. Kein Stock-Kalender, keine erfundenen Menschen oder Veranstaltungen.
+Startseite: kompakte Einladung mit Gemeindefoto → Gottesdienst → Gespräche und Gemeindeleben → Orte/Dreimaster → tatsächliche Meldungen oder ehrlicher Quellenzustand → blauer Abschluss. Architektur und Geschichte bleiben auf den passenden Unterseiten, statt die Startseite zu dominieren. Keine neuen aktuellen Gruppen, Personenrollen oder Termine aus den Fotos ableiten.
 
-Desktop: Einladung neben dem Turm über dem Foto, mit neutralem dunklem Lesbarkeitsschutz. Mobil: Einladung/CTAs vor der vollständigen Außenansicht; DOM-, Lese- und Fokusreihenfolge stimmen überein. Die Galerie kombiniert Querformate und das unbeschnittene Hochformatportal; mobil folgt ein linearer Bildfluss.
+Desktop/Tablet: Text und Foto nebeneinander in zwei gleich breiten Spalten, ohne Fotoüberlagerung oder Scrim. Mobil: Einladung/CTAs vor dem verkleinerten Querformat; DOM-, Lese- und Fokusreihenfolge stimmen überein. Zwei historische Gemeindefotos bilden eine versetzte Galerie, das Caféfoto begleitet den externen Übergang. Alle vier Fotos werden proportional und ohne zusätzlichen Ausschnitt gezeigt.
 
 ## Marke, Medien und Quellen
 
-[brand-spec.md](brand-spec.md) enthält alle vier Fotos mit Autor, Originalquelle, Lizenz und Bearbeitung sowie das unveränderte Logo und die lokale Figtree/OFL. Sichtbare Quellen-/Lizenzlinks stehen unter jedem Bild und bleiben auch im Bildbetrachter erhalten. Keine externen Ressourcen, Hotlinks oder Embeds. Die Seitenaufnahme von 2015 belegt keine heutigen Zugangsbedingungen.
+[brand-spec.md](brand-spec.md) dokumentiert die vier neuen Bestandsfotos aus akg-kiel.de und die vorhandenen Commons-Gebäudefotos getrennt: Herkunft, bekannte Credits, Bearbeitung und offene Rechte-/Personenfreigaben. Die Bestandsfotos sind nur für den lokalen Gestaltungsentwurf ausgewählt, nicht für eine öffentliche Vorschau freigegeben. Historische Fotos sind entsprechend beschriftet. Quellen-/gegebenenfalls Lizenzlinks bleiben auch im Bildbetrachter erhalten. Keine externen Ressourcen, Hotlinks oder Embeds.
 
 Die früher gesichteten Mobbin-Referenzen bleiben Kompositionsreferenzen:
 
@@ -20,16 +20,16 @@ Die früher gesichteten Mobbin-Referenzen bleiben Kompositionsreferenzen:
 - [IKEA Museum Story](https://mobbin.com/sites/sections/0d9af2f7-a982-4e71-a6e4-be2dd6b6ac96): großzügige Bild-/Text-Komposition.
 - Weitere Quellen und verworfene SaaS-Richtungen: [Art Direction](redesign-art-direction.md). Keine fremden Logos, Screenshots oder Personenbilder übernommen.
 
-Planung, Draw, Baseline und Screenshots liegen lokal unter `.taste-skill/` (ignorierte Arbeitsartefakte). Der versionierbare Prüfbericht steht unter `docs/redesign-taste-review.md`.
+Planung, Draw, Baseline und Screenshots liegen lokal unter `.taste-skill/` (ignorierte Arbeitsartefakte). Der aktuelle Prüfbericht steht unter `docs/redesign-people-review.md`; `docs/redesign-taste-review.md` dokumentiert den vorherigen Architekturentwurf.
 
 ## Typografie und Flächen
 
 Quelle: `src/styles/globals.css`.
 
 - Figtree; Weiß `#ffffff`, Ink `#173b50`, Aktionsblau `#006c9e`, helle Fläche `#eaf3f7`.
-- Fünf sichtbare Größenrollen: kleine Hinweise 14 px, Fließtext/Navigation 17 px, Einleitung 18–22 px, Abschnittstitel 28–40 px, Homepage-H1 44–104 px. Unterseiten-H1 bleibt 36–44 px.
+- Fünf sichtbare Größenrollen: kleine Hinweise 14 px, Fließtext/Navigation 17 px, Einleitung 18–22 px, Abschnittstitel 28–40 px, Homepage-H1 44–76 px. Unterseiten-H1 bleibt 36–44 px.
 - Seitenränder 20–32 px, Inhaltsbreite maximal 88 rem; schmale Leseabsätze behalten ihr eigenes Maß.
-- Keine dekorativen Eyebrows, Hairlines, Kartenumrandungen, Schatten oder Verlaufsflächen. Ausnahme: neutraler Fotografie-Scrim für lesbare Schrift.
+- Keine dekorativen Eyebrows, Hairlines, Kartenumrandungen, Schatten oder Verlaufsflächen. Der bisherige Fotografie-Scrim entfällt vollständig.
 - Vollflächiges Blau im Footer; quadratische, gefüllte Buttons. Fokus: 3 px mit 5 px Abstand, auf dunklem Grund helles Gold statt Orange.
 
 ## Interaktion und Zugänglichkeit
@@ -39,7 +39,7 @@ Quelle: `src/styles/globals.css`.
 - Skip-Link, ein `main`, `aria-current`, keine positiven Tabindices. Ziele grundsätzlich mindestens 44 px; Bildnachweise bleiben normale Textlinks.
 - Galerie: normale Bildlinks mit progressiver Erweiterung zu `dialog.showModal()`. Beschriftung „Foto ansehen“ statt eines auf kleinen Geräten falschen Vergrößerungsversprechens.
 - Dialog: proportional eingepasstes Bild, Quellenangaben, Schließen und „Bilddatei öffnen“ für browsernative Detailvergrößerung. Native Fokusbegrenzung/Escape; Fokusrückgabe zum Auslöser. Nur bei offenem Dialog wird Hintergrundscrollen gesperrt.
-- Ohne JS bzw. ohne Dialogunterstützung öffnet der Link direkt das lokale 1440-px-Bild. Modifizierte Klicks werden nicht abgefangen.
+- Ohne JS bzw. ohne Dialogunterstützung öffnet der Link direkt die lokale große Bildvariante (1280 px bei den Bestandsfotos). Modifizierte Klicks werden nicht abgefangen.
 - Einmalige Bildöffnung und kurze Bewegungen beim Eintreten in den Viewport. Inhalte sind standardmäßig sichtbar; kein Scroll-Hijacking oder Dauerloop. `prefers-reduced-motion` unterbindet Bewegung auch nach Umschaltung. Keine neue Bibliothek.
 - Textvergrößerung, lange Titel und fehlende Daten dürfen wachsen; kein Text-Clipping als Ersatz für Layoutkorrektur.
 
@@ -61,6 +61,6 @@ Externe Ziele bleiben zentral in `src/lib/site.ts`: Dreimaster, YouTube-Kanal, I
 
 `pnpm quality` und `pnpm test:preview` bleiben die technischen Gates. Browserregression: zwölf Routen, fünf Breiten, axe bei 390/1440 px, Tastatur, Menü ohne JS, Bilder, 200-%-Text. Ergänzt: mobile Hero-Fokusfolge, Dialog-Fokus/Escape/Schließen, axe im offenen Dialog, proportionaler Bildraum, alle drei No-JS-Bildlinks und reduzierte Bewegung einschließlich Umschaltung.
 
-Visuelle Abnahme zusätzlich am Produktionsbuild bei 1440/768/390 px; unabhängige Kritik und tatsächliche Screenshot-Korrekturrunden. Ergebnisse und offene Punkte im [Taste-Review](redesign-taste-review.md).
+Visuelle Abnahme zusätzlich am Produktionsbuild bei 1440/768/390 px; unabhängige Kritik und tatsächliche Screenshot-Korrekturrunden. Zusätzlich wird die kompakte Hero-Geometrie überprüft; Quellencredits müssen im Dialog vollständig erhalten bleiben. Ergebnisse und offene Punkte im [aktuellen Review](redesign-people-review.md).
 
 Nicht behauptet: authentifizierte ChurchTools-E2E-Prüfung, Safari/Firefox, physische Geräte/echte Screenreader, vollständige WCAG-Zertifizierung, Medien-/Rechtsfreigabe oder Produktionsabnahme. Kein automatischer Commit, Push oder Deploy.

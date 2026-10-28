@@ -21,7 +21,7 @@
   --color-sun: #f2d38b;
   --color-focus: #aa420d;
   --spacing-page: clamp(1.25rem, 2.25vw, 2rem);
-  --text-display: clamp(2.75rem, 7vw, 6.5rem);
+  --text-display: clamp(2.75rem, 5vw, 4.75rem);
   --text-heading: clamp(1.75rem, 3vw, 2.5rem);
   --text-lead: clamp(1.125rem, 2vw, 1.375rem);
   --text-body: 1.0625rem;
@@ -283,20 +283,16 @@ a[aria-current] {
 }
 .welcome-hero {
   display: grid;
-  background: var(--color-ink);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+  padding-block: 2rem 3rem;
 }
-.welcome-copy,
-.welcome-photo {
-  grid-area: 1 / 1;
+.welcome-hero > * {
   min-width: 0;
 }
 .welcome-copy {
-  align-self: start;
-  z-index: 1;
-  margin: clamp(2rem, 5vw, 5rem) max(var(--spacing-page), calc((100% - 88rem) / 2));
   max-width: 30rem;
-  color: var(--color-paper);
-  --focus: var(--color-sun);
 }
 .welcome-copy h1 {
   font-size: var(--text-display);
@@ -308,24 +304,8 @@ a[aria-current] {
   max-width: 32ch;
   margin-top: 1.5rem;
 }
-.welcome-copy .button {
-  background: var(--color-paper);
-  color: var(--color-blue);
-}
-.welcome-photo img {
-  width: 100%;
-}
-.welcome-photo .photo-frame::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  /* Neutral scrim maintains text legibility over the photograph. */
-  background: linear-gradient(90deg, #000b, #0009 35%, #0000 60%); /* taste-skill-ignore */
-}
 .welcome-photo .photo-credit {
-  padding: 0.5rem max(var(--spacing-page), calc((100% - 88rem) / 2));
-  background: var(--color-paper);
+  margin-top: 0.5rem;
 }
 .photo-frame {
   display: block;
@@ -349,34 +329,22 @@ a[aria-current] {
   font-size: var(--text-small);
 }
 .home-services h2,
-.church-story h2,
+.community-story h2,
 .community-band h2,
 .news-section h2 {
   font-size: var(--text-heading);
 }
-.church-story {
+.community-story {
   padding-top: 0;
 }
-.church-gallery {
+.community-story .section-heading > .text-link {
+  flex-shrink: 0;
+}
+.community-gallery {
   display: grid;
-  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
   gap: 3rem;
-  align-items: start;
-}
-.church-gallery .photo-portal {
-  grid-column: 2;
-  grid-row: 1 / 3;
-  align-self: center;
-}
-.church-history {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 3rem;
-  margin-top: 3rem;
-}
-.church-history > p {
-  font-size: var(--text-lead);
-  font-weight: 650;
+  align-items: end;
 }
 .photo-dialog {
   width: min(calc(100% - 2rem), 70rem);
@@ -414,57 +382,27 @@ a[aria-current] {
 body:has(.photo-dialog[open]) {
   overflow: hidden;
 }
-@media (48rem <= width < 64rem) {
-  .welcome-copy {
-    max-width: calc(40% - var(--spacing-page));
-  }
-  .welcome-copy .hero-actions {
-    flex-direction: column;
-    align-items: start;
-    gap: 0.25rem;
-  }
-}
 @media (width < 48rem) {
   .welcome-hero {
-    background: var(--color-wash);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+    padding-block: 1.5rem;
   }
   .welcome-copy,
-  .welcome-photo {
-    grid-area: auto;
-  }
-  .welcome-copy {
-    margin: 1.5rem var(--spacing-page) 2.5rem;
-    color: var(--color-ink);
-    max-width: none;
-    --focus: var(--color-focus);
-  }
-  .welcome-copy h1 {
-    max-width: none;
-    font-size: 2.75rem;
-  }
+  .welcome-copy h1,
   .welcome-copy .hero-intro {
     max-width: none;
+  }
+  .welcome-copy .hero-intro {
     margin-top: 1rem;
   }
   .welcome-copy .hero-actions {
     margin-top: 1.25rem;
     gap: 0.25rem 1.5rem;
   }
-  .welcome-copy .button {
-    background: var(--color-blue);
-    color: var(--color-paper);
-  }
-  .welcome-photo .photo-frame::after {
-    display: none;
-  }
-  .church-gallery,
-  .church-history {
+  .community-gallery {
     grid-template-columns: minmax(0, 1fr);
     gap: 2rem;
-  }
-  .church-gallery .photo-portal {
-    grid-column: auto;
-    grid-row: auto;
   }
 }
 
@@ -522,9 +460,6 @@ body:has(.photo-dialog[open]) {
   }
 }
 
-.home-services.section {
-  padding-top: clamp(5rem, 9vw, 8rem);
-}
 .home-services {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -605,6 +540,9 @@ body:has(.photo-dialog[open]) {
 .cafe-note {
   padding-top: 0.5rem;
 }
+.cafe-note figure {
+  margin-bottom: 2rem;
+}
 .cafe-note h3 {
   font-size: var(--text-heading);
   margin-bottom: 1rem;
@@ -641,7 +579,7 @@ body:has(.photo-dialog[open]) {
   padding: 1.25rem 0;
 
   color: var(--color-ink);
-  font-size: var(--text-small);
+  font-size: var(--text-body);
 }
 .source-state p + p {
   margin-top: 0.5rem;

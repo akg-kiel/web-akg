@@ -2,6 +2,8 @@
 
 **Gestaltungs- und Technikreview; keine Inhalts-/Rechts-/Produktionsabnahme.** Richtung `place-carries-it`, Seed 111414565, Palette/Schrift beibehalten. Original-Logo weiterhin SHA-256 `f876966571e2cf45b5c444047eadf9fef1ecafce4ffe43471bb87dfb79e3fec9`.
 
+Dieser Bericht dokumentiert den Architekturentwurf bis Commit `95c79dd`. Die spätere Nutzerkorrektur (kleinerer Hero, Menschen statt Gebäude) hat einen [eigenen Prüfbericht](redesign-people-review.md); die folgenden Werte gelten nicht für diese neue Fassung.
+
 ## Belegstand
 
 Nach Wiederanlaufen der Umgebung bestanden zunächst alle 17 Tests und `pnpm quality`. Die unveränderte Baseline wurde anschließend bei 1440/768/390 px aufgenommen: `.taste-skill/before/`. Diese Ergebnisse sind keine Abnahme der danach geänderten Anwendung.
@@ -77,7 +79,7 @@ Top three problems (most visible first), each with the screenshot it shows in an
 
 Damit bewusst **7,4 statt eines behaupteten Award-Niveaus**. Nach drei Gestaltungsrunden keine zusätzliche Ornament-/Polierschleife. Native Interaktion, erkennbare Marke und ehrlicher Inhalt tragen den aktuellen Entwurf.
 
-## Aktueller Prüfstand
+## Prüfstand des Architekturentwurfs
 
 - Quellformat/Lint für Anwendung und Browserskript erfolgreich.
 - Taste-Quell-Lint: **0 FAIL, 0 WARN**, mit dokumentierter zulässiger Ausnahme für den neutralen Fotoscrim.

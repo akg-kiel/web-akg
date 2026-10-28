@@ -1,10 +1,10 @@
 # MVP-Arbeitsstand und Freigabegrenzen
 
-Arbeitsbranch: `t3/build-web-akg-mvp`. Umsetzung im Auftrag vom 2026-10-26. Keine Produktion, kein Merge, keine DNS-Änderung. Technischer Fortschritt ist keine redaktionelle oder rechtliche Freigabe.
+Arbeitsbranch der Gestaltung: `t3/akg-127-taste-redesign` (auf dem MVP-Branch aufgebaut). Umsetzung im Auftrag vom 2026-10-26. Keine Produktion, kein Merge, keine DNS-Änderung. Technischer Fortschritt ist keine redaktionelle oder rechtliche Freigabe.
 
 ## Aktuelle Taste-Runde · 2026-10-28
 
-Die Startseite und gemeinsame Gestaltung werden unter AKG-127 erneut überarbeitet. Die nachfolgenden Prüfungen vom 2026-10-26 sind historisch, keine Abnahme dieses neuen Stands. Vier reale Petruskirchenfotos, native Fotoansicht und unabhängige Kritik sind umgesetzt; drei sichtgeprüfte Runden, 0 Inspector-FAILs sowie Prüfdetails und verbleibende Freigaben im [Taste-Review](redesign-taste-review.md). Kein neuer Commit/Push/Deploy.
+Der Architekturentwurf wurde auf Nutzerwunsch als `95c79dd` separat committet; sein [Taste-Review](redesign-taste-review.md) ist historisch. Die anschließende Nutzerkorrektur verkleinert den Hero und zeigt Menschen/Gemeindeleben statt einer Gebäude-Galerie. Vier Bestandsfotos aus akg-kiel.de sind ausschließlich im lokalen Entwurf ausgewählt; öffentliche Nutzung ist bis zur Rechte-/Personenfreigabe gesperrt. Aktuelle Prüfdetails: [Menschen und kompakter Hero](redesign-people-review.md). Kein Commit/Push/Deploy dieser nachfolgenden Änderungen.
 
 ## Arbeitspakete in Linear
 
@@ -60,10 +60,10 @@ Der ursprüngliche Entwurf wurde vom Nutzer abgelehnt und grundlegend überarbei
 - **AKG-59/54:** Dedizierten eingeschränkten ChurchTools-Token sicher bereitstellen und Freigabeverhalten mit echter Installation prüfen. Ohne Token werden keine vermeintlich leeren Live-Listen behauptet.
 - **AKG-75:** Termin „in Planung“ in ChurchTools korrigieren oder intern setzen. Erst nach Bestätigung `SERVICES_APPROVED` aktivieren. Kalender 1 bleibt unabhängig davon deaktiviert.
 - **AKG-74:** Fachliche Angebotsfreigabe. Bis dahin keine Gruppen laden/anzeigen.
-- **AKG-78:** Personen-/Einwilligungsfreigabe. Bis dahin keine Personen, Rollen oder Fotos laden/anzeigen.
+- **AKG-78:** Personen-/Einwilligungsfreigabe. Bis dahin keine ChurchTools-Personenprofile, Rollen oder Personenfotos laden/veröffentlichen. Die auf Nutzerwunsch ausgewählten alten Gemeindefotos bleiben ein lokaler Gestaltungsentwurf, keine Ausnahme von der öffentlichen Einwilligungsfreigabe.
 - **AKG-79/64:** Bestätigte Ortsprofile, Anfahrt und gegebenenfalls Barrierefreiheitsangaben. Keine Ableitung aus historischen Texten.
 - **AKG-61/72:** Kontakt, Zahlungsdaten, Impressum und Datenschutz durch die zuständigen Stellen bestätigen. Die Vorschauseiten sind ausdrücklich keine gültigen Rechtstexte.
-- **AKG-77/67:** Medienrechte und Alternativtexte. Keine WordPress-Fotos migriert; Ausnahme ist das vom Nutzer ausdrücklich verlangte Original-Logo. Commons-Fotos sind lizenzdokumentiert, die projektspezifische Medienabnahme bleibt offen.
+- **AKG-77/67:** Medienrechte und Alternativtexte. Original-Logo unverändert; Commons-Fotos lizenzdokumentiert. Vier alte Gemeindefotos sind auf ausdrücklichen Nutzerwunsch für den lokalen Entwurf ausgewählt; Credits, fehlende Rechte-/Personenfreigaben und Quellen stehen in [brand-spec.md](brand-spec.md). Vor einem Push mit öffentlichem Preview-Build oder Deployment müssen diese Freigaben vorliegen.
 - **AKG-69:** Konzertdomain, Livestream-Ziel und Rückwege bestätigen. Konzertdomain am 2026-10-26 nicht per DNS auflösbar. Newsletter bleibt unimplementiert bis System-/Datenschutzfreigabe.
 - **AKG-66:** Erst veröffentlichte Ziele in Sitemap und permanente Redirects aufnehmen. Keine erfundenen Zuordnungen der 768 alten URLs und keine Weiterleitung auf leere Anker.
 - **AKG-70/72/73/80:** Backup/Rollback, Abnahmen, vollständiger Browser-/Accessibility-Audit und Betriebsverantwortung bleiben eigene Launch-Aufgaben.

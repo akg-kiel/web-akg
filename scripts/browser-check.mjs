@@ -69,6 +69,21 @@ try {
         false,
         `${route}: overflow at ${width}px`
       );
+      if (route === '/') {
+        const heroImage = await page.locator('.welcome-photo img').boundingBox();
+        const hero = await page.locator('.welcome-hero').boundingBox();
+        assert.ok(heroImage && hero, 'Homepage hero must be visible');
+        assert.ok(
+          heroImage.height <= 400 && (width < 768 || hero.height <= 600),
+          'Keep the hero photograph compact, not a full-screen building'
+        );
+        if (width >= 768) {
+          const copy = await page.locator('.welcome-copy').boundingBox();
+          assert.ok(copy && copy.x + copy.width <= heroImage.x, 'Text must sit beside the photo');
+          assert.ok(heroImage.width <= width / 2, 'Hero photo uses at most half the desktop width');
+        }
+        assert.equal(await page.locator('main img[src*="/images/petruskirche"]').count(), 0);
+      }
       if (width === 390 || width === 1440) {
         await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
         const findings = await page.evaluate(
@@ -162,7 +177,11 @@ try {
       await page.locator('.photo-dialog img').getAttribute('src'),
       new URL(imageUrl, origin).href
     );
-    assert.equal(await page.locator('.photo-dialog .photo-credit a').count(), 2);
+    assert.equal(
+      await page.locator('.photo-dialog .photo-credit').textContent(),
+      await opener.locator('..').locator('.photo-credit').textContent(),
+      'Photo viewer must preserve the complete source credit'
+    );
     assert.equal(
       await page.locator('[data-photo-file]').getAttribute('href'),
       new URL(imageUrl, origin).href
@@ -264,16 +283,16 @@ try {
     viewport: { width: 320, height: 844 }
   });
   const basic = await noJavaScript.newPage();
-  await basic.route('**/images/petruskirche-portal-*.webp', (route) => route.abort());
+  await basic.route('**/images/gemeinde-gespraech-*.webp', (route) => route.abort());
   await basic.goto(origin.href);
   assert.ok(
-    await basic.locator('.photo-portal img').evaluate((image) => {
+    await basic.locator('.photo-conversation img').evaluate((image) => {
       const box = image.getBoundingClientRect();
-      return box.height > 0 && Math.abs(box.width / box.height - 2 / 3) < 0.01;
+      return box.height > 0 && Math.abs(box.width / box.height - 1.5) < 0.01;
     }),
-    'Reserve the portrait ratio before the lazy image loads'
+    'Reserve the community photo ratio before the lazy image loads'
   );
-  await basic.unroute('**/images/petruskirche-portal-*.webp');
+  await basic.unroute('**/images/gemeinde-gespraech-*.webp');
   await basic.locator('summary').click();
   assert.equal(await basic.locator('nav[aria-label="Hauptnavigation mobil"] a').count(), 5);
   assert.equal(await basic.locator('nav[aria-label="Hauptnavigation mobil"]').isVisible(), true);

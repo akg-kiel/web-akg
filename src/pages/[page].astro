@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageIntro from '../components/PageIntro.astro';
-import ChurchPhoto from '../components/ChurchPhoto.astro';
+import Photo from '../components/Photo.astro';
 import { places } from '../lib/site';
 
 export const prerender = true;
@@ -59,7 +59,7 @@ const { page } = Astro.props;
             <p>Die Petruskirche wurde von 1905 bis 1907 als evangelische Garnisonkirche für die Marine errichtet. Die Architekten Curjel und Moser entwarfen das Gebäude.</p>
             <p class="small-note">Textentwurf zu Architektur und Baugeschichte · redaktionelle Abnahme ausstehend.</p>
           </div>
-          <ChurchPhoto view="ceiling" />
+          <Photo view="ceiling" />
         </section>
         <section class="content-split places-section" aria-labelledby="kirchengeschichte-titel">
           <div class="prose">
