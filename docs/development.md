@@ -38,7 +38,8 @@ JavaScript-Abhängigkeiten einschließlich Vite+ bleiben projektlokal in
 `package.json` und `pnpm-lock.yaml`. Beim Shell-Start werden keine npm-Pakete
 installiert. pnpm darf keine andere Paketmanager-Version nachladen
 (`pmOnFail: error`) und installiert Abhängigkeiten nicht implizit vor Skriptaufrufen
-(`verifyDepsBeforeRun: false`).
+(`verifyDepsBeforeRun: error`): Nicht synchronisierte Abhängigkeiten führen zum
+Abbruch statt zu einer automatischen Installation.
 
 Chromium und Headless Shell samt Laufzeitbibliotheken kommen aus
 `pkgs.playwright-driver.selectBrowsers`. Firefox, WebKit und FFmpeg werden nicht
