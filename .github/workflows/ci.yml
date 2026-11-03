@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Nix
+        uses: cachix/install-nix-action@75c75c31ebece974e48ebc36b4ad125bd97bd97b # v31
+
+      - name: Install devenv from locked Nixpkgs
+        run: nix profile add "github:NixOS/nixpkgs/$(jq -r '.nodes.nixpkgs.locked.rev' devenv.lock)#devenv"
+
+      - name: Run quality, build and browser gate in devenv
+        run: devenv test --clean
+
+      - name: Check lockfiles are unchanged
+        run: git diff --exit-code -- devenv.lock pnpm-lock.yaml

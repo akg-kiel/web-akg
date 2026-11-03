@@ -1,0 +1,72 @@
+---
+interface Props { view?: 'outside' | 'ceiling' | 'portal' | 'side' | 'service' | 'conversation' | 'gathering' | 'cafe'; hero?: boolean; enlarge?: boolean }
+const { view = 'outside', hero = false, enlarge = false } = Astro.props;
+const photos = {
+  outside: {
+    name: 'petruskirche', height: 768,
+    alt: 'Die Petruskirche in Kiel-Wik: Backsteinturm und Vorplatz unter blauem Himmel.',
+    source: 'https://commons.wikimedia.org/wiki/File:Petruskirche-Wik-2024-msu-2530.jpg', author: 'Matthias Süßen', license: '4.0'
+  },
+  ceiling: {
+    name: 'petruskirche-dach', height: 640,
+    alt: 'Blick hinauf in den offenen hölzernen Dachstuhl der Petruskirche.',
+    source: 'https://commons.wikimedia.org/wiki/File:Petruskirche-Kiel-2026-09-msu--3400.jpg', author: 'Matthias Süßen', license: '4.0'
+  },
+  portal: {
+    name: 'petruskirche-portal', height: 1440,
+    alt: 'Ein Backsteinportal der Petruskirche mit Holztür, Metallbeschlägen und Laterne.',
+    source: 'https://commons.wikimedia.org/wiki/File:Petruskirche_(Kiel-Wik)-msu-2532-2532.jpg', author: 'Matthias Süßen', license: '4.0'
+  },
+  side: {
+    name: 'petruskirche-seite', height: 640,
+    alt: 'Die Petruskirche von der Seite mit Kirchenschiff, Turm und kahlen Bäumen, aufgenommen 2015.',
+    source: 'https://commons.wikimedia.org/wiki/File:Petruskirche_Kiel_15_(16739510725).jpg', author: 'Rüdiger Stehn', license: '2.0'
+  },
+  service: {
+    name: 'gemeinde-gottesdienst', height: 546, large: 1280,
+    alt: 'Menschen stehen gemeinsam in den Bankreihen der Petruskirche; vorne begleitet eine Band den Gottesdienst.',
+    source: 'https://akg-kiel.de/wp-content/uploads/2024/01/2024_Banner_allianz_1.jpg',
+    author: 'Frank Lönne', caption: 'Gottesdienst · Archivfoto'
+  },
+  conversation: {
+    name: 'gemeinde-gespraech', height: 640, large: 1280,
+    alt: 'Zwei Menschen im Gespräch auf der Wiese neben der Kirche beim Gemeindefest 2022.',
+    source: 'https://akg-kiel.de/wp-content/uploads/2022/05/Gemeindefest-22-VIII.jpg',
+    caption: 'Im Gespräch · Gemeindefest 2022'
+  },
+  gathering: {
+    name: 'gemeinde-fest', height: 640, large: 1280,
+    alt: 'Menschen sitzen auf Picknickdecken und kommen auf dem Kirchgelände beim Gemeindefest 2022 zusammen.',
+    source: 'https://akg-kiel.de/wp-content/uploads/2022/05/Gemeindefest-22-XII.jpg',
+    caption: 'Zeit miteinander · Gemeindefest 2022'
+  },
+  cafe: {
+    name: 'cafe-dreimaster', height: 480, large: 1280,
+    alt: 'Blick über die Tische im Café Dreimaster zur Theke, hinter der zwei Menschen stehen.',
+    source: 'https://akg-kiel.de/wp-content/uploads/2024/01/Banner_Dreimaster.jpg',
+    caption: 'Café Dreimaster · Archivfoto'
+  }
+};
+const photo = photos[view];
+const widths = [640, 960, 'large' in photo ? photo.large : 1440];
+const Frame = enlarge ? 'a' : 'div';
+---
+<figure class:list={[hero ? 'welcome-photo' : 'feature-picture', `photo-${view}`]}>
+  <Frame class="photo-frame" href={enlarge ? `/images/${photo.name}-${widths[2]}.webp` : undefined} data-enlarge={enlarge || undefined} aria-label={enlarge ? `Foto ansehen: ${photo.alt}` : undefined}>
+    <img
+      src={`/images/${photo.name}-960.webp`}
+      srcset={widths.map((width) => `/images/${photo.name}-${width}.webp ${width}w`).join(', ')}
+      sizes="(min-width: 768px) 50vw, 100vw"
+      width="960" height={photo.height} alt={photo.alt}
+      style={enlarge ? { aspectRatio: `960 / ${photo.height}` } : undefined}
+      loading={hero ? 'eager' : 'lazy'} fetchpriority={hero ? 'high' : 'auto'} decoding="async"
+    />
+    {enlarge && <span class="photo-action" aria-hidden="true">Foto ansehen <span>+</span></span>}
+  </Frame>
+  <figcaption class="photo-credit">
+    {'caption' in photo && <>{photo.caption} · </>}
+    {'author' in photo ? 'Foto: ' : 'Quelle: '}<a href={photo.source} title={photo.source}>{'author' in photo ? photo.author : 'akg-kiel.de'} ↗</a>
+    {'license' in photo && <> · <a href={`https://creativecommons.org/licenses/by-sa/${photo.license}/`}>CC BY-SA {photo.license} ↗</a></>}
+    {'license' in photo && ' · Bildausschnitt, komprimiert'}
+  </figcaption>
+</figure>

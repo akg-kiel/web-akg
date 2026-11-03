@@ -1,0 +1,36 @@
+---
+import { externalLinks, navigation, places } from '../lib/site';
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-heading">
+      <p>Apostel-Kirchengemeinde Kiel</p>
+    </div>
+    <div class="footer-columns">
+      <nav aria-label="Gemeinde im Footer">
+        <h2>Gemeinde</h2>
+        <ul>{navigation.map(({ href, label }) => <li><a href={href}>{label}</a></li>)}</ul>
+      </nav>
+      <nav aria-label="Praktische Informationen">
+        <h2>Praktisch</h2>
+        <ul>
+          {places.map(({ href, label }) => <li><a href={href}>{label}</a></li>)}
+          <li><a href="/spenden">Spenden</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Externe Angebote">
+        <h2>Weitere Angebote</h2>
+        <ul>{externalLinks.map(({ href, label }) => (
+          <li><a href={href}>{label} <span class="external-label">extern ↗</span></a></li>
+        ))}</ul>
+      </nav>
+
+    </div>
+    <div class="footer-bottom">
+      <span>AKG · Kiel</span>
+      <nav aria-label="Rechtliches"><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></nav>
+      <span>Website-Entwurf · Rechtstexte nicht freigegeben</span>
+      <a href="#inhalt">Zum Seitenanfang <span aria-hidden="true">↑</span></a>
+    </div>
+  </div>
+</footer>

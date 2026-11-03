@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import Photo from '../components/Photo.astro';
+import { places } from '../lib/site';
+export const prerender = true;
+---
+<Layout title="Gemeinde & Orte" description="Was uns als Apostel-Kirchengemeinde Kiel verbindet: unser Glaube, unser Miteinander und ein Blick in unsere Geschichte.">
+  <PageIntro title="Unsere Gemeinde" description="Wir möchten Glauben und Leben miteinander teilen. Lerne kennen, was uns verbindet und woher unsere Gemeinde kommt." />
+  <div class="container section-end">
+    <section id="orte" aria-labelledby="orte-titel">
+      <h2 id="orte-titel">Kirche und Gemeindehäuser.</h2>
+      <ul class="place-links">
+        {places.map(({ href, label }) => (
+          <li><a href={href}><span>{label}</span><span aria-hidden="true">→</span></a></li>
+        ))}
+      </ul>
+      <p class="small-note section-description">Adressen, Anfahrt und Angaben zur Zugänglichkeit werden noch geprüft und sind in dieser Vorschau nicht enthalten.</p>
+    </section>
+
+    <section id="leitbild" class="feature places-section" aria-labelledby="leitbild-titel">
+      <div class="feature-copy">
+        <h2 id="leitbild-titel">Glaube, der ins Leben gehört.</h2>
+        <p>Jesus Christus steht im Mittelpunkt unseres Glaubens. Wir möchten ihm folgen und seine Liebe weitergeben: durch das, was wir sagen, und durch das, was wir tun.</p>
+        <p>Unser Leitbild beschreibt eine einladende Gemeinde und einen Ort der Gnade. Menschen mit unterschiedlichen Erfahrungen und Begabungen sollen hier Platz finden. Dazu gehören gegenseitige Achtung, gemeinsames Gebet und ein barmherziger Umgang mit Fehlern.</p>
+        <p class="small-note">Textentwurf zum Leitbild · redaktionelle Abnahme ausstehend.</p>
+      </div>
+      <Photo view="outside" />
+    </section>
+
+    <section class="content-split section" aria-labelledby="geschichte-titel">
+      <div class="prose">
+        <h2 id="geschichte-titel">Aus zwei Gemeinden wurde eine.</h2>
+        <p>2008 schlossen sich Petrus-Süd und Jakobi-West zur Apostel-Kirchengemeinde zusammen. Der neue Name steht am Anfang einer gemeinsamen Geschichte.</p>
+        <p>Im März 2016 zog die Gemeinde in die Petruskirche ein. Damit traf die junge Gemeinde auf ein Kirchengebäude mit einer mehr als hundertjährigen Geschichte.</p>
+        <p class="small-note">Textentwurf zur Gemeindegeschichte · historische Angaben noch zur redaktionellen Abnahme.</p>
+        <a class="text-link" href="/petruskirche">Die Petruskirche kennenlernen <span aria-hidden="true">→</span></a>
+      </div>
+      <aside class="editorial-note">
+        <h2>Du lernst uns gerade kennen?</h2>
+        <p>Vielleicht ist der Glaube für dich vertraut. Vielleicht hast du vor allem Fragen. Unsere Einladung gilt auch dann, wenn du noch auf der Suche bist.</p>
+        <a class="text-link" href="/gottesdienste">Über unsere Gottesdienste <span aria-hidden="true">→</span></a>
+        <a class="text-link" href="/angebote">Stand der Angebotsübersicht <span aria-hidden="true">→</span></a>
+      </aside>
+    </section>
+
+
+  </div>
+</Layout>
