@@ -20,8 +20,8 @@ Backup-Ort und Zugangsdaten gehören in die zugriffsbeschränkte Betriebsdokumen
 
 1. Fachlichen Scope fixieren: nur tatsächlich freigegebene Inhalte aktivieren. Offene Freigaben nicht durch lokale Ersatzlisten übergehen.
 2. Aus einem dokumentierten Commit mit Frozen-Lockfile installieren; keine parallelen Build-/Preview-Prozesse im selben Worktree.
-3. `mise run ci` ausführen (Installation, Tests, Lint/Format, Typen, Build).
-4. `pnpm exec playwright-core install chromium`, dann `pnpm test:preview` ausführen. Die aktuelle Prüfung erwartet **lokale Vorschau ohne Token**, geschlossene Gates und noindex. Vor einem Live-Kandidaten die Erwartungen bewusst ergänzen; Tests nicht einfach abschalten.
+3. `./scripts/devenv.sh test --clean` ausführen (Installation, Tests, Lint/Format, Typen, Build und Browser-Gate). Weitere JS-Aufgaben über `pnpm exec vp run <Aufgabe>` innerhalb von `devenv shell` ausführen; der profilfreie Starter bleibt optional.
+4. Für eine separate Wiederholung nach dem Build `pnpm exec vp run test:preview` in der devenv-Shell ausführen; Browser und Bibliotheken kommen aus Nix. Die aktuelle Prüfung erwartet **lokale Vorschau ohne Token**, geschlossene Gates und noindex. Vor einem Live-Kandidaten die Erwartungen bewusst ergänzen; Tests nicht einfach abschalten.
 5. `pnpm exec wrangler deploy --dry-run --config dist/server/wrangler.json --outdir .wrangler/dry-run` prüft das Paket ohne Upload.
 6. Artefakt, Commit, Testergebnisse und offene Abweichungen in Linear referenzieren.
 

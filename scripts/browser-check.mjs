@@ -3,6 +3,11 @@ import { createRequire } from 'node:module';
 import { chromium } from 'playwright-core';
 
 const require = createRequire(import.meta.url);
+assert.equal(
+  require('playwright-core/package.json').version,
+  process.env.PLAYWRIGHT_VERSION,
+  'Run browser checks inside devenv; the Playwright client and Nix browsers must match'
+);
 const origin = new URL(process.argv[2] ?? 'http://127.0.0.1:8787');
 const routes = [
   '/',
