@@ -4,6 +4,8 @@
 .dev.vars*
 !.dev.vars.example
 node_modules/
+.devenv*
+devenv.local.nix
 dist/
 .astro/
 .taste-skill/

@@ -3,15 +3,16 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "pnpm types && astro dev",
-    "build": "pnpm types && astro check && astro build && node scripts/check-cloudflare-build.mjs",
-    "preview": "pnpm types && astro preview",
+    "dev": "vp run types && astro dev",
+    "build": "vp run types && astro check && astro build && node scripts/check-cloudflare-build.mjs",
+    "preview": "vp run types && astro preview",
     "test": "node --experimental-strip-types --test scripts/*.test.mjs",
     "test:smoke": "node scripts/smoke.mjs",
     "test:browser": "node scripts/browser-check.mjs",
     "test:preview": "bash scripts/check-preview.sh",
     "types": "wrangler types --env-file .dev.vars.example",
-    "quality": "pnpm test && vp check . && pnpm build",
+    "check": "vp run test && vp check . && vp run types && astro check",
+    "quality": "vp run check && vp run build",
     "prepare": "vp config"
   },
   "dependencies": {
@@ -31,7 +32,7 @@
     "astro-eslint-parser": "^2.1.0",
     "axe-core": "4.14.0",
     "eslint-plugin-astro": "^2.1.1",
-    "playwright-core": "1.60.0",
+    "playwright-core": "1.59.1",
     "postcss": "^8.5.26",
     "sharp": "^0.35.4",
     "tailwindcss": "^4.3.0",
@@ -39,7 +40,7 @@
     "vite-plus": "^0.2.2",
     "wrangler": "^4.126.0"
   },
-  "packageManager": "pnpm@11.9.0",
+  "packageManager": "pnpm@11.27.0",
   "engines": {
     "node": ">=22.12.0",
     "pnpm": ">=11"

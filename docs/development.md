@@ -6,22 +6,88 @@ AKG-57 übernimmt `web-konzerte` main `48c64ea` nach der zusammengeführten
 Stack-Migration PR #28. Die Versionen stammen aus dessen Lockfile:
 Astro 7.2.10, Cloudflare-Adapter 14.2.6, React-Integration 6.0.4, React 19.2.8,
 React Aria Components 1.20.0, Tailwind 4.3.2 via PostCSS und Vite+ 0.2.2.
-Node 22 und pnpm 11.9.0 werden mit mise gewählt. React bleibt für notwendige
-Islands verfügbar; native HTML-Interaktion hat Vorrang. Keine Konzert-/Mail-Logik
-und keine zusätzliche direkte Kalenderbibliothek werden übernommen.
+Die Entwicklungsumgebung nutzt devenv mit Node 22 und pnpm 11 aus Nix.
+React bleibt für notwendige Islands verfügbar; native HTML-Interaktion hat Vorrang.
+Keine Konzert-/Mail-Logik und keine zusätzliche direkte Kalenderbibliothek werden übernommen.
+
+[Nix](https://nix.dev/install-nix) und Bash bilden die Grundlage.
+[devenv](https://devenv.sh/getting-started/) darf global installiert sein;
+für diesen Einstieg die Nix-Features `nix-command` und `flakes` aktivieren.
+Globale persönliche Werkzeuge wie Pi, Node oder npm-Pakete sind erlaubt, aber
+keine Voraussetzung für Projektbefehle. Die devenv-Shell stellt alle benötigten
+Projektwerkzeuge und Laufzeitbibliotheken bereit; darin haben die Projektversionen Vorrang.
+
+Optional startet `./scripts/devenv.sh` devenv profilfrei über `nix run` aus der
+Nixpkgs-Revision in `devenv.lock`. Nur dieser Aufruf aktiviert die Nix-Features
+selbst. Der Starter ist eine lokale Komfortoption, kein projektübergreifender Standard;
+alle unten gezeigten `devenv`-Aufrufe funktionieren auch mit `./scripts/devenv.sh`.
+
+Das funktioniert ohne NixOS auf Linux und macOS; unter Windows ist WSL2 nötig.
+Nixpkgs 26.05 unterstützt x86_64 und ARM64 einschließlich Intel-Macs.
+Im Projektverzeichnis:
 
 ```sh
-mise trust
-mise install
-mise run deps
-mise run dev
+devenv up
 ```
 
-`mise.toml` pinnt die Werkzeuge; `vp` ist wie in der Referenz die Oberfläche;
-`package.json` enthält die Skripte. Installation mit bestehendem Lockfile:
-`mise exec -- pnpm install --frozen-lockfile`.
+`devenv.nix` stellt Node 22.23.4, pnpm 11.27.0, Bash, Coreutils, Git und curl
+bereit, unter Linux zusätzlich `ldd` für die Browser-Laufzeitprüfung.
+`devenv.yaml` und `devenv.lock` pinnen die Nix-Quellen. Der gemeinsame Nix-Store
+ist lediglich ein Paketcache; die Werkzeuge werden keinem globalen Profil hinzugefügt.
+JavaScript-Abhängigkeiten einschließlich Vite+ bleiben projektlokal in
+`package.json` und `pnpm-lock.yaml`. Beim Shell-Start werden keine npm-Pakete
+installiert. pnpm darf keine andere Paketmanager-Version nachladen
+(`pmOnFail: error`) und installiert Abhängigkeiten nicht implizit vor Skriptaufrufen
+(`verifyDepsBeforeRun: error`): Nicht synchronisierte Abhängigkeiten führen zum
+Abbruch statt zu einer automatischen Installation.
 
-Die lokale Website läuft auf `http://127.0.0.1:4321`. Keine Zugangsdaten sind
+Chromium und Headless Shell samt Laufzeitbibliotheken kommen aus
+`pkgs.playwright-driver.selectBrowsers`. Firefox, WebKit und FFmpeg werden nicht
+mitinstalliert, weil die vorhandenen Tests sie nicht benötigen. Fonts und Fontconfig
+kommen ebenfalls aus Nix. `PLAYWRIGHT_BROWSERS_PATH` verweist auf den Nix-Store,
+nicht auf einen globalen Browser oder den gemeinsamen Playwright-Downloadcache.
+Der lokale Playwright-Client ist passend zum bestehenden Nix-Pin auf **1.59.1**
+angeglichen. Der Browser-Test prüft diese Versionsgleichheit vor dem Start.
+Host-Abhängigkeitsprüfungen bleiben aktiviert; weder `playwright install` noch
+`--with-deps`, apt oder sudo sind Teil des Projekt-Setups.
+
+Auf Linux setzt devenv `MINIFLARE_WORKERD_PATH` auf einen Nix-Wrapper nach der
+`web-konzerte`-Referenz. Dieser löst das installierte Binary dynamisch über
+`wrangler → miniflare → workerd` auf und startet es mit dem Loader sowie libstdc++
+aus der gepinnten Nix-Toolchain. So funktioniert Workerd auch ohne die üblichen
+`/lib`-Loaderpfade. Weder npm-Binaries noch pnpm-Store oder Host werden verändert;
+die Workerd-Version bleibt exakt im pnpm-Lockfile fixiert. macOS verwendet keinen
+solchen Wrapper.
+
+devenv übernimmt auch die Projektbedienung: `devenv up` startet nach dem Setup
+den lokalen Entwicklungsserver; `devenv tasks run project:setup`, `project:check`,
+`project:build` und `project:quality` sind die gemeinsamen Aufgaben. Check, Build,
+Quality und Server hängen vom Frozen-Lockfile-Setup ab. Die JavaScript-Logik bleibt
+in den portablen Paket-Skripten. Die devenv-Aufgaben rufen dafür projektlokales
+`pnpm exec vp run <Aufgabe>` auf; auch die Skript-Verkettungen verwenden `vp run`.
+pnpm übernimmt Installation und Lockfile, `pnpm exec` startet lediglich das lokale
+VP-Binary. `vp install` und `vp env` werden nicht verwendet; zusätzlicher Task-Cache
+wird nicht eingeschaltet. Es gibt keinen zweiten JavaScript-Build-Graphen in Nix.
+Das Öffnen einer Shell löst weiterhin keine Installation aus.
+
+Der Server bindet an `127.0.0.1` und erhält einen freien Port ab 4321; die URL steht
+im Serverlog. Ctrl+C beendet den Vordergrund-Stack, `devenv processes down` einen
+mit `devenv up -d` gestarteten Hintergrund-Stack. Der Entwicklungsprozess ist bei
+`devenv test` ausgeschaltet, damit Build und Vorschau nicht mit einem zweiten
+Workerd-Prozess auf dieselbe lokale SQLite-Datei zugreifen.
+
+Die Setup-Installation richtet weiterhin den Vite+-Pre-Commit-Hook ein. Git-Kommandos im
+Terminal ebenfalls innerhalb der Projekt-Shell ausführen; devenv ergänzt keine
+zweiten Git-Hooks.
+
+Toolchain-Updates erfolgen mit `devenv update nixpkgs`. Anschließend
+Node-/pnpm-Version und `PLAYWRIGHT_VERSION` in der Shell prüfen, `packageManager`
+sowie `devDependencies.playwright-core` bei Bedarf angleichen und
+`devenv test --clean` ausführen. Änderungen an beiden Lockfiles
+bewusst prüfen und übernehmen.
+
+Die lokale Website läuft standardmäßig auf `http://127.0.0.1:4321`, bei belegtem
+Port auf dem im Serverlog genannten freien Folgeport. Keine Zugangsdaten sind
 für die Installation nötig. `.dev.vars.example` enthält einen leeren Token-Platzhalter
 und geschlossene Freigabeschalter. Der eingeschränkte WEB-AKG-Lesezugang wurde
 am 28.10.2026 ausschließlich für den Test in der ignorierten lokalen `.dev.vars`
@@ -33,7 +99,7 @@ die eingecheckte Worker-Konfiguration bleibt geschlossen. Das ist keine
 öffentliche Freigabe; den Entwicklungsserver ausschließlich an `127.0.0.1` binden. Niemals Token in Quellcode, Browservariablen (`PUBLIC_*`), Logs,
 Kommandoparameter oder Git übernehmen.
 
-`pnpm types` erzeugt `worker-configuration.d.ts` mit
+`pnpm exec vp run types` erzeugt `worker-configuration.d.ts` mit
 `wrangler types --env-file .dev.vars.example`; echte Secrets werden dabei nicht
 gelesen. Nach Änderungen an der Worker-Konfiguration erneut ausführen.
 
@@ -52,14 +118,26 @@ gelesen. Nach Änderungen an der Worker-Konfiguration erneut ausführen.
 
 ## Prüfungen
 
+Innerhalb von `devenv shell`:
+
 ```sh
-mise exec -- pnpm test
-mise exec -- pnpm build
-mise run quality
+pnpm exec vp run test
+pnpm exec vp run check
+pnpm exec vp run build
+pnpm exec vp run quality
 ```
 
+`devenv test --clean` führt mit bereinigter Umgebung zuerst die Aufgaben
+`project:setup` und `project:quality`, dann `pnpm exec vp run test:preview` aus.
+Das entspricht `pnpm install --frozen-lockfile`, `pnpm exec vp run quality` und dem
+bestehenden Preview-Gate.
+Damit gehören Installation, Build sowie das vollständige Browser-Gate zur selben
+projektgebundenen Entwicklungsumgebung. Das bedeutet eine eigenständig
+funktionierende Toolumgebung, keine Container- oder Sicherheitsisolation.
+
 `test` nutzt Node-Test-Runner und `assert`, ohne zusätzliches Testframework.
-`quality` führt Tests, `vp check .` sowie den Build aus. `build` generiert
+`check` führt Tests, `vp check .` und Astro-Typprüfung aus; `quality` ruft
+`vp run check` und `vp run build` auf. `build` generiert
 Bindings, prüft Astro/TypeScript, baut die Website und prüft die erzeugten
 Cloudflare-Dateien. Keine globale Formatierung fremder Arbeitsdateien:
 gezielt `pnpm exec vp fmt <Dateien>` verwenden.
@@ -70,12 +148,37 @@ aus Assets und fehlende Token-Bindings im öffentlichen Build. Das ist kein
 Nachweis einer vollständigen Geheimnisprüfung oder fachlichen Freigabe.
 
 Die GitHub-Action läuft nur für Pull Requests nach `main`, wie in der Referenz:
-Checkout, mise, `mise run ci` (Frozen-Lockfile-Installation und Quality).
-Zusätzlich installiert CI Chromium und startet mit `pnpm test:preview` kurzzeitig eine
-lokale gebaute Vorschau für HTTP-, axe- und Tastaturprüfungen. Keine Deployment-Jobs
+Checkout, Nix, devenv aus der gepinnten Nixpkgs-Revision und `devenv test --clean`.
+Das gemeinsame Gate umfasst die Frozen-Lockfile-Installation, Quality und eine
+kurzzeitige lokale gebaute Vorschau für HTTP-, axe- und Tastaturprüfungen.
+Nur der devenv-Einstieg wird ins CI-Profil installiert. Die Projektwerkzeuge,
+Browser und Bibliotheken kommen aus der Projekt-Shell; zusätzliche globale
+Node-/pnpm-/Browser-Installationen oder Hostpakete sind nicht nötig.
+Abschließend prüft CI, dass `devenv.lock` und `pnpm-lock.yaml` unverändert geblieben sind. Keine Deployment-Jobs
 oder Cloudflare-Zugangsdaten in GitHub Actions. Automatische Deployments übernimmt
 separat Cloudflare Workers Builds; dessen Build-Befehl führt ebenfalls `pnpm quality`
 aus. Die Browser-Prüfung bleibt im GitHub-PR-Gate.
+
+### Validierung der vollständigen devenv-Umgebung (2026-10-30)
+
+`./scripts/devenv.sh test --clean` ist auf ARM-Linux erfolgreich: Frozen-Lockfile-
+Installation, 22 Node-Tests, Format/Lint, Astro-Typprüfung, Produktions-Build,
+Cloudflare-Build-Grenzen und vollständiges Preview-/Browser-Gate. Beide Lockfiles
+blieben während des Gates unverändert. Alle verwendeten Projektprogramme wurden
+aus der Nix-Umgebung aufgelöst; globales Node, pnpm, devenv und Chromium waren nicht nötig.
+
+Auf ARM-Linux wurden die Nix-Browser tatsächlich ausgeführt: HTTP-/Smoke-Prüfungen,
+zwölf Seiten bei 320/390/768/1024/1440 px, axe ohne Verstöße, keine Clientfehler
+oder externen Ressourcen sowie Tastatur, JavaScript-freie Fallbacks,
+Bilddialog, reduzierte Bewegung und 200-%-Textgröße erfolgreich. Der frühere
+Blocker durch Ubuntu-Browser und fehlende Hostbibliotheken entfällt.
+
+Shell-Derivation, Playwright-Version und Browser-Set wurden für x86_64-Linux,
+ARM-macOS und Intel-macOS erfolgreich evaluiert, dort aber nicht gebaut oder
+ausgeführt. GitHub Actions und Cloudflare Workers Builds wurden nicht remote gestartet.
+Die Agent-Laufzeit benötigt weiterhin nur für den Testprozess das Entfernen ihrer
+unbrauchbaren `XDG_RUNTIME_DIR`-Vorgabe; das ist kein Projekt-Workaround.
+Tokens, Freigabeschalter und bestehende Browser-Assertions bleiben unverändert.
 
 ## Cloudflare-Build und lokale Laufzeit
 
@@ -105,28 +208,26 @@ Eine allgemeine Datumsaktualisierung muss zusammen mit dem Runtime-Upgrade gepr�
 Nach dem Build kann der tatsächliche Worker lokal geprüft werden:
 
 ```sh
-mise exec -- pnpm preview --host 127.0.0.1 --port 4321
+devenv shell -- pnpm exec vp run preview --host 127.0.0.1 --port 4321
 # In einem zweiten Terminal:
-node scripts/check-cloudflare-build.mjs --origin=http://127.0.0.1:4321
-node scripts/smoke.mjs http://127.0.0.1:4321
+devenv shell -- node scripts/check-cloudflare-build.mjs --origin=http://127.0.0.1:4321
+devenv shell -- node scripts/smoke.mjs http://127.0.0.1:4321
 ```
 
 Für den vollständigen, selbst startenden Vorschautest nach einem erfolgreichen Build:
 
 ```sh
-pnpm exec playwright-core install chromium
-pnpm test:preview
+devenv shell -- pnpm exec vp run test:preview
 ```
 
-Linux-Systembibliotheken bei Bedarf mit `pnpm exec playwright-core install --with-deps chromium`
-installieren (CI übernimmt dies). Port 8787 muss frei sein. Der Test beendet seinen
-Server auch bei Fehlern. `playwright-core` und `axe-core` sind ausschließlich
+Browser, Fonts und Bibliotheken stehen bereits in der Nix-Umgebung zur Verfügung.
+Port 8787 muss frei sein. Der Test beendet seinen Server auch bei Fehlern. `playwright-core` und `axe-core` sind ausschließlich
 Entwicklungsabhängigkeiten; weder Browser noch Auditbibliothek gelangen in die Website.
 
-`pnpm test:browser <URL>` prüft zwölf Seiten bei 320/390/768/1024/1440 px, axe WCAG
+`pnpm exec vp run test:browser <URL>` prüft zwölf Seiten bei 320/390/768/1024/1440 px, axe WCAG
 2.2 A/AA auf Mobil/Desktop, Skip-Link, Menütastatur, Escape, Fokus bei Breakpointwechsel,
 200-%-Textgröße, JavaScript-freie Navigation und das Ausbleiben externer Requests.
-Mit lokalen Live-Daten zusätzlich `EXPECT_LIVE_CHURCHTOOLS=1 pnpm test:preview`:
+Mit lokalen Live-Daten zusätzlich `EXPECT_LIVE_CHURCHTOOLS=1 pnpm exec vp run test:preview`:
 Dies verlangt tatsächlich gerenderte Angebote und Gottesdienste und prüft
 Teaser-Ziele, aufgeklappte Angebote, Suche/Nulltreffer und Zurücksetzen ohne JS.
 Ohne Token bleiben die Standardtests reproduzierbar mit geschlossenen Gates.
@@ -145,7 +246,7 @@ Produktions-Asset-Routing-Regeln nicht.
 Lokales Deployment-Paket prüfen, **ohne Upload oder Bereitstellung**:
 
 ```sh
-mise exec -- pnpm exec wrangler deploy --dry-run --config dist/server/wrangler.json --outdir .wrangler/dry-run
+devenv shell -- pnpm exec wrangler deploy --dry-run --config dist/server/wrangler.json --outdir .wrangler/dry-run
 ```
 
 `dist/` und `.wrangler/` sind generiert und werden nicht eingecheckt. Kein
@@ -174,6 +275,19 @@ Es gibt kein zweites Produkt `web-akg-preview` und kein Cloudflare-Pages-Projekt
 | Build-Cache                     | aktiviert                                                                                           |
 | Worker-Hauptadresse             | `workers_dev=false`, keine Domain/Route angebunden                                                  |
 | Version-URLs                    | `preview_urls=true`                                                                                 |
+
+Für einen direkten Vite+-Einstieg lautet der portable Build-Befehl
+`pnpm install --frozen-lockfile && pnpm exec vp run quality`. Der bisherige
+`pnpm quality`-Einstieg bleibt kompatibel: sein Skript delegiert jetzt intern an
+`vp run check && vp run build`.
+
+Die Tabelle dokumentiert den bereits eingerichteten Remote-Stand. Diese Migration
+ändert keine Cloudflare-Einstellungen. **Vor einem Cloudflare-Build mit dieser
+Toolchain müssen beide Trigger auf `PNPM_VERSION=11.27.0` und
+`NODE_VERSION=22.23.4` angeglichen werden.** Andernfalls verweigert pnpm wegen des
+Versionskonflikts zu `packageManager` die Installation, statt eine andere Version
+nachzuladen. Cloudflare Workers Builds verwendet weiterhin seine eigene
+Build-Umgebung, nicht devenv; die Worker-Runtime bleibt workerd.
 
 Es wird immer die **von Astro generierte** Konfiguration verwendet, nicht das
 ungebündelte `src/worker.ts`. Der Build-Befehl installiert mit Lockfile und prüft
@@ -213,6 +327,7 @@ Launch auf `akg-kiel.de` benötigt einen eigenen Auftrag samt Freigaben und Konf
 
 ## Quellen
 
+- [Playwright-Browserpakete im gepinnten Nixpkgs](https://github.com/NixOS/nixpkgs/blob/08d3a97586f6b6343b3b5e799980773629432610/pkgs/development/web/playwright/driver.nix)
 - [Workers Best Practices](https://developers.cloudflare.com/workers/best-practices/workers-best-practices/)
 - [Worker-first Asset-Routing](https://developers.cloudflare.com/workers/static-assets/routing/worker-script/)
 - [Wrangler-Konfiguration](https://developers.cloudflare.com/workers/wrangler/configuration/)
