@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { assertPreviewRobots } from './preview-headers.mjs';
 
 const origin = new URL(process.argv[2] ?? 'http://127.0.0.1:8787');
 const routes = [
@@ -24,11 +25,7 @@ const request = (path, init = {}) =>
 for (const route of routes) {
   const response = await request(route, { redirect: 'manual' });
   assert.equal(response.status, 200, `${route}: expected a usable page`);
-  assert.match(
-    response.headers.get('x-robots-tag') ?? '',
-    /noindex/,
-    `${route}: missing preview protection`
-  );
+  assertPreviewRobots(response.headers.get('x-robots-tag'), origin, route);
   const html = await response.text();
   if (route === '/gottesdienste' || route === '/aktuelles') {
     missingStatuses.set(
@@ -66,7 +63,7 @@ for (const route of routes) {
 
 const missing = await request('/nicht-vorhanden');
 assert.equal(missing.status, 404, 'Unknown routes must not turn into successful pages');
-assert.match(missing.headers.get('x-robots-tag') ?? '', /noindex/);
+assertPreviewRobots(missing.headers.get('x-robots-tag'), origin, '/nicht-vorhanden');
 for (const route of ['/gottesdienste/nicht-vorhanden', '/aktuelles/nicht-vorhanden']) {
   const response = await request(route);
   assert.equal(

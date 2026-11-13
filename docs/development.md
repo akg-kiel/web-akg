@@ -39,7 +39,9 @@ JavaScript-Abhängigkeiten einschließlich Vite+ bleiben projektlokal in
 installiert. pnpm darf keine andere Paketmanager-Version nachladen
 (`pmOnFail: error`) und installiert Abhängigkeiten nicht implizit vor Skriptaufrufen
 (`verifyDepsBeforeRun: error`): Nicht synchronisierte Abhängigkeiten führen zum
-Abbruch statt zu einer automatischen Installation.
+Abbruch statt zu einer automatischen Installation. `enableGlobalVirtualStore: false`
+hält das Installationslayout in CI und bereinigten devenv-Shells identisch. Der
+paketübergreifende Content-Addressable-Store bleibt als Downloadcache nutzbar.
 
 Chromium und Headless Shell samt Laufzeitbibliotheken kommen aus
 `pkgs.playwright-driver.selectBrowsers`. Firefox, WebKit und FFmpeg werden nicht
@@ -149,6 +151,9 @@ Nachweis einer vollständigen Geheimnisprüfung oder fachlichen Freigabe.
 
 Die GitHub-Action läuft nur für Pull Requests nach `main`, wie in der Referenz:
 Checkout, Nix, devenv aus der gepinnten Nixpkgs-Revision und `devenv test --clean`.
+Bei einem Fehler wiederholt CI den Preview-Test sichtbar in `devenv shell --clean`,
+weil devenv 2.1 dessen Ausgabe verschluckt. Der ursprüngliche Gate-Fehler bleibt
+auch dann ein Fehler, wenn der diagnostische Wiederholungslauf besteht.
 Das gemeinsame Gate umfasst die Frozen-Lockfile-Installation, Quality und eine
 kurzzeitige lokale gebaute Vorschau für HTTP-, axe- und Tastaturprüfungen.
 Nur der devenv-Einstieg wird ins CI-Profil installiert. Die Projektwerkzeuge,
@@ -156,8 +161,8 @@ Browser und Bibliotheken kommen aus der Projekt-Shell; zusätzliche globale
 Node-/pnpm-/Browser-Installationen oder Hostpakete sind nicht nötig.
 Abschließend prüft CI, dass `devenv.lock` und `pnpm-lock.yaml` unverändert geblieben sind. Keine Deployment-Jobs
 oder Cloudflare-Zugangsdaten in GitHub Actions. Automatische Deployments übernimmt
-separat Cloudflare Workers Builds; dessen Build-Befehl führt ebenfalls `pnpm quality`
-aus. Die Browser-Prüfung bleibt im GitHub-PR-Gate.
+separat Cloudflare Workers Builds. Dessen Vite+-Build prüft Framework-Typen und
+Worker-/Asset-Grenzen; Tests, Format/Lint und Browser-Prüfung liegen im GitHub-PR-Gate.
 
 ### Validierung der vollständigen devenv-Umgebung (2026-10-30)
 
@@ -179,6 +184,29 @@ ausgeführt. GitHub Actions und Cloudflare Workers Builds wurden nicht remote ge
 Die Agent-Laufzeit benötigt weiterhin nur für den Testprozess das Entfernen ihrer
 unbrauchbaren `XDG_RUNTIME_DIR`-Vorgabe; das ist kein Projekt-Workaround.
 Tokens, Freigabeschalter und bestehende Browser-Assertions bleiben unverändert.
+
+### CI-Umgebungswechsel und Preview-Header (2026-11-13)
+
+Der frische Diagnose-Push `d839649` erzeugte einen erfolgreichen Cloudflare-Build
+`d0b9edac-abc4-4cb6-87fb-fab5b5cf38e7`. GitHub-Lauf `43432535047` zeigte dagegen
+den zuvor versteckten Fehler: `ERR_PNPM_VERIFY_DEPS_BEFORE_RUN`, weil sich
+`enableGlobalVirtualStore` zwischen Installation mit `CI=true` und dem
+bereinigten Testprozess änderte. Der Fehler ist damit nicht x86-spezifisch:
+`CI=true devenv test --clean` reproduzierte ihn auch auf ARM-Linux.
+
+Die explizite Einstellung `enableGlobalVirtualStore: false` behebt diesen
+Layoutwechsel, ohne Abhängigkeitsprüfung, Frozen-Lockfile oder Browser-Gate zu
+umgehen. Derselbe lokale CI-Regressionslauf besteht danach mit 24 Tests,
+Format/Lint, Astro ohne Fehler/Warnungen, Build und vollständigem Preview-Gate.
+Der alte, vor der devenv-Migration gestagte Ubuntu-24.04-Pin wird nicht übernommen:
+Die Browser kommen jetzt aus Nix und benötigen keine Playwright-Hostinstallation.
+
+Cloudflare dokumentiert für `workers.dev`-Previews einen eigenen
+`X-Robots-Tag: noindex`. Die gemeinsamen HTTP-Prüfungen erlauben nur dort diesen
+Header oder die vollständige Anwendungsvorgabe `noindex, nofollow`. Lokal und auf
+Custom Domains bleibt die vollständige Vorgabe Pflicht; fehlendes `noindex` wird
+nirgends akzeptiert. Zwei Regressionstests sichern diese Unterscheidung ab.
+Der Worker und das HTML-Metatag bleiben unverändert bei `noindex, nofollow`.
 
 ## Cloudflare-Build und lokale Laufzeit
 
@@ -259,56 +287,63 @@ Die HTTP-Checks verlangen 404 auch für `/server/.dev.vars`, `/.dev.vars` und `/
 
 ## Cloudflare Workers Builds
 
-Am 2026-10-26 ausdrücklich beauftragt: Worker `web-akg`, Production-Branch `main`
-und automatische Previews für alle anderen Branches. Der Nutzer hat den Worker
-samt GitHub-Verbindung angelegt; die folgenden Einstellungen ergänzen diese Verbindung.
-Es gibt kein zweites Produkt `web-akg-preview` und kein Cloudflare-Pages-Projekt.
+Seit der Einrichtung am 2026-10-26: Worker `web-akg`, Production-Branch `main`
+und automatische Branch-Previews. Es gibt kein zweites Produkt `web-akg-preview`
+und kein Cloudflare-Pages-Projekt. Die folgende Tabelle beschreibt die gewünschte
+Konfiguration nach dem devenv-Abgleich, keine erneute API-Rücklese aller Remote-Werte.
 
-| Einstellung                     | Wert                                                                                                |
-| ------------------------------- | --------------------------------------------------------------------------------------------------- |
-| Repository                      | `akg-kiel/web-akg`                                                                                  |
-| Root directory                  | `/`                                                                                                 |
-| Build-Befehl (beide Trigger)    | `pnpm install --frozen-lockfile && pnpm quality`                                                    |
-| Production                      | Nur `main`; `pnpm exec wrangler deploy --config dist/server/wrangler.json`                          |
-| Preview                         | Alle Branches außer `main`; `pnpm exec wrangler versions upload --config dist/server/wrangler.json` |
-| Build-Variablen (beide Trigger) | `NODE_VERSION=22.23.2`, `PNPM_VERSION=11.9.0`, `SKIP_DEPENDENCY_INSTALL=1`                          |
-| Build-Cache                     | aktiviert                                                                                           |
-| Worker-Hauptadresse             | `workers_dev=false`, keine Domain/Route angebunden                                                  |
-| Version-URLs                    | `preview_urls=true`                                                                                 |
+| Einstellung         | Wert                                                                      |
+| ------------------- | ------------------------------------------------------------------------- |
+| Repository          | `akg-kiel/web-akg`                                                        |
+| Root directory      | `/`                                                                       |
+| Build-Befehl        | `pnpm exec vp run build`, wenn die automatische Installation aktiv ist    |
+| Production          | Nur `main`; `pnpm exec wrangler deploy`                                   |
+| Preview             | Alle Branches außer `main`; `pnpm exec wrangler preview`                  |
+| Toolchain           | `PNPM_VERSION=11.27.0`; Node 22 passend zur Projektumgebung, dort 22.23.4 |
+| Build-Cache         | aktiviert                                                                 |
+| Worker-Hauptadresse | `workers_dev=false`, keine Domain/Route angebunden                        |
+| Version-URLs        | `preview_urls=true`                                                       |
 
-Für einen direkten Vite+-Einstieg lautet der portable Build-Befehl
-`pnpm install --frozen-lockfile && pnpm exec vp run quality`. Der bisherige
-`pnpm quality`-Einstieg bleibt kompatibel: sein Skript delegiert jetzt intern an
-`vp run check && vp run build`.
+Wenn `SKIP_DEPENDENCY_INSTALL=1` gesetzt ist, muss der Build-Befehl selbst installieren:
 
-Die Tabelle dokumentiert den bereits eingerichteten Remote-Stand. Diese Migration
-ändert keine Cloudflare-Einstellungen. **Vor einem Cloudflare-Build mit dieser
-Toolchain müssen beide Trigger auf `PNPM_VERSION=11.27.0` und
-`NODE_VERSION=22.23.4` angeglichen werden.** Andernfalls verweigert pnpm wegen des
-Versionskonflikts zu `packageManager` die Installation, statt eine andere Version
-nachzuladen. Cloudflare Workers Builds verwendet weiterhin seine eigene
-Build-Umgebung, nicht devenv; die Worker-Runtime bleibt workerd.
+```sh
+pnpm install --frozen-lockfile && pnpm exec vp run build
+```
 
-Es wird immer die **von Astro generierte** Konfiguration verwendet, nicht das
-ungebündelte `src/worker.ts`. Der Build-Befehl installiert mit Lockfile und prüft
-Tests, Format/Lint, Typen und Worker/Assets-Grenzen, bevor ein Upload erfolgen kann.
+Ein wiederhergestellter Cache ersetzt keine Installation. Der fehlgeschlagene Lauf
+`84e5e34e-ec2d-4475-8558-e4b57d836b1a` vom 03.11.2026 übersprang sie und brach
+bereits vor Astro mit `ERR_PNPM_VERIFY_DEPS_BEFORE_RUN` ab. pnpm 11.27.0 entsprach
+in diesem Log schon `packageManager`; Node 22.23.2 erfüllte die Projektanforderung.
+Das war kein erneuter Astro-Virtual-Module-Fehler. Ältere Oktober-Läufe hatten
+dagegen die Astro-Kompilierung selbst übersprungen. Ein grüner Parallelpfad belegt
+nicht die Korrektur des roten Pfads. Alle Check-Runs mit `?filter=all` prüfen und
+Start-/Abschlussmeldungen derselben Build-ID nicht doppelt zählen.
+
+Cloudflare verwendet seine eigene Build-Umgebung, nicht devenv; die Worker-Runtime
+bleibt workerd. Nach erfolgreichem Astro-Build findet Wrangler automatisch
+`dist/server/wrangler.json` über `.wrangler/deploy/config.json`. Ein explizites
+`--config` ist nicht erforderlich; ungebündeltes `src/worker.ts` ist kein Ersatz.
+`pnpm exec vp run wrangler preview` ist keine definierte Projektaufgabe; Wrangler
+wird direkt mit `pnpm exec wrangler preview` aufgerufen. Die Aufgabe `preview`
+allein startet dagegen nur einen lokalen Astro-Server.
+
 Der vorhandene, vom Nutzer gewählte Cloudflare-Build-Token bleibt in Cloudflare;
 keine Kopie in GitHub, Quelltext oder öffentlichen Build-Artefakten.
 
-Die gepinnte Wrangler-Version und die `web-konzerte`-Referenz verwenden
-**Version-Previews**: `versions upload` aktiviert die neue Version nicht als
-Production-Deployment. Dies sind keine isolierten Worker-Previews; Bindings und
-Ressourcen können mit Production geteilt sein. Derzeit sind keine Laufzeit-Secrets
-oder sensiblen Bindings eingerichtet. Vor deren Ergänzung separate Preview-Bindings
-bzw. eine getrennte Umgebung festlegen. Der API-Token für die Einrichtung gehört
-nicht in Build-Variablen oder Laufzeit-Secrets.
+Der aktuelle Branch-Pfad erzeugt **Worker Previews**, ohne Production zu aktivieren.
+Der historische `versions upload`-Pfad erzeugt dagegen **Version-URLs**, deren
+Bindings und Ressourcen mit Production geteilt sein können. Diese Modelle nicht
+verwechseln oder ungeprüft gegeneinander austauschen. Vor Laufzeit-Secrets immer
+die tatsächlichen Preview-Bindings und die Ressourcenisolation prüfen. Der
+API-Token für die Einrichtung gehört nicht in Build-Variablen oder Laufzeit-Secrets.
 
-**Erster Preview-Build:** Der Nutzer hat Commit und Push des MVP auf
-`t3/build-web-akg-mvp` autorisiert. Der Push soll den Preview-Trigger auslösen;
-Build-Ergebnis, Version und HTTP-Abnahme werden in AKG-54 dokumentiert. Eine
-Trigger-Einrichtung allein ist kein erfolgreicher Remote-E2E-Build.
-Remote-`main` enthält bei diesem Stand weiterhin nur Dokumentation. Ein Merge nach
-`main` löst Production aus und ist nicht Teil des Preview-Auftrags.
+Der erste MVP-Preview-Push erfolgte am 26.10.2026 auf `t3/build-web-akg-mvp`.
+Die aktive Arbeit liegt jetzt in PR #4 auf `t3/akg-127-taste-redesign`; die alten
+übernommenen Remote-Branches wurden bereinigt. Build-Ergebnis, konkrete Version
+und HTTP-Abnahme werden in AKG-54 dokumentiert. Eine Trigger-Einrichtung allein
+ist kein erfolgreicher Remote-E2E-Build. Remote-`main` enthält weiterhin nur
+Dokumentation. Ein Merge nach `main` löst Production aus und benötigt einen
+eigenen Auftrag.
 
 `akg-kiel.de`, DNS, `SERVICES_APPROVED=false` und die Anwendungsschutzregeln bleiben
 unverändert. Auch Production-Builds bleiben bis zur gesonderten Launch-Freigabe
@@ -335,7 +370,10 @@ Launch auf `akg-kiel.de` benötigt einen eigenen Auftrag samt Freigaben und Konf
 - [Workers Builds: Konfiguration](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/)
 - [Workers Builds: Branches](https://developers.cloudflare.com/workers/ci-cd/builds/build-branches/)
 - [Build-Image und Toolversionen](https://developers.cloudflare.com/workers/ci-cd/builds/build-image/)
+- [Worker Previews und ihr noindex-Header](https://developers.cloudflare.com/workers/previews/)
 - [Version-URLs](https://developers.cloudflare.com/workers/versions-and-deployments/version-urls/)
+- [pnpm: Global Virtual Store](https://pnpm.io/settings/node-modules#enableglobalvirtualstore)
+- [devenv 2.1: verschluckte Testausgabe](https://github.com/cachix/devenv/issues/2939)
 
 Zusätzlich wurden das installierte `wrangler/config-schema.json` und die
 mit Wrangler generierten Runtime-Typen geprüft.

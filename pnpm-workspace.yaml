@@ -2,6 +2,8 @@
 pmOnFail: error
 # Keep dependency installation explicit and the CI lockfile check read-only.
 verifyDepsBeforeRun: error
+# CI changes pnpm's default; clean devenv shells must use the same install layout.
+enableGlobalVirtualStore: false
 
 allowBuilds:
   esbuild: true

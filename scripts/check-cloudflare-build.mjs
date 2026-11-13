@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { access, readFile, readdir } from 'node:fs/promises';
 import { join, relative } from 'node:path';
+import { assertPreviewRobots } from './preview-headers.mjs';
 
 const source = JSON.parse(await readFile('wrangler.jsonc', 'utf8'));
 const built = JSON.parse(await readFile('dist/server/wrangler.json', 'utf8'));
@@ -66,7 +67,7 @@ if (origin) {
       redirect: 'manual',
       signal: AbortSignal.timeout(10_000)
     });
-    assert.equal(response.headers.get('x-robots-tag'), 'noindex, nofollow', path);
+    assertPreviewRobots(response.headers.get('x-robots-tag'), origin, path);
     assert.equal(response.headers.get('x-content-type-options'), 'nosniff', path);
     assert.equal(response.headers.get('x-frame-options'), 'DENY', path);
     assert.equal(response.headers.get('referrer-policy'), 'strict-origin-when-cross-origin', path);

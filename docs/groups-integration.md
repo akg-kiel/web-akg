@@ -1,7 +1,9 @@
 # AKG-63 · Gruppen und lokale ChurchTools-Anbindung
 
 Stand: 28.10.2026 · Website AKG · Meilenstein „3 · MVP: Kernwebsite“.
-Basis: `a29a563` auf `t3/akg-127-taste-redesign`; diese Erweiterung ist uncommitted.
+Implementierung: `bc8149c` auf `t3/akg-127-taste-redesign` (committed).
+Die folgenden Live-Prüfungen und Zugriffszahlen beziehen sich auf den 28.10.2026,
+nicht auf eine neue öffentliche Freigabe.
 
 ## Auftrag und Umfang
 
@@ -57,4 +59,4 @@ Die zwei Warnungen `no-footage`/`still-page` bleiben bewusst: kein sachfremdes V
 
 AKG-74 muss weiterhin Aktualität, Kontaktwege, Termine und die fachlich freigegebene Auswahl klären; ein öffentlich lesbarer Gruppenname allein ist keine Eignungsentscheidung.
 
-Kein Commit, Push, Merge, Deployment, DNS-/Rechtewechsel oder Ticket-Abschluss. Safari/Firefox, echte Screenreader/Geräte und die öffentliche Betriebsumgebung sind nicht geprüft.
+Der hier dokumentierte lokale Live-Test umfasste keinen Commit, Push, Merge, Deployment, DNS-/Rechtewechsel oder Ticket-Abschluss; die technische Implementierung wurde anschließend als `bc8149c` übernommen. Safari/Firefox, echte Screenreader/Geräte und die öffentliche Betriebsumgebung sind damit nicht geprüft.
