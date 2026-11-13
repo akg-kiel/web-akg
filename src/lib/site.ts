@@ -52,6 +52,18 @@ const timeFormat = new Intl.DateTimeFormat('de-DE', {
   timeStyle: 'short'
 });
 
+const timeWithOffsetFormat = new Intl.DateTimeFormat('de-DE', {
+  timeZone: 'Europe/Berlin',
+  hour: '2-digit',
+  minute: '2-digit',
+  timeZoneName: 'shortOffset'
+});
+
+export function formatNewsExcerpt(body: string) {
+  const characters = Array.from(body);
+  return characters.length > 220 ? characters.slice(0, 220).join('') + '…' : body;
+}
+
 export function formatDate(value: string) {
   const date = new Date(value);
   return Number.isFinite(date.getTime()) ? dateFormat.format(date) : 'Datum nicht verfügbar';
@@ -88,7 +100,15 @@ export function formatServiceTime(event: { start: string; end: string; allDay: b
 
   const first = dateFormat.format(start);
   const last = dateFormat.format(end);
-  return first === last
-    ? `${first} · ${timeFormat.format(start)}–${timeFormat.format(end)} Uhr`
-    : `${first}, ${timeFormat.format(start)} Uhr bis ${last}, ${timeFormat.format(end)} Uhr`;
+  if (first === last) {
+    const startOffset = timeWithOffsetFormat
+      .formatToParts(start)
+      .find((part) => part.type === 'timeZoneName')?.value;
+    const endOffset = timeWithOffsetFormat
+      .formatToParts(end)
+      .find((part) => part.type === 'timeZoneName')?.value;
+    const format = startOffset === endOffset ? timeFormat : timeWithOffsetFormat;
+    return `${first} · ${format.format(start)}–${format.format(end)} Uhr`;
+  }
+  return `${first}, ${timeFormat.format(start)} Uhr bis ${last}, ${timeFormat.format(end)} Uhr`;
 }

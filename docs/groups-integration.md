@@ -33,8 +33,8 @@ Nur Loopback-Vorschau verwenden. `noindex` ist keine Zugangskontrolle. Ein öffe
 - Auch die vorhandenen News werden mit dem echten eingeschränkten Zugang in der lokalen SSR-Vorschau ausgegeben; ihr Datenvertrag bleibt unverändert.
 - Die aktive Status-ID 1 wurde einmalig in den nativen `groupStatuses`-Stammdaten als `active` verifiziert; die Anwendung fragt keine Personen-Stammdaten ab.
 - Der erste echte Worker-Test deckte einen vorbestehenden Fehler auf: Workers akzeptiert `redirect: 'error'` nicht. Alle ChurchTools-Abrufe verwenden jetzt `manual`, prüfen Status und folgen keinem Redirect. Kein Abschwächen des Token-/Origin-Schutzes.
-- Gruppen nutzen höchstens 30 Minuten frischen Cache. Jeder fehlgeschlagene Refresh (auch Typabfrage) löscht den alten Gruppencache; kein stale-if-error für Gruppen. Dies wurde nach unabhängigem Review zusätzlich abgesichert.
-- Datenabhängiges HTML ist `no-store`; Suchbegriffe fließen nicht in die API-Abfragen oder Cache-Schlüssel. Optionales Enddatum wird auch beim Lesen des frischen Caches erneut geprüft.
+- **Aktueller Stand nach Review-Korrektur am 13.11.2026:** News, Gruppen und Gottesdienste verwenden keine Snapshot-Caches mehr. Überlappende Refreshes dürfen neuere Freigabeentzüge nicht durch alte Antworten überschreiben; ohne Quellrevision/atomare Cache-Ordnung wird jeder Abruf frisch geprüft und bei Fehlern geschlossen abgebrochen. Dies ersetzt die frühere 30-Minuten-Regel, siehe [ChurchTools-Vertrag](churchtools.md#cache-vertrag).
+- Datenabhängiges HTML ist `no-store`; Suchbegriffe fließen nicht in die API-Abfragen. Das optionale Enddatum wird vor jeder Rückgabe geprüft.
 
 ## Prüfung
 

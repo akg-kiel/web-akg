@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { access, readFile, readdir } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import { assertPreviewRobots } from './preview-headers.mjs';
+import { withheldPhotoNames } from '../src/lib/photos.mjs';
 
 const source = JSON.parse(await readFile('wrangler.jsonc', 'utf8'));
 const built = JSON.parse(await readFile('dist/server/wrangler.json', 'utf8'));
@@ -34,10 +35,16 @@ assert(
   'Expected prerendered public pages'
 );
 for (const path of publicFiles) {
+  assert(
+    !withheldPhotoNames.some((name) => path.startsWith(`images/${name}-`)),
+    `${path}: unapproved photo in public build`
+  );
   assert(!/(^|\/)(?:wrangler\.[^/]+|\.dev\.vars[^/]*|\.env[^/]*)$/.test(path), path);
   if (/\.(?:html|js|css|json|map|txt|xml)$/.test(path)) {
     const content = await readFile(join('dist', path), 'utf8');
     assert.doesNotMatch(content, /CHURCHTOOLS_TOKEN/, path);
+    for (const name of withheldPhotoNames)
+      assert(!content.includes(`/images/${name}-`), `${path}: unapproved photo reference`);
     if (path.endsWith('.html')) {
       assert.match(content, /<html[^>]+lang="de"/, `${path}: expected actual German HTML`);
       assert.match(content, /<main\b/, `${path}: missing rendered main landmark`);
@@ -61,7 +68,10 @@ if (origin) {
     '/server/wrangler.json',
     '/server/.dev.vars',
     '/.dev.vars',
-    '/.env'
+    '/.env',
+    ...withheldPhotoNames.flatMap((name) =>
+      [640, 960, 1280].map((width) => `/images/${name}-${width}.webp`)
+    )
   ]) {
     const response = await fetch(new URL(path, origin), {
       redirect: 'manual',
@@ -82,7 +92,11 @@ if (origin) {
       assert.equal(location.pathname, '/angebote');
       assert.equal(location.search, '?q=preview');
     }
-    if (['/__missing__', '/.dev.vars', '/.env'].includes(path) || path.startsWith('/server/'))
+    if (
+      ['/__missing__', '/.dev.vars', '/.env'].includes(path) ||
+      path.startsWith('/server/') ||
+      withheldPhotoNames.some((name) => path.startsWith(`/images/${name}-`))
+    )
       assert.equal(response.status, 404, path);
     if (response.headers.get('content-type')?.includes('text/html')) {
       assert.match(

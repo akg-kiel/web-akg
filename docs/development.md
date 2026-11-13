@@ -164,6 +164,23 @@ oder Cloudflare-Zugangsdaten in GitHub Actions. Automatische Deployments überni
 separat Cloudflare Workers Builds. Dessen Vite+-Build prüft Framework-Typen und
 Worker-/Asset-Grenzen; Tests, Format/Lint und Browser-Prüfung liegen im GitHub-PR-Gate.
 
+### Review-Regressionsgate (2026-11-13)
+
+`test:preview` prüft zuerst den unveränderten öffentlichen Build: fehlende Tokens,
+geschlossene Datenfreigaben und 404 für alle zwölf nicht freigegebenen Fotovarianten.
+Danach wird dieser Server beendet. `scripts/check-offer-preview.mjs` kopiert nur
+explizit benannte Quell-/Konfigurationsdateien in ein wegwerfbares Tempverzeichnis;
+keine `.dev.vars`, Secrets, Repository-Metadaten oder vorhandenen Build-Artefakte.
+
+Nur diese Kopie erhält drei synthetische Angebote und lokale Entwurfsfotos. Ihr
+Worker hat einen separaten Namen, deaktivierte Preview-URLs und einen ausschließlich
+an `127.0.0.1:8788` gebundenen Server. Die echten Quellen und Deployment-Artefakte
+bleiben unverändert; die Kopie wird nach der Prüfung gelöscht. Keine Fixtures oder
+Testschalter im produktiven Inhaltspfad. Der zweite Browserlauf prüft alle drei
+Teaser-Ziele, native No-JS-Details, namens- und beschreibungsbasierte GET-Suche,
+Nulltreffer/Rückkehr sowie weiterhin den privaten Fotodialog inklusive Fallbacks.
+Damit bleiben diese Pfade auch bei geschlossenen öffentlichen Gates in CI abgedeckt.
+
 ### Validierung der vollständigen devenv-Umgebung (2026-10-30)
 
 `./scripts/devenv.sh test --clean` ist auf ARM-Linux erfolgreich: Frozen-Lockfile-

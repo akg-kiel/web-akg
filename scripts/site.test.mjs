@@ -7,6 +7,7 @@ import {
   detailPath,
   sourceIdFromPath,
   formatDate,
+  formatNewsExcerpt,
   formatServiceTime,
   externalLinks
 } from '../src/lib/site.ts';
@@ -37,23 +38,55 @@ test('navigation and stable source identifiers do not depend on titles', () => {
   }
 });
 
+test('the footer uses native document-top navigation and preserves the content skip link', async () => {
+  const footer = await readFile(new URL('../src/components/Footer.astro', import.meta.url), 'utf8');
+  const layout = await readFile(new URL('../src/layouts/Layout.astro', import.meta.url), 'utf8');
+  assert.match(footer, /<a href="#">Zum Seitenanfang <span aria-hidden="true">↑<\/span><\/a>/);
+  assert.match(layout, /class="skip-link" href="#inhalt"/);
+  assert.match(layout, /<main id="inhalt" tabindex="-1">/);
+});
+
+test('news excerpts count Unicode code points without splitting supplementary characters', () => {
+  for (const body of ['', 'Kurz', 'a'.repeat(220), '😀'.repeat(220), 'a'.repeat(219) + '😀']) {
+    assert.equal(formatNewsExcerpt(body), body);
+  }
+  assert.equal(formatNewsExcerpt('a'.repeat(219) + '😀 Ende'), 'a'.repeat(219) + '😀…');
+  assert.equal(formatNewsExcerpt('😀'.repeat(221)), '😀'.repeat(220) + '…');
+});
+
 test('German service times follow Berlin DST and all-day exclusive end semantics', () => {
   assert.match(formatDate('2026-10-26T23:30:00Z'), /Dienstag, 27\. Oktober 2026/);
-  assert.match(
+  assert.equal(
     formatServiceTime({
       start: '2026-01-25T09:00:00Z',
       end: '2026-01-25T10:00:00Z',
       allDay: false
     }),
-    /10:00–11:00 Uhr/
+    'Sonntag, 25. Januar 2026 · 10:00–11:00 Uhr'
   );
-  assert.match(
+  assert.equal(
     formatServiceTime({
       start: '2026-07-26T08:00:00Z',
       end: '2026-07-26T09:00:00Z',
       allDay: false
     }),
-    /10:00–11:00 Uhr/
+    'Sonntag, 26. Juli 2026 · 10:00–11:00 Uhr'
+  );
+  assert.equal(
+    formatServiceTime({
+      start: '2026-10-25T00:50:00Z',
+      end: '2026-10-25T01:10:00Z',
+      allDay: false
+    }),
+    'Sonntag, 25. Oktober 2026 · 02:50 GMT+2–02:10 GMT+1 Uhr'
+  );
+  assert.equal(
+    formatServiceTime({
+      start: '2026-03-29T00:50:00Z',
+      end: '2026-03-29T01:10:00Z',
+      allDay: false
+    }),
+    'Sonntag, 29. März 2026 · 01:50 GMT+1–03:10 GMT+2 Uhr'
   );
   assert.equal(
     formatServiceTime({ start: '2026-03-28T23:00:00Z', end: '2026-03-29T22:00:00Z', allDay: true }),

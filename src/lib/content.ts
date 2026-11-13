@@ -11,9 +11,7 @@ function options() {
   return {
     token: bindings.CHURCHTOOLS_TOKEN,
     servicesApproved: bindings.SERVICES_APPROVED === 'true',
-    groupsApproved: bindings.GROUPS_APPROVED === 'true',
-    cache:
-      typeof caches !== 'undefined' && 'default' in caches ? (caches.default as Cache) : undefined
+    groupsApproved: bindings.GROUPS_APPROVED === 'true'
   };
 }
 
@@ -26,6 +24,5 @@ export function loadGroups() {
 }
 
 export function loadNews() {
-  const { token, cache } = options();
-  return getNews({ token, cache });
+  return getNews({ token: options().token });
 }

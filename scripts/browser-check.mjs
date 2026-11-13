@@ -9,6 +9,8 @@ assert.equal(
   'Run browser checks inside devenv; the Playwright client and Nix browsers must match'
 );
 const origin = new URL(process.argv[2] ?? 'http://127.0.0.1:8787');
+const fixtures = process.env.EXPECT_OFFER_FIXTURES === '1';
+const expectedPhotoCount = fixtures ? 3 : 0;
 const routes = [
   '/',
   '/gottesdienste',
@@ -76,14 +78,21 @@ try {
       );
       if (route === '/') {
         // The settling image scales inside its clipped frame; measure the visible photo area.
-        const heroImage = await page.locator('.welcome-photo .photo-frame').boundingBox();
+        const heroImage = fixtures
+          ? await page.locator('.welcome-photo .photo-frame').boundingBox()
+          : null;
         const hero = await page.locator('.welcome-hero').boundingBox();
-        assert.ok(heroImage && hero, 'Homepage hero must be visible');
-        assert.ok(
-          heroImage.height <= 450 && (width < 768 || hero.height <= 600),
-          'Keep the hero photograph compact, not a full-screen building'
-        );
-        if (width >= 768) {
+        assert.ok(hero, 'Homepage hero must be visible');
+        assert.ok(width < 768 || hero.height <= 600, 'Keep the invitation compact');
+        if (fixtures)
+          assert.ok(heroImage && heroImage.height <= 450, 'Private draft photograph stays compact');
+        else
+          assert.equal(
+            await page.locator('.welcome-photo').count(),
+            0,
+            'Unapproved community photographs must not render in public builds'
+          );
+        if (fixtures && width >= 768) {
           const copy = await page.locator('.welcome-copy').boundingBox();
           assert.ok(copy && copy.x + copy.width <= heroImage.x, 'Text must sit beside the photo');
           assert.ok(heroImage.width <= width / 2, 'Hero photo uses at most half the desktop width');
@@ -145,6 +154,8 @@ try {
     ),
     'Offers without optional source fields need an honest empty state'
   );
+  if (fixtures)
+    assert.equal(offerCount, 3, 'The default fixture gate must exercise populated offers');
   if (process.env.EXPECT_LIVE_CHURCHTOOLS === '1') {
     assert.ok(offerCount > 0, 'Live offer data must reach the SSR page');
     await offerPage.goto(new URL('/gottesdienste', origin).href);
@@ -160,13 +171,27 @@ try {
       viewport: { width: 390, height: 844 }
     });
     const offersPage = await noScriptOffers.newPage();
+    for (let index = 0; index < Math.min(3, offerCount); index++) {
+      await offersPage.goto(origin.href);
+      assert.equal(await offersPage.locator('.offer-preview a').count(), Math.min(3, offerCount));
+      const teaser = offersPage.locator('.offer-preview a').nth(index);
+      const id = new URL(await teaser.getAttribute('href'), origin).searchParams.get('angebot');
+      await teaser.click();
+      assert.equal(await offersPage.locator('.offer-detail[open]').count(), 1);
+      assert.equal(
+        await offersPage.locator('.offer-detail[open]').getAttribute('id'),
+        `angebot-${id}`,
+        'Every teaser must open its own disclosure without JavaScript'
+      );
+    }
     await offersPage.goto(origin.href);
-    const teaser = offersPage.locator('.offer-preview a').first();
-    assert.equal(await offersPage.locator('.offer-preview a').count(), Math.min(3, offerCount));
-    await teaser.click();
+    await offersPage.locator('.offer-preview a').first().click();
     const selected = offersPage.locator('.offer-detail[open]');
-    assert.equal(await selected.count(), 1, 'Teaser must open its matching offer without JS');
     const name = await selected.locator('h3').innerText();
+    const description = (await selected.locator('.offer-description').allTextContents()).join(' ');
+    const descriptionWord = description
+      ?.match(/[\p{L}\p{N}]{5,}/gu)
+      ?.find((word) => !name.toLocaleLowerCase('de').includes(word.toLocaleLowerCase('de')));
     await selected.locator('summary').focus();
     await offersPage.keyboard.press('Enter');
     assert.equal(await offersPage.locator('.offer-detail[open]').count(), 0);
@@ -181,6 +206,19 @@ try {
     ]);
     assert.ok((await offersPage.locator('.offer-detail').count()) > 0);
     assert.ok((await offersPage.locator('.offer-detail').count()) <= offerCount);
+    if (fixtures)
+      assert.ok(descriptionWord, 'Fixture search term must occur only in the description');
+    if (descriptionWord) {
+      await searchInput.fill(descriptionWord);
+      await Promise.all([
+        offersPage.waitForURL((url) => url.searchParams.get('q') === descriptionWord),
+        searchInput.press('Enter')
+      ]);
+      assert.ok(
+        (await offersPage.locator('.offer-detail h3').allTextContents()).includes(name),
+        'Description-only matches must survive the SSR search'
+      );
+    }
     await offersPage.locator('input[name=q]').fill('zzzz-no-matching-offer-0000');
     await Promise.all([
       offersPage.waitForURL((url) => url.searchParams.get('q') === 'zzzz-no-matching-offer-0000'),
@@ -237,8 +275,8 @@ try {
   await page.goto(origin.href);
   await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
   const photoLinks = page.locator('[data-enlarge]');
-  assert.equal(await photoLinks.count(), 3);
-  for (let index = 0; index < 3; index++) {
+  assert.equal(await photoLinks.count(), expectedPhotoCount);
+  for (let index = 0; index < expectedPhotoCount; index++) {
     const opener = photoLinks.nth(index);
     const imageUrl = await opener.getAttribute('href');
     await opener.focus();
@@ -326,10 +364,12 @@ try {
     assert.equal(await opener.evaluate((link) => link === document.activeElement), true);
   }
 
-  for (const viewport of [
-    { width: 390, height: 844 },
-    { width: 844, height: 390 }
-  ]) {
+  for (const viewport of fixtures
+    ? [
+        { width: 390, height: 844 },
+        { width: 844, height: 390 }
+      ]
+    : []) {
     await page.setViewportSize(viewport);
     await page.evaluate(() => {
       document.documentElement.style.fontSize = '200%';
@@ -368,21 +408,25 @@ try {
     viewport: { width: 320, height: 844 }
   });
   const basic = await noJavaScript.newPage();
-  await basic.route('**/images/gemeinde-gespraech-*.webp', (route) => route.abort());
+  if (fixtures) await basic.route('**/images/gemeinde-gespraech-*.webp', (route) => route.abort());
   await basic.goto(origin.href);
-  assert.ok(
-    await basic.locator('.photo-conversation img').evaluate((image) => {
-      const box = image.getBoundingClientRect();
-      return box.height > 0 && Math.abs(box.width / box.height - 1.5) < 0.01;
-    }),
-    'Reserve the community photo ratio before the lazy image loads'
-  );
-  await basic.unroute('**/images/gemeinde-gespraech-*.webp');
+  if (fixtures)
+    assert.ok(
+      await basic.locator('.photo-conversation img').evaluate((image) => {
+        const box = image.getBoundingClientRect();
+        return box.height > 0 && Math.abs(box.width / box.height - 1.5) < 0.01;
+      }),
+      'Reserve the community photo ratio before the lazy image loads'
+    );
+  if (fixtures) await basic.unroute('**/images/gemeinde-gespraech-*.webp');
   await basic.locator('summary').click();
   assert.equal(await basic.locator('nav[aria-label="Hauptnavigation mobil"] a').count(), 5);
   assert.equal(await basic.locator('nav[aria-label="Hauptnavigation mobil"]').isVisible(), true);
   await basic.locator('summary').click();
-  for (let index = 0; index < 3; index++) {
+  await basic.getByRole('link', { name: 'Zum Seitenanfang' }).focus();
+  await basic.keyboard.press('Enter');
+  await basic.waitForFunction(() => window.scrollY <= 1);
+  for (let index = 0; index < expectedPhotoCount; index++) {
     await basic.goto(origin.href);
     const link = basic.locator('[data-enlarge]').nth(index);
     const imageUrl = new URL(await link.getAttribute('href'), origin).href;
@@ -432,7 +476,8 @@ try {
         thirdPartyRequests: [...thirdPartyRequests],
         keyboard: 'passed',
         noJavaScriptMenu: 'passed',
-        photoViewerAndFallback: 'passed',
+        photoViewerAndFallback: fixtures ? 'passed (private draft)' : 'withheld in public build',
+        offerInteractions: offerCount > 0 ? 'passed' : 'disabled in public build',
         reducedMotion: 'passed',
         textResize200: 'passed'
       },

@@ -291,6 +291,9 @@ a[aria-current] {
 .welcome-hero > * {
   min-width: 0;
 }
+.welcome-hero:not(:has(.welcome-photo)) {
+  grid-template-columns: minmax(0, 1fr);
+}
 .welcome-copy {
   padding: clamp(2rem, 3vw, 3rem) clamp(2rem, 4vw, 3.5rem) clamp(2rem, 3vw, 3rem)
     max(var(--spacing-page), calc((100vw - 88rem) / 2));

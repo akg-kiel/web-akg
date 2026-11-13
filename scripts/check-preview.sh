@@ -19,3 +19,8 @@ done
 node scripts/check-cloudflare-build.mjs --origin=http://127.0.0.1:8787
 node scripts/smoke.mjs http://127.0.0.1:8787
 node scripts/browser-check.mjs http://127.0.0.1:8787
+kill "$server" 2>/dev/null || true
+wait "$server" 2>/dev/null || true
+trap - EXIT
+# A separate disposable root keeps fixtures and draft photos out of deployment artifacts.
+node scripts/check-offer-preview.mjs

@@ -7,6 +7,7 @@ import ServiceList from '../components/ServiceList.astro';
 import NewsList from '../components/NewsList.astro';
 import { loadGroups, loadNews, loadServices } from '../lib/content';
 import { externalLinks } from '../lib/site';
+import { withheldPhotoNames } from '../lib/photos.mjs';
 
 export const prerender = false;
 const [services, news, groups] = await Promise.all([loadServices(), loadNews(), loadGroups()]);
@@ -22,6 +23,7 @@ const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
         <a class="button" href="/gemeinde">Gemeinde kennenlernen <span aria-hidden="true">→</span></a>
         <a class="text-link" href="/gottesdienste">Gottesdienste <span aria-hidden="true">→</span></a>
       </div>
+      {!import.meta.env.DEV && withheldPhotoNames.length > 0 && <p class="small-note">Gemeindefotos sind bis zur Freigabe nicht in dieser Vorschau enthalten.</p>}
     </div>
     <Photo view="service" hero />
   </section>

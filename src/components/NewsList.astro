@@ -1,5 +1,5 @@
 ---
-import { detailPath, formatDate } from '../lib/site';
+import { detailPath, formatDate, formatNewsExcerpt } from '../lib/site';
 import type { NewsItem } from '../lib/server/churchtools';
 interface Props { items: NewsItem[]; headingLevel?: 'h2' | 'h3' }
 const { items, headingLevel: Heading = 'h2' } = Astro.props;
@@ -10,7 +10,7 @@ const { items, headingLevel: Heading = 'h2' } = Astro.props;
       <article class="news-item">
         <Heading><a href={detailPath('aktuelles', item.id)}>{item.title}<span class="item-arrow" aria-hidden="true">↗</span></a></Heading>
         <p class="article-meta"><time datetime={item.publishedAt}>{formatDate(item.publishedAt)}</time></p>
-        {item.body && <p class="news-excerpt">{item.body.length > 220 ? item.body.slice(0, 220) + '…' : item.body}</p>}
+        {item.body && <p class="news-excerpt">{formatNewsExcerpt(item.body)}</p>}
       </article>
     </li>
   ))}

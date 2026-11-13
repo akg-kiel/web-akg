@@ -217,25 +217,110 @@ test('news use dynamic group grants and exact publication markers, never private
   assert.equal(mock.calls[1].url.searchParams.get('post_visibility'), 'group_visible');
 });
 
-test('30-minute fresh cache, <=6-hour stale on error, no expiration leaks or TTL renewal', async () => {
+test('all content kinds bypass legacy cached publication snapshots', async () => {
+  const fail = () => assert.fail('Mutable publication data must bypass Cache API');
+  const cache = { match: fail, put: fail, delete: fail };
+  assert.equal(
+    (
+      await getServices(
+        options({ ...source({ appointments: [appointment()] }), cache, servicesApproved: true })
+      )
+    ).status,
+    'ready'
+  );
+  assert.equal(
+    (await getServices(options({ ...source(), cache, servicesApproved: true }))).status,
+    'empty'
+  );
+  assert.equal((await getNews(options({ ...source({ posts: [post()] }), cache }))).status, 'ready');
+  assert.equal(
+    (await getGroups(options({ ...groupSource([group()]), cache, groupsApproved: true }))).status,
+    'ready'
+  );
+  assert.equal((await getNews(options({ ...source({ grants: [] }), cache }))).status, 'empty');
+  assert.equal(
+    (await getGroups(options({ ...groupSource(), cache, groupsApproved: true }))).status,
+    'empty'
+  );
+});
+
+test('overlapping news refreshes cannot persist or revive a withdrawn approval', async () => {
+  const cache = memoryCache();
+  const reached = Promise.withResolvers();
+  const release = Promise.withResolvers();
+  const old = source({ posts: [post()] });
+  const fetch = async (url, init) => {
+    if (new URL(url).pathname === '/api/posts') {
+      reached.resolve();
+      await release.promise;
+    }
+    return old.fetch(url, init);
+  };
+  const pending = getNews(options({ cache, fetch }));
+  await reached.promise;
+  const current = options({ ...source({ grants: [] }), cache, now: () => NOW + 1 });
+  assert.equal((await getNews(current)).status, 'empty');
+  release.resolve();
+  await pending;
+  assert.deepEqual((await getNews(current)).items, []);
+  assert.equal(cache.entries.size, 0, 'Mutable publication snapshots must not be persisted');
+});
+
+test('ongoing services survive Berlin midnight and disappear only after ending', async () => {
+  const cache = memoryCache();
+  const before = Date.parse('2026-10-26T22:55:00Z');
+  const after = Date.parse('2026-10-26T23:05:00Z');
+  const mock = source({
+    appointments: [
+      appointment(
+        {},
+        {
+          startDate: '2026-10-26T22:00:00Z',
+          endDate: '2026-10-27T01:00:00Z'
+        }
+      )
+    ]
+  });
+  const deps = options({ ...mock, cache, servicesApproved: true, now: () => before });
+  assert.equal((await getServices(deps)).items.length, 1);
+  assert.equal((await getServices({ ...deps, now: () => after })).items.length, 1);
+  assert.equal(mock.calls.length, 4, 'Both reads must recheck the source');
+  assert.equal(
+    (await getServices({ ...deps, cache: undefined, now: () => after })).items.length,
+    1
+  );
+  assert.equal(
+    (await getServices({ ...deps, now: () => Date.parse('2026-10-27T01:01:00Z') })).status,
+    'empty'
+  );
+});
+
+test('services recheck end times and fail closed on outages without retaining old grants', async () => {
   const cache = memoryCache();
   let now = NOW;
   const mock = source({
-    posts: [post({ expirationDate: '2026-10-26T10:10:00Z' }), post({ guid: 'lasting' })]
+    appointments: [
+      appointment(),
+      appointment(
+        { id: 902 },
+        {
+          startDate: '2026-10-26T09:00:00Z',
+          endDate: '2026-10-26T10:10:00Z'
+        }
+      )
+    ]
   });
-  const deps = options({ ...mock, cache, now: () => now });
-  const initial = await getNews(deps);
+  const deps = options({ ...mock, cache, servicesApproved: true, now: () => now });
+  const initial = await getServices(deps);
   assert.equal(initial.items.length, 2);
-  const stored = await [...cache.entries.values()][0].clone().text();
-  assert.equal(stored.includes(TOKEN), false);
-  assert.equal(stored.includes('groupVisibility'), false);
-  assert.equal([...cache.entries.keys()][0].includes(TOKEN), false);
-  now += 10 * 60_000;
-  assert.deepEqual(
-    (await getNews(deps)).items.map((item) => item.id),
-    ['lasting']
+  assert.equal(
+    JSON.stringify(initial).includes(TOKEN) || JSON.stringify(initial).includes('NOT_PUBLIC'),
+    false
   );
-  assert.equal(mock.calls.length, 2);
+  assert.equal(cache.entries.size, 0);
+  now += 11 * 60_000;
+  assert.equal((await getServices(deps)).items.length, 1);
+  assert.equal(mock.calls.length, 4);
   now = NOW + 30 * 60_000;
   const outage = {
     ...deps,
@@ -243,15 +328,14 @@ test('30-minute fresh cache, <=6-hour stale on error, no expiration leaks or TTL
       throw new Error('Synthetic outage');
     }
   };
-  assert.equal((await getNews(outage)).status, 'stale');
-  assert.equal((await getNews(outage)).updatedAt, initial.updatedAt);
+  assert.deepEqual(await getServices(outage), { status: 'unavailable', items: [] });
   now = NOW + 6 * 60 * 60_000;
-  assert.equal((await getNews(outage)).status, 'stale');
+  assert.deepEqual(await getServices(outage), { status: 'unavailable', items: [] });
   now++;
-  assert.deepEqual(await getNews(outage), { status: 'unavailable', items: [] });
+  assert.deepEqual(await getServices(outage), { status: 'unavailable', items: [] });
 });
 
-test('successful revocation replaces cache; malformed or unauthorized refresh fails closed', async () => {
+test('news recheck grants on every read and malformed or unauthorized sources fail closed', async () => {
   const cache = memoryCache();
   await getNews(options({ ...source({ posts: [post()] }), cache }));
   const later = () => NOW + 30 * 60_000;
@@ -268,7 +352,7 @@ test('successful revocation replaces cache; malformed or unauthorized refresh fa
     'empty'
   );
   const result = await getNews(
-    options({ cache, now: () => NOW + 31 * 60_000, fetch: () => assert.fail('fresh cache') })
+    options({ ...source({ grants: [] }), cache, now: () => NOW + 31 * 60_000 })
   );
   assert.equal(result.status, 'empty');
 });
@@ -313,7 +397,7 @@ test('refreshed grants cannot revive revoked posts when the subsequent feed requ
   );
 });
 
-test('a bounded multi-page feed larger than one response can be read from cache', async () => {
+test('a bounded multi-page news feed is usable without persisting mutable publication snapshots', async () => {
   const cache = memoryCache();
   const mock = source();
   let pages = 0;
@@ -330,20 +414,20 @@ test('a bounded multi-page feed larger than one response can be read from cache'
     );
   };
   assert.equal((await getNews(options({ fetch, cache }))).items.length, 150);
-  assert.ok((await [...cache.entries.values()][0].clone().text()).length > 1024 * 1024);
+  assert.equal(cache.entries.size, 0);
   const outage = async () => {
     throw new Error('Synthetic outage');
   };
   const fresh = await getNews(options({ cache, fetch: outage, now: () => NOW + 60_000 }));
-  assert.equal(fresh.status, 'ready');
-  assert.equal(fresh.items.length, 150);
+  assert.equal(fresh.status, 'unavailable');
+  assert.deepEqual(fresh.items, []);
   assert.equal(
     (await getNews(options({ cache, fetch: outage, now: () => NOW + 31 * 60_000 }))).status,
-    'stale'
+    'unavailable'
   );
 });
 
-test('service end times are filtered on fresh cache hits; disabled gate ignores populated cache', async () => {
+test('service end times are rechecked; disabled approval never uses a previous response', async () => {
   const cache = memoryCache();
   const mock = source({
     appointments: [
@@ -353,11 +437,11 @@ test('service end times are filtered on fresh cache hits; disabled gate ignores 
   const deps = options({ ...mock, cache, servicesApproved: true });
   assert.equal((await getServices(deps)).items.length, 1);
   assert.equal((await getServices({ ...deps, now: () => NOW + 6 * 60_000 })).status, 'empty');
-  assert.equal(mock.calls.length, 2);
+  assert.equal(mock.calls.length, 4);
   assert.equal((await getServices({ ...deps, servicesApproved: false })).status, 'disabled');
 });
 
-test('Cache API failures are isolated and malformed cached data is not returned', async () => {
+test('a broken or malformed legacy cache cannot affect live service results', async () => {
   const broken = {
     match: async () => {
       throw new Error();
@@ -367,14 +451,29 @@ test('Cache API failures are isolated and malformed cached data is not returned'
     }
   };
   assert.equal(
-    (await getNews(options({ ...source({ posts: [post()] }), cache: broken }))).status,
+    (
+      await getServices(
+        options({
+          ...source({ appointments: [appointment()] }),
+          cache: broken,
+          servicesApproved: true
+        })
+      )
+    ).status,
     'ready'
   );
   const cache = memoryCache();
-  await getNews(options({ ...source({ posts: [post()] }), cache }));
-  const key = [...cache.entries.keys()][0];
-  cache.entries.set(key, json({ updatedAt: '2099-01-01T00:00:00Z', items: [{ id: '../escape' }] }));
-  assert.equal((await getNews(options({ ...source(), cache }))).status, 'empty');
+  await getServices(
+    options({ ...source({ appointments: [appointment()] }), cache, servicesApproved: true })
+  );
+  cache.entries.set(
+    'https://akg-kiel.church.tools/__web-akg-cache/v1/services',
+    json({ updatedAt: '2099-01-01T00:00:00Z', items: [{ id: '../escape' }] })
+  );
+  assert.equal(
+    (await getServices(options({ ...source(), cache, servicesApproved: true }))).status,
+    'empty'
+  );
 });
 
 test('cursor pagination is bounded and uses only fixed-origin endpoints, never supplied URLs', async () => {
@@ -491,6 +590,7 @@ test('group pagination, public visibility, active status, types and field allowl
     group(108, { endDate: '2026-10-25' }),
     group(109, { endDate: '2026-02-30' }),
     group(110, { groupStatusId: undefined }),
+    ...[1, 2, 3].map((groupTypeId) => group(111 + groupTypeId, { groupTypeId })),
     group(111, {
       meetingTime: '10 Uhr',
       weekday: 0,
@@ -501,7 +601,13 @@ test('group pagination, public visibility, active status, types and field allowl
   ]);
   const result = await getGroups(options({ ...mock, groupsApproved: true }));
   assert.equal(result.status, 'ready');
-  assert.equal(result.items.length, 102);
+  assert.equal(result.items.length, 105);
+  assert.deepEqual([...new Set(result.items.map((item) => item.type))].sort(), [
+    'Type 1',
+    'Type 2',
+    'Type 3',
+    'Type 5'
+  ]);
   assert.equal(mock.calls.length, 3);
   assert.equal(JSON.stringify(result).includes('NOT_PUBLIC'), false);
   const item = result.items.find((item) => item.id === 'synthetic-group-111');
@@ -583,7 +689,29 @@ test('group pagination rejects partial, duplicate, changed and oversized sources
   }
 });
 
-test('groups recheck end dates in cache, respect approval revocation and purge malformed refreshes', async () => {
+test('overlapping group refreshes cannot cache a withdrawn group', async () => {
+  const cache = memoryCache();
+  const reached = Promise.withResolvers();
+  const release = Promise.withResolvers();
+  const old = groupSource([group()]);
+  const fetch = async (url, init) => {
+    if (new URL(url).pathname === '/api/groups') {
+      reached.resolve();
+      await release.promise;
+    }
+    return old.fetch(url, init);
+  };
+  const pending = getGroups(options({ fetch, cache, groupsApproved: true }));
+  await reached.promise;
+  const current = options({ ...groupSource(), cache, groupsApproved: true, now: () => NOW + 1 });
+  assert.equal((await getGroups(current)).status, 'empty');
+  release.resolve();
+  await pending;
+  assert.deepEqual((await getGroups(current)).items, []);
+  assert.equal(cache.entries.size, 0);
+});
+
+test('groups recheck live visibility and end dates, respect approval revocation and fail closed', async () => {
   const cache = memoryCache();
   const now = Date.parse('2026-10-26T22:55:00Z');
   const deps = options({
@@ -593,8 +721,7 @@ test('groups recheck end dates in cache, respect approval revocation and purge m
     now: () => now
   });
   assert.equal((await getGroups(deps)).status, 'ready');
-  const stored = await [...cache.entries.values()][0].clone().text();
-  assert.equal(stored.includes(TOKEN) || stored.includes('NOT_PUBLIC'), false);
+  assert.equal(cache.entries.size, 0);
   assert.equal((await getGroups({ ...deps, groupsApproved: false })).status, 'disabled');
   assert.equal((await getGroups({ ...deps, now: () => now + 10 * 60_000 })).status, 'empty');
   const bad = groupSource([], (value) => {

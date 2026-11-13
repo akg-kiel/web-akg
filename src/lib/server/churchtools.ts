@@ -35,6 +35,7 @@ export interface ContentResult<T> {
 
 type Options = {
   token?: string;
+  /** Legacy caller option, deliberately ignored: mutable publication snapshots are not cached. */
   cache?: Cache;
   /** Test seams; production callers use native fetch and the system clock. */
   fetch?: typeof fetch;
@@ -44,8 +45,6 @@ type ObjectData = Record<string, unknown>;
 type Project<T> = (value: unknown, now: number) => T | undefined;
 
 const API = 'https://akg-kiel.church.tools/api';
-const FRESH_MS = 30 * 60_000;
-const MAX_AGE_MS = 6 * 60 * 60_000;
 const MAX_BYTES = 1024 * 1024;
 const MAX_ITEMS = 1000;
 const PAGE_SIZE = 100;
@@ -99,7 +98,7 @@ function publicEvent(value: unknown, now: number): EventItem | undefined {
   const item = object(value);
   const start = timestamp(item.start);
   const end = timestamp(item.end);
-  const { from, to } = serviceWindow(now);
+  const { to } = serviceWindow(now);
   if (
     typeof item.id !== 'string' ||
     !/^2:[1-9]\d{0,14}:/.test(item.id) ||
@@ -111,7 +110,6 @@ function publicEvent(value: unknown, now: number): EventItem | undefined {
     typeof item.allDay !== 'boolean' ||
     end < start ||
     Date.parse(end) < now ||
-    localDay.format(Date.parse(start)) < from ||
     localDay.format(Date.parse(start)) >= to
   )
     return undefined;
@@ -310,78 +308,28 @@ function projectItems<T extends { id: string }>(
 }
 
 async function content<T extends { id: string }>(
-  kind: 'services' | 'news' | 'groups',
   options: Options,
   project: Project<T>,
   load: (signal: AbortSignal, now: number) => Promise<T[]>
 ): Promise<ContentResult<T>> {
   if (!options.token?.trim()) return { status: 'unavailable', items: [] };
+  // ponytail: publication grants have no source revision and Cache API has no atomic writes.
+  // Ignore legacy snapshots; restore caching only with source-backed revision/ordering.
   const now = options.now ?? Date.now;
-  const key = new Request(`https://akg-kiel.church.tools/__web-akg-cache/v1/${kind}`);
-  let cached: { items: unknown[]; updatedAt: string } | undefined;
+  const started = now();
   try {
-    const response = await options.cache?.match(key);
-    if (response) {
-      const value = object(await readJson(response, MAX_BYTES * MAX_PAGES));
-      const updatedAt = timestamp(value.updatedAt);
-      if (Array.isArray(value.items) && value.items.length <= MAX_ITEMS && updatedAt) {
-        const age = now() - Date.parse(updatedAt);
-        if (age >= 0 && age <= MAX_AGE_MS) cached = { items: value.items, updatedAt };
-      }
-    }
-  } catch {
-    /* Cache failure must not prevent a live source read. */
-  }
-
-  function result(items: unknown[], updatedAt: string, stale = false): ContentResult<T> {
+    const items = await load(AbortSignal.timeout(10_000), started);
     const current = now();
     const visible = items.flatMap((item) => {
       const mapped = project(item, current);
       return mapped ? [mapped] : [];
     });
     return {
-      status: stale ? 'stale' : visible.length ? 'ready' : 'empty',
+      status: visible.length ? 'ready' : 'empty',
       items: visible,
-      updatedAt
+      updatedAt: new Date(started).toISOString()
     };
-  }
-  if (cached && now() - Date.parse(cached.updatedAt) < FRESH_MS)
-    return result(cached.items, cached.updatedAt);
-  try {
-    const started = now();
-    const items = await load(AbortSignal.timeout(10_000), started);
-    // Age starts before fetch: slow reads must never extend the stale lifetime.
-    const updatedAt = new Date(started).toISOString();
-    try {
-      await options.cache?.put(
-        key,
-        new Response(JSON.stringify({ items, updatedAt }), {
-          headers: {
-            'Content-Type': 'application/json',
-            'Cache-Control': `public, max-age=${MAX_AGE_MS / 1000}`
-          }
-        })
-      );
-    } catch {
-      /* The public response remains usable without cache persistence. */
-    }
-    return result(items, updatedAt);
-  } catch (error) {
-    if (error === INVALID_SOURCE || kind === 'groups') {
-      try {
-        await options.cache?.delete(key);
-      } catch {
-        /* Cache may be unavailable. */
-      }
-    }
-    // Group visibility has no independent grant snapshot; an expired cache fails closed.
-    if (
-      kind !== 'groups' &&
-      error !== INVALID_SOURCE &&
-      cached &&
-      now() - Date.parse(cached.updatedAt) <= MAX_AGE_MS
-    )
-      return result(cached.items, cached.updatedAt, true);
+  } catch {
     return { status: 'unavailable', items: [] };
   }
 }
@@ -429,7 +377,7 @@ export async function getGroups(
   options: Options & { groupsApproved?: boolean }
 ): Promise<ContentResult<GroupOffer>> {
   if (options.groupsApproved !== true) return { status: 'disabled', items: [] };
-  return content('groups', options, publicGroup, async (signal, now) => {
+  return content(options, publicGroup, async (signal, now) => {
     const types = new Map<string, string>();
     for (const row of await fetchRows('/group/grouptypes', options, signal)) {
       const type = object(row);
@@ -448,13 +396,7 @@ export async function getGroups(
         page: String(page)
       });
       // Anonymous reads prove public visibility independently of the token's permissions.
-      let envelope: ObjectData;
-      try {
-        envelope = await fetchEnvelope(`/groups?${query}`, options, signal, true);
-      } catch {
-        // A partially refreshed public list must not revive removed/private groups from cache.
-        throw INVALID_SOURCE;
-      }
+      const envelope = await fetchEnvelope(`/groups?${query}`, options, signal, true);
       const rows = envelope.data as unknown[];
       const pagination = object(object(envelope.meta).pagination);
       if (
@@ -524,7 +466,7 @@ export async function getServices(
   options: Options & { servicesApproved?: boolean }
 ): Promise<ContentResult<EventItem>> {
   if (options.servicesApproved !== true) return { status: 'disabled', items: [] };
-  return content('services', options, publicEvent, async (signal, now) => {
+  return content(options, publicEvent, async (signal, now) => {
     const calendars = await whitelist(options, signal, 'calendar');
     if (!calendars.has('2')) return [];
     const query = new URLSearchParams(serviceWindow(now));
@@ -536,7 +478,7 @@ export async function getServices(
 }
 
 export async function getNews(options: Options): Promise<ContentResult<NewsItem>> {
-  return content('news', options, publicNews, async (signal, now) => {
+  return content(options, publicNews, async (signal, now) => {
     const groups = await whitelist(options, signal, 'posts-in-group');
     if (!groups.size) return [];
     const query = new URLSearchParams({
@@ -548,14 +490,7 @@ export async function getNews(options: Options): Promise<ContentResult<NewsItem>
     const items: NewsItem[] = [];
     let previousCursor = '';
     for (let page = 0; page < MAX_PAGES; page++) {
-      let rows: unknown[];
-      try {
-        rows = await fetchRows(`/posts?${query}`, options, signal);
-      } catch {
-        // ponytail: cache holds no per-post group provenance. After refreshed grants,
-        // fail closed; retain stale feeds only when the grant lookup itself fails.
-        throw INVALID_SOURCE;
-      }
+      const rows = await fetchRows(`/posts?${query}`, options, signal);
       if (rows.length > PAGE_SIZE) throw INVALID_SOURCE;
       items.push(...projectItems(rows, (row, current) => mapNews(row, groups, current), now));
       if (rows.length < PAGE_SIZE)
