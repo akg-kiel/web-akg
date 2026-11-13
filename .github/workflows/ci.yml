@@ -22,7 +22,12 @@ jobs:
         run: nix profile add "github:NixOS/nixpkgs/$(jq -r '.nodes.nixpkgs.locked.rev' devenv.lock)#devenv"
 
       - name: Run quality, build and browser gate in devenv
-        run: devenv test --clean
+        run: |
+          if ! devenv test --clean; then
+            # devenv 2.1 hides enterTest output; rerun visibly without masking the failed gate.
+            devenv shell --clean -- pnpm exec vp run test:preview
+            exit 1
+          fi
 
       - name: Check lockfiles are unchanged
         run: git diff --exit-code -- devenv.lock pnpm-lock.yaml
