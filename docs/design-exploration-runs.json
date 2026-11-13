@@ -1,0 +1,92 @@
+[
+  {
+    "skill": "hallmark",
+    "modelKey": "astra",
+    "model": "openai/gpt-6-astra",
+    "providerInstanceId": "pi",
+    "taskId": "node:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3A881828b2-f6b6-4861-af0c-47c2f28c4662",
+    "link": "[Hallmark · Astra · 5 Entwürfe](t3-thread://v1/thread:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3A881828b2-f6b6-4861-af0c-47c2f28c4662)",
+    "status": "completed"
+  },
+  {
+    "skill": "hallmark",
+    "modelKey": "sol",
+    "model": "openai/gpt-6.1-sol",
+    "providerInstanceId": "pi",
+    "taskId": "node:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3A24f382e9-4628-453d-bf2d-b8b8393fd466",
+    "link": "[Hallmark · GPT‑6.1 Sol · 5 Entwürfe](t3-thread://v1/thread:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3A24f382e9-4628-453d-bf2d-b8b8393fd466)",
+    "status": "completed"
+  },
+  {
+    "skill": "impeccable",
+    "modelKey": "astra",
+    "model": "openai/gpt-6-astra",
+    "providerInstanceId": "pi",
+    "taskId": "node:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3A3be46e66-37e8-4434-b93c-81c8b3ed4842",
+    "link": "[Impeccable · Astra · 5 Entwürfe](t3-thread://v1/thread:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3A3be46e66-37e8-4434-b93c-81c8b3ed4842)",
+    "status": "failed-artifacts-recovered"
+  },
+  {
+    "skill": "impeccable",
+    "modelKey": "sol",
+    "model": "openai/gpt-6.1-sol",
+    "providerInstanceId": "pi",
+    "taskId": "node:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3Adf88e218-7fce-40b1-9a53-c4037d24c442",
+    "link": "[Impeccable · GPT‑6.1 Sol · 5 Entwürfe](t3-thread://v1/thread:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3Adf88e218-7fce-40b1-9a53-c4037d24c442)",
+    "status": "completed"
+  },
+  {
+    "skill": "taste",
+    "modelKey": "astra",
+    "model": "openai/gpt-6-astra",
+    "providerInstanceId": "pi",
+    "taskId": "node:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3A9d5a1336-c4fe-4b4b-9962-371e0d8b26fc",
+    "link": "[Taste · Astra · 5 Entwürfe](t3-thread://v1/thread:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3A9d5a1336-c4fe-4b4b-9962-371e0d8b26fc)",
+    "status": "completed"
+  },
+  {
+    "skill": "taste",
+    "modelKey": "sol",
+    "model": "openai/gpt-6.1-sol",
+    "providerInstanceId": "pi",
+    "taskId": "node:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3A8b0844ca-531a-4b4c-94e6-5f9248143949",
+    "link": "[Taste · GPT‑6.1 Sol · 5 Entwürfe](t3-thread://v1/thread:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3A8b0844ca-531a-4b4c-94e6-5f9248143949)",
+    "status": "completed"
+  },
+  {
+    "skill": "better-websites",
+    "modelKey": "astra",
+    "model": "openai/gpt-6-astra",
+    "providerInstanceId": "pi",
+    "taskId": "node:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3Aba8bbcf1-ff1c-4565-b5b7-5740ad1a9bc6",
+    "link": "[Design Better Websites · Astra · 5 Entwürfe](t3-thread://v1/thread:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3Aba8bbcf1-ff1c-4565-b5b7-5740ad1a9bc6)",
+    "status": "failed-artifacts-recovered"
+  },
+  {
+    "skill": "better-websites",
+    "modelKey": "sol",
+    "model": "openai/gpt-6.1-sol",
+    "providerInstanceId": "pi",
+    "taskId": "node:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3Aacead6a6-fa3f-4d65-9749-716f50df9ebf",
+    "link": "[Design Better Websites · GPT‑6.1 Sol · 5 Entwürfe](t3-thread://v1/thread:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3Aacead6a6-fa3f-4d65-9749-716f50df9ebf)",
+    "status": "completed"
+  },
+  {
+    "skill": "web-design-engineer",
+    "modelKey": "astra",
+    "model": "openai/gpt-6-astra",
+    "providerInstanceId": "pi",
+    "taskId": "node:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3A7a406cc3-380c-4308-8323-d04538bda277",
+    "link": "[Web Design Engineer · Astra · 5 Entwürfe](t3-thread://v1/thread:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3A7a406cc3-380c-4308-8323-d04538bda277)",
+    "status": "completed"
+  },
+  {
+    "skill": "web-design-engineer",
+    "modelKey": "sol",
+    "model": "openai/gpt-6.1-sol",
+    "providerInstanceId": "pi",
+    "taskId": "node:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3Ad60063d5-4a1a-41a8-81bb-4a970e35adf5",
+    "link": "[Web Design Engineer · GPT‑6.1 Sol · 5 Entwürfe](t3-thread://v1/thread:delegated-task:command%3Amcp%3Ada56107c-4d83-45d6-b25a-dab52ea5a6be%3Adelegate-task%3Ad60063d5-4a1a-41a8-81bb-4a970e35adf5)",
+    "status": "completed"
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "scope": "public/entwuerfe/hallmark/sol/",
+  "issue": "AKG-129",
+  "project": "Website AKG",
+  "milestone": "3 · MVP: Kernwebsite",
+  "skill": ".pi/skills/hallmark/SKILL.md",
+  "brief": "docs/design-exploration-brief.md",
+  "existingRootDesignSystem": false,
+  "font": {
+    "family": "Figtree",
+    "source": "src/styles/globals.css:3–13",
+    "asset": "/fonts/figtree-latin-variable.woff2",
+    "lockedByBrief": true
+  },
+  "palette": {
+    "source": "src/styles/globals.css:14–20",
+    "ink": "#173b50",
+    "action": "#006c9e",
+    "wash": "#eaf3f7",
+    "logoSurface": "#ffffff"
+  },
+  "spacing": {
+    "source": "src/styles/globals.css:23–29",
+    "page": "fluid",
+    "implementedScale": "4px semantic custom properties"
+  },
+  "framework": "Astro, package.json:21; standalone HTML required by exploration brief",
+  "motion": "no motion package; stillness with native details; opacity and press feedback only in FAQ",
+  "preserved": [
+    "original logo",
+    "local Figtree",
+    "blue/white brand",
+    "approved four photographs",
+    "public source boundaries",
+    "real routes",
+    "noindex"
+  ],
+  "introduced": [
+    "five different macrostructures",
+    "five nav archetypes",
+    "five footer archetypes",
+    "scoped token exports",
+    "small runnable no-JS browser check"
+  ],
+  "previousBuildsInOwnedScope": [],
+  "noAdditionalQuestions": "The full five-design series was explicitly confirmed by the user.",
+  "referenceAdaptations": [
+    "single-font and white-surface rules yield to locked brand",
+    "photography crops/filters prohibited by project",
+    "all planning and tokens stay in owned scope",
+    "no async/disabled states invented for native links"
+  ]
+}

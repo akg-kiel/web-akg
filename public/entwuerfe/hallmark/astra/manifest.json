@@ -1,0 +1,32 @@
+[
+  {
+    "number": 1,
+    "title": "Ein Brief an dich",
+    "description": "Eine persönliche Einladung in schmalem Lesefluss, begleitet von Randfotografie und großzügigen stillen Flächen.",
+    "structure": "Einladung · Gottesdienst · Gemeindeleben · Café · Aktuelles · Briefabschluss"
+  },
+  {
+    "number": 2,
+    "title": "Dein Weg in die Gemeinde",
+    "description": "Eine linke Navigationsleiste und ein großer Wegweiser machen Anliegen statt eines Bildheros zum Einstieg.",
+    "structure": "Wegweiser · Gemeinde & Angebote · Gottesdienst · Café · Aktuelles · Kolophon"
+  },
+  {
+    "number": 3,
+    "title": "Bilder vom Miteinander",
+    "description": "Ein fotografischer Auftakt führt in einen Bildessay aus breiten Panoramen, asymmetrischen Doppelseiten und kurzen Textbrücken.",
+    "structure": "Bildauftakt · Gottesdienst · Gemeindeleben · Cafépanorama · Aktuelles · Markenabschluss"
+  },
+  {
+    "number": 4,
+    "title": "Raum für deine Fragen",
+    "description": "Ein typografisches Plakat setzt offene Fragen an den Anfang und wechselt kräftige blaue Leseflächen mit unbeschnittenen Menschenbildern.",
+    "structure": "Einladung als Plakat · Gottesdienst · Miteinander · Café · Aktuelles · Schlussgedanke"
+  },
+  {
+    "number": 5,
+    "title": "Erst einmal ankommen",
+    "description": "Ein kompakter Willkommensdialog führt über kurze Fragen und native Antworten zu Gemeinde, Gottesdiensten und Begegnung.",
+    "structure": "Willkommensfrage · Gottesdienstfrage · Begegnungsfrage · Caféfrage · Aktuelles & Kontakt · Kurzabschluss"
+  }
+]

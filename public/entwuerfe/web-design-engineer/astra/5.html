@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      name="description"
+      content="Eine blaue Plakatfläche und die seitliche Desktopnavigation eröffnen eine kraftvolle, menschenbezogene Seitenfolge. Gestaltungsentwurf für die Apostel-Kirchengemeinde Kiel."
+    />
+    <title>Mitten im Miteinander · AKG-Startseitenentwurf 5</title>
+    <link
+      rel="preload"
+      href="/fonts/figtree-latin-variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <style>
+      @font-face {
+        font-family: Figtree;
+        src: url('/fonts/figtree-latin-variable.woff2') format('woff2');
+        font-weight: 300 900;
+        font-style: normal;
+        font-display: swap;
+      }
+      :root {
+        --ink: #173b50;
+        --blue: #006c9e;
+        --wash: #eaf3f7;
+        --white: #ffffff;
+        --line: color-mix(in srgb, var(--ink) 24%, var(--white));
+        --page: clamp(18px, 4vw, 56px);
+        --space: clamp(56px, 7vw, 104px);
+        font-family: Figtree, sans-serif;
+        color: var(--ink);
+        background: var(--white);
+        font-synthesis: none;
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.6;
+      }
+      h1,
+      h2,
+      h3,
+      p,
+      figure,
+      ul {
+        margin: 0;
+      }
+      h1,
+      h2,
+      h3 {
+        line-height: 1.06;
+        letter-spacing: -0.045em;
+        text-wrap: balance;
+        overflow-wrap: anywhere;
+        font-weight: 650;
+      }
+      h1 {
+        font-size: clamp(46px, 6.1vw, 88px);
+      }
+      h2 {
+        font-size: clamp(32px, 3.7vw, 54px);
+      }
+      h3 {
+        font-size: clamp(23px, 2.2vw, 30px);
+        letter-spacing: -0.025em;
+      }
+      p {
+        max-width: 62ch;
+        text-wrap: pretty;
+      }
+      p,
+      a,
+      li,
+      summary {
+        overflow-wrap: anywhere;
+      }
+      a {
+        color: inherit;
+        text-underline-offset: 0.23em;
+        text-decoration-thickness: 1px;
+        touch-action: manipulation;
+      }
+      a:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid var(--blue);
+        outline-offset: 5px;
+      }
+      a:active {
+        opacity: 0.8;
+      }
+      a:hover {
+        text-decoration-thickness: 2px;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      figure {
+        min-width: 0;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      :target {
+        scroll-margin-block-start: 24px;
+      }
+      main:focus {
+        outline: none;
+      }
+      .wrap {
+        width: min(calc(100% - var(--page) * 2), 1280px);
+        margin-inline: auto;
+      }
+      .section {
+        padding-block: var(--space);
+      }
+      .lead {
+        font-size: clamp(19px, 1.7vw, 23px);
+        line-height: 1.55;
+        max-width: 45ch;
+      }
+      .label {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.025em;
+        margin-bottom: 24px;
+      }
+      .small {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .stack > * + * {
+        margin-top: 24px;
+      }
+      .actions {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px 24px;
+        margin-top: 28px;
+      }
+      .button,
+      .text-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        max-width: 100%;
+        min-height: 48px;
+        padding: 10px 0;
+        font-size: 17px;
+        font-weight: 650;
+      }
+      .button {
+        background: var(--blue);
+        color: var(--white);
+        padding: 14px 22px;
+        text-decoration: none;
+        min-height: 52px;
+      }
+      .button:hover {
+        background: var(--ink);
+      }
+      .button > span,
+      .text-link > span {
+        flex-shrink: 0;
+      }
+      .external {
+        font-size: 13px;
+        letter-spacing: 0;
+        font-weight: 500;
+        white-space: nowrap;
+      }
+      .blue {
+        background: var(--blue);
+        color: var(--white);
+      }
+      .blue a:focus-visible,
+      .blue summary:focus-visible,
+      .site-footer a:focus-visible {
+        outline-color: var(--white);
+      }
+      .blue .button {
+        background: var(--white);
+        color: var(--blue);
+      }
+      .blue .button:hover {
+        background: var(--wash);
+        color: var(--ink);
+      }
+      .wash {
+        background: var(--wash);
+      }
+      .photo img {
+        width: 100%;
+        height: auto;
+      }
+      .photo figcaption {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: start;
+        gap: 0 16px;
+        font-size: 14px;
+        line-height: 1.5;
+        margin-top: 4px;
+      }
+      .photo figcaption > span {
+        flex: 1 1 180px;
+        padding-block: 11px;
+      }
+      .photo figcaption a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        min-height: 44px;
+        padding-block: 10px;
+      }
+      .site-header {
+        background: var(--white);
+      }
+      .header-inner {
+        width: min(calc(100% - var(--page) * 2), 1280px);
+        margin-inline: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+        padding-block: 16px;
+        position: relative;
+      }
+      .brand {
+        display: block;
+        flex-shrink: 0;
+        max-width: 54%;
+        background: var(--white);
+      }
+      .brand img {
+        width: 160px;
+        height: auto;
+      }
+      .desktop-nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: clamp(12px, 2.3vw, 34px);
+        align-items: center;
+      }
+      .desktop-nav a {
+        display: flex;
+        align-items: center;
+        min-height: 44px;
+        padding-block: 8px;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .desktop-nav a:hover {
+        text-decoration: underline;
+      }
+      .mobile-menu {
+        display: none;
+      }
+      .skip {
+        position: fixed;
+        left: 18px;
+        top: 12px;
+        z-index: 10;
+        transform: translateY(-180%);
+        display: flex;
+        align-items: center;
+        min-height: 48px;
+        padding: 10px 20px;
+        background: var(--white);
+        color: var(--ink);
+      }
+      .skip:focus {
+        transform: none;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+      .site-footer {
+        background: var(--ink);
+        color: var(--white);
+        padding-block: 40px 20px;
+      }
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 24px;
+        padding-bottom: 24px;
+      }
+      .footer-name {
+        font-size: clamp(23px, 2.6vw, 32px);
+        font-weight: 600;
+        max-width: 22ch;
+        line-height: 1.2;
+        letter-spacing: -0.03em;
+      }
+      .site-footer nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 28px;
+      }
+      .site-footer a {
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        min-height: 44px;
+        padding-block: 8px;
+        font-size: 16px;
+      }
+      .footer-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-top: 1px solid color-mix(in srgb, var(--white) 35%, var(--ink));
+        padding-top: 16px;
+        font-size: 14px;
+      }
+      .footer-bottom a {
+        font-size: 14px;
+      }
+      main section {
+        min-width: 0;
+      }
+      @media (max-width: 900px) {
+        .header-inner {
+          flex-wrap: wrap;
+          gap: 0;
+          padding-block: 12px;
+        }
+        .brand img {
+          width: 132px;
+        }
+        .desktop-nav {
+          display: none;
+        }
+        .mobile-menu {
+          display: block;
+          width: 100%;
+        }
+        .mobile-menu summary {
+          position: absolute;
+          right: 0;
+          top: 26px;
+          min-height: 44px;
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          padding: 8px 0 8px 16px;
+          cursor: pointer;
+          list-style: none;
+          font-size: 17px;
+          font-weight: 600;
+        }
+        .mobile-menu summary::-webkit-details-marker {
+          display: none;
+        }
+        .mobile-menu summary span {
+          font-size: 25px;
+          font-weight: 400;
+        }
+        .mobile-menu[open] summary span {
+          transform: rotate(45deg);
+        }
+        .mobile-menu nav {
+          padding-top: 24px;
+          padding-bottom: 12px;
+        }
+        .mobile-menu nav a {
+          display: block;
+          min-height: 48px;
+          padding: 10px 0;
+          border-bottom: 1px solid var(--line);
+          text-decoration: none;
+          font-weight: 550;
+        }
+      }
+      @media (max-width: 600px) {
+        .footer-top,
+        .footer-bottom {
+          flex-direction: column;
+          align-items: start;
+        }
+        .site-footer nav {
+          flex-direction: column;
+          gap: 0;
+        }
+        .actions {
+          gap: 8px 20px;
+        }
+        .label {
+          margin-bottom: 18px;
+        }
+        body {
+          font-size: 17px;
+        }
+        .stack > * + * {
+          margin-top: 20px;
+        }
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .button {
+          transition:
+            background-color 140ms ease,
+            color 140ms ease;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+
+      :root {
+        --page: clamp(20px, 4vw, 56px);
+      }
+      .poster-hero {
+        padding-block: 48px 32px;
+      }
+      .poster-heading {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 40px;
+        align-items: start;
+      }
+      .poster-heading h1 {
+        font-size: clamp(62px, 7.3vw, 108px);
+        font-weight: 750;
+        line-height: 0.96;
+        letter-spacing: -0.065em;
+        max-width: 9ch;
+      }
+      .poster-heading .label {
+        font-size: 15px;
+        margin-bottom: 24px;
+      }
+      .poster-heading .lead {
+        font-size: 21px;
+        max-width: 32ch;
+        margin-top: 32px;
+      }
+      .poster-heading .actions {
+        align-items: start;
+        gap: 8px 24px;
+      }
+      .poster-heading .photo {
+        align-self: end;
+        margin-top: 72px;
+      }
+      .life-poster {
+        padding-block: 72px;
+      }
+      .life-poster > h2 {
+        font-size: clamp(45px, 6.4vw, 88px);
+        font-weight: 700;
+        margin-bottom: 32px;
+      }
+      .life-poster-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+        gap: clamp(32px, 5vw, 64px);
+        align-items: center;
+      }
+      .life-poster .lead {
+        font-size: clamp(23px, 2.3vw, 31px);
+        line-height: 1.35;
+        letter-spacing: -0.025em;
+      }
+      .life-poster .text-link {
+        margin-top: 24px;
+      }
+      .belief {
+        padding-block: 64px;
+        background: var(--ink);
+        color: var(--white);
+      }
+      .belief-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        gap: clamp(32px, 5vw, 64px);
+        align-items: center;
+      }
+      .belief h2 {
+        font-size: clamp(48px, 6vw, 80px);
+        font-weight: 700;
+        margin-bottom: 28px;
+      }
+      .belief .text-link {
+        margin-top: 20px;
+      }
+      .belief a:focus-visible {
+        outline-color: var(--white);
+      }
+      .cafe-banner {
+        background: var(--wash);
+        padding-block: 64px;
+      }
+      .cafe-banner h2 {
+        font-size: clamp(40px, 5.6vw, 80px);
+        font-weight: 650;
+        max-width: 15ch;
+        margin-bottom: 32px;
+      }
+      .cafe-banner-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        gap: clamp(32px, 5vw, 64px);
+        align-items: center;
+      }
+      .cafe-banner-grid .text-link {
+        margin-top: 24px;
+      }
+      .news-poster {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 48px;
+        align-items: start;
+        padding-block: 48px;
+      }
+      .news-poster h2 {
+        font-size: 36px;
+      }
+      .news-poster .text-link {
+        margin-top: 12px;
+      }
+      .site-footer {
+        background: var(--white);
+        color: var(--ink);
+      }
+      .site-footer a:focus-visible {
+        outline-color: var(--blue);
+      }
+      .footer-bottom {
+        border-top-color: var(--line);
+      }
+      .footer-top {
+        padding-top: 16px;
+        border-top: 2px solid var(--ink);
+      }
+      @media (min-width: 1100px) {
+        body {
+          display: grid;
+          grid-template-columns: 208px minmax(0, 1fr);
+        }
+        .site-header {
+          align-self: start;
+          position: sticky;
+          top: 0;
+          max-height: 100svh;
+          overflow-y: auto;
+          padding: 32px 24px;
+          background: var(--white);
+        }
+        .header-inner {
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+          width: 100%;
+          gap: 64px;
+          padding: 0;
+        }
+        .brand {
+          max-width: 100%;
+        }
+        .brand img {
+          width: 160px;
+        }
+        .desktop-nav ul {
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 16px;
+        }
+        .desktop-nav a {
+          font-size: 17px;
+          min-height: 48px;
+        }
+        .page-content {
+          min-width: 0;
+        }
+        .poster-heading h1 {
+          font-size: clamp(66px, 6.8vw, 104px);
+        }
+        .footer-top {
+          flex-direction: column;
+          gap: 16px;
+        }
+      }
+      @media (min-width: 901px) and (max-width: 1099px) {
+        .poster-heading h1 {
+          font-size: 82px;
+        }
+      }
+      @media (max-width: 750px) {
+        .poster-heading,
+        .life-poster-grid,
+        .belief-grid,
+        .cafe-banner-grid,
+        .news-poster {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        .poster-hero {
+          padding-top: 32px;
+        }
+        .poster-heading {
+          gap: 24px;
+        }
+        .poster-heading h1 {
+          font-size: clamp(62px, 14vw, 96px);
+        }
+        .poster-heading .photo {
+          margin: 0;
+        }
+        .poster-heading .lead {
+          font-size: 20px;
+          margin-top: 24px;
+        }
+        .life-poster {
+          padding-block: 48px;
+        }
+        .life-poster > h2 {
+          font-size: clamp(42px, 10vw, 72px);
+        }
+        .life-poster-grid {
+          gap: 32px;
+        }
+        .belief,
+        .cafe-banner {
+          padding-block: 48px;
+        }
+        .belief-grid {
+          gap: 28px;
+        }
+        .belief h2 {
+          font-size: clamp(52px, 12vw, 80px);
+        }
+        .cafe-banner-grid {
+          gap: 28px;
+        }
+        .news-poster {
+          gap: 24px;
+          padding-block: 40px;
+        }
+        .footer-top {
+          gap: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#inhalt">Zum Inhalt</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a
+          class="brand"
+          href="#willkommen"
+          aria-label="Apostel-Kirchengemeinde Kiel – zum Seitenanfang"
+          ><img
+            src="/images/apostel-logo.png"
+            width="500"
+            height="272"
+            alt="Apostel-Kirchengemeinde Kiel"
+        /></a>
+        <div class="desktop-nav">
+          <nav aria-label="Hauptnavigation">
+            <ul>
+              <li><a href="#gottesdienste">Gottesdienste</a></li>
+              <li><a href="#aktuelles">Aktuelles</a></li>
+              <li><a href="#angebote">Angebote</a></li>
+              <li><a href="#gemeinde">Gemeinde</a></li>
+              <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+          </nav>
+        </div>
+        <details class="mobile-menu">
+          <summary>Menü <span aria-hidden="true">+</span></summary>
+          <nav aria-label="Mobile Hauptnavigation">
+            <ul>
+              <li><a href="#gottesdienste">Gottesdienste</a></li>
+              <li><a href="#aktuelles">Aktuelles</a></li>
+              <li><a href="#angebote">Angebote</a></li>
+              <li><a href="#gemeinde">Gemeinde</a></li>
+              <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+          </nav>
+        </details>
+      </div>
+    </header>
+    <div class="page-content">
+      <main id="inhalt" tabindex="-1">
+        <section class="poster-hero blue" id="willkommen" aria-labelledby="welcome-title">
+          <div class="wrap poster-heading">
+            <div>
+              <p class="label">Apostel-Kirchengemeinde Kiel</p>
+              <h1 id="welcome-title">Du. Wir.<br />Gemeinde.</h1>
+              <p class="lead">
+                Schön, dass du da bist. Ob du zum ersten Mal vorbeischaust oder schon lange zur
+                Gemeinde gehörst: Wir freuen uns auf dich.
+              </p>
+              <div class="actions">
+                <a class="button" href="/gemeinde"
+                  >Gemeinde kennenlernen<span aria-hidden="true">→</span></a
+                ><a class="text-link" href="#gottesdienste"
+                  >Gottesdienste<span aria-hidden="true">→</span></a
+                >
+              </div>
+            </div>
+            <figure class="photo">
+              <img
+                src="/images/gemeinde-gespraech-960.webp"
+                srcset="
+                  /images/gemeinde-gespraech-640.webp   640w,
+                  /images/gemeinde-gespraech-960.webp   960w,
+                  /images/gemeinde-gespraech-1280.webp 1280w
+                "
+                sizes="(max-width: 760px) calc(100vw - 36px), 50vw"
+                width="1280"
+                height="854"
+                alt="Zwei Menschen im Gespräch auf der Wiese neben der Kirche beim Gemeindefest 2022."
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
+              />
+              <figcaption>
+                <span>Im Gespräch · Gemeindefest 2022</span
+                ><a href="https://akg-kiel.de/wp-content/uploads/2022/05/Gemeindefest-22-VIII.jpg"
+                  >Quelle: akg-kiel.de <span aria-hidden="true">↗</span
+                  ><span class="sr-only"> (extern)</span></a
+                >
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="wrap life-poster" id="gemeinde" aria-labelledby="angebote">
+          <h2 id="angebote">Miteinander leben.</h2>
+          <div class="life-poster-grid">
+            <div>
+              <p class="lead">
+                Wir möchten Menschen zusammenbringen – im Gottesdienst, im Gespräch und im Alltag.
+              </p>
+              <a class="text-link" href="/angebote"
+                >Angebote &amp; Gruppen<span aria-hidden="true">→</span></a
+              >
+            </div>
+            <figure class="photo">
+              <img
+                src="/images/gemeinde-fest-960.webp"
+                srcset="
+                  /images/gemeinde-fest-640.webp   640w,
+                  /images/gemeinde-fest-960.webp   960w,
+                  /images/gemeinde-fest-1280.webp 1280w
+                "
+                sizes="(max-width: 760px) calc(100vw - 36px), 50vw"
+                width="1280"
+                height="854"
+                alt="Menschen kommen auf dem Kirchgelände beim Gemeindefest 2022 zusammen."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                <span>Zeit miteinander · Gemeindefest 2022</span
+                ><a href="https://akg-kiel.de/wp-content/uploads/2022/05/Gemeindefest-22-XII.jpg"
+                  >Quelle: akg-kiel.de <span aria-hidden="true">↗</span
+                  ><span class="sr-only"> (extern)</span></a
+                >
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="belief" id="gottesdienste" aria-labelledby="service-title">
+          <div class="wrap belief-grid">
+            <figure class="photo">
+              <img
+                src="/images/gemeinde-gottesdienst-960.webp"
+                srcset="
+                  /images/gemeinde-gottesdienst-640.webp   640w,
+                  /images/gemeinde-gottesdienst-960.webp   960w,
+                  /images/gemeinde-gottesdienst-1280.webp 1280w
+                "
+                sizes="(max-width: 760px) calc(100vw - 36px), 50vw"
+                width="1280"
+                height="729"
+                alt="Menschen stehen gemeinsam in den Bankreihen der Petruskirche; vorne begleitet eine Band den Gottesdienst."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                <span>Gottesdienst · Archivfoto · Foto: Frank Lönne</span
+                ><a href="https://akg-kiel.de/wp-content/uploads/2024/01/2024_Banner_allianz_1.jpg"
+                  >Quelle: akg-kiel.de <span aria-hidden="true">↗</span
+                  ><span class="sr-only"> (extern)</span></a
+                >
+              </figcaption>
+            </figure>
+            <div class="belief-copy">
+              <h2 id="service-title">Glauben.<br />Fragen.</h2>
+              <p class="lead">
+                Zur Ruhe kommen, gemeinsam glauben, neue Gedanken mitnehmen. Gottesdienst ist eine
+                Einladung – auch mit offenen Fragen.
+              </p>
+              <a class="text-link" href="/gottesdienste"
+                >Mehr über Gottesdienste<span aria-hidden="true">→</span></a
+              >
+            </div>
+          </div>
+        </section>
+        <section class="cafe-banner" aria-labelledby="cafe-title">
+          <div class="wrap">
+            <h2 id="cafe-title">Hallo, Dreimaster.</h2>
+            <div class="cafe-banner-grid">
+              <figure class="photo">
+                <img
+                  src="/images/cafe-dreimaster-960.webp"
+                  srcset="
+                    /images/cafe-dreimaster-640.webp   640w,
+                    /images/cafe-dreimaster-960.webp   960w,
+                    /images/cafe-dreimaster-1280.webp 1280w
+                  "
+                  sizes="(max-width: 760px) calc(100vw - 36px), 50vw"
+                  width="1280"
+                  height="640"
+                  alt="Blick über die Tische im Café Dreimaster zur Theke, hinter der zwei Menschen stehen."
+                  loading="lazy"
+                  decoding="async"
+                />
+                <figcaption>
+                  <span>Café Dreimaster · Archivfoto</span
+                  ><a href="https://akg-kiel.de/wp-content/uploads/2024/01/Banner_Dreimaster.jpg"
+                    >Quelle: akg-kiel.de <span aria-hidden="true">↗</span
+                    ><span class="sr-only"> (extern)</span></a
+                  >
+                </figcaption>
+              </figure>
+              <div>
+                <h3>Café Dreimaster</h3>
+                <p style="margin-top: 20px">
+                  Lerne das Café kennen und finde die aktuellen Informationen für deinen Besuch –
+                  auf der Dreimaster-Website.
+                </p>
+                <a class="text-link" href="https://cafe-dreimaster.de/"
+                  >Zum Café Dreimaster <span class="external">extern ↗</span></a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="wrap news-poster" id="aktuelles" aria-labelledby="news-title">
+          <h2 id="news-title">Und sonst?</h2>
+          <div>
+            <p>Aktuelle Meldungen sind in diesem Entwurf nicht eingebunden.</p>
+            <a class="text-link" href="/aktuelles"
+              >Alle Meldungen<span aria-hidden="true">→</span></a
+            >
+          </div>
+        </section>
+      </main>
+      <footer class="site-footer" id="kontakt">
+        <div class="wrap footer-top">
+          <p class="footer-name">Apostel-Kirchengemeinde Kiel</p>
+          <nav aria-label="Weitere Informationen">
+            <a href="/gemeinde">Gemeinde kennenlernen</a><a href="/kontakt">Kontakt</a>
+          </nav>
+        </div>
+        <div class="wrap footer-bottom">
+          <p>Gestaltungsentwurf · Mitten im Miteinander</p>
+          <a href="#willkommen">Zurück nach oben <span aria-hidden="true">↑</span></a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

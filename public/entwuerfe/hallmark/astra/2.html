@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Dein Weg in die Gemeinde · AKG-Startseitenentwurf 2</title>
+    <meta
+      name="description"
+      content="Eigenständiger Startseitenentwurf für die Apostel-Kirchengemeinde Kiel: Dein Weg in die Gemeinde."
+    />
+    <link
+      rel="preload"
+      href="/fonts/figtree-latin-variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <style>
+      /* Hallmark · macrostructure: Index-First · tone: direkt, übersichtlich, einladend · anchor hue: blue
+ * theme: custom AKG (brand-locked) · genre: editorial · nav: N3 Side-rail, upright original logo · footer: Ft4 Dense typographic
+ * paper: oklch(100% 0 0) · accent: oklch(50.53465% 0.113675 238.9074) · display: Figtree · body: Figtree
+ * axes: light / geometric-sans / cool · enrichment: supplied archival photography, no crop or filter
+ * context: inferred audience = new and returning visitors; use = discover community; motion = none
+ * Hallmark · pre-emit critique: P4 H4 E4 S5 R5 V5 · reviewed; brand exceptions in notes.md
+ * contrast: text pass (40–41) · responsive: checked 320–1920px and 200% root text · no JavaScript
+ */
+
+      :root {
+        --font-body: 'Figtree', sans-serif;
+        --font-display: var(--font-body);
+        --color-paper: oklch(100% 0 0);
+        --color-ink: oklch(33.64364% 0.055326 237.2269);
+        --color-accent: oklch(50.53465% 0.113675 238.9074);
+        --color-accent-ink: var(--color-paper);
+        --color-wash: oklch(95.85419% 0.011 225.9815);
+        --color-muted: oklch(48.25052% 0.027323 236.5166);
+        --color-rule: oklch(88.34941% 0.014104 219.6332);
+        --color-focus: var(--color-ink);
+        --color-clear: transparent;
+        --space-xs: 0.5rem;
+        --space-sm: 0.75rem;
+        --space-md: 1rem;
+        --space-lg: 1.5rem;
+        --space-xl: 2.5rem;
+        --space-2xl: 4rem;
+        --space-3xl: 6rem;
+        --space-4xl: 8rem;
+        --page-gutter: clamp(1.25rem, 4vw, 4rem);
+        --text-small: 0.875rem;
+        --text-body: 1.0625rem;
+        --text-lead: clamp(1.125rem, 1.6vw, 1.375rem);
+        --text-heading: clamp(1.75rem, 3.2vw, 2.75rem);
+        --text-display: clamp(2.5rem, 5.5vw, 5rem);
+        --rule-hair: 1px;
+        --radius: 0;
+      }
+
+      @font-face {
+        font-family: 'Figtree';
+        src: url('/fonts/figtree-latin-variable.woff2') format('woff2');
+        font-style: normal;
+        font-weight: 300 900;
+        font-display: swap;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        overflow-x: clip;
+      }
+      html {
+        scroll-padding-top: 1.5rem;
+        background: var(--color-paper);
+        color: var(--color-ink);
+      }
+      body {
+        margin: 0;
+        font-family: var(--font-body);
+        font-size: var(--text-body);
+        line-height: 1.6;
+        font-synthesis: none;
+      }
+      h1,
+      h2,
+      h3,
+      p,
+      figure,
+      ul {
+        margin: 0;
+      }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      h1,
+      h2,
+      h3 {
+        min-width: 0;
+        font-family: var(--font-display);
+        font-style: normal;
+        font-weight: 750;
+        line-height: 1.12;
+        letter-spacing: -0.035em;
+        overflow-wrap: anywhere;
+        text-wrap: balance;
+      }
+      main:focus {
+        outline: none;
+      }
+      h1 {
+        font-size: var(--text-display);
+      }
+      h2 {
+        font-size: var(--text-heading);
+      }
+      h3 {
+        font-size: var(--text-lead);
+      }
+      p {
+        max-width: 62ch;
+        text-wrap: pretty;
+        overflow-wrap: anywhere;
+      }
+      img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+      }
+      figure {
+        min-width: 0;
+      }
+      a {
+        color: inherit;
+        text-underline-offset: 0.24em;
+        text-decoration-thickness: 1px;
+      }
+      a,
+      summary {
+        touch-action: manipulation;
+      }
+      a:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid var(--color-focus);
+        outline-offset: 5px;
+      }
+      a:active {
+        text-decoration-thickness: 3px;
+      }
+      summary:active {
+        text-decoration: underline;
+        text-decoration-thickness: 3px;
+      }
+      @media (hover: hover) {
+        a:hover {
+          text-decoration-thickness: 2px;
+        }
+        summary:hover {
+          text-decoration: underline;
+          text-underline-offset: 0.2em;
+        }
+      }
+      .wrap {
+        width: min(100% - 2 * var(--page-gutter), 80rem);
+        margin-inline: auto;
+      }
+      .prose {
+        display: grid;
+        gap: var(--space-lg);
+        align-content: start;
+      }
+      .lead {
+        font-size: var(--text-lead);
+        line-height: 1.55;
+      }
+      .small {
+        font-size: var(--text-small);
+      }
+      .note {
+        color: var(--color-muted);
+        font-size: var(--text-small);
+      }
+      .link {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-sm);
+        min-height: 44px;
+        padding-block: var(--space-xs);
+        white-space: normal;
+        overflow-wrap: anywhere;
+        width: fit-content;
+        max-width: 100%;
+        font-weight: 650;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--space-xs) var(--space-lg);
+      }
+      .button {
+        display: inline-flex;
+        width: fit-content;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-sm);
+        min-height: 48px;
+        max-width: 100%;
+        padding: var(--space-sm) var(--space-md);
+        background: var(--color-accent);
+        color: var(--color-accent-ink);
+        font-size: var(--text-body);
+        font-weight: 700;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        text-decoration: none;
+      }
+      .button:focus-visible {
+        outline-offset: 4px;
+      }
+      @media (hover: hover) {
+        .button:hover {
+          background: var(--color-ink);
+          color: var(--color-paper);
+        }
+      }
+      .button:active {
+        text-decoration: underline;
+      }
+      .dark {
+        background: var(--color-ink);
+        color: var(--color-paper);
+        --color-focus: var(--color-paper);
+      }
+      .dark .note {
+        color: var(--color-wash);
+      }
+      .dark .button {
+        background: var(--color-paper);
+        color: var(--color-ink);
+      }
+      .dark .button:focus-visible {
+        outline-color: var(--color-paper);
+      }
+      .dark .button:hover {
+        text-decoration: underline;
+      }
+      .wash {
+        background: var(--color-wash);
+        color: var(--color-ink);
+      }
+      .skip {
+        position: fixed;
+        inset: 0.5rem auto auto 1rem;
+        z-index: 20;
+        padding: 0.75rem 1rem;
+        min-height: 48px;
+        background: var(--color-ink);
+        color: var(--color-paper);
+        transform: translateY(-180%);
+      }
+      .skip:focus {
+        transform: none;
+        outline-color: var(--color-paper);
+      }
+      .logo {
+        display: block;
+        width: 10rem;
+        max-width: 100%;
+        padding-block: var(--space-xs);
+        background: var(--color-paper);
+        color: var(--color-ink);
+      }
+      .logo img {
+        width: 100%;
+        height: auto;
+      }
+      .site-header {
+        background: var(--color-paper);
+        color: var(--color-ink);
+      }
+      .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 var(--space-lg);
+      }
+      .nav-links a {
+        display: flex;
+        align-items: center;
+        min-height: 48px;
+        padding-block: var(--space-xs);
+        white-space: nowrap;
+        text-decoration: none;
+        font-weight: 650;
+      }
+      .nav-links a:hover,
+      .nav-links a:focus-visible {
+        text-decoration: underline;
+      }
+      .menu {
+        min-width: 0;
+      }
+      .menu summary {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-md);
+        cursor: pointer;
+        list-style: none;
+        font-weight: 650;
+        padding: var(--space-xs) var(--space-md);
+      }
+      .menu summary::-webkit-details-marker {
+        display: none;
+      }
+      .menu summary::after {
+        content: '+';
+        font-size: 1.5rem;
+        line-height: 1;
+      }
+      .menu[open] summary::after {
+        content: '−';
+      }
+      .menu nav {
+        padding: var(--space-sm) var(--space-md);
+      }
+      .menu .nav-links {
+        display: grid;
+        gap: 0;
+      }
+      .menu[open] {
+        background: var(--color-wash);
+        color: var(--color-ink);
+      }
+      figcaption {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        column-gap: var(--space-sm);
+        padding-block: 0.25rem;
+        color: var(--color-muted);
+        font-size: var(--text-small);
+        line-height: 1.5;
+      }
+      figcaption a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        white-space: nowrap;
+      }
+      .dark figcaption {
+        color: var(--color-wash);
+      }
+      .section {
+        padding-block: clamp(3rem, 7vw, 6rem);
+      }
+      section {
+        scroll-margin-top: 2rem;
+      }
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 var(--space-lg);
+      }
+      .footer-links a {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        white-space: nowrap;
+      }
+      .footer-note {
+        font-size: var(--text-small);
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+
+      .directory-header {
+        padding: var(--space-md) var(--page-gutter);
+      }
+      .rail-top {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-md);
+        align-items: start;
+        justify-content: space-between;
+      }
+      .rail-top .menu {
+        min-width: 7rem;
+        margin-top: var(--space-lg);
+      }
+      .rail-top .menu[open] {
+        flex-basis: 100%;
+      }
+      .rail-desktop,
+      .rail-note {
+        display: none;
+      }
+      .directory-main {
+        padding-inline: var(--page-gutter);
+      }
+      .directory-intro {
+        padding-block: var(--space-xl) var(--space-2xl);
+      }
+      .directory-intro h1 {
+        max-width: 19ch;
+        font-size: var(--text-heading);
+        font-weight: 650;
+      }
+      .directory-intro > p {
+        margin-top: var(--space-lg);
+        max-width: 49ch;
+      }
+      .path-list {
+        margin-top: var(--space-xl);
+        display: grid;
+      }
+      .path-list li {
+        border-top: var(--rule-hair) solid var(--color-rule);
+        padding-block: var(--space-md);
+      }
+      .path-list a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--space-md);
+        min-height: 48px;
+        font-size: var(--text-lead);
+        font-weight: 750;
+        text-decoration: none;
+      }
+      .path-list a span:first-child {
+        white-space: nowrap;
+      }
+      .path-list a:hover {
+        text-decoration: underline;
+      }
+      .path-list p {
+        font-size: var(--text-small);
+        color: var(--color-muted);
+        margin-top: 0.25rem;
+      }
+      .directory-feature {
+        display: grid;
+        gap: var(--space-xl);
+        padding-block: var(--space-2xl);
+      }
+      .directory-feature .prose {
+        max-width: 53ch;
+      }
+      .directory-images {
+        display: grid;
+        gap: var(--space-lg);
+      }
+      .directory-service {
+        margin-inline: calc(-1 * var(--page-gutter));
+        padding-inline: var(--page-gutter);
+      }
+      .directory-service .inner {
+        display: grid;
+        gap: var(--space-xl);
+      }
+      .directory-cafe {
+        display: grid;
+        gap: var(--space-lg);
+        padding-block: var(--space-2xl);
+      }
+      .directory-news {
+        border-top: var(--rule-hair) solid var(--color-rule);
+        padding-block: var(--space-xl) var(--space-2xl);
+      }
+      .directory-end {
+        padding: var(--space-xl) var(--page-gutter);
+        background: var(--color-wash);
+        color: var(--color-ink);
+      }
+      .directory-end p {
+        font-size: var(--text-small);
+      }
+      .directory-end .footer-links {
+        margin-block: var(--space-sm);
+      }
+      @media (min-width: 48rem) {
+        .directory-images {
+          grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+          align-items: end;
+        }
+        .directory-cafe {
+          grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+          align-items: center;
+          gap: var(--space-xl);
+        }
+      }
+      @media (min-width: 68rem) {
+        .directory-shell {
+          display: grid;
+          grid-template-columns: 15rem minmax(0, 1fr);
+          max-width: 100rem;
+          margin-inline: auto;
+        }
+        .directory-header {
+          grid-row: 1 / 3;
+          padding: var(--space-xl) var(--space-lg);
+          border-inline-end: var(--rule-hair) solid var(--color-rule);
+        }
+        .rail-inner {
+          position: sticky;
+          top: var(--space-xl);
+        }
+        .rail-top .logo {
+          width: 11rem;
+        }
+        .rail-top .menu {
+          display: none;
+        }
+        .rail-desktop {
+          display: block;
+          margin-top: var(--space-xl);
+        }
+        .rail-desktop .nav-links {
+          display: grid;
+          gap: 0.25rem;
+        }
+        .rail-note {
+          display: block;
+          margin-top: var(--space-2xl);
+          max-width: 20ch;
+        }
+        .directory-main,
+        .directory-end {
+          grid-column: 2;
+        }
+        .directory-intro {
+          padding-top: var(--space-2xl);
+        }
+        .path-list li {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+          align-items: center;
+          gap: var(--space-xl);
+        }
+        .path-list p {
+          margin: 0;
+        }
+        .directory-service .inner {
+          grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#inhalt">Zum Inhalt</a>
+
+    <div class="directory-shell">
+      <header class="site-header directory-header" id="anfang">
+        <div class="rail-inner">
+          <div class="rail-top">
+            <a class="logo" href="/" aria-label="Apostel-Kirchengemeinde Kiel – Startseite"
+              ><img
+                src="/images/apostel-logo.png"
+                width="500"
+                height="272"
+                alt="Apostel-Kirchengemeinde"
+            /></a>
+            <details class="menu">
+              <summary>Menü</summary>
+              <nav aria-label="Hauptnavigation">
+                <ul class="nav-links">
+                  <li><a href="/gottesdienste">Gottesdienste</a></li>
+                  <li><a href="/aktuelles">Aktuelles</a></li>
+                  <li><a href="/angebote">Angebote</a></li>
+                  <li><a href="/gemeinde">Gemeinde</a></li>
+                  <li><a href="/kontakt">Kontakt</a></li>
+                </ul>
+              </nav>
+            </details>
+          </div>
+          <nav class="rail-desktop" aria-label="Hauptnavigation">
+            <ul class="nav-links">
+              <li><a href="/gottesdienste">Gottesdienste</a></li>
+              <li><a href="/aktuelles">Aktuelles</a></li>
+              <li><a href="/angebote">Angebote</a></li>
+              <li><a href="/gemeinde">Gemeinde</a></li>
+              <li><a href="/kontakt">Kontakt</a></li>
+            </ul>
+          </nav>
+          <p class="rail-note note">
+            Apostel-Kirchengemeinde Kiel<br /><br />Schön, dass du da bist.
+          </p>
+        </div>
+      </header>
+      <main class="directory-main" id="inhalt" tabindex="-1">
+        <section class="directory-intro" aria-labelledby="willkommen">
+          <h1 id="willkommen">Dein Weg in<br />die Gemeinde.</h1>
+          <p>
+            Ob du zum ersten Mal vorbeischaust oder schon lange zur Gemeinde gehörst: Wir freuen uns
+            auf dich.
+          </p>
+          <ul class="path-list">
+            <li>
+              <div>
+                <a class="path-link" href="#gemeinde"
+                  >Gemeinde kennenlernen <span aria-hidden="true">→</span></a
+                >
+              </div>
+              <p>Menschen, Begegnung und Alltag.</p>
+            </li>
+            <li>
+              <div>
+                <a class="path-link" href="#gottesdienste"
+                  >Gottesdienste <span aria-hidden="true">→</span></a
+                >
+              </div>
+              <p>Glauben teilen. Fragen mitbringen.</p>
+            </li>
+            <li>
+              <div>
+                <a class="path-link" href="#angebote"
+                  >Angebote &amp; Gruppen <span aria-hidden="true">→</span></a
+                >
+              </div>
+              <p>Das Gemeindeleben entdecken.</p>
+            </li>
+            <li>
+              <div>
+                <a class="path-link" href="#cafe"
+                  >Café Dreimaster <span aria-hidden="true">→</span></a
+                >
+              </div>
+              <p>Ein eigener Ort der Begegnung.</p>
+            </li>
+          </ul>
+        </section>
+        <section class="directory-feature" id="gemeinde" aria-labelledby="menschen">
+          <div class="prose">
+            <h2 id="menschen">Gemeinde heißt: miteinander.</h2>
+            <p class="lead">
+              Wir möchten Menschen zusammenbringen – im Gottesdienst, im Gespräch und im Alltag.
+            </p>
+            <div class="actions">
+              <a class="link" href="/gemeinde"
+                >Gemeinde kennenlernen <span aria-hidden="true">→</span></a
+              ><a class="link" href="/angebote"
+                >Angebote &amp; Gruppen <span aria-hidden="true">→</span></a
+              >
+            </div>
+          </div>
+          <div class="directory-images" id="angebote">
+            <figure class="">
+              <img
+                src="/images/gemeinde-gespraech-960.webp"
+                srcset="
+                  /images/gemeinde-gespraech-640.webp   640w,
+                  /images/gemeinde-gespraech-960.webp   960w,
+                  /images/gemeinde-gespraech-1280.webp 1280w
+                "
+                sizes="(min-width: 60rem) 50vw, 100vw"
+                width="960"
+                height="640"
+                alt="Zwei Menschen im Gespräch auf der Wiese neben der Kirche beim Gemeindefest 2022."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                <span>Im Gespräch · Gemeindefest 2022</span
+                ><a href="https://akg-kiel.de/wp-content/uploads/2022/05/Gemeindefest-22-VIII.jpg"
+                  >Quelle: akg-kiel.de ↗</a
+                >
+              </figcaption>
+            </figure>
+            <figure class="">
+              <img
+                src="/images/gemeinde-fest-960.webp"
+                srcset="
+                  /images/gemeinde-fest-640.webp   640w,
+                  /images/gemeinde-fest-960.webp   960w,
+                  /images/gemeinde-fest-1280.webp 1280w
+                "
+                sizes="(min-width: 60rem) 50vw, 100vw"
+                width="960"
+                height="640"
+                alt="Menschen kommen auf dem Kirchgelände beim Gemeindefest 2022 zusammen."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                <span>Zeit miteinander · Gemeindefest 2022</span
+                ><a href="https://akg-kiel.de/wp-content/uploads/2022/05/Gemeindefest-22-XII.jpg"
+                  >Quelle: akg-kiel.de ↗</a
+                >
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="directory-service wash section" id="gottesdienste" aria-labelledby="glaube">
+          <div class="inner">
+            <div class="prose">
+              <h2 id="glaube">Gottesdienste</h2>
+              <p>
+                Zur Ruhe kommen, gemeinsam glauben, neue Gedanken mitnehmen. Gottesdienst ist eine
+                Einladung – auch mit offenen Fragen.
+              </p>
+              <a class="button" href="/gottesdienste"
+                >Gottesdienste ansehen <span aria-hidden="true">→</span></a
+              >
+              <p class="note">Aktuelle Termine sind in diesem Entwurf nicht freigegeben.</p>
+            </div>
+            <figure class="">
+              <img
+                src="/images/gemeinde-gottesdienst-960.webp"
+                srcset="
+                  /images/gemeinde-gottesdienst-640.webp   640w,
+                  /images/gemeinde-gottesdienst-960.webp   960w,
+                  /images/gemeinde-gottesdienst-1280.webp 1280w
+                "
+                sizes="(min-width: 60rem) 50vw, 100vw"
+                width="960"
+                height="546"
+                alt="Menschen stehen gemeinsam in den Bankreihen der Petruskirche; vorne begleitet eine Band den Gottesdienst."
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                <span>Gottesdienst · Archivfoto · Foto: Frank Lönne</span
+                ><a href="https://akg-kiel.de/wp-content/uploads/2024/01/2024_Banner_allianz_1.jpg"
+                  >Quelle: akg-kiel.de ↗</a
+                >
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="directory-cafe" id="cafe" aria-labelledby="begegnung">
+          <figure class="">
+            <img
+              src="/images/cafe-dreimaster-960.webp"
+              srcset="
+                /images/cafe-dreimaster-640.webp   640w,
+                /images/cafe-dreimaster-960.webp   960w,
+                /images/cafe-dreimaster-1280.webp 1280w
+              "
+              sizes="(min-width: 60rem) 50vw, 100vw"
+              width="960"
+              height="480"
+              alt="Blick über die Tische im Café Dreimaster zur Theke, hinter der zwei Menschen stehen."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>
+              <span>Café Dreimaster · Archivfoto</span
+              ><a href="https://akg-kiel.de/wp-content/uploads/2024/01/Banner_Dreimaster.jpg"
+                >Quelle: akg-kiel.de ↗</a
+              >
+            </figcaption>
+          </figure>
+          <div class="prose">
+            <h2 id="begegnung">Zum Café<br />Dreimaster</h2>
+            <p>
+              Lerne das Café kennen und finde die aktuellen Informationen für deinen Besuch – auf
+              der Dreimaster-Website.
+            </p>
+            <a class="link" href="https://cafe-dreimaster.de/"
+              >Café Dreimaster <span class="small">extern ↗</span></a
+            >
+          </div>
+        </section>
+        <section class="directory-news prose" aria-labelledby="meldungen">
+          <h2 id="meldungen">Aktuelles &amp; Kontakt</h2>
+          <p>Aktuelle Meldungen sind in diesem Entwurf nicht eingebunden.</p>
+          <div class="actions">
+            <a class="link" href="/aktuelles">Meldungen ansehen <span aria-hidden="true">→</span></a
+            ><a class="link" href="/kontakt">Kontakt aufnehmen <span aria-hidden="true">→</span></a>
+          </div>
+        </section>
+      </main>
+      <footer class="directory-end">
+        <p>
+          <strong>Apostel-Kirchengemeinde Kiel</strong><br />Startseitenentwurf · Dein Weg in die
+          Gemeinde.
+        </p>
+        <nav class="footer-links" aria-label="Weitere Seiten">
+          <a href="/gemeinde">Gemeinde</a><a href="/kontakt">Kontakt</a
+          ><a href="#anfang">Nach oben ↑</a>
+        </nav>
+        <p>
+          Historische Fotos sind am jeweiligen Bild gekennzeichnet und mit der Originalquelle
+          verlinkt.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

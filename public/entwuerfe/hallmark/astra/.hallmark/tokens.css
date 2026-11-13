@@ -1,0 +1,31 @@
+/* AKG-129: export only; every HTML contains these tokens inline for standalone use. */
+
+:root {
+  --font-body: 'Figtree', sans-serif;
+  --font-display: var(--font-body);
+  --color-paper: oklch(100% 0 0);
+  --color-ink: oklch(33.64364% 0.055326 237.2269);
+  --color-accent: oklch(50.53465% 0.113675 238.9074);
+  --color-accent-ink: var(--color-paper);
+  --color-wash: oklch(95.85419% 0.011 225.9815);
+  --color-muted: oklch(48.25052% 0.027323 236.5166);
+  --color-rule: oklch(88.34941% 0.014104 219.6332);
+  --color-focus: var(--color-ink);
+  --color-clear: transparent;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 8rem;
+  --page-gutter: clamp(1.25rem, 4vw, 4rem);
+  --text-small: 0.875rem;
+  --text-body: 1.0625rem;
+  --text-lead: clamp(1.125rem, 1.6vw, 1.375rem);
+  --text-heading: clamp(1.75rem, 3.2vw, 2.75rem);
+  --text-display: clamp(2.5rem, 5.5vw, 5rem);
+  --rule-hair: 1px;
+  --radius: 0;
+}

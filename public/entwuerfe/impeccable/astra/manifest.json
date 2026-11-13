@@ -1,0 +1,32 @@
+[
+  {
+    "number": 1,
+    "title": "Offene Tür",
+    "description": "Ein ruhiger weißer Auftakt mit Gesprächsfoto führt von der persönlichen Einladung zu Gottesdienst und Gemeindeleben.",
+    "structure": "Einladung & Gesprächsfoto → Gottesdienst → Gemeindefest → Café → Aktuelles → Kontakt"
+  },
+  {
+    "number": 2,
+    "title": "Miteinander, groß gedacht",
+    "description": "Ein blaues Typoplakat und zwei unbeschnittene Gemeindefotos machen die Einladung zum großformatigen Mittelpunkt.",
+    "structure": "Blaue Einladung & Fotopaar → Gottesdienst → Café → Aktuelles → Gemeinde/Kontakt"
+  },
+  {
+    "number": 3,
+    "title": "Dein erster Schritt",
+    "description": "Ein seitlicher Wegweiser und native aufklappbare Besucherfragen machen den Einstieg nach persönlichem Anliegen leicht.",
+    "structure": "Einladung & Wegweiser → Gottesdienstfragen → Gemeindeleben → Café → Aktuelles → Kontakt"
+  },
+  {
+    "number": 4,
+    "title": "Ein Stück Gemeindeleben",
+    "description": "Ein zentrierter Lesebuchauftakt, ein ungleiches Fotopaar und großzügige Lesepassagen lassen das Gemeindeleben ruhig erzählen.",
+    "structure": "Zentrierte Einladung → Gemeindefest-Doppelseite → Gottesdienst → Café → Aktuelles/Kontakt"
+  },
+  {
+    "number": 5,
+    "title": "Am selben Tisch",
+    "description": "Das Caféfoto öffnet den Besuch über den Alltag; ein blaues Begegnungsband und ein späterer Gottesdienstabschnitt führen zur Gemeinde.",
+    "structure": "Café & Einladung → Blaues Gemeindeleben → Gottesdienst → Gemeinde-Frage → Aktuelles → Kontakt"
+  }
+]

@@ -1,0 +1,2302 @@
+{
+  "checks": 45,
+  "javaScript": false,
+  "externalRequests": [],
+  "results": [
+    {
+      "page": 1,
+      "width": 320,
+      "failures": [],
+      "lang": "de",
+      "title": "Zusammen im Bild · AKG Startseitenentwurf 1",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.003855793329477608
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010978287387166663
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010978287387166663
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9999800701530612
+    },
+    {
+      "page": 1,
+      "width": 375,
+      "failures": [],
+      "lang": "de",
+      "title": "Zusammen im Bild · AKG Startseitenentwurf 1",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0017582417582417964
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011299048140793744
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011299048140793744
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.005813953488372103
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9999800701530612
+    },
+    {
+      "page": 1,
+      "width": 390,
+      "failures": [],
+      "lang": "de",
+      "title": "Zusammen im Bild · AKG Startseitenentwurf 1",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0013736263736263687
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009397488988738267
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009397488988738267
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00008786574114738599
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9999800701530612
+    },
+    {
+      "page": 1,
+      "width": 414,
+      "failures": [],
+      "lang": "de",
+      "title": "Zusammen im Bild · AKG Startseitenentwurf 1",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0018692295981470597
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002851467274797237
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002851467274797237
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9999800701530612
+    },
+    {
+      "page": 1,
+      "width": 768,
+      "failures": [],
+      "lang": "de",
+      "title": "Zusammen im Bild · AKG Startseitenentwurf 1",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0002822480380053616
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0029250972857837176
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0016297477323157228
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9999800701530612
+    },
+    {
+      "page": 1,
+      "width": 1024,
+      "failures": [],
+      "lang": "de",
+      "title": "Zusammen im Bild · AKG Startseitenentwurf 1",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0004009881033049112
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002454931504916713
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009916375544594125
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.999653952839494
+    },
+    {
+      "page": 1,
+      "width": 1280,
+      "failures": [],
+      "lang": "de",
+      "title": "Zusammen im Bild · AKG Startseitenentwurf 1",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00034068978531065497
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010660980810235365
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.004446336173611121
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002966940159030429
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.999655042375837
+    },
+    {
+      "page": 1,
+      "width": 1440,
+      "failures": [],
+      "lang": "de",
+      "title": "Zusammen im Bild · AKG Startseitenentwurf 1",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0000037253018576599572
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00001526670941354169
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.001835883088981749
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.999708299512987
+    },
+    {
+      "page": 1,
+      "width": 1920,
+      "failures": [],
+      "lang": "de",
+      "title": "Zusammen im Bild · AKG Startseitenentwurf 1",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.000014686377851180765
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011288747864290904
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.000049617941847879266
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.999708299512987
+    },
+    {
+      "page": 2,
+      "width": 320,
+      "failures": [],
+      "lang": "de",
+      "title": "Ein Brief an dich · AKG Startseitenentwurf 2",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010978287387166663
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002203739044852382
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010978287387166663
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 1.9994469026548671
+    },
+    {
+      "page": 2,
+      "width": 375,
+      "failures": [],
+      "lang": "de",
+      "title": "Ein Brief an dich · AKG Startseitenentwurf 2",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011299048140793744
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00184932584859121
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011299048140793744
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.005813953488372103
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 1.9994469026548671
+    },
+    {
+      "page": 2,
+      "width": 390,
+      "failures": [],
+      "lang": "de",
+      "title": "Ein Brief an dich · AKG Startseitenentwurf 2",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009397488988738267
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.003401762373418382
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009397488988738267
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00008786574114738599
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 1.9994469026548671
+    },
+    {
+      "page": 2,
+      "width": 414,
+      "failures": [],
+      "lang": "de",
+      "title": "Ein Brief an dich · AKG Startseitenentwurf 2",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002851467274797237
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009823182711199419
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002851467274797237
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 1.9994469026548671
+    },
+    {
+      "page": 2,
+      "width": 768,
+      "failures": [],
+      "lang": "de",
+      "title": "Ein Brief an dich · AKG Startseitenentwurf 2",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010615711252655036
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002302434077198212
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010993497425682008
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 1.9994469026548671
+    },
+    {
+      "page": 2,
+      "width": 1024,
+      "failures": [],
+      "lang": "de",
+      "title": "Ein Brief an dich · AKG Startseitenentwurf 2",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010505084460878944
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00058345677035887
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002618800341248839
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.004081632653061273
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 1.999671222582312
+    },
+    {
+      "page": 2,
+      "width": 1280,
+      "failures": [],
+      "lang": "de",
+      "title": "Ein Brief an dich · AKG Startseitenentwurf 2",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0007443427335331876
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011822598562549747
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00002232312237837597
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.000052238416131444865
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 1.999435630290496
+    },
+    {
+      "page": 2,
+      "width": 1440,
+      "failures": [],
+      "lang": "de",
+      "title": "Ein Brief an dich · AKG Startseitenentwurf 2",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0005250335493023339
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0016035858498040234
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.000031845105407324326
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002851884991285303
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 1.9999497184231698
+    },
+    {
+      "page": 2,
+      "width": 1920,
+      "failures": [],
+      "lang": "de",
+      "title": "Ein Brief an dich · AKG Startseitenentwurf 2",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002326124833342158
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0012123495430746978
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.000031845105407324326
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0021272473101259237
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 1.9999497184231698
+    },
+    {
+      "page": 3,
+      "width": 320,
+      "failures": [],
+      "lang": "de",
+      "title": "Dein Weg in die Gemeinde · AKG Startseitenentwurf 3",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002203739044852382
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010978287387166663
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010978287387166663
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.68,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9999800701530612
+    },
+    {
+      "page": 3,
+      "width": 375,
+      "failures": [],
+      "lang": "de",
+      "title": "Dein Weg in die Gemeinde · AKG Startseitenentwurf 3",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00184932584859121
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011299048140793744
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011299048140793744
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.005813953488372103
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.68,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9999800701530612
+    },
+    {
+      "page": 3,
+      "width": 390,
+      "failures": [],
+      "lang": "de",
+      "title": "Dein Weg in die Gemeinde · AKG Startseitenentwurf 3",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.003401762373418382
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009397488988738267
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009397488988738267
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00008786574114738599
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.68,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9999800701530612
+    },
+    {
+      "page": 3,
+      "width": 414,
+      "failures": [],
+      "lang": "de",
+      "title": "Dein Weg in die Gemeinde · AKG Startseitenentwurf 3",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009823182711199419
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002851467274797237
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002851467274797237
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.68,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9999800701530612
+    },
+    {
+      "page": 3,
+      "width": 768,
+      "failures": [],
+      "lang": "de",
+      "title": "Dein Weg in die Gemeinde · AKG Startseitenentwurf 3",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002302434077198212
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.006043885743530764
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011293763332915763
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.68,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9999800701530612
+    },
+    {
+      "page": 3,
+      "width": 1024,
+      "failures": [],
+      "lang": "de",
+      "title": "Dein Weg in die Gemeinde · AKG Startseitenentwurf 3",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00529728329512924
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0015467844051695323
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0030394303887746332
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.005154639175257714
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.68,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.999653952839494
+    },
+    {
+      "page": 3,
+      "width": 1280,
+      "failures": [],
+      "lang": "de",
+      "title": "Dein Weg in die Gemeinde · AKG Startseitenentwurf 3",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.005506333358417992
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009690003700741912
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011206574523721091
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00006334325711021549
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.68,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.999655042375837
+    },
+    {
+      "page": 3,
+      "width": 1440,
+      "failures": [],
+      "lang": "de",
+      "title": "Dein Weg in die Gemeinde · AKG Startseitenentwurf 3",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0004074600925345617
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0007118274993711537
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00020697906149713674
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0036088178055124764
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.68,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.999708299512987
+    },
+    {
+      "page": 3,
+      "width": 1920,
+      "failures": [],
+      "lang": "de",
+      "title": "Dein Weg in die Gemeinde · AKG Startseitenentwurf 3",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009205454231633325
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011400071250444732
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.000027425813175385727
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0027105002021388103
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.68,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.999708299512987
+    },
+    {
+      "page": 4,
+      "width": 320,
+      "failures": [],
+      "lang": "de",
+      "title": "Mit offenen Fragen · AKG Startseitenentwurf 4",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010978287387166663
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002203739044852382
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010978287387166663
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 1.9993832236842104
+    },
+    {
+      "page": 4,
+      "width": 375,
+      "failures": [],
+      "lang": "de",
+      "title": "Mit offenen Fragen · AKG Startseitenentwurf 4",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011299048140793744
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00184932584859121
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011299048140793744
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.005813953488372103
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9996916118421052
+    },
+    {
+      "page": 4,
+      "width": 390,
+      "failures": [],
+      "lang": "de",
+      "title": "Mit offenen Fragen · AKG Startseitenentwurf 4",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009397488988738267
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.003401762373418382
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009397488988738267
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00008786574114738599
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9996916118421052
+    },
+    {
+      "page": 4,
+      "width": 414,
+      "failures": [],
+      "lang": "de",
+      "title": "Mit offenen Fragen · AKG Startseitenentwurf 4",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002851467274797237
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009823182711199419
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002851467274797237
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9996916118421052
+    },
+    {
+      "page": 4,
+      "width": 768,
+      "failures": [],
+      "lang": "de",
+      "title": "Mit offenen Fragen · AKG Startseitenentwurf 4",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010615711252655036
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002302434077198212
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010615711252655036
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.999813988095238
+    },
+    {
+      "page": 4,
+      "width": 1024,
+      "failures": [],
+      "lang": "de",
+      "title": "Mit offenen Fragen · AKG Startseitenentwurf 4",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010068808570182775
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0015523142378477406
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0026833511632682328
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.004081632653061273
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9999956403459821
+    },
+    {
+      "page": 4,
+      "width": 1280,
+      "failures": [],
+      "lang": "de",
+      "title": "Mit offenen Fragen · AKG Startseitenentwurf 4",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.004487275524033274
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010552403068837535
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002373968517944247
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00004956629491958964
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9998866489955356
+    },
+    {
+      "page": 4,
+      "width": 1440,
+      "failures": [],
+      "lang": "de",
+      "title": "Mit offenen Fragen · AKG Startseitenentwurf 4",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0018709624907897737
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.000006426978060414257
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0021367604205031476
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0028985507246375164
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9998804209183673
+    },
+    {
+      "page": 4,
+      "width": 1920,
+      "failures": [],
+      "lang": "de",
+      "title": "Mit offenen Fragen · AKG Startseitenentwurf 4",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.0001848136022812863
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00005144562197756386
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0006297053374613171
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00003715262297521171
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0021739130434781373
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 0.9998804209183673
+    },
+    {
+      "page": 5,
+      "width": 320,
+      "failures": [],
+      "lang": "de",
+      "title": "Menschen machen Gemeinde · AKG Startseitenentwurf 5",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002203739044852382
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010978287387166663
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010978287387166663
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 2.9990898058252426
+    },
+    {
+      "page": 5,
+      "width": 375,
+      "failures": [],
+      "lang": "de",
+      "title": "Menschen machen Gemeinde · AKG Startseitenentwurf 5",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00184932584859121
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011299048140793744
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011299048140793744
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.005813953488372103
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 2.9990898058252426
+    },
+    {
+      "page": 5,
+      "width": 390,
+      "failures": [],
+      "lang": "de",
+      "title": "Menschen machen Gemeinde · AKG Startseitenentwurf 5",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.003401762373418382
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009397488988738267
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009397488988738267
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00008786574114738599
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 2.9990898058252426
+    },
+    {
+      "page": 5,
+      "width": 414,
+      "failures": [],
+      "lang": "de",
+      "title": "Menschen machen Gemeinde · AKG Startseitenentwurf 5",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009823182711199419
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002851467274797237
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002851467274797237
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 2.9990898058252426
+    },
+    {
+      "page": 5,
+      "width": 768,
+      "failures": [],
+      "lang": "de",
+      "title": "Menschen machen Gemeinde · AKG Startseitenentwurf 5",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002302434077198212
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.002906331631957304
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0017377660297250852
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 2.999685396658788
+    },
+    {
+      "page": 5,
+      "width": 1024,
+      "failures": [],
+      "lang": "de",
+      "title": "Menschen machen Gemeinde · AKG Startseitenentwurf 5",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0015523142378477406
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0024434955878167575
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0009731785742961296
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00005645571049495146
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 2.999235040187325
+    },
+    {
+      "page": 5,
+      "width": 1280,
+      "failures": [],
+      "lang": "de",
+      "title": "Menschen machen Gemeinde · AKG Startseitenentwurf 5",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010552403068837535
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0010660980810235365
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.004511680825735498
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0.003012048192771122
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 3.000042234388791
+    },
+    {
+      "page": 5,
+      "width": 1440,
+      "failures": [],
+      "lang": "de",
+      "title": "Menschen machen Gemeinde · AKG Startseitenentwurf 5",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.00003330061623252334
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.000015401201293618882
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0018274394374262481
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 2.9999823783956066
+    },
+    {
+      "page": 5,
+      "width": 1920,
+      "failures": [],
+      "lang": "de",
+      "title": "Menschen machen Gemeinde · AKG Startseitenentwurf 5",
+      "charset": "utf-8",
+      "viewport": "width=device-width, initial-scale=1, viewport-fit=cover",
+      "heroEssentialFits": true,
+      "robots": "noindex, nofollow",
+      "h1": 1,
+      "main": 1,
+      "sections": 5,
+      "duplicateIds": [],
+      "badLinks": [],
+      "smallTargets": [],
+      "overflow": [],
+      "images": [
+        {
+          "src": "/images/apostel-logo.png",
+          "loaded": true,
+          "ratioError": 0.000027656814136189922
+        },
+        {
+          "src": "/images/gemeinde-gottesdienst-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0006694329317542547
+        },
+        {
+          "src": "/images/gemeinde-fest-1280.webp",
+          "loaded": true,
+          "ratioError": 0.0011388119421360532
+        },
+        {
+          "src": "/images/gemeinde-gespraech-1280.webp",
+          "loaded": true,
+          "ratioError": 0.000024460642825685497
+        },
+        {
+          "src": "/images/cafe-dreimaster-1280.webp",
+          "loaded": true,
+          "ratioError": 0
+        }
+      ],
+      "font": true,
+      "sourceCount": 4,
+      "minContrast": 5.71,
+      "contrastFailures": [],
+      "focusFailures": [],
+      "h1Lines": 2.999848300970874
+    }
+  ]
+}

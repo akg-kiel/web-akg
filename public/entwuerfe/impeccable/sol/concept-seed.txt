@@ -1,0 +1,121 @@
+SURFACE CONCEPT SEED (key: d81ff026; mode: persuade; source: api; approved pool: c3b204a1eed6; 306/564 human-approved; rerun with --scope surface --mode persuade --from d81ff026 --candidate-count 7 to reproduce this roll against this catalog revision)
+DEALT INDICES: 6, 1, 4 (index 6 leads)
+  After ordering the task's grounded structural candidates by resonance,
+  deal candidates 6, 1, 4 of your own grounded list to the
+  table; index 6 leads, and the deal never points at a challenger.
+  The deal is the roll, not a suggestion: the dice decide which structures
+  reach the user, so the ranking rut stays broken while the user still gets a
+  real choice, and the full ranked list stays yours. In an attended run,
+  present the three dealt structures as full cards of equal salience, the
+  lead carrying kicker THE ROLL, with steer and re-roll, and let the user
+  lock one in; the world is already settled, so this choice is composition.
+  Visualize every dealt card: with image generation available and a
+  comp-led default (.impeccable/config.json buildPath; the page toggle
+  handles the exception), declare a comp per card and generate after
+  serving, lead first; otherwise author each card's wireframe field (see
+  serve-question --schema) and the page draws the schematic. Carry the
+  recorded default in the payload as buildPath with toggle: true. Locking a card
+  approves its comp: a surface round that put three visualized structures on
+  the table replaces the three-option comp round in visualize.md. Re-roll
+  yourself only when every dealt structure fails audience identification or
+  product clarity on named factual grounds.
+  The assignment exists to refuse the model's ranking rut, never to outrank
+  the user or the brief. Never expose assignment metadata in user-facing labels.
+CHALLENGERS:
+  1. a shallow basin of suminagashi ink, where a fingertip drags marbled currents across the surface and every swirl obeys real fluid law rather than decoration
+     SOURCE ID: medium-native-fluid-ink-basin
+     CREATIVE SPARK: One drop of indigo lands, the fan passes, and the surface writes chrysanthemums; a fingertip's slow drag pulls the whole pattern into feathered rain.
+     SYSTEM GRAMMAR:
+       - Palette/material: indigo and carbon sumi ink marbling on paper-white water, dye thinning to gray where it has spread, the newest drop always the darkest region
+       - Type/composition: a quiet humanist sans held to a still margin outside the basin, the surface itself composing only as current, whorl, and feathered rain
+       - Topology/navigation: the basin is one continuous surface; regions are dye colors that remember where they have flowed.
+       - Controls/state: stir, drop, fan, and still are the verbs; viscosity and vorticity are dials with honest physical names.
+       - Responsive/motion: simulation grid scales to GPU budget
+     WEB LEVERAGE: A GPU fluid solver in WebGL answers the pointer at sixty frames, making the page itself a liquid material.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/medium-native-fluid-ink-basin.webp · hero https://impeccable.style/worlds/cards/medium-native-fluid-ink-basin-hero.webp
+  2. a crt oscilloscope on a signal bench, phosphor trace riding an etched graticule while detented knobs set channel, timebase, and trigger
+     SOURCE ID: scientific-notation-oscilloscope-signal-bench
+     CREATIVE SPARK: You clip the probe to the pin and a green line snaps out of the noise; a nudge of the trigger knob and the waveform stands still, breathing in phosphor over the etched grid, ten divisions wide, every one meaning something.
+     SYSTEM GRAMMAR:
+       - Palette/material: phosphor green blazing on near-black glass, graticule gray etched beneath, a second channel in dimmer trace; amber readouts for armed and warning states
+       - Type/composition: condensed instrument caps on knob skirts and bezels, glowing seven-segment readouts; everything on screen is measured against the ten-division graticule
+       - Topology/navigation: one screen, many signals; you travel by timebase and vertical scale, and channels overlay in the same graticule space rather than separate views
+       - Controls/state: detented knobs set scale and trigger level; an untriggered trace rolls free, a triggered one locks still, and freeze holds the waveform for cursors
+       - Responsive/motion: the graticule stays square while readouts drop below on narrow screens; the sweep is continuous
+     WEB LEVERAGE: canvas draws the persistent phosphor trace from live Web Audio or sensor input, with pointer-dragged trigger level and keyboard-stepped cursors
+     QUALITY BAR: board https://impeccable.style/worlds/cards/scientific-notation-oscilloscope-signal-bench.webp · hero https://impeccable.style/worlds/cards/scientific-notation-oscilloscope-signal-bench-hero.webp
+  3. a saul bass title sequence, cut-paper shapes and a single jittering line building meaning across timed cards on a flat color field
+     SOURCE ID: posters-covers-sleeves-saul-bass-title
+     CREATIVE SPARK: A black cut-paper arm reaches across a burnt-orange field while brass stabs, and in ninety seconds of jittering silhouettes an entire story is told without showing a single face.
+     SYSTEM GRAMMAR:
+       - Palette/material: one flat saturated field per card, burnt orange, ink black, and bone white, the field color swapping per act while silhouettes stay black
+       - Type/composition: skinny hand-set caps sitting slightly off baseline, one idea per card in hard asymmetry, credits ranked as timed cards rather than columns
+       - Topology/navigation: a timed sequence of full-bleed cards, one idea per card; jumping ahead scrubs the sequence rather than abandoning it
+       - Controls/state: everything is a cut-paper symbol, states change by swapping the silhouette rather than decorating it; a jittery hand-drawn line marks the live element
+       - Responsive/motion: shapes are flat and scale-free so cards recompose at any width; motion is staccato paper-cut jumps
+     WEB LEVERAGE: SVG shape morphs animate the paper-cut swaps, with scroll-driven animation timelines advancing each card.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/posters-covers-sleeves-saul-bass-title.webp · hero https://impeccable.style/worlds/cards/posters-covers-sleeves-saul-bass-title-hero.webp
+  4. an amateur character reference sheet, a spiky creature drawn in four views with an accompanying palette of named swatches, adoption rules and a do-not-steal warning hand-lettered into the remaining space
+     SOURCE ID: pop-culture-shelf-devianart-character-sheet
+     CREATIVE SPARK: four views of a creature nobody asked for, a row of named colors underneath, and in the corner, hand-lettered and underlined twice, a warning about what happens if you steal it.
+     SYSTEM GRAMMAR:
+       - Palette/material: clashing saturated fills with hard black outline over a busy tiled background, plus a row of named color swatches with hex-style labels
+       - Type/composition: four views ranged across the sheet, a swatch row beneath, and hand-lettered terms crammed into whatever space is left
+       - Topology/navigation: the sheet is a specification, so navigation moves between views and the swatch that governs each part
+       - Controls/state: controls are swatches, the active one highlights every region it governs, and unused ones dim
+       - Responsive/motion: views reflow in whole panels, and motion is a swatch flashing the regions it controls
+     WEB LEVERAGE: svg region highlighting driven by swatch state, whole-panel responsive reflow, and a flash animation linking swatch to region
+     QUALITY BAR: board https://impeccable.style/worlds/cards/pop-culture-shelf-devianart-character-sheet.webp · hero https://impeccable.style/worlds/cards/pop-culture-shelf-devianart-character-sheet-hero.webp
+  5. a cloud quarry, where workers cut blocks of weather, reveal blue voids, and assemble temporary buildings that rain from their own walls
+     SOURCE ID: dream-surreal-impossible-worlds-cloud-quarry
+     CREATIVE SPARK: A silver saw opens a cumulus cliff, a cube of thunder rolls onto a crane, and a pale fog arch is set over the valley before dissolving into rain.
+     SYSTEM GRAMMAR:
+       - Palette/material: cumulus white block mass as ground, cut faces opening onto sky blue voids, thunder gray for heavy stock, one silver saw line as the active edge
+       - Type/composition: quarry-stencil industrial caps on tally boards, measurements in mono, composition stacked like cut blocks with deep blue gaps between sections
+       - Topology/navigation: Explore cloud strata through density, weather content, cut face, transport path, and atmospheric structure.
+       - Controls/state: Cut, lift, join, warm, and release cloud blocks while their weather remains active.
+       - Responsive/motion: Use sectional cloud blocks on phones and replace vapor motion with textured state changes.
+     WEB LEVERAGE: Volumetric rendering, procedural weather, and direct constructive gestures let users build transient architecture with predictable dissolution.
+     QUALITY BAR: board https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-cloud-quarry.webp · hero https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-cloud-quarry-hero.webp
+  6. a home sewing pattern envelope and its tissue, fashion figures in three lettered views on the front, yardage tables on the back, and inside a folded map of dashed cutting lines, notches, grain arrows, and place-on-fold brackets
+     SOURCE ID: fashion-folded-worlds-sewing-pattern-envelope
+     CREATIVE SPARK: You smooth the crackling tissue across the table, third size line from the edge, and pin piece 4 with its grain arrow dead parallel to the fold before the scissors commit you to view B.
+     SYSTEM GRAMMAR:
+       - Palette/material: manila tissue ground with black drafting marks, envelope figures in dry gouache pastels, one dressmaker red tracing the view and size you have committed to
+       - Type/composition: view letters A, B, and C rank the variants, circled piece numbers sit on every tissue shape, instructions run as numbered steps with thumbnail diagrams
+       - Topology/navigation: the envelope front indexes the views, the back holds size and yardage tables, and the cutting layout maps every numbered piece onto the folded yardage
+       - Controls/state: the chosen size renders its nested cut line solid while other sizes stay dashed, notches must meet to join pieces, and a placed piece pins flat and stops drifting
+       - Responsive/motion: the layout refolds to the fabric width at hand, pieces never rotating off grain; motion is tissue settling and a pin dropping home
+     WEB LEVERAGE: css outlines trace nested size grading while drag interaction snaps svg pieces onto a grain-locked layout grid
+     QUALITY BAR: board https://impeccable.style/worlds/cards/fashion-folded-worlds-sewing-pattern-envelope.webp · hero https://impeccable.style/worlds/cards/fashion-folded-worlds-sewing-pattern-envelope-hero.webp
+A challenger wins only when its fused result beats the grounded list on
+  audience identification and product clarity. It may change task topology or
+  interaction, but never the committed visual identity.
+When you can view images, open the QUALITY BAR board and hero for any
+challenger you weigh seriously and for the world you build. They exist as a
+craft bar, the finish level and commitment the build is expected to reach,
+never as a mockup to copy; your surface serves this product, not that render.
+PRODUCT.md and DESIGN.md constrain every surface candidate's identity
+vocabulary; they do not cancel task-level composition. The seed never
+authorizes a new palette, type system, material world, or unfamiliar control
+behavior.
+The CREATIVE SPARK is a complete visual system, not a theme or decorative
+reference. Translate every supplied system rule into the product: palette and
+material, type and composition, topology, controls and states, and adaptation.
+Keep the source's visible character, scale, rhythm, and interaction instead of
+reducing vivid grammar to generic nouns. When the source is already a credible
+interface language, commit to it across navigation, content, controls, and
+states. Otherwise keep a literal carrier only when it becomes functional.
+Ambitious motion, spatial media, or interaction is welcome when it strengthens
+the product without weakening semantics, performance, or fallback behavior.
+TELEMETRY: after the user's choice resolves, rerun this script once with
+  --kind <assigned|pick|challenger|canon> --from d81ff026 --scope surface --mode persuade,
+  adding --chosen <challenger-id> when a dealt challenger won and keeping
+  --register <safer|bolder> when the resolved round came from a steered hand.
+  One ping per resolved attended round. The ping is anonymous, the card kind
+  plus the catalog id when one won; your grounded candidates' names never
+  leave the machine, and the ping is skipped automatically when DO_NOT_TRACK
+  or IMPECCABLE_NO_TELEMETRY is set.
+A user- or brief-pinned decision beats the roll, always.
+DEALT INDICES (restated for truncated readers): 6, 1, 4; index
+6 leads. Present all three dealt structures; seed key d81ff026.

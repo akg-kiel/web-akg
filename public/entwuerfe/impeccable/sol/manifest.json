@@ -1,0 +1,32 @@
+[
+  {
+    "number": 1,
+    "title": "Offene Runde",
+    "description": "Ein persönlicher Fotoauftakt führt von der Einladung über hellblaue Gottesdienste zum kräftig blauen Café-Abschnitt.",
+    "structure": "Einladung und Gesprächsfoto → Gottesdienste → Gemeindeleben → Café Dreimaster → Aktuelles und Kontakt"
+  },
+  {
+    "number": 2,
+    "title": "Dein Weg zur AKG",
+    "description": "Große besuchsorientierte Sprungziele auf Blau machen das Anliegen zum Ausgangspunkt eines klaren Rundgangs.",
+    "structure": "Besuchseinstiege → Gemeinde mit aufklappbaren Fragen → Gottesdienste → Angebote → Café → Aktuelles und Kontakt"
+  },
+  {
+    "number": 3,
+    "title": "Gemeinde in Bildern",
+    "description": "Ein bildbreiter Gottesdienstauftakt und versetzte Fotoseiten erzählen Gemeinde wie ein offenes Fotoheft.",
+    "structure": "Einladung und großes Gottesdienstfoto → Gemeindegeschichte in Bildern → Glaubenspause → Café → Verbindung und Kontakt"
+  },
+  {
+    "number": 4,
+    "title": "Raum für Fragen",
+    "description": "Zentrierte Typografie, kleine Fotopaare und native Fragen schaffen einen ruhigen persönlichen Erstkontakt.",
+    "structure": "Einladung mit Fotopaar → Erste Fragen → Gottesdienst → Miteinander im Alltag → Café → Aktuelles und Kontakt"
+  },
+  {
+    "number": 5,
+    "title": "Mittendrin",
+    "description": "Eine helle seitliche Navigation begleitet offene blaue Kapitel mit wechselnder fotografischer Gewichtung.",
+    "structure": "Blaue Einladung und Festfoto → Menschen und Angebote → Gottesdienst → Café → Aktuelles und Kontakt"
+  }
+]
