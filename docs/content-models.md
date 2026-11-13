@@ -113,14 +113,16 @@ Aktuell erfüllen 15 Beiträge die Gruppenfreigabe; 2 davon haben keinen Text. E
 
 Veröffentlichung:
 
-- `settings.visibility=public`, `settings.isHidden=false` und kein vergangenes `information.endDate` sind zwingend.
+- `settings.visibility=public`, `settings.isHidden=false`, aktiver Quellstatus `information.groupStatusId=1` und kein vergangenes `information.endDate` sind zwingend. Der anonyme Gruppenabruf belegt öffentliche Lesbarkeit unabhängig vom Token. Status-ID 1 wurde am 28.10.2026 gegen ChurchTools `active` geprüft.
 - Als Angebote gelten nur die ChurchTools-Gruppentypen **1 Hauskreis/Kleingruppe**, **2 Dienst**, **3 Veranstaltung/Aktion** und **5 Regelmäßige Gruppe**.
 - Typ 4 „Merkmal“ ist ein Verwaltungsmarker; Typ 9 „Bereich“ dient nur der Struktur. Beide werden nicht als Angebot veröffentlicht.
 - Straßenangaben eines Treffpunkts werden nur verwendet, wenn `settings.showStreet=true` ist.
 - Persönliche Kontaktdaten werden nicht aus Gruppenmitgliedschaften abgeleitet. Nur eine vorhandene öffentliche Gruppenhomepage darf als Kontaktweg erscheinen.
 - Gruppenbilder ohne `imageAnnotation` werden dekorativ mit leerem Alternativtext verwendet oder weggelassen; es wird kein Alternativtext erfunden.
 
-Die aktuelle Instanz enthält 88 öffentliche Gruppen, davon 75 in den vier zulässigen Inhaltstypen. Das Migrationsinventar enthält 39 zu prüfende Altangebote; nur 24 Namen stimmen exakt mit einem öffentlichen ChurchTools-Datensatz überein. Titelähnlichkeit ist keine zulässige Zuordnung. Vor Veröffentlichung muss die Gruppenredaktion die 75 aktuellen Datensätze fachlich prüfen (B3).
+Technische Einbindung AKG-63 (28.10.2026): Startseiten-Vorschau und `/angebote` nutzen dasselbe serverseitige Modell, Pagination und private lokale Sichtprüfung. Name, Typ, Beschreibung, Wochentag, Treffzeit und sichere Gruppenhomepage werden verwendet; Zielgruppen, Altersgruppen, Orte, Bilder und Personen bleiben vorerst weg. Der öffentliche `GROUPS_APPROVED`-Schalter bleibt bis zur fachlichen Freigabe geschlossen; keine manuellen Angebotskopien.
+
+Der damalige Auditbestand enthielt 88 öffentliche Gruppen, davon 75 in den vier zulässigen Inhaltstypen. Das Migrationsinventar enthält 39 zu prüfende Altangebote; nur 24 Namen stimmen exakt mit einem öffentlichen ChurchTools-Datensatz überein. Titelähnlichkeit ist keine zulässige Zuordnung. Vor Veröffentlichung muss die Gruppenredaktion die 75 aktuellen Datensätze fachlich prüfen (B3).
 
 Die vorhandenen Felder sind lückenhaft: 81/88 Gruppen haben eine Beschreibung, 25 eine Treffzeit, 9 eine Zielgruppe, 6 Altersgruppen, 20 Treffpunkte und 14 eine öffentliche Gruppenhomepage. Keine Gruppe hat derzeit eine Bildannotation. Optionale fehlende Angaben werden nicht ersetzt.
 
@@ -183,8 +185,8 @@ Die namentliche Besetzung dieser Funktionsrollen ist B6 und bis **2026-10-02** z
 
 ## Verhalten bei leeren, fehlerhaften und veralteten Daten
 
-- AKG-59 lädt ausschließlich serverseitig und hält das gemappte öffentliche Modell **30 Minuten** im Cache.
-- Bei einem ChurchTools-Ausfall darf der letzte erfolgreiche, unveränderte Cache höchstens **6 Stunden** weiterverwendet werden. Er ist ein technischer Cache, keine zweite redaktionelle Quelle. `Responsibility`-Daten werden wegen möglicher Einwilligungswiderrufe nie stale ausgeliefert.
+- AKG-59 lädt ausschließlich serverseitig. Seit der PR-Review-Korrektur vom 13.11.2026 werden News, Gruppen und Gottesdienste bei jedem freigegebenen Aufruf frisch gelesen; keine wiederverwendeten Veröffentlichungs-Snapshots.
+- Die frühere Regel **30 Minuten frisch / maximal 6 Stunden stale** ist wegen nachgewiesener Cache-Rennen aufgehoben: Ohne Quellrevision oder atomare Schreibordnung kann ein älterer Refresh neuere Widerrufe überschreiben. Quellenfehler liefern daher `unavailable`, nicht alte Inhalte. `Responsibility`-Daten bleiben deaktiviert und werden niemals stale ausgeliefert.
 - Danach bleibt nur der betroffene Abschnitt leer bzw. zeigt „Daten derzeit nicht verfügbar“. Die statische Website und andere Inhaltstypen bleiben nutzbar.
 - Eine erfolgreiche leere Antwort zeigt „Derzeit sind keine Inhalte veröffentlicht“. Ein Fehler darf nicht als echte Leermenge dargestellt werden.
 - Einzelne ungültige Datensätze werden verworfen und serverseitig protokolliert; sie blockieren nicht die übrigen Datensätze.
@@ -194,7 +196,7 @@ Die namentliche Besetzung dieser Funktionsrollen ist B6 und bis **2026-10-02** z
 ## Datenschutz- und Berechtigungsgrenze für AKG-59
 
 - REST-API mit nativem serverseitigem `fetch`; keine alte AJAX-API und kein zusätzlicher ChurchTools-Client.
-- Authentifizierte Requests verwenden `redirect: "error"`. Jede `3xx`-Antwort ist ein isolierter Quellenfehler; es wird kein Redirect-Request erzeugt und der `Authorization`-Header gelangt weder an eine andere Origin noch über einen HTTPS-zu-HTTP-Downgrade.
+- Requests verwenden `redirect: "manual"`, weil Workers `error` nicht unterstützt. Jede `3xx`-Antwort ist ein isolierter Quellenfehler; es wird kein Redirect-Request erzeugt und der `Authorization`-Header gelangt weder an eine andere Origin noch über einen HTTPS-zu-HTTP-Downgrade.
 - Ein dedizierter technischer Benutzer erhält nur Leserechte auf Website-Freigaben, öffentliche Kalender/Beiträge/Gruppen, benötigte Gruppenstammdaten sowie die freigegebenen Rollenmitgliedschaften und den Einwilligungsmarker.
 - Kein allgemeiner Zugriff auf `/api/persons`, Finanzen, Check-in, interne Gruppen, Kommentare oder sonstige Personendaten.
 - Der Login-Token liegt ausschließlich als Server-Secret vor, nie im Repository, Browser-Bundle, HTML, Cache-Key oder Log.
@@ -210,7 +212,7 @@ Die namentliche Besetzung dieser Funktionsrollen ist B6 und bis **2026-10-02** z
 5. News: nur freigegebene Beitragsgruppen plus Sichtbarkeits-, Publikations- und Ablaufprüfung.
 6. Gruppen: öffentliche, laufende Datensätze der Typen 1, 2, 3 und 5; keine manuelle Gruppenliste im Repository.
 7. Personen: nur der Schnitt aus freigegebener Gruppe/Rolle, `staff` und Einwilligungsgruppe 564; keine allgemeine Personenabfrage.
-8. Cache: 30 Minuten frisch, maximal 6 Stunden stale-if-error; Fehler pro Inhaltstyp isolieren.
+8. Kein Snapshot-Cache oder Stale-Fallback ohne Quellrevision/atomare Ordnung; Fehler pro Inhaltstyp isolieren und bei jedem Abruf Freigaben neu prüfen.
 9. Tests: anonymisierte Fixtures prüfen Mapping, unterschiedliche Schlüssel zweier Wiederholungen, URL-Schemata und den Fehler-/Stale-Fall ohne stale `Responsibility`-Daten. Separate Sicherheitschecks müssen Cross-Origin-Redirects und HTTPS-zu-HTTP-Downgrade-Redirects ablehnen; echte Personendaten bleiben aus Fixtures ausgeschlossen.
 
 ## Erledigter Zugangspunkt und Folgeissues

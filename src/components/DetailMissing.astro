@@ -1,0 +1,16 @@
+---
+interface Props {
+  unavailable: boolean;
+  section: 'gottesdienste' | 'aktuelles';
+}
+const { unavailable, section } = Astro.props;
+---
+<section class="container narrow section-end">
+  <div class="source-state">
+    <p class="state-title">{unavailable ? 'Bitte später erneut versuchen' : 'Dieser Eintrag ist nicht verfügbar'}</p>
+    <p>{unavailable
+      ? 'Die Quelle ist zurzeit nicht erreichbar oder noch nicht freigeschaltet. Wir können deshalb nicht feststellen, ob dieser Eintrag veröffentlicht ist.'
+      : 'Der Eintrag ist nicht veröffentlicht, nicht mehr aktuell oder die Adresse stimmt nicht. In der Übersicht findest du die verfügbaren Inhalte.'}</p>
+  </div>
+  <a class="button" href={`/${section}`}>{section === 'gottesdienste' ? 'Zur Gottesdienstübersicht' : 'Zu allen Meldungen'} <span aria-hidden="true">→</span></a>
+</section>
