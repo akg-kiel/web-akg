@@ -53,12 +53,6 @@ try {
     export async function loadNews() { return { status: 'unavailable' as const, items: [] }; }
   `
   );
-  // Exercise the real photo viewer privately; public builds still withhold these exact assets.
-  const photos = join(fixture, 'src/lib/photos.mjs');
-  await writeFile(
-    photos,
-    (await readFile(photos, 'utf8')).replaceAll('publicApproved: false', 'publicApproved: true')
-  );
   await run(['node_modules/astro/bin/astro.mjs', 'build']);
   server = spawn(
     process.execPath,

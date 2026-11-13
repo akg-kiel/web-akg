@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { access, readFile, readdir } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import { assertPreviewRobots } from './preview-headers.mjs';
-import { withheldPhotoNames } from '../src/lib/photos.mjs';
+import { photos, withheldPhotoNames } from '../src/lib/photos.mjs';
 
 const source = JSON.parse(await readFile('wrangler.jsonc', 'utf8'));
 const built = JSON.parse(await readFile('dist/server/wrangler.json', 'utf8'));
@@ -34,6 +34,13 @@ assert(
   publicFiles.some((path) => path.endsWith('.html')),
   'Expected prerendered public pages'
 );
+const publishedPhotoPaths = Object.values(photos)
+  .filter((photo) => photo.publicApproved === true)
+  .flatMap((photo) =>
+    [640, 960, photo.large ?? 1440].map((width) => `images/${photo.name}-${width}.webp`)
+  );
+for (const path of publishedPhotoPaths)
+  assert(publicFiles.includes(path), `${path}: approved photo missing from public build`);
 for (const path of publicFiles) {
   assert(
     !withheldPhotoNames.some((name) => path.startsWith(`images/${name}-`)),
@@ -49,6 +56,11 @@ for (const path of publicFiles) {
       assert.match(content, /<html[^>]+lang="de"/, `${path}: expected actual German HTML`);
       assert.match(content, /<main\b/, `${path}: missing rendered main landmark`);
       assert.match(content, /<h1\b/, `${path}: missing rendered page heading`);
+      assert.match(
+        content,
+        /name="robots" content="noindex, nofollow"/,
+        `${path}: missing noindex`
+      );
     }
   }
 }
@@ -65,6 +77,9 @@ if (origin) {
     '/angebote/?q=preview',
     '/' + asset,
     '/__missing__',
+    '/sitemap.xml',
+    '/robots.txt',
+    ...publishedPhotoPaths.map((path) => '/' + path),
     '/server/wrangler.json',
     '/server/.dev.vars',
     '/.dev.vars',
@@ -93,11 +108,15 @@ if (origin) {
       assert.equal(location.search, '?q=preview');
     }
     if (
-      ['/__missing__', '/.dev.vars', '/.env'].includes(path) ||
+      ['/__missing__', '/sitemap.xml', '/.dev.vars', '/.env'].includes(path) ||
       path.startsWith('/server/') ||
       withheldPhotoNames.some((name) => path.startsWith(`/images/${name}-`))
     )
       assert.equal(response.status, 404, path);
+    if (publishedPhotoPaths.includes(path.slice(1))) {
+      assert.equal(response.status, 200, path);
+      assert.match(response.headers.get('content-type') ?? '', /^image\/webp\b/, path);
+    }
     if (response.headers.get('content-type')?.includes('text/html')) {
       assert.match(
         await response.text(),

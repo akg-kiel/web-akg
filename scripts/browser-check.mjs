@@ -10,7 +10,7 @@ assert.equal(
 );
 const origin = new URL(process.argv[2] ?? 'http://127.0.0.1:8787');
 const fixtures = process.env.EXPECT_OFFER_FIXTURES === '1';
-const expectedPhotoCount = fixtures ? 3 : 0;
+const expectedPhotoCount = 3;
 const routes = [
   '/',
   '/gottesdienste',
@@ -78,21 +78,12 @@ try {
       );
       if (route === '/') {
         // The settling image scales inside its clipped frame; measure the visible photo area.
-        const heroImage = fixtures
-          ? await page.locator('.welcome-photo .photo-frame').boundingBox()
-          : null;
+        const heroImage = await page.locator('.welcome-photo .photo-frame').boundingBox();
         const hero = await page.locator('.welcome-hero').boundingBox();
         assert.ok(hero, 'Homepage hero must be visible');
         assert.ok(width < 768 || hero.height <= 600, 'Keep the invitation compact');
-        if (fixtures)
-          assert.ok(heroImage && heroImage.height <= 450, 'Private draft photograph stays compact');
-        else
-          assert.equal(
-            await page.locator('.welcome-photo').count(),
-            0,
-            'Unapproved community photographs must not render in public builds'
-          );
-        if (fixtures && width >= 768) {
+        assert.ok(heroImage && heroImage.height <= 450, 'Community photograph stays compact');
+        if (width >= 768) {
           const copy = await page.locator('.welcome-copy').boundingBox();
           assert.ok(copy && copy.x + copy.width <= heroImage.x, 'Text must sit beside the photo');
           assert.ok(heroImage.width <= width / 2, 'Hero photo uses at most half the desktop width');
@@ -364,12 +355,10 @@ try {
     assert.equal(await opener.evaluate((link) => link === document.activeElement), true);
   }
 
-  for (const viewport of fixtures
-    ? [
-        { width: 390, height: 844 },
-        { width: 844, height: 390 }
-      ]
-    : []) {
+  for (const viewport of [
+    { width: 390, height: 844 },
+    { width: 844, height: 390 }
+  ]) {
     await page.setViewportSize(viewport);
     await page.evaluate(() => {
       document.documentElement.style.fontSize = '200%';
@@ -408,17 +397,16 @@ try {
     viewport: { width: 320, height: 844 }
   });
   const basic = await noJavaScript.newPage();
-  if (fixtures) await basic.route('**/images/gemeinde-gespraech-*.webp', (route) => route.abort());
+  await basic.route('**/images/gemeinde-gespraech-*.webp', (route) => route.abort());
   await basic.goto(origin.href);
-  if (fixtures)
-    assert.ok(
-      await basic.locator('.photo-conversation img').evaluate((image) => {
-        const box = image.getBoundingClientRect();
-        return box.height > 0 && Math.abs(box.width / box.height - 1.5) < 0.01;
-      }),
-      'Reserve the community photo ratio before the lazy image loads'
-    );
-  if (fixtures) await basic.unroute('**/images/gemeinde-gespraech-*.webp');
+  assert.ok(
+    await basic.locator('.photo-conversation img').evaluate((image) => {
+      const box = image.getBoundingClientRect();
+      return box.height > 0 && Math.abs(box.width / box.height - 1.5) < 0.01;
+    }),
+    'Reserve the community photo ratio before the lazy image loads'
+  );
+  await basic.unroute('**/images/gemeinde-gespraech-*.webp');
   await basic.locator('summary').click();
   assert.equal(await basic.locator('nav[aria-label="Hauptnavigation mobil"] a').count(), 5);
   assert.equal(await basic.locator('nav[aria-label="Hauptnavigation mobil"]').isVisible(), true);
@@ -476,7 +464,7 @@ try {
         thirdPartyRequests: [...thirdPartyRequests],
         keyboard: 'passed',
         noJavaScriptMenu: 'passed',
-        photoViewerAndFallback: fixtures ? 'passed (private draft)' : 'withheld in public build',
+        photoViewerAndFallback: 'passed',
         offerInteractions: offerCount > 0 ? 'passed' : 'disabled in public build',
         reducedMotion: 'passed',
         textResize200: 'passed'

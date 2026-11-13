@@ -36,7 +36,7 @@ export const photos = {
     license: '2.0'
   },
   service: {
-    publicApproved: false,
+    publicApproved: true,
     name: 'gemeinde-gottesdienst',
     height: 546,
     large: 1280,
@@ -46,7 +46,7 @@ export const photos = {
     caption: 'Gottesdienst · Archivfoto'
   },
   conversation: {
-    publicApproved: false,
+    publicApproved: true,
     name: 'gemeinde-gespraech',
     height: 640,
     large: 1280,
@@ -55,7 +55,7 @@ export const photos = {
     caption: 'Im Gespräch · Gemeindefest 2022'
   },
   gathering: {
-    publicApproved: false,
+    publicApproved: true,
     name: 'gemeinde-fest',
     height: 640,
     large: 1280,
@@ -64,7 +64,7 @@ export const photos = {
     caption: 'Zeit miteinander · Gemeindefest 2022'
   },
   cafe: {
-    publicApproved: false,
+    publicApproved: true,
     name: 'cafe-dreimaster',
     height: 480,
     large: 1280,

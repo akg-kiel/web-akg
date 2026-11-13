@@ -25,7 +25,7 @@ Backup-Ort und Zugangsdaten gehören in die zugriffsbeschränkte Betriebsdokumen
 5. `pnpm exec wrangler deploy --dry-run --config dist/server/wrangler.json --outdir .wrangler/dry-run` prüft das Paket ohne Upload.
 6. Artefakt, Commit, Testergebnisse und offene Abweichungen in Linear referenzieren.
 
-Der aktuelle Worker heißt `web-akg`; `main` ist als Production-Branch und andere Branches als Version-Previews konfiguriert. Es gibt keine Produktionsdomain. Der Anwendungscode erzwingt weiterhin noindex. **Er ist keine fertige Produktionskonfiguration.** Eine gesonderte Produktionsänderung muss Host-/Indexierungsregeln, Sitemap, freigegebene Redirects, Secrets und ggf. Zugriffsschutz ausdrücklich prüfen. Server-Bundle niemals als öffentliches Asset ausliefern.
+Der aktuelle Worker heißt `web-akg`; `main` ist als Production-Branch und andere Branches als Version-Previews konfiguriert. Es gibt keine Produktionsdomain. Der Anwendungscode erzwingt auf ausdrücklichen Nutzerwunsch vom 13.11.2026 weiterhin noindex, auch für den späteren Produktivbetrieb. Diese Vorgabe darf beim Launch nicht automatisch entfernt werden. `robots.txt` muss das Lesen der noindex-Header/-Metatags erlauben; keine Sitemap. **Er ist keine fertige Produktionskonfiguration.** Eine gesonderte Produktionsänderung muss Host-/Indexierungsregeln, Sitemap, freigegebene Redirects, Secrets und ggf. Zugriffsschutz ausdrücklich prüfen. Server-Bundle niemals als öffentliches Asset ausliefern.
 
 ## 3. Separat genehmigte externe Vorschau
 

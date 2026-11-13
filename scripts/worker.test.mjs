@@ -91,6 +91,31 @@ test('routing failures are distinguishable without logging a malformed URL', asy
   ]);
 });
 
+test('noindex covers every hostname, assets, error pages and cached responses', async () => {
+  for (const origin of ['https://akg-kiel.de', 'https://preview.example.workers.dev']) {
+    for (const [path, status, contentType] of [
+      ['/', 200, 'text/html'],
+      ['/gemeinde', 200, 'text/html'],
+      ['/gottesdienste/missing', 503, 'text/html'],
+      ['/missing', 404, 'text/html'],
+      ['/images/gemeinde-fest-1280.webp', 200, 'image/webp'],
+      ['/_astro/site.css', 200, 'text/css'],
+      ['/images/gemeinde-fest-1280.webp', 304, 'image/webp']
+    ]) {
+      setHandle(
+        () =>
+          new Response(status === 304 ? null : 'ok', {
+            status,
+            headers: { 'Content-Type': contentType }
+          })
+      );
+      const response = await worker.fetch(new Request(origin + path), {}, {});
+      assert.equal(response.status, status);
+      assert.equal(response.headers.get('X-Robots-Tag'), 'noindex, nofollow', origin + path);
+    }
+  }
+});
+
 test('normal and trailing-slash requests retain headers and do not emit failure diagnostics', async (t) => {
   const log = t.mock.method(console, 'error', () => {});
   const handle = t.mock.fn(() => new Response('ok'));

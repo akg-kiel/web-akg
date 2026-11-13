@@ -1,24 +1,26 @@
 # Gestaltung und UI-Vertrag · AKG-MVP
 
-Stand: 2026-10-28 · AKG-127. Gestaltungsvorschau, keine Inhalts-, Rechts- oder Launchfreigabe. Aktueller Prüfstand: [Menschen und kompakter Hero](redesign-people-review.md); ältere positive Prüfungen gelten nicht automatisch für diese Fassung.
+Stand: 2026-11-13 · AKG-127. Gestaltungsvorschau, keine allgemeine Inhalts-, Rechts- oder Launchabnahme. Historischer Gestaltungsprüfstand: [Menschen und kompakter Hero](redesign-people-review.md); ältere positive Prüfungen gelten nicht automatisch für diese Fassung.
 
-## Öffentliche Bildsperre · Review-Korrektur 13.11.2026
+## Fotos und Suchmaschinen · ausdrücklicher Nutzerfolgeauftrag 13.11.2026
 
-Die vier historischen Gemeindefotos sind weiterhin nur für den privaten lokalen Entwurf bestimmt. `src/lib/photos.mjs` kennzeichnet sie ausdrücklich mit `publicApproved: false`. Gebaute Seiten rendern sie nicht; der Astro-Build entfernt auch alle zwölf Varianten aus den auslieferbaren Assets. Direkte Bild-URLs müssen 404 liefern. Die hellblaue Einladung, Original-Logo/Figtree und die inhaltliche Reihenfolge bleiben erhalten; es gibt kein erfundenes Ersatzbild und keinen neuen Gebäudehero.
+Nach der zwischenzeitlichen Bildsperre hat der Nutzer alle bestehenden Fotos ausdrücklich wieder für die öffentliche Vorschau gewünscht und ergänzt: „Auch für Produktiv ist das okay. Aber mache bitte alle seiten nicht discoverable durch suchmaschinen“. Ein zusätzlicher Zugangsschutz/Zero Trust ist nicht gewünscht. `src/lib/photos.mjs` setzt deshalb auch die vier historischen Gemeindefotos auf `publicApproved: true`. Alle acht ausgewählten Motive und ihre 24 lokalen Varianten bleiben auslieferbar; die vier Gemeindefotos erscheinen wieder in der bestehenden Komposition. Der Build-Hook entfernt weiterhin tatsächlich nicht freigegebene Motive, falls solche später ergänzt werden. Original-Logo/Figtree, hellblauer Hero und die Abschnittsfolge bleiben unverändert.
 
-Die Fotos bleiben in der loopbackgebundenen Astro-Entwicklung verfügbar. Die öffentliche Freigabe benötigt dokumentierte Medien-/Personen-/gegebenenfalls Kunstwerkrechte nach AKG-67/72. `noindex` ist kein Zugriffsschutz. Eine bloße Preview- oder Push-Erlaubnis ersetzt diese Freigaben nicht. Bereits früher hochgeladene immutable Previews werden durch diesen Codefix nicht nachträglich gelöscht; deren Sperrung/Entfernung ist separat zu klären.
+Diese dokumentierte Nutzerentscheidung ist die Auslieferungsfreigabe, keine erfundene CC-Lizenz oder eigenständige Bestätigung sämtlicher Urheber-/Personen-/Kunstwerkrechte. Quellen, belegte Credits und Archivkennzeichnungen bleiben erhalten; weitergehende rechtliche Dokumentation unter AKG-67/72 wird nicht als abgeschlossen behauptet. Die Erlaubnis zur späteren produktiven Fotoverwendung ist kein Auftrag zum Produktionsdeploy.
+
+Alle HTML-Seiten behalten `noindex, nofollow`; der Worker setzt `X-Robots-Tag: noindex, nofollow` vor jeder Antwort, auch für Bilder, statische Assets, Weiterleitungen und Fehler. Das gilt ohne Produktions-/Host-Ausnahme. `robots.txt` erlaubt Crawling bewusst, damit Suchmaschinen die Indexierungsverbote auch an extern verlinkten URLs lesen können; `Disallow: /` würde dies verhindern. Keine Sitemap. Öffentliche URLs können trotzdem bekannt werden; `noindex` ist keine Zugriffskontrolle und keine Garantie gegen ignorierende Crawler oder sofortige Entfernung alter Suchtreffer.
 
 ## Richtung
 
 **Menschen machen Gemeinde.** Nutzerkorrektur der bisherigen Richtung `place-carries-it` (Seed 111414565): Der Gebäudehero war zu groß, Menschen sollen den Auftritt tragen. Kein neuer Zufallsdraw; Hero-Komposition und Motive folgen ausdrücklich dieser Korrektur. Original-Logo, Figtree und Blau/Weiß bleiben erhalten. Auf den folgenden Nutzerhinweis übernimmt der Hero wieder die hellblaue, direkt an das Foto anschließende Fläche und „Schön, dass du da bist“ aus der [bevorzugten MVP-Vorschau](https://t3-build-web-akg-mvp-web-akg.noah-zepner.workers.dev/), aber mit dem Gemeindefoto statt der Kirche. Ziel: Gemeinde kennenlernen; Gottesdienste bleiben unmittelbar erreichbar.
 
-Privater lokaler Gestaltungsentwurf: kompakte Einladung mit Gemeindefoto → Gottesdienst → Gespräche und Gemeindeleben → Begegnung/Dreimaster → tatsächliche Meldungen oder ehrlicher Quellenzustand → blauer Abschluss. Die Gebäudeliste entfällt auf der Startseite; „Orte der Begegnung“ zeigt zunächst das Café Dreimaster als eigenständiges Angebot. Für das Kirchengebäude plant der Nutzer eine eigene Website. Bis deren Ziel und Migration bestätigt sind, bleiben bestehende Unterseiten erreichbar; keine neue externe Adresse wird geraten. „Miteinander leben“ zeigt bei aktivierter Quelle drei echte Angebots-Teaser vor den historischen Gemeindefotos. `/angebote` hat Kategorien aus ChurchTools, serverseitige Suche und native aufklappbare Abschnitte. Die private lokale Sichtprüfung mit echten Daten ist bestanden; die öffentlichen Freigabeschalter bleiben geschlossen. Keine neuen aktuellen Gruppen, Personenrollen oder Termine aus den Fotos ableiten.
+Gestaltungsablauf: kompakte Einladung mit Gemeindefoto → Gottesdienst → Gespräche und Gemeindeleben → Begegnung/Dreimaster → tatsächliche Meldungen oder ehrlicher Quellenzustand → blauer Abschluss. Die Gebäudeliste entfällt auf der Startseite; „Orte der Begegnung“ zeigt zunächst das Café Dreimaster als eigenständiges Angebot. Für das Kirchengebäude plant der Nutzer eine eigene Website. Bis deren Ziel und Migration bestätigt sind, bleiben bestehende Unterseiten erreichbar; keine neue externe Adresse wird geraten. „Miteinander leben“ zeigt bei aktivierter Quelle drei echte Angebots-Teaser vor den historischen Gemeindefotos. `/angebote` hat Kategorien aus ChurchTools, serverseitige Suche und native aufklappbare Abschnitte. Die private lokale Sichtprüfung mit echten Daten ist bestanden; die öffentlichen Freigabeschalter bleiben geschlossen. Keine neuen aktuellen Gruppen, Personenrollen oder Termine aus den Fotos ableiten.
 
 Desktop/Tablet: Text und Foto nebeneinander in zwei gleich breiten, direkt anschließenden Spalten auf hellblauem Grund, ohne Fotoüberlagerung oder Scrim. Der Hero reicht bis zu den Außenkanten; sein Text bleibt auf der gemeinsamen Inhaltskante. Mobil: Einladung/CTAs vor dem verkleinerten Querformat; DOM-, Lese- und Fokusreihenfolge stimmen überein. Zwei historische Gemeindefotos bilden eine versetzte Galerie, das Caféfoto begleitet den externen Übergang. Alle vier Fotos werden proportional und ohne zusätzlichen Ausschnitt gezeigt.
 
 ## Marke, Medien und Quellen
 
-[brand-spec.md](brand-spec.md) dokumentiert die vier neuen Bestandsfotos aus akg-kiel.de und die vorhandenen Commons-Gebäudefotos getrennt: Herkunft, bekannte Credits, Bearbeitung und offene Rechte-/Personenfreigaben. Die Bestandsfotos sind nur für den lokalen Gestaltungsentwurf ausgewählt, nicht für eine öffentliche Vorschau freigegeben. Historische Fotos sind entsprechend beschriftet. Quellen-/gegebenenfalls Lizenzlinks bleiben auch im Bildbetrachter erhalten. Keine externen Ressourcen, Hotlinks oder Embeds.
+[brand-spec.md](brand-spec.md) dokumentiert die vier neuen Bestandsfotos aus akg-kiel.de und die vorhandenen Commons-Gebäudefotos getrennt: Herkunft, bekannte Credits, Bearbeitung und offene Rechte-/Personenfreigaben. Die konkrete Auslieferungsfreigabe des Nutzers für Vorschau und Produktivbetrieb ist oben dokumentiert; daraus wird keine neue offene Lizenz abgeleitet. Historische Fotos sind entsprechend beschriftet. Quellen-/gegebenenfalls Lizenzlinks bleiben auch im Bildbetrachter erhalten. Keine externen Ressourcen, Hotlinks oder Embeds.
 
 Die früher gesichteten Mobbin-Referenzen bleiben Kompositionsreferenzen:
 
@@ -53,13 +55,13 @@ Quelle: `src/styles/globals.css`.
 
 Persönliche du-Ansprache und historische Absätze sind **redaktionelle Entwürfe**. Historische Quellen: [Recherche](redesign-content-research.md). Keine aktuellen Kontakte, Gruppen, Personen, Termine, Zugänglichkeitszusagen, Öffnungszeiten, Zahlungsdaten oder Rechtstexte erfunden.
 
-`src/lib/content.ts` bleibt die SSR-Bridge: serverseitiges `env`, optionaler `CHURCHTOOLS_TOKEN`, `SERVICES_APPROVED === 'true'`, Request-Cache. Backend-Mapping/Cache unverändert; keine Token/Rohdaten in Props oder HTML.
+`src/lib/content.ts` bleibt die SSR-Bridge: serverseitiges `env`, optionaler `CHURCHTOOLS_TOKEN`, `SERVICES_APPROVED === 'true'` und `GROUPS_APPROVED === 'true'`. Die Lader prüfen die Quellen bei jedem Abruf ohne Snapshot-Cache/Stale-Fallback; keine Token/Rohdaten in Props oder HTML.
 
 `SourceState` unterscheidet disabled, empty, unavailable und stale. Warnung und Zeitstempel veralteter Daten bleiben sichtbar. Details bleiben 503 mit `Retry-After: 1800` bei unzugänglicher Quelle bzw. unbestätigter Abwesenheit; 404 nur bei bestätigter Abwesenheit. SSR-HTML bleibt `no-store`.
 
 Gottesdienste: nur Titel/Zeit aus Kalender 2, Berlin-Zeitzone; keine erfundene Ortszuordnung. News bleiben escaped Plaintext, kein `set:html`. Gruppen werden ausschließlich serverseitig, paginiert, anonym-öffentlich und mit strengem Feldfilter geladen; keine Personen-/Mitgliedschaftsabfragen und keine WordPress-Laufzeitquelle. Näheres: [Gruppenintegration](groups-integration.md).
 
-Alle Routen behalten Entwurfshinweis, `noindex, nofollow`, robots-Sperre und keine Sitemap. **noindex ist keine Zugriffskontrolle.** Vorschauversionen sind keine Secret-/Ressourcenisolation.
+Alle Routen behalten Entwurfshinweis und `noindex, nofollow`; `robots.txt` lässt das Lesen dieser Vorgaben zu. Keine Sitemap. **noindex ist keine Zugriffskontrolle.** Vorschauversionen sind keine Secret-/Ressourcenisolation.
 
 Externe Ziele bleiben zentral in `src/lib/site.ts`: Dreimaster, YouTube-Kanal, Intern/ChurchTools. Keine Programme oder Öffnungszeiten der separaten Produkte kopieren; keine unbestätigte Konzertdomain verlinken.
 
@@ -69,4 +71,4 @@ Externe Ziele bleiben zentral in `src/lib/site.ts`: Dreimaster, YouTube-Kanal, I
 
 Visuelle Abnahme zusätzlich am Produktionsbuild bei 1440/768/390 px; unabhängige Kritik und tatsächliche Screenshot-Korrekturrunden. Zusätzlich wird die kompakte Hero-Geometrie überprüft; Quellencredits müssen im Dialog vollständig erhalten bleiben. Ergebnisse und offene Punkte im [aktuellen Review](redesign-people-review.md).
 
-Nicht behauptet: authentifizierte ChurchTools-E2E-Prüfung, Safari/Firefox, physische Geräte/echte Screenreader, vollständige WCAG-Zertifizierung, Medien-/Rechtsfreigabe oder Produktionsabnahme. Kein automatischer Commit, Push oder Deploy.
+Nicht behauptet: authentifizierte ChurchTools-E2E-Prüfung, Safari/Firefox, physische Geräte/echte Screenreader, vollständige WCAG-Zertifizierung, Medien-/Rechtsfreigabe oder Produktionsabnahme. Kein automatischer Merge oder Produktionsdeploy.

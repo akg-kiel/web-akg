@@ -167,19 +167,22 @@ Worker-/Asset-Grenzen; Tests, Format/Lint und Browser-Prüfung liegen im GitHub-
 ### Review-Regressionsgate (2026-11-13)
 
 `test:preview` prüft zuerst den unveränderten öffentlichen Build: fehlende Tokens,
-geschlossene Datenfreigaben und 404 für alle zwölf nicht freigegebenen Fotovarianten.
+geschlossene Datenfreigaben und alle 24 Varianten der acht vom Nutzer für Vorschau
+und Produktiv freigegebenen Fotos. Alle Bilder müssen 200/image-webp und den
+Indexierungsschutz liefern. Fotodialog, Quellenübernahme und No-JS-Dateilinks laufen
+jetzt auch im normalen öffentlichen Browser-Gate.
 Danach wird dieser Server beendet. `scripts/check-offer-preview.mjs` kopiert nur
 explizit benannte Quell-/Konfigurationsdateien in ein wegwerfbares Tempverzeichnis;
 keine `.dev.vars`, Secrets, Repository-Metadaten oder vorhandenen Build-Artefakte.
 
-Nur diese Kopie erhält drei synthetische Angebote und lokale Entwurfsfotos. Ihr
-Worker hat einen separaten Namen, deaktivierte Preview-URLs und einen ausschließlich
-an `127.0.0.1:8788` gebundenen Server. Die echten Quellen und Deployment-Artefakte
-bleiben unverändert; die Kopie wird nach der Prüfung gelöscht. Keine Fixtures oder
-Testschalter im produktiven Inhaltspfad. Der zweite Browserlauf prüft alle drei
-Teaser-Ziele, native No-JS-Details, namens- und beschreibungsbasierte GET-Suche,
-Nulltreffer/Rückkehr sowie weiterhin den privaten Fotodialog inklusive Fallbacks.
-Damit bleiben diese Pfade auch bei geschlossenen öffentlichen Gates in CI abgedeckt.
+Nur diese Kopie erhält drei synthetische Angebote; eine Foto-Freigabeüberschreibung
+ist nicht mehr nötig. Ihr Worker hat einen separaten Namen, deaktivierte Preview-URLs
+und einen ausschließlich an `127.0.0.1:8788` gebundenen Server. Die echten Quellen und
+Deployment-Artefakte bleiben unverändert; die Kopie wird nach der Prüfung gelöscht.
+Keine Fixtures oder Testschalter im produktiven Inhaltspfad. Der zweite Browserlauf
+prüft alle drei Teaser-Ziele, native No-JS-Details, namens- und beschreibungsbasierte
+GET-Suche und Nulltreffer/Rückkehr. Damit bleiben diese Pfade auch bei geschlossenen
+öffentlichen Datenfreigaben in CI abgedeckt.
 
 ### Validierung der vollständigen devenv-Umgebung (2026-10-30)
 
@@ -239,6 +242,14 @@ Permissions-Schutz. Die CSP beschränkt Basis-URLs, Frames und Objekte; sie ist
 bewusst keine vollständige Script-Allowlist. Auch abgefangene Laufzeitfehler
 erhalten diese Header. Es gibt keinen Host- oder Produktionsschalter.
 `noindex` schützt nicht vor unbefugtem Lesen.
+
+Auf Nutzerwunsch vom 13.11.2026 gilt diese Indexierungssperre auch für den späteren
+Produktivbetrieb, nicht nur für die Vorschau. `robots.txt` lässt Crawling zu, damit
+Suchmaschinen die HTTP-/HTML-noindex-Anweisung lesen können; ein pauschales
+`Disallow: /` kann stattdessen extern verlinkte URLs ohne Inhaltsprüfung im Index
+belassen ([Google-Dokumentation](https://developers.google.com/search/docs/crawling-indexing/block-indexing)).
+Keine Sitemap wird angeboten. Das ist kein Zugriffsschutz und garantiert weder
+Unbekanntheit der URL noch sofortige Entfernung bereits bestehender Suchtreffer.
 
 Das Kompatibilitätsdatum `2026-01-19` bleibt aus der Referenz erhalten, passend
 zum fixierten Wrangler/Workerd-Stand. Zusätzlich aktiviert `fetch_iterable_type_support`

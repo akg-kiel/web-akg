@@ -39,7 +39,7 @@ for (const route of routes) {
   assert.match(html, /<html[^>]+lang="de"/, `${route}: missing German document language`);
   assert.equal((html.match(/<main\b/g) ?? []).length, 1, `${route}: expected one main landmark`);
   assert.equal((html.match(/<h1\b/g) ?? []).length, 1, `${route}: expected one page heading`);
-  assert.match(html, /name="robots"[^>]+noindex/, `${route}: missing HTML noindex`);
+  assert.match(html, /name="robots" content="noindex, nofollow"/, `${route}: missing HTML noindex`);
   assert.ok(
     !/<(?:iframe|img)[^>]+(?:src|srcset)="https?:\/\//.test(html),
     `${route}: unexpected third-party embed`
@@ -71,6 +71,8 @@ for (const route of ['/gottesdienste/nicht-vorhanden', '/aktuelles/nicht-vorhand
     missingStatuses.get(route.slice(0, route.lastIndexOf('/'))),
     `${route}: distinguish confirmed absence from unavailable sources`
   );
+  assertPreviewRobots(response.headers.get('x-robots-tag'), origin, route);
+  assert.match(await response.text(), /name="robots" content="noindex, nofollow"/, route);
   if (response.status === 503)
     assert.ok(
       response.headers.get('retry-after'),
@@ -79,7 +81,12 @@ for (const route of ['/gottesdienste/nicht-vorhanden', '/aktuelles/nicht-vorhand
 }
 const robots = await request('/robots.txt');
 assert.equal(robots.status, 200);
-assert.match(await robots.text(), /^Disallow: \/\s*$/m);
+assertPreviewRobots(robots.headers.get('x-robots-tag'), origin, '/robots.txt');
+assert.equal(await robots.text(), 'User-agent: *\nDisallow:\n');
+const sitemap = await request('/sitemap.xml');
+assert.equal(sitemap.status, 404, 'Do not publish a sitemap for the non-indexable site');
+assertPreviewRobots(sitemap.headers.get('x-robots-tag'), origin, '/sitemap.xml');
+await sitemap.body?.cancel();
 const serverFile = await request('/server/entry.mjs');
 assert.equal(serverFile.status, 404, 'Worker bundle must never be served as a public asset');
 console.log(
