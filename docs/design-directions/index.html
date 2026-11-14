@@ -1,0 +1,730 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>AKG · Drei neue Gestaltungswelten</title>
+    <style>
+      @font-face {
+        font-family: Anton;
+        src: url('assets/anton.woff2') format('woff2');
+        font-weight: 400;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: Newsreader;
+        src: url('assets/newsreader.woff2') format('woff2');
+        font-weight: 400;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: Bricolage;
+        src: url('assets/bricolage-grotesque.woff2') format('woff2');
+        font-weight: 700;
+        font-display: swap;
+      }
+      :root {
+        --text: var(--foreground, #232323);
+        --subtle: var(--muted-foreground, #626262);
+        --surface: var(--card, #f2f2f0);
+        --line: var(--border, #d8d8d5);
+        --focus: var(--ring, #006c9e);
+        --corners: var(--radius, 12px);
+        font-family: var(--font-sans, system-ui, sans-serif);
+        color: var(--text);
+        color-scheme: light dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+      }
+      body {
+        font-size: 16px;
+        line-height: 1.5;
+      }
+      h1,
+      h2,
+      h3,
+      p,
+      figure {
+        margin: 0;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      a {
+        color: inherit;
+        text-underline-offset: 4px;
+        touch-action: manipulation;
+      }
+      a:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 5px;
+      }
+      .intro {
+        margin-bottom: 20px;
+        color: var(--subtle);
+        font-size: 15px;
+      }
+      .intro strong {
+        color: var(--text);
+        font-weight: 650;
+      }
+      .selector {
+        border: 0;
+        padding: 0;
+        margin: 0 0 24px;
+        min-width: 0;
+      }
+      .selector legend {
+        font-size: 16px;
+        font-weight: 650;
+        margin-bottom: 12px;
+        padding: 0;
+      }
+      .choices {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .choice {
+        display: grid;
+        grid-template-columns: 20px 1fr;
+        align-items: center;
+        gap: 12px;
+        padding: 16px;
+        border-radius: var(--corners);
+        background: var(--surface);
+        cursor: pointer;
+        min-width: 0;
+      }
+      .choice:has(input:checked) {
+        outline: 2px solid var(--text);
+        outline-offset: -2px;
+      }
+      .choice:has(input:focus-visible) {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+      }
+      .choice input {
+        margin: 0;
+        width: 18px;
+        height: 18px;
+        accent-color: var(--text);
+        cursor: pointer;
+      }
+      .choice-name {
+        min-width: 0;
+        line-height: 1.1;
+        font-size: 28px;
+      }
+      .choice-a .choice-name {
+        font-family: Anton, sans-serif;
+        text-transform: uppercase;
+        font-weight: 400;
+      }
+      .choice-b .choice-name {
+        font-family: Newsreader, serif;
+        font-size: 30px;
+      }
+      .choice-c .choice-name {
+        font-family: Bricolage, sans-serif;
+        font-weight: 700;
+        font-size: 27px;
+      }
+      .choice small {
+        font-size: 12px;
+        font-weight: 500;
+        display: block;
+        line-height: 1.4;
+        color: var(--subtle);
+        font-family: var(--font-sans, system-ui, sans-serif);
+        margin-top: 8px;
+        text-transform: none;
+      }
+      .chips {
+        grid-column: 1 / -1;
+        display: flex;
+        height: 9px;
+        overflow: hidden;
+        border-radius: 3px;
+      }
+      .chips i {
+        display: block;
+        width: 33.333%;
+      }
+      .direction {
+        display: none;
+      }
+      body:has(#choose-a:checked) #a,
+      body:has(#choose-b:checked) #b,
+      body:has(#choose-c:checked) #c {
+        display: block;
+      }
+      .direction-title {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 4px 18px;
+        margin-bottom: 14px;
+      }
+      .direction-title h1 {
+        font-size: clamp(24px, 4vw, 31px);
+        line-height: 1.15;
+        letter-spacing: -0.025em;
+        font-weight: 650;
+      }
+      .direction-title p {
+        color: var(--subtle);
+        font-size: 14px;
+      }
+      .specimen {
+        position: relative;
+        min-height: 300px;
+        padding: 24px;
+        display: flex;
+        align-items: flex-end;
+        border-radius: var(--corners);
+        overflow: hidden;
+      }
+      .logo-proof {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        width: 132px;
+        padding: 16px;
+        background: #fff;
+        border-radius: var(--corners);
+      }
+      .logo-proof img {
+        width: 100%;
+        height: auto;
+      }
+      .sample-text {
+        line-height: 0.96;
+        letter-spacing: -0.025em;
+      }
+      .specimen-a {
+        background: #dfff59;
+        color: #1b1b18;
+      }
+      .specimen-a .sample-text {
+        font-family: Anton, sans-serif;
+        font-weight: 400;
+        font-size: clamp(64px, 13vw, 112px);
+        text-transform: uppercase;
+        letter-spacing: -0.025em;
+      }
+      .specimen-b {
+        background: #e2e4da;
+        color: #252a24;
+      }
+      .specimen-b .sample-text {
+        font-family: Newsreader, serif;
+        font-weight: 400;
+        font-size: clamp(44px, 10vw, 82px);
+        line-height: 0.98;
+        letter-spacing: -0.055em;
+      }
+      .specimen-c {
+        background: #ffe1cf;
+        color: #642f48;
+      }
+      .specimen-c .sample-text {
+        font-family: Bricolage, sans-serif;
+        font-weight: 700;
+        font-size: clamp(36px, 8.8vw, 70px);
+        line-height: 0.97;
+        letter-spacing: -0.045em;
+      }
+      .sample-caption {
+        font-size: 12px;
+        color: var(--subtle);
+        margin-top: 8px;
+      }
+      .type-spec {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px 20px;
+        flex-wrap: wrap;
+        margin-block: 16px 24px;
+        font-size: 14px;
+      }
+      .type-spec strong {
+        font-weight: 650;
+      }
+      .type-spec span {
+        color: var(--subtle);
+      }
+      .details {
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+        gap: 24px;
+        align-items: start;
+      }
+      .reference h2,
+      .translation h2 {
+        font-size: 17px;
+        line-height: 1.3;
+        font-weight: 650;
+        margin-bottom: 12px;
+      }
+      .reference-link {
+        display: block;
+      }
+      .reference img {
+        width: 100%;
+        height: auto;
+      }
+      .reference figcaption {
+        font-size: 12px;
+        color: var(--subtle);
+        margin-top: 10px;
+        line-height: 1.45;
+      }
+      .source-link {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        font-size: 14px;
+      }
+      .translation p {
+        font-size: 15px;
+        line-height: 1.55;
+        margin-bottom: 16px;
+      }
+      .translation h3 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      .translation .risk {
+        background: var(--surface);
+        padding: 16px;
+        border-radius: var(--corners);
+        margin-bottom: 0;
+      }
+      .translation .risk strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+      .palette {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 18px;
+        margin-top: 18px;
+        font-size: 12px;
+        color: var(--subtle);
+      }
+      .palette span {
+        display: inline-flex;
+        gap: 7px;
+        align-items: center;
+      }
+      .palette i {
+        width: 15px;
+        height: 15px;
+        display: inline-block;
+        border-radius: 50%;
+      }
+      .footer-note {
+        color: var(--subtle);
+        font-size: 12px;
+        margin-top: 24px;
+        line-height: 1.5;
+      }
+      .footer-note a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+      }
+      @media (max-width: 580px) {
+        .choices {
+          gap: 8px;
+        }
+        .choice {
+          padding: 12px;
+          gap: 8px;
+          grid-template-columns: 16px 1fr;
+        }
+        .choice input {
+          width: 16px;
+          height: 16px;
+        }
+        .choice-name,
+        .choice-c .choice-name {
+          font-size: 22px;
+        }
+        .choice-b .choice-name {
+          font-size: 24px;
+        }
+        .choice small {
+          font-size: 11px;
+          margin-top: 6px;
+        }
+        .specimen {
+          min-height: 260px;
+          padding: 20px;
+        }
+        .logo-proof {
+          width: 114px;
+          padding: 16px;
+        }
+        .details {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+        .direction-title h1 {
+          font-size: 26px;
+        }
+        .type-spec {
+          margin-bottom: 22px;
+        }
+        .reference img {
+          max-width: 520px;
+        }
+        .intro {
+          font-size: 14px;
+        }
+        .translation p {
+          font-size: 16px;
+        }
+      }
+      @media (max-width: 350px) {
+        .choice {
+          padding: 12px 9px;
+          gap: 6px;
+        }
+        .choice-name,
+        .choice-c .choice-name {
+          font-size: 20px;
+        }
+        .choice-b .choice-name {
+          font-size: 22px;
+        }
+        .specimen-a .sample-text {
+          font-size: 61px;
+        }
+        .specimen-b .sample-text {
+          font-size: 44px;
+        }
+        .specimen-c .sample-text {
+          font-size: 34px;
+        }
+      }
+      @supports not selector(:has(*)) {
+        .direction {
+          display: block;
+          margin-bottom: 36px;
+        }
+        .selector {
+          display: none;
+        }
+      }
+      @media print {
+        .selector {
+          display: none;
+        }
+        .direction {
+          display: block !important;
+          break-after: page;
+        }
+        .footer-note {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <p class="intro">
+        <strong>Nur das Original-Logo bleibt gesetzt.</strong> Hier geht es zunächst um die visuelle
+        Sprache – noch nicht um neue Homepages. Die Referenzbilder zeigen reale andere Websites.
+      </p>
+      <fieldset class="selector">
+        <legend>Welche Welt fühlt sich nach AKG an?</legend>
+        <div class="choices">
+          <label class="choice choice-a"
+            ><input type="radio" name="richtung" id="choose-a" checked /><span class="choice-name"
+              >Plakat<small>A · laut &amp; direkt</small></span
+            ><span class="chips" aria-hidden="true"
+              ><i style="background: #dfff59"></i><i style="background: #1b1b18"></i
+              ><i style="background: #e34a35"></i></span
+          ></label>
+          <label class="choice choice-b"
+            ><input type="radio" name="richtung" id="choose-b" /><span class="choice-name"
+              >Journal<small>B · ruhig &amp; redaktionell</small></span
+            ><span class="chips" aria-hidden="true"
+              ><i style="background: #e2e4da"></i><i style="background: #252a24"></i
+              ><i style="background: #f8f7f3"></i></span
+          ></label>
+          <label class="choice choice-c"
+            ><input type="radio" name="richtung" id="choose-c" /><span class="choice-name"
+              >Nähe<small>C · warm &amp; lebendig</small></span
+            ><span class="chips" aria-hidden="true"
+              ><i style="background: #ffe1cf"></i><i style="background: #642f48"></i
+              ><i style="background: #e78256"></i></span
+          ></label>
+        </div>
+      </fieldset>
+    </header>
+    <main>
+      <section class="direction" id="a" aria-labelledby="title-a">
+        <div class="direction-title">
+          <h1 id="title-a">A · Das Kulturplakat</h1>
+          <p>Nicht Verwaltungsportal, sondern Ort im Viertel.</p>
+        </div>
+        <div class="specimen specimen-a">
+          <div class="logo-proof">
+            <img
+              src="../../public/images/apostel-logo.png"
+              width="500"
+              height="272"
+              alt="Original-Logo der Apostel-Kirchengemeinde Kiel"
+            />
+          </div>
+          <p class="sample-text">Mitten<br />im Leben.</p>
+        </div>
+        <p class="sample-caption">
+          AKG-Schrift- und Farbprobe, keine ausgearbeitete Startseite und kein beschlossenes
+          Gemeindemotto.
+        </p>
+        <div class="type-spec">
+          <strong>Anton · schmal, kompakt, plakatgroß</strong
+          ><span>Scharfe Bildkanten · kontrastreiche Menschenbilder</span>
+        </div>
+        <div class="details">
+          <figure class="reference">
+            <h2>Reale Referenz: Oatly</h2>
+            <a
+              class="reference-link"
+              href="https://mobbin.com/sites/sections/cac3b53a-8f30-4dfa-9627-7285c9cba0d6?utm_source=other&amp;utm_medium=ai-assistant&amp;utm_source_platform=mcp"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><img
+                src="assets/plakat-reference.webp"
+                width="1920"
+                alt="Oatly-Referenz: fast bildfüllende kondensierte weiße Großbuchstaben, schwarzer Druckhintergrund und kleine freigestellte Verpackungen."
+            /></a>
+            <figcaption>
+              Die große Schrift trägt die ganze Komposition. Referenzaufnahme via Mobbin; keine
+              AKG-Seite und keine zur Übernahme freigegebenen Markenassets.
+            </figcaption>
+            <a
+              class="source-link"
+              href="https://mobbin.com/sites/sections/cac3b53a-8f30-4dfa-9627-7285c9cba0d6?utm_source=other&amp;utm_medium=ai-assistant&amp;utm_source_platform=mcp"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Oatly-Referenz ansehen ↗</a
+            >
+          </figure>
+          <div class="translation">
+            <h2>Was daraus für die AKG wird</h2>
+            <p>
+              Eine Gemeinde, die sichtbar zum Dazukommen einlädt: typografisch wie ein gutes
+              Kulturplakat, nicht wie eine zurückhaltende Institution.
+            </p>
+            <h3>Das übernehmen wir</h3>
+            <p>
+              Sehr schmale, große Lettern; starke Größenwechsel; Bilder als bewusste Ausschnitte
+              statt immer derselben Bild/Text-Reihe. Kalkgelb und Schwarz dominieren, Rot setzt
+              einzelne Akzente.
+            </p>
+            <h3>Der mögliche Seitenaufbau</h3>
+            <p>
+              Ein plakatives Wortbild als Auftakt; danach ein gut lesbarer Anschlag mit den
+              freigegebenen Besuchswegen und Inhalten. Kein großer Begrüßungstext neben einem Foto.
+            </p>
+            <p class="risk">
+              <strong>Die Grenze</strong>Kann zu laut oder zu sehr nach Kampagne wirken.
+              Großbuchstaben nur als gestalterischer Auftakt, nicht in längeren Texten. Keine
+              fremden Verpackungen, Texte oder Logos kopieren.
+            </p>
+          </div>
+        </div>
+        <div class="palette" aria-label="Vorgeschlagene Farben">
+          <span><i style="background: #dfff59" aria-hidden="true"></i>Kalkgelb #DFFF59</span
+          ><span><i style="background: #1b1b18" aria-hidden="true"></i>Druckschwarz #1B1B18</span
+          ><span><i style="background: #e34a35" aria-hidden="true"></i>Signalrot #E34A35</span>
+        </div>
+      </section>
+      <section class="direction" id="b" aria-labelledby="title-b">
+        <div class="direction-title">
+          <h1 id="title-b">B · Das Gemeindejournal</h1>
+          <p>Nicht werben, sondern zum Lesen einladen.</p>
+        </div>
+        <div class="specimen specimen-b">
+          <div class="logo-proof">
+            <img
+              src="../../public/images/apostel-logo.png"
+              width="500"
+              height="272"
+              alt="Original-Logo der Apostel-Kirchengemeinde Kiel"
+            />
+          </div>
+          <p class="sample-text">Zeit für<br />Begegnung.</p>
+        </div>
+        <p class="sample-caption">
+          AKG-Schrift- und Farbprobe, keine ausgearbeitete Startseite und kein beschlossenes
+          Gemeindemotto.
+        </p>
+        <div class="type-spec">
+          <strong>Newsreader · feine, gut lesbare Serifenschrift</strong
+          ><span>Papierfarben · fotografische Geschichten</span>
+        </div>
+        <div class="details">
+          <figure class="reference">
+            <h2>Reale Referenz: Kinfolk</h2>
+            <a
+              class="reference-link"
+              href="https://mobbin.com/sites/sections/6fcb8f5c-0595-4c0e-adce-fa3e4090fb52?utm_source=other&amp;utm_medium=ai-assistant&amp;utm_source_platform=mcp"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><img
+                src="assets/journal-reference.webp"
+                width="1920"
+                alt="Kinfolk-Referenz: kleine Serifentitel auf graugrünem Grund und drei fotografische Ausschnitte aus Mode, Porträt und Landschaft mit redaktionellen Bildunterschriften."
+            /></a>
+            <figcaption>
+              Fotografie wird zu einem redaktionellen Einstieg, nicht zur Illustration eines
+              Werbeversprechens. Referenzaufnahme via Mobbin; keine AKG-Geschichten oder
+              Gemeindeporträts.
+            </figcaption>
+            <a
+              class="source-link"
+              href="https://mobbin.com/sites/sections/6fcb8f5c-0595-4c0e-adce-fa3e4090fb52?utm_source=other&amp;utm_medium=ai-assistant&amp;utm_source_platform=mcp"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Kinfolk-Referenz ansehen ↗</a
+            >
+          </figure>
+          <div class="translation">
+            <h2>Was daraus für die AKG wird</h2>
+            <p>
+              Eine Website mit dem Charakter eines sorgfältig gemachten Gemeindemagazins: Menschen,
+              Gedanken und Fragen eröffnen die Gemeinde, nicht ein Werbehero.
+            </p>
+            <h3>Das übernehmen wir</h3>
+            <p>
+              Eine markante Serifenschrift, Papier- und Graugrüntöne, klare Bildunterschriften und
+              Bilder mit eigener Aussage. Ruhige Textspalten statt übergroßer Sans-Serif-Slogans.
+            </p>
+            <h3>Der mögliche Seitenaufbau</h3>
+            <p>
+              Ein redaktioneller Aufmacher; weitere, unterschiedlich gewichtete Einstiege wie auf
+              einer Magazinseite. Gottesdienste und Kontakt bleiben direkt erreichbar.
+            </p>
+            <p class="risk">
+              <strong>Die Grenze</strong>Kann zu distanziert oder zu exklusiv wirken. Braucht echte,
+              freigegebene Inhalte statt erfundener Porträts, Interviews und Zitate. Keine Inhalte
+              des Lifestyle-Magazins übernehmen.
+            </p>
+          </div>
+        </div>
+        <div class="palette" aria-label="Vorgeschlagene Farben">
+          <span><i style="background: #e2e4da" aria-hidden="true"></i>Graugrün #E2E4DA</span
+          ><span><i style="background: #252a24" aria-hidden="true"></i>Schriftgrün #252A24</span
+          ><span><i style="background: #f8f7f3" aria-hidden="true"></i>Papier #F8F7F3</span>
+        </div>
+      </section>
+      <section class="direction" id="c" aria-labelledby="title-c">
+        <div class="direction-title">
+          <h1 id="title-c">C · Der offene Treffpunkt</h1>
+          <p>Nicht förmlich, sondern nahbar und lebendig.</p>
+        </div>
+        <div class="specimen specimen-c">
+          <div class="logo-proof">
+            <img
+              src="../../public/images/apostel-logo.png"
+              width="500"
+              height="272"
+              alt="Original-Logo der Apostel-Kirchengemeinde Kiel"
+            />
+          </div>
+          <p class="sample-text">Nicht allein.<br />Miteinander.</p>
+        </div>
+        <p class="sample-caption">
+          AKG-Schrift- und Farbprobe, keine ausgearbeitete Startseite und kein beschlossenes
+          Gemeindemotto.
+        </p>
+        <div class="type-spec">
+          <strong>Bricolage Grotesque · kräftig und menschlich</strong
+          ><span>Apricot &amp; Weinrot · weichere Bildformen</span>
+        </div>
+        <div class="details">
+          <figure class="reference">
+            <h2>Reale Referenz: Headspace</h2>
+            <a
+              class="reference-link"
+              href="https://mobbin.com/sites/sections/f0e283a8-0425-44b5-b3ef-de1d7973a652?utm_source=other&amp;utm_medium=ai-assistant&amp;utm_source_platform=mcp"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><img
+                src="assets/treffpunkt-reference.webp"
+                width="1920"
+                alt="Headspace-Referenz: ein großes orangefarbenes, lächelndes rundes Motiv auf gelbem Grund mit kräftiger freundlicher Schrift und einer weich geschwungenen Abschnittskante."
+            /></a>
+            <figcaption>
+              Wärme entsteht hier durch die ganze Form- und Farbsprache. Referenzaufnahme via
+              Mobbin; keine AKG-Leistungen und keine für die AKG zu kopierenden Figuren.
+            </figcaption>
+            <a
+              class="source-link"
+              href="https://mobbin.com/sites/sections/f0e283a8-0425-44b5-b3ef-de1d7973a652?utm_source=other&amp;utm_medium=ai-assistant&amp;utm_source_platform=mcp"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Headspace-Referenz ansehen ↗</a
+            >
+          </figure>
+          <div class="translation">
+            <h2>Was daraus für die AKG wird</h2>
+            <p>
+              Ein offener Treffpunkt für Menschen verschiedener Generationen: freundlich und
+              einladend, aber weder Kindergartenästhetik noch Wellnessversprechen.
+            </p>
+            <h3>Das übernehmen wir</h3>
+            <p>
+              Breite, charaktervolle Buchstaben, warme größere Farbflächen und weichere Bildformen.
+              Für die AKG eher Apricot und Weinrot als das Gelb und Orange der Referenz.
+            </p>
+            <h3>Der mögliche Seitenaufbau</h3>
+            <p>
+              Ein zusammenhängender, lebendiger Begegnungsraum statt einzeln gestapelter
+              Marketingblöcke: Menschenbilder und direkte Besuchseinladungen greifen ineinander.
+            </p>
+            <p class="risk">
+              <strong>Die Grenze</strong>Kann zu verspielt wirken. Keine Headspace-Maskottchen,
+              keine nachgebauten Icon-Kacheln und keine übertragene Gesundheitswirkung. Texte und
+              Navigation bleiben erwachsen und klar.
+            </p>
+          </div>
+        </div>
+        <div class="palette" aria-label="Vorgeschlagene Farben">
+          <span><i style="background: #ffe1cf" aria-hidden="true"></i>Apricot #FFE1CF</span
+          ><span><i style="background: #642f48" aria-hidden="true"></i>Weinrot #642F48</span
+          ><span
+            ><i style="background: #e78256" aria-hidden="true"></i>Terrakotta-Akzent #E78256</span
+          >
+        </div>
+      </section>
+    </main>
+    <footer>
+      <p class="footer-note">
+        Die drei Referenzen dienen nur der gestalterischen Auswahl. Marken, Illustrationen, Texte
+        und Personenbilder daraus werden nicht in die AKG-Website übernommen. Die Schriftproben
+        verwenden lokal gespeicherte OFL-Schriften; alle Quellen stehen in
+        <a href="sources.json">sources.json</a>. Erst nach der Richtungswahl entsteht eine neue
+        Startseite.
+      </p>
+    </footer>
+  </body>
+</html>

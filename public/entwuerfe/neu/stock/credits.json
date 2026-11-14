@@ -1,0 +1,41 @@
+{
+  "purpose": "Vorläufige Symbolfotos für Gestaltungs- und Layoutstudien sowie die lokale Startseiten-Ausarbeitung der gewählten Richtung Begegnungen nach ausdrücklichem Nutzerauftrag. Keine Aufnahmen, Mitglieder oder Veranstaltungen der AKG; keine behauptete religiöse Zugehörigkeit oder Unterstützung.",
+  "license": "Pexels License",
+  "licenseURL": "https://www.pexels.com/license/",
+  "acceptableUseURL": "https://www.pexels.com/acceptable-use-policy/",
+  "retrievedAt": "2026-11-13",
+  "processing": "Von öffentlich zugänglichen Pexels-Bildadressen heruntergeladen, proportional ohne zusätzlichen Beschnitt/Filter auf 640 und 1280 px verkleinert, WebP Qualität 82, Metadaten entfernt. Kein Hotlink zur Laufzeit.",
+  "rightsLimit": "Keine eigenständige Prüfung sämtlicher Model-, Marken- oder sonstiger Drittrechte; spätere fachliche und rechtliche Produktionsfreigabe bleibt offen.",
+  "photos": [
+    {
+      "id": 8570926,
+      "alt": "Symbolfoto: Menschen unterhalten sich beim gemeinsamen Pizzaessen auf Holzstufen.",
+      "author": "Ron Lach",
+      "title": "Photo of a Group of Friends Talking while Eating Pizza",
+      "source": "https://www.pexels.com/photo/photo-of-a-group-of-friends-talking-while-eating-pizza-8570926/",
+      "download": "https://images.pexels.com/photos/8570926/pexels-photo-8570926.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      "files": ["8570926-640.webp", "8570926-1280.webp"],
+      "use": "Fotografische Einladung, Einstieg"
+    },
+    {
+      "id": 5638828,
+      "alt": "Symbolfoto: Menschen verschiedener Generationen sprechen beim gemeinsamen Essen miteinander.",
+      "author": "Askar Abayev",
+      "title": "Loving family chatting during dinner in garden",
+      "source": "https://www.pexels.com/photo/loving-family-chatting-during-dinner-in-garden-5638828/",
+      "download": "https://images.pexels.com/photos/5638828/pexels-photo-5638828.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      "files": ["5638828-640.webp", "5638828-1280.webp"],
+      "use": "Fotografische Einladung, Miteinander"
+    },
+    {
+      "id": 11284053,
+      "alt": "Symbolfoto: Zwei Männer unterhalten sich an einem Tisch bei einem Kaffee.",
+      "author": "Centre for Ageing Better",
+      "title": "Two Men Sitting in Bar Cafe Patio Talking and Drinking Coffee",
+      "source": "https://www.pexels.com/photo/two-men-sitting-in-bar-cafe-patio-talking-and-drinking-coffee-11284053/",
+      "download": "https://images.pexels.com/photos/11284053/pexels-photo-11284053.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      "files": ["11284053-640.webp", "11284053-1280.webp"],
+      "use": "Empfangstafel, Gespräch"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "retrievedAt": "2026-11-14",
+  "scope": "Reference screenshots for documentation/comparison only, not AKG homepage assets. Layout measurements are estimates from the captured desktop viewports.",
+  "research": [
+    {
+      "tool": "search_screens",
+      "mode": "deep",
+      "queries": [
+        "Community organization homepage",
+        "Museum homepage",
+        "Editorial magazine homepage",
+        "Airbnb homepage",
+        "Calm homepage",
+        "The New York Times homepage"
+      ]
+    },
+    {
+      "tool": "search_sections",
+      "queries": ["cultural institution hero section", "hospitality hero section"]
+    }
+  ],
+  "references": [
+    {
+      "id": "cb3938b3-d8af-4c12-a997-a7ecb83662f2",
+      "name": "The New York Times",
+      "query": "The New York Times homepage",
+      "search_tool": "search_screens",
+      "mode": "deep",
+      "image_url": "https://mobbin.com/api/mcp/short/WpCtc8iF",
+      "mobbin_url": "https://mobbin.com/screens/cb3938b3-d8af-4c12-a997-a7ecb83662f2?utm_source=other&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "app_name": "The New York Times",
+      "platform": "web",
+      "key": "journal",
+      "reference_file": "assets/journal.webp"
+    },
+    {
+      "id": "99e4c984-570e-4675-b8ec-e035c6298b2f",
+      "name": "Airbnb",
+      "query": "Airbnb homepage",
+      "search_tool": "search_screens",
+      "mode": "deep",
+      "image_url": "https://mobbin.com/api/mcp/short/2laKMa7V",
+      "mobbin_url": "https://mobbin.com/screens/99e4c984-570e-4675-b8ec-e035c6298b2f?utm_source=other&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "app_name": "Airbnb",
+      "platform": "web",
+      "key": "entdecken",
+      "reference_file": "assets/entdecken.webp"
+    },
+    {
+      "id": "3a10c864-0f39-4ba7-8d32-f460f825bb8b",
+      "name": "OpenTable",
+      "query": "hospitality hero section",
+      "search_tool": "search_sections",
+      "mode": "section-search",
+      "image_url": "https://mobbin.com/api/mcp/short/oBkuESIs",
+      "mobbin_url": "https://mobbin.com/sites/sections/3a10c864-0f39-4ba7-8d32-f460f825bb8b?utm_source=other&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "site_name": "OpenTable",
+      "key": "begegnung",
+      "reference_file": "assets/begegnung.webp"
+    }
+  ]
+}

@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      name="description"
+      content="Entdecke die Apostel-Kirchengemeinde Kiel: Gemeinde, Angebote, Gottesdienste und Kontakt."
+    />
+    <meta name="theme-color" content="#fff" />
+    <title>Gemeinde entdecken · Apostel-Kirchengemeinde Kiel</title>
+    <link rel="icon" href="/images/apostel-logo.png" />
+    <link
+      rel="preload"
+      href="/fonts/figtree-latin-variable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <style>
+      @font-face {
+        font-family: Figtree;
+        src: url('/fonts/figtree-latin-variable.woff2') format('woff2');
+        font-style: normal;
+        font-weight: 300 900;
+        font-display: swap;
+      }
+      :root {
+        --white: #fff;
+        --blue: #006c9e;
+        --ink: #173b50;
+        --wash: #eaf3f7;
+        --line: #c5d9e3;
+        --font: Figtree, sans-serif;
+        --gutter: clamp(20px, 5.55vw, 80px);
+        color-scheme: light;
+        font-family: var(--font);
+        color: var(--ink);
+        background: var(--white);
+        font-synthesis: none;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-size: 17px;
+        line-height: 1.5;
+      }
+      h1,
+      h2,
+      h3,
+      p,
+      figure,
+      ul {
+        margin: 0;
+      }
+      h1,
+      h2,
+      h3 {
+        font-weight: 650;
+        line-height: 1.2;
+        text-wrap: balance;
+      }
+      a {
+        color: inherit;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+      }
+      a:hover {
+        color: var(--blue);
+      }
+      a:active,
+      summary:active {
+        background-color: var(--wash);
+      }
+      :focus-visible {
+        outline: 3px solid var(--blue);
+        outline-offset: 5px;
+      }
+      ::selection {
+        background: var(--ink);
+        color: var(--white);
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      svg {
+        width: 20px;
+        height: 20px;
+        flex: 0 0 auto;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.75;
+      }
+      .frame {
+        width: calc(100% - var(--gutter) * 2);
+        max-width: 1520px;
+        margin-inline: auto;
+      }
+      .skip {
+        position: fixed;
+        top: 16px;
+        left: 20px;
+        z-index: 20;
+        padding: 12px 18px;
+        background: var(--blue);
+        color: var(--white);
+        transform: translateY(-160%);
+      }
+      .skip:focus {
+        transform: none;
+        color: var(--white);
+        outline-color: var(--ink);
+      }
+      .site-header {
+        border-bottom: 1px solid var(--line);
+      }
+      .header-inner {
+        min-height: 104px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 28px;
+        position: relative;
+      }
+      .brand {
+        display: block;
+        flex: 0 0 auto;
+        background: var(--white);
+      }
+      .brand img {
+        width: 128px;
+        height: auto;
+      }
+      .desktop-nav {
+        align-self: stretch;
+        display: flex;
+        align-items: stretch;
+        gap: 28px;
+      }
+      .desktop-nav a {
+        position: relative;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        white-space: nowrap;
+        font-weight: 550;
+      }
+      .desktop-nav a[aria-current] {
+        color: var(--blue);
+        font-weight: 700;
+      }
+      .desktop-nav a[aria-current]::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        inset-inline: 0;
+        height: 3px;
+        background: var(--blue);
+      }
+      .contact-link {
+        min-height: 44px;
+        padding: 9px 16px;
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        text-decoration: none;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .contact-link:hover {
+        background: var(--wash);
+      }
+      .mobile-menu {
+        display: none;
+      }
+      main {
+        padding-top: 40px;
+        padding-bottom: 48px;
+      }
+      main:focus {
+        outline-offset: -3px;
+      }
+      .collection-intro {
+        margin-bottom: 24px;
+      }
+      h1 {
+        font-size: 32px;
+        letter-spacing: -0.025em;
+      }
+      .collection-intro > p {
+        margin-top: 10px;
+      }
+      .rail {
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        scroll-snap-type: x proximity;
+        scroll-padding-inline: 6px;
+        scrollbar-color: var(--blue) var(--wash);
+        scrollbar-width: thin;
+        padding: 6px 6px 16px;
+        margin: -6px -6px -16px;
+        border-radius: 16px;
+      }
+      .destinations {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 20px;
+      }
+      .destination {
+        min-width: 0;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        scroll-snap-align: start;
+      }
+      .photo,
+      .word-picture {
+        width: 100%;
+        aspect-ratio: 1.05;
+        border-radius: 16px;
+      }
+      .photo {
+        height: auto;
+        object-fit: cover;
+      }
+      .family {
+        object-position: 58% center;
+      }
+      .friends {
+        object-position: 54% center;
+      }
+      .conversation {
+        object-position: 44% center;
+      }
+      figcaption {
+        position: relative;
+        z-index: 2;
+        pointer-events: none;
+        margin-top: 9px;
+        min-height: 2.8em;
+        font-size: 16px;
+        line-height: 1.4;
+      }
+      figcaption a {
+        pointer-events: auto;
+      }
+      .destination h2 {
+        margin-top: 13px;
+        font-size: 20px;
+        letter-spacing: -0.01em;
+      }
+      .destination h2 a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        text-decoration: none;
+      }
+      .destination h2 a::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 16px;
+      }
+      .destination h2 a:hover {
+        text-decoration: underline;
+      }
+      .destination h2 a:focus-visible {
+        outline: none;
+      }
+      .destination h2 a:focus-visible::after {
+        outline: 3px solid var(--blue);
+        outline-offset: 3px;
+      }
+      .destination > p {
+        margin-top: 5px;
+        font-size: 17px;
+      }
+      .word-picture {
+        padding: clamp(22px, 2.2vw, 36px);
+        background: var(--blue);
+        color: var(--white);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-bottom: calc(9px + 2.8rem);
+      }
+      .word-picture p {
+        font-size: clamp(28px, 2.65vw, 40px);
+        font-weight: 600;
+        line-height: 1.12;
+        letter-spacing: -0.025em;
+      }
+      .word-picture span {
+        font-size: 17px;
+        max-width: 20ch;
+      }
+      .continuation {
+        margin-top: 44px;
+        padding-top: 30px;
+        border-top: 1px solid var(--line);
+      }
+      .collection-heading {
+        margin-bottom: 20px;
+      }
+      .collection-heading h2 {
+        font-size: 24px;
+        letter-spacing: -0.015em;
+      }
+      .service-list {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+      }
+      .service {
+        position: relative;
+        border-radius: 16px;
+        background: var(--wash);
+        padding: 26px 28px;
+      }
+      .service h3 {
+        font-size: 22px;
+        letter-spacing: -0.015em;
+      }
+      .service h3 a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        text-decoration: none;
+      }
+      .service h3 a::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 16px;
+      }
+      .service h3 a:hover {
+        text-decoration: underline;
+      }
+      .service h3 a:focus-visible {
+        outline: none;
+      }
+      .service h3 a:focus-visible::after {
+        outline: 3px solid var(--blue);
+        outline-offset: 3px;
+      }
+      .service p {
+        margin-top: 10px;
+        max-width: 49ch;
+      }
+      .service .destination-note {
+        margin-top: 16px;
+        color: var(--blue);
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .visit-row {
+        margin-top: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+      .visit-row p {
+        max-width: 66ch;
+      }
+      .visit-row a {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        background: var(--wash);
+        padding-block: 28px;
+      }
+      .footer-row {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px 32px;
+        flex-wrap: wrap;
+      }
+      .footer-name {
+        font-weight: 650;
+      }
+      .legal {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .legal a {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+      }
+      .photo-note {
+        font-size: 16px;
+        max-width: 80ch;
+        margin-top: 12px;
+      }
+      @media (max-width: 1100px) {
+        .desktop-nav {
+          gap: 20px;
+        }
+        .desktop-nav a {
+          font-size: 16px;
+        }
+        .header-inner {
+          gap: 20px;
+        }
+        .contact-link {
+          padding-inline: 12px;
+          gap: 8px;
+        }
+      }
+      @media (max-width: 959px) {
+        .desktop-nav,
+        .contact-link {
+          display: none;
+        }
+        .header-inner {
+          min-height: 92px;
+        }
+        .brand img {
+          width: 116px;
+        }
+        .mobile-menu {
+          display: block;
+        }
+        .mobile-menu summary {
+          min-height: 44px;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 9px 16px;
+          border: 1px solid var(--line);
+          border-radius: 28px;
+          font-weight: 600;
+          cursor: pointer;
+          list-style: none;
+        }
+        .mobile-menu summary::-webkit-details-marker {
+          display: none;
+        }
+        .mobile-menu[open] summary {
+          background: var(--wash);
+        }
+        .mobile-menu nav {
+          position: absolute;
+          z-index: 10;
+          top: calc(100% - 4px);
+          right: 0;
+          width: min(320px, 100%);
+          padding: 10px 16px;
+          border: 1px solid var(--line);
+          border-radius: 16px;
+          background: var(--white);
+        }
+        .mobile-menu nav a {
+          display: block;
+          padding: 11px 8px;
+          text-decoration: none;
+        }
+        .mobile-menu nav a:hover {
+          background: var(--wash);
+        }
+        .destinations {
+          grid-template-columns: none;
+          grid-auto-flow: column;
+          grid-auto-columns: calc((100% - 40px) / 2.4);
+        }
+        .word-picture p {
+          font-size: 32px;
+        }
+        .service {
+          padding: 24px;
+        }
+        .visit-row {
+          align-items: flex-start;
+        }
+      }
+      @media (max-width: 599px) {
+        main {
+          padding-top: 26px;
+          padding-bottom: 28px;
+        }
+        h1 {
+          font-size: 30px;
+          max-width: 15ch;
+        }
+        .collection-intro {
+          margin-bottom: 20px;
+        }
+        .collection-intro > p {
+          max-width: 32ch;
+        }
+        .destinations {
+          grid-auto-columns: 86%;
+          gap: 16px;
+        }
+        .destination h2 {
+          font-size: 20px;
+        }
+        .word-picture {
+          padding: 24px;
+        }
+        .word-picture p {
+          font-size: 36px;
+        }
+        .continuation {
+          margin-top: 30px;
+          padding-top: 24px;
+        }
+        .collection-heading h2 {
+          font-size: 22px;
+        }
+        .service-list {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 12px;
+        }
+        .service {
+          padding: 22px;
+        }
+        .service h3 {
+          font-size: 21px;
+        }
+        .visit-row {
+          margin-top: 24px;
+          flex-direction: column;
+          gap: 8px;
+        }
+        .footer-row {
+          gap: 8px;
+        }
+        .photo-note {
+          margin-top: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Composition: Mobbin / Airbnb screen 99e4c984-570e-4675-b8ec-e035c6298b2f.
+       Retain compact navigation, modest collection titles, near-square media and repeated browse rows.
+       AKG-only branding and routes; no booking UI or synthetic live content. -->
+    <a class="skip" href="#inhalt">Zum Inhalt</a>
+    <header class="site-header">
+      <div class="header-inner frame">
+        <a class="brand" href="/" aria-label="Apostel-Kirchengemeinde Kiel – Startseite">
+          <img
+            src="/images/apostel-logo.png"
+            width="500"
+            height="272"
+            alt="Apostel-Kirchengemeinde"
+          />
+        </a>
+        <nav class="desktop-nav" aria-label="Hauptnavigation">
+          <a href="#inhalt" aria-current="page">Entdecken</a>
+          <a href="/gottesdienste">Gottesdienste</a>
+          <a href="/angebote">Angebote</a>
+          <a href="/gemeinde">Gemeinde</a>
+          <a href="/aktuelles">Aktuelles</a>
+        </nav>
+        <a class="contact-link" href="/kontakt"
+          >Kontakt
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg
+        ></a>
+        <details class="mobile-menu">
+          <summary>
+            Menü <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16" /></svg>
+          </summary>
+          <nav aria-label="Mobile Hauptnavigation">
+            <a href="/gottesdienste">Gottesdienste</a>
+            <a href="/aktuelles">Aktuelles</a>
+            <a href="/angebote">Angebote</a>
+            <a href="/gemeinde">Gemeinde</a>
+            <a href="/kontakt">Kontakt</a>
+          </nav>
+        </details>
+      </div>
+    </header>
+
+    <main id="inhalt" class="frame" tabindex="-1">
+      <section aria-labelledby="entdecken">
+        <div class="collection-intro">
+          <h1 id="entdecken">Gemeinde entdecken.</h1>
+          <p>Willkommen in der Apostel-Kirchengemeinde Kiel. Wir freuen uns auf dich.</p>
+        </div>
+        <div
+          class="rail"
+          data-scroll-rail
+          role="region"
+          aria-label="Gemeinde entdecken – vier Ziele"
+          tabindex="0"
+        >
+          <ul class="destinations">
+            <li class="destination">
+              <figure>
+                <img
+                  class="photo family"
+                  src="/entwuerfe/neu/stock/5638828-1280.webp"
+                  srcset="
+                    /entwuerfe/neu/stock/5638828-640.webp   640w,
+                    /entwuerfe/neu/stock/5638828-1280.webp 1280w
+                  "
+                  sizes="(max-width: 599px) 86vw, (max-width: 959px) 38vw, 22vw"
+                  width="1280"
+                  height="853"
+                  alt="Menschen verschiedener Generationen im Gespräch beim Essen."
+                />
+                <figcaption>
+                  Symbolfoto ·
+                  <a
+                    href="https://www.pexels.com/photo/loving-family-chatting-during-dinner-in-garden-5638828/"
+                    >Askar Abayev / Pexels</a
+                  >
+                </figcaption>
+              </figure>
+              <h2>
+                <a href="/gemeinde"
+                  >Gemeinde
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg
+                ></a>
+              </h2>
+              <p>Lerne uns kennen.</p>
+            </li>
+            <li class="destination">
+              <figure>
+                <img
+                  class="photo friends"
+                  src="/entwuerfe/neu/stock/8570926-1280.webp"
+                  srcset="
+                    /entwuerfe/neu/stock/8570926-640.webp   640w,
+                    /entwuerfe/neu/stock/8570926-1280.webp 1280w
+                  "
+                  sizes="(max-width: 599px) 86vw, (max-width: 959px) 38vw, 22vw"
+                  width="1280"
+                  height="853"
+                  alt="Freunde sitzen auf Stufen, essen Pizza und unterhalten sich."
+                />
+                <figcaption>
+                  Symbolfoto ·
+                  <a
+                    href="https://www.pexels.com/photo/photo-of-a-group-of-friends-talking-while-eating-pizza-8570926/"
+                    >Ron Lach / Pexels</a
+                  >
+                </figcaption>
+              </figure>
+              <h2>
+                <a href="/angebote"
+                  >Angebote &amp; Gruppen
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg
+                ></a>
+              </h2>
+              <p>Miteinander leben.</p>
+            </li>
+            <li class="destination">
+              <figure>
+                <img
+                  class="photo conversation"
+                  src="/entwuerfe/neu/stock/11284053-1280.webp"
+                  srcset="
+                    /entwuerfe/neu/stock/11284053-640.webp   640w,
+                    /entwuerfe/neu/stock/11284053-1280.webp 1280w
+                  "
+                  sizes="(max-width: 599px) 86vw, (max-width: 959px) 38vw, 22vw"
+                  width="1280"
+                  height="853"
+                  alt="Zwei Männer unterhalten sich bei einer Tasse Kaffee im Freien."
+                />
+                <figcaption>
+                  Symbolfoto ·
+                  <a
+                    href="https://www.pexels.com/photo/two-men-sitting-in-bar-cafe-patio-talking-and-drinking-coffee-11284053/"
+                    >Centre for Ageing Better / Pexels</a
+                  >
+                </figcaption>
+              </figure>
+              <h2>
+                <a href="/kontakt"
+                  >Kontakt
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg
+                ></a>
+              </h2>
+              <p>Nimm Kontakt auf.</p>
+            </li>
+            <li class="destination">
+              <div class="word-picture" aria-hidden="true">
+                <p>Zeit<br />füreinander.</p>
+                <span>Auch mit offenen Fragen.</span>
+              </div>
+              <h2>
+                <a href="/gottesdienste"
+                  >Gottesdienste
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg
+                ></a>
+              </h2>
+              <p>Zur Ruhe kommen, gemeinsam glauben.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="continuation" aria-labelledby="weiter">
+        <div class="collection-heading">
+          <h2 id="weiter">Weiter entdecken</h2>
+        </div>
+        <ul class="service-list">
+          <li class="service">
+            <h3>
+              <a href="/aktuelles"
+                >Aktuelles
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg
+              ></a>
+            </h3>
+            <p>Neuigkeiten aus der AKG.</p>
+            <p class="destination-note">Zu den Meldungen</p>
+          </li>
+          <li class="service">
+            <h3>
+              <a href="https://cafe-dreimaster.de/"
+                >Café Dreimaster
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12" /></svg
+              ></a>
+            </h3>
+            <p>Lerne das Café kennen und finde die aktuellen Informationen für deinen Besuch.</p>
+            <p class="destination-note">Eigenständige Website · extern</p>
+          </li>
+        </ul>
+        <div class="visit-row">
+          <p>
+            Ob du zum ersten Mal vorbeischaust oder schon lange zur Gemeinde gehörst: Wir freuen uns
+            auf dich.
+          </p>
+          <a href="/gemeinde"
+            >Gemeinde kennenlernen
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg
+          ></a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="frame">
+        <div class="footer-row">
+          <p class="footer-name">Apostel-Kirchengemeinde Kiel</p>
+          <nav class="legal" aria-label="Rechtliches">
+            <a href="/impressum">Impressum</a>
+            <a href="/datenschutz">Datenschutz</a>
+          </nav>
+        </div>
+        <p class="photo-note">
+          Die Stockfotos sind Symbolfotos. Sie zeigen keine Veranstaltungen der AKG und bilden keine
+          Zugehörigkeit zur Gemeinde ab.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

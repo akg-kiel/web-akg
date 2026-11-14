@@ -49,9 +49,37 @@ try {
       { id: 'synthetic-gamma', name: 'Synthetic Gamma', type: 'Synthetic category' }
     ];
     export async function loadGroups() { return { status: 'ready' as const, items }; }
-    export async function loadServices() { return { status: 'disabled' as const, items: [] }; }
-    export async function loadNews() { return { status: 'unavailable' as const, items: [] }; }
+    export async function loadServices() { return { status: 'ready' as const, items: [
+      { id: 'synthetic-service', title: 'Synthetic service with a long title for responsive layout testing', start: '2099-01-25T09:00:00Z', end: '2099-01-25T10:00:00Z', allDay: false }
+    ] }; }
+    export async function loadNews() { return { status: 'ready' as const, items: [
+      { id: 'synthetic-news-a', title: 'Synthetic news with a long heading for the homepage', body: 'Synthetic text for layout testing only. '.repeat(12), publishedAt: '2026-01-01T10:00:00Z' },
+      { id: 'synthetic-news-b', title: 'Synthetic second news item', body: '<script>not executable</script>', publishedAt: '2026-01-02T10:00:00Z' },
+      { id: 'synthetic-news-c', title: 'Synthetic third news item', body: '', publishedAt: '2026-01-03T10:00:00Z' }
+    ] }; }
   `
+  );
+  const homePath = join(fixture, 'src/pages/index.astro');
+  const home = await readFile(homePath, 'utf8');
+  const sourceRead =
+    'const [services, news, groups] = await Promise.all([loadServices(), loadNews(), loadGroups()]);';
+  assert.ok(home.includes(sourceRead), 'Fixture must override the actual homepage source results');
+  await writeFile(
+    homePath,
+    home.replace(
+      sourceRead,
+      sourceRead +
+        `
+    const fixtureState = Astro.url.searchParams.get('__sourceState');
+    if (fixtureState && ['empty', 'unavailable', 'disabled', 'stale'].includes(fixtureState)) {
+      for (const result of [services, news, groups]) Object.assign(result, {
+        status: fixtureState,
+        items: fixtureState === 'stale' ? result.items : [],
+        updatedAt: '2026-01-04T10:00:00Z'
+      });
+    }
+  `
+    )
   );
   await run(['node_modules/astro/bin/astro.mjs', 'build']);
   server = spawn(
