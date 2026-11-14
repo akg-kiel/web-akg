@@ -1,0 +1,32 @@
+[
+  {
+    "number": 1,
+    "title": "Offene Mitte",
+    "description": "Ein Gesprächsfoto eröffnet eine ruhige Einladung; ein blauer Gottesdienstblock und ein großes Festbild wechseln das Tempo.",
+    "structure": "Einladung & Gesprächsfoto → Gottesdienst → Gemeindeleben & Angebote → Café → Aktuelles → Kontakt"
+  },
+  {
+    "number": 2,
+    "title": "Gemeinde lesen",
+    "description": "Ein redaktioneller Titelaufmacher mit Gemeindefestfoto und Inhaltsverzeichnis führt durch unterschiedlich gewichtete Magazinspalten.",
+    "structure": "Titel & Bildaufmacher mit Index → Begegnung & Angebote → Gottesdienst → Café → Aktuelles → Kontakt"
+  },
+  {
+    "number": 3,
+    "title": "Dein erster Schritt",
+    "description": "Drei konkrete Besuchswege geben sofort Orientierung, bevor eine versetzte Menschenfotogalerie ins Gemeindeleben führt.",
+    "structure": "Einladung → Drei Besuchswege → Gemeindeleben & Angebote → Gottesdienst → Café → Aktuelles → Kontakt"
+  },
+  {
+    "number": 4,
+    "title": "Miteinander, groß gedacht",
+    "description": "Große weiße Typografie im blauen Bildraum trifft auf ein asymmetrisches Begegnungsdiptychon und ruhige Textpausen.",
+    "structure": "Blauer Miteinander-Aufmacher & zwei Fotos → Gottesdienst → Gemeinde & Angebote → Café → Aktuelles → Kontakt"
+  },
+  {
+    "number": 5,
+    "title": "Zeit zum Ankommen",
+    "description": "Eine seitliche Desktop-Navigation begleitet eine buchartige Lesefolge mit viel Weißraum, vollen Bildformaten und nativen Vertiefungen.",
+    "structure": "Leise Einladung & Gespräch → Gottesdienst → Gemeindeleben & Angebote → Café → Aktuelles → Kontakt"
+  }
+]

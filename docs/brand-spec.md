@@ -48,6 +48,14 @@ Bearbeitung: mit vorhandenem Sharp proportional auf 640/960/1280 px verkleinert,
 
 Nicht ausgewählt: Einzelporträts ohne belastbare Personenfreigabe, der niedrig aufgelöste Frauentreff-Ausschnitt, leere Festbänke, Konzert-/SHMF-Motive und ein Pilgerbanner, das nur ein Gebäude zeigt. Architekturaufnahmen bleiben für passende Unterseiten erhalten, nicht als Ersatz für Menschenbilder.
 
+## Vorläufige Stockfotos · Korrekturskizzen AKG-129
+
+Nutzerfolgeauftrag vom 2026-11-13: Die vorhandenen Projektfotos gefallen für die gestalterische Richtung nicht; zunächst Stockfotos verwenden, um die Botschaft zu vermitteln. Diese ausdrückliche Ausnahme zur bisherigen Bildvorgabe gilt zunächst nur für die beiden neuen v0-Skizzen unter `public/entwuerfe/neu/`. Die bestehenden Website-Fotos und der ursprüngliche 50er-Vergleich bleiben unverändert.
+
+Drei Pexels-Motive wurden einzeln gesichtet, lokal und proportional als WebP gespeichert. Quelle, Fotograf/in, Fototitel, Downloadadresse, Lizenz und Bearbeitung sind zentral in [`public/entwuerfe/neu/stock/credits.json`](../public/entwuerfe/neu/stock/credits.json) dokumentiert. Bildunterschriften benennen sie unmittelbar als Symbolfotos und verlinken die Urheberquelle. Keine AKG-Zugehörigkeit, religiöse Überzeugung, Unterstützung oder reale Veranstaltung wird den abgebildeten Personen zugeschrieben; das Cafébild wird nicht als Aufnahme des Dreimasters ausgegeben. Keine Laufzeit-Requests zu Pexels.
+
+Das ist eine vorläufige Auswahl für die Gestaltung, keine pauschale rechtliche Produktionsfreigabe. Pexels-Lizenz und Acceptable Use Policy wurden gelesen; die eigenständige Prüfung sämtlicher Model-, Marken- und sonstiger Drittrechte wird nicht behauptet. Der Nutzerauftrag zur Symbolfotografie ersetzt keine abschließende Medienabnahme.
+
 ## Schrift
 
 - **Figtree**, lokal, Latin Variable WOFF2, ca. 20 KB, inklusive deutscher Zeichen.
@@ -56,7 +64,54 @@ Nicht ausgewählt: Einzelporträts ohne belastbare Personenfreigabe, der niedrig
 - Lizenz **SIL Open Font License 1.1**, unverändert unter `public/fonts/OFL-Figtree.txt`; [autoritative Lizenzquelle](https://github.com/google/fonts/blob/main/ofl/figtree/OFL.txt).
 - Eine Familie mit klaren Gewichten; `font-display: swap`, lokaler Preload, keine Google-/Fontsource-Requests im Browser.
 
-## Gestalterische Ableitung
+## Explorationsfreigabe · historischer Zwischenschritt AKG-129
+
+Nach erneuter Ablehnung auch der beiden Stockfoto-v0 hat der Nutzer ausdrücklich erlaubt, **Schrift, Farbwelt, Bildbehandlung und den gesamten visuellen Stil neu zu denken**. Nur das Original-Logo bleibt gestalterisch unverändert gesetzt. Figtree und die unten dokumentierte Blau/Weiß/Ink-Palette beschreiben damit den bisherigen Bestand, nicht mehr die bindende Vorgabe für die nächste Exploration. Keine Freigabe zum Austausch von Produktionsinhalten, Änderung von Datenrechten oder Deployment daraus ableiten.
+
+Zunächst werden drei reale Referenzwelten zur Auswahl vorgelegt, **keine weiteren Homepages**: Kulturplakat, Gemeindejournal und offener Treffpunkt. Lokale Referenztafel: [`design-directions/index.html`](design-directions/index.html); Entscheidungen und Quellen: [`design-directions/README.md`](design-directions/README.md). Die dortigen OFL-Schriften und Farben sind Stilproben, noch keine beschlossene neue Website-Marke. Fremde Website-Screenshots dienen nur der gestalterischen Abstimmung und werden nicht in die AKG-Website übernommen.
+
+## Aktuelle Klarstellung · Layout statt Markenwechsel
+
+Der Nutzer stellt anschließend klar: Farben und Schriften gefallen grundsätzlich; gewünscht sind vernünftige Layouts. Die Diagnose „neue Markenwelt nötig“ war damit nicht zielführend. Keine der drei Referenzwelten wurde ausgewählt.
+
+Die aktuelle Layoutstudie behält bewusst **lokale Figtree, Blau/Weiß/Ink und Original-Logo** bei. Sie untersucht Raster, Größenverhältnisse, Platznutzung, klare Besuchswege und responsive Komposition statt neuer Farb-/Fontkombinationen. Die zwei bereits ausgewählten Pexels-Symbolfotos werden unverändert als Quelle wiederverwendet; neue visuelle Bildausschnitte im Layout sind proportional, nicht verzerrt. Die Symbolfoto-Ausnahme umfasst nun auch `public/entwuerfe/layout/1.html`; Quelle und Lizenz bleiben zentral in `public/entwuerfe/neu/stock/credits.json`. Keine neue Produktions-, Inhalts- oder Medienfreigabe daraus ableiten.
+
+Umsetzung und Nachweise: [`design-layout.md`](design-layout.md). Der Nutzer bewertet diesen Aufbau als deutlich besser, aber noch nicht zufriedenstellend. Auf seinen neuen Auftrag folgen drei konkrete Referenz-Rekreationen nach Mobbin Deep Search bzw. ergänzender Section Search: [`design-mobbin/README.md`](design-mobbin/README.md). Figtree und die vorhandene Palette bleiben auch dafür konstant; die Symbolfoto-Ausnahme umfasst die drei Dateien unter `public/entwuerfe/mobbin/`. Der Nutzer hat anschließend **Begegnungen** (`public/entwuerfe/mobbin/begegnung.html`) als Grundlage gewählt: blaue Einladungsfläche, große helle Typografie, Fotomosaik und heller Gemeinschaftsbereich. Diese Richtung separat weiterentwickeln, nicht mit den beiden Alternativen vermischen. Die Wahl ersetzt keine Detail-, Inhalts-, Medien- oder Produktionsabnahme. Die Stiltafel bleibt als nicht ausgewählte Recherche erhalten und ist kein bindendes neues Designsystem.
+
+## Übertragung in die Startseite · Begegnungen
+
+Auf das anschließende **„Go!“** wurde die gewählte Richtung in `src/pages/index.astro` integriert. Die vorläufige Symbolfoto-Ausnahme umfasst auch diese lokale Ausarbeitung: dieselben drei Dateien, sichtbar als Symbolfotos, mit Quellenlinks und ausdrücklichem Hinweis auf fehlende AKG-Zugehörigkeits-/Unterstützungsbehauptungen. Autor, Quelle und Alternativtext werden aus der bestehenden zentralen `credits.json` gelesen; keine Kopie eines zweiten Quellenregisters. Kein Stockfoto wird als Dreimasteraufnahme verwendet.
+
+Original-Logo, Figtree und Farbvariablen bleiben unverändert. Die historischen AKG- und Commons-Fotos bleiben als Bestand erhalten; ihre bisherigen Freigaben werden nicht geändert. Die drei Symbolfotos ersetzen nur die Fotoauswahl der Startseite. Das ist Umsetzung zur Sichtung, keine neue Produktions-/Rechtefreigabe; kein Commit, Push oder Deploy. Details, Checks und Grenzen: [`design-mobbin/README.md`](design-mobbin/README.md).
+
+## Nutzerfolgeauftrag · Bildnachweise reduzieren, Preview pushen
+
+Auf ausdrücklichen Wunsch entfallen die sichtbaren Autoren-/Quellenzeilen an den drei Pexels-Fotos der Startseite, auch im Bilddialog. Statt der weißen Nachweisstreifen bleibt nur die kompakte Kennzeichnung „Symbolfoto“ auf jedem Bild; der gemeinsame Hinweis ohne AKG-Zuordnungsbehauptung bleibt erhalten. Quellen, Autoren, Lizenz und Bearbeitung bleiben vollständig in `public/entwuerfe/neu/stock/credits.json` dokumentiert.
+
+Die [Pexels-Lizenz](https://www.pexels.com/license/) verlangt keine Namensnennung; [Pexels-Hilfe zur Attribution](https://help.pexels.com/hc/en-us/articles/360042790533-What-s-the-appropriate-way-to-give-credit-to-the-photographer) bestätigt das. Diese Ausnahme gilt nicht für erforderliche Commons-/CC-BY-SA-Nachweise auf Unterseiten. Keine Bilddatei, Rechtezuordnung oder Bestandsfreigabe geändert. Der Nutzer autorisiert jetzt ausdrücklich Commit/Push auf den bestehenden Feature-Branch für die automatische Vorschau, nicht Produktion oder Merge.
+
+## Aktueller Folgeauftrag · statische Fotos und erweiterte Palette
+
+Der Nutzer verzichtet ausdrücklich auf klickbare Fotos und Lightbox. Die Startseitenbilder bleiben normale Bilder mit Alternativtext und Symbolfoto-Label. Foto-Links, Plus-Symbole, Dialog und zugehörige JS-/Zoom-/Dialog-Stile sind entfernt; benötigte Commons-/Archivnachweise und Bilddateien bleiben unverändert.
+
+Farbquelle: vom Nutzer referenzierter Thread [Brand Design erstellen](t3-thread://v1/daf8d6f2-1e42-476a-b655-41e51669b14d), abschließende Eintrage-Liste für das AKG Brand Kit. Keine Änderung am anderen Thread oder an Canva; insbesondere wird keine erfolgte Brand-Kit-Speicherung behauptet. Das Grün war dort aus der tatsächlichen Canva-Gottesdienst-Story-Vorschau abgelesen, nicht als nativer Farbwählerwert bestätigt; Hellgrün ist die dazu vorgeschlagene Ableitung.
+
+| Ergänzung / benannte Rolle | HEX       | Website-Token und Einsatz                                                                     |
+| -------------------------- | --------- | --------------------------------------------------------------------------------------------- |
+| Grün                       | `#1A7663` | `--color-green`; Überschrift „Miteinander leben.“                                             |
+| Hellgrün                   | `#E8F1EF` | `--color-green-wash`; ruhiger Hintergrund des Gemeinschaftsbereichs                           |
+| Creme                      | `#FBF1D9` | `--color-cream`; verfügbar für warme Flächen, nicht zusätzlich in den grünen Bereich gemischt |
+| Rostorange                 | `#AA420D` | `--color-rust`; bestehender `--color-focus` verweist unverändert auf diesen Wert              |
+
+Dunkelblau, Aktionsblau, Weiß, Hellblau, Blaugrau und Sonnengelb bleiben unverändert. Figtree und Original-Logo ebenfalls. Die neue Palette erweitert Begegnungen, ersetzt weder die gewählte blaue Einladung noch Aktionsfarben durch Grün und macht Grün nicht automatisch zu einer Erfolgs-/Gruppenkategorie. Geeignete deckende Paare: Grün auf Weiß/Hellgrün, Ink auf Hellgrün, Weiß auf kräftigem Grün; mindestens 4,5:1 im Farbtest. Keine Farbfilter auf Fotos.
+
+## Finale Layoutentscheidung und Merge-Auftrag
+
+Der Nutzer bevorzugt das Begegnungen-Layout, wünscht aber den Hero-Hintergrund des bisherigen Produktions-/main-Standes zurück. Verbindlicher Quellwert: `.welcome-hero` in main `f438f18` nutzt `--color-wash` = `#EAF3F7`. Daher hellblaue Fläche mit Ink-Text, blauem Hauptbutton/weißer Schrift und bestehendem rostfarbenem Fokus. Raster, Abstände, Typografie, Fotomosaik, statische Bilder und grüner Gemeinschaftsbereich bleiben unverändert. Der blaue Prototyp bleibt als historische Auswahlquelle erhalten.
+
+Nach erfolgreichen Checks ist nun ausdrücklich der Merge nach `main` einschließlich bestehender automatischer Auslieferung und das Aufräumen vollständig gemergter zugehöriger Branches beauftragt. Nicht umfasst: fremde/unveröffentlichte Arbeit, DNS, Datenfreigaben oder ein pauschaler Abschluss offener Rechts-/Medienfragen. Danach steht ChurchTools im Fokus; in diesem Designabschluss keine CT-Änderungen.
+
+## Gestalterische Ableitung · bisheriger Entwurf
 
 Originales Logo-Blau bleibt unverändert im Bild. UI-Aktionsblau `#006c9e`, Ink `#173b50`, Weiß und ein heller Blauton `#eaf3f7`. Wärme kommt aus echten Begegnungen, Gemeindefotografie und der persönlichen Sprache, nicht aus einer beigefarbenen Serifenschrift-Vorlage. Die Oxidrot-/Source-Sans-Empfehlung des unabhängigen Art-Direction-Reviews wurde abgewogen; gewählt wurden die engere Ableitung vom tatsächlichen blauen Logo und die bereits lizenzgeprüfte Figtree. Die strukturellen Kritikpunkte des Reviews werden umgesetzt.
 

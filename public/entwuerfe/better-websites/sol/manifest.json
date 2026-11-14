@@ -1,0 +1,32 @@
+[
+  {
+    "number": 1,
+    "title": "Ein guter Anfang",
+    "description": "Persönliche Einladung mit Gesprächsfoto, ruhigem Einstieg und klar wechselnden Bild- und Farbflächen.",
+    "structure": "Einladung & Gespräch → Gottesdienst → Gemeindeleben → Café → Aktuelles & Kontakt"
+  },
+  {
+    "number": 2,
+    "title": "Dein Weg hierher",
+    "description": "Drei besucherorientierte Einstiege führen von einer offenen Frage zu Glauben, Miteinander oder Café.",
+    "structure": "Besucherfrage & Wegweiser & Fotopaar → Gottesdienst → Angebote & Fragen → Café → nächster Schritt & Aktuelles"
+  },
+  {
+    "number": 3,
+    "title": "Das Gemeindeblatt",
+    "description": "Redaktionelle Auftaktseite mit großem Gottesdienstfoto, versetzter Doppelseite und konzentrierten Lesespalten.",
+    "structure": "Einladung & Gottesdienstfoto → Glauben → redaktionelle Gemeindeeinblicke → Café → Aktuelles & Kontakt"
+  },
+  {
+    "number": 4,
+    "title": "Im Gespräch",
+    "description": "Seitliche Navigation begleitet eine textstarke Begegnungsseite mit eingerückten Fotografien und aufklappbarem Ersteinstieg.",
+    "structure": "Begegnung → Miteinander & Ersteinstieg → Gottesdienst → Café → Kontakt & Aktuelles"
+  },
+  {
+    "number": 5,
+    "title": "Ein Platz am Tisch",
+    "description": "Das Café bildet den fotografischen Auftakt; ein blauer Wegweiser öffnet den Blick auf Gemeindeleben und Gottesdienst.",
+    "structure": "Zentrierte Einladung → Café → Wegweiser → Gemeindefotoalbum → Gottesdienst → Kontakt & Aktuelles"
+  }
+]

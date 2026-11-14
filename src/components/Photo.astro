@@ -1,25 +1,22 @@
 ---
 import { photos } from '../lib/photos.mjs';
-interface Props { view?: 'outside' | 'ceiling' | 'portal' | 'side' | 'service' | 'conversation' | 'gathering' | 'cafe'; hero?: boolean; enlarge?: boolean }
-const { view = 'outside', hero = false, enlarge = false } = Astro.props;
+interface Props { view?: 'outside' | 'ceiling' | 'portal' | 'side' | 'service' | 'conversation' | 'gathering' | 'cafe'; hero?: boolean }
+const { view = 'outside', hero = false } = Astro.props;
 
 const photo = photos[view];
 const visible = import.meta.env.DEV || photo.publicApproved === true;
 const widths = [640, 960, 'large' in photo ? photo.large : 1440];
-const Frame = enlarge ? 'a' : 'div';
 ---
 {visible && <figure class:list={[hero ? 'welcome-photo' : 'feature-picture', `photo-${view}`]}>
-  <Frame class="photo-frame" href={enlarge ? `/images/${photo.name}-${widths[2]}.webp` : undefined} data-enlarge={enlarge || undefined} aria-label={enlarge ? `Foto ansehen: ${photo.alt}` : undefined}>
+  <div class="photo-frame">
     <img
       src={`/images/${photo.name}-960.webp`}
       srcset={widths.map((width) => `/images/${photo.name}-${width}.webp ${width}w`).join(', ')}
       sizes="(min-width: 768px) 50vw, 100vw"
       width="960" height={photo.height} alt={photo.alt}
-      style={enlarge ? { aspectRatio: `960 / ${photo.height}` } : undefined}
       loading={hero ? 'eager' : 'lazy'} fetchpriority={hero ? 'high' : 'auto'} decoding="async"
     />
-    {enlarge && <span class="photo-action" aria-hidden="true">Foto ansehen <span>+</span></span>}
-  </Frame>
+  </div>
   <figcaption class="photo-credit">
     {'caption' in photo && <>{photo.caption} · </>}
     {'author' in photo ? 'Foto: ' : 'Quelle: '}<a href={photo.source} title={photo.source}>{'author' in photo ? photo.author : 'akg-kiel.de'} ↗</a>

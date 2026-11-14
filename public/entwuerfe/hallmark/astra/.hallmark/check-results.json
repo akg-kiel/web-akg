@@ -1,0 +1,368 @@
+{
+  "engine": "156.0.8078.80",
+  "javaScript": false,
+  "reducedMotion": true,
+  "checks": "40 viewport passes; computed text contrast; 200% root text at 390/1440; images, fragments, routes, semantics, no external loads, keyboard disclosures and skip link",
+  "results": [
+    {
+      "page": 1,
+      "width": 320,
+      "errors": [],
+      "title": "Ein Brief an dich · AKG-Startseitenentwurf 1",
+      "sections": 5,
+      "height": 3846,
+      "minContrast": 5.71
+    },
+    {
+      "page": 1,
+      "width": 375,
+      "errors": [],
+      "title": "Ein Brief an dich · AKG-Startseitenentwurf 1",
+      "sections": 5,
+      "height": 3632,
+      "minContrast": 5.71
+    },
+    {
+      "page": 1,
+      "width": 390,
+      "errors": [],
+      "title": "Ein Brief an dich · AKG-Startseitenentwurf 1",
+      "sections": 5,
+      "height": 3668,
+      "minContrast": 5.71
+    },
+    {
+      "page": 1,
+      "width": 414,
+      "errors": [],
+      "title": "Ein Brief an dich · AKG-Startseitenentwurf 1",
+      "sections": 5,
+      "height": 3655,
+      "minContrast": 5.71
+    },
+    {
+      "page": 1,
+      "width": 768,
+      "errors": [],
+      "title": "Ein Brief an dich · AKG-Startseitenentwurf 1",
+      "sections": 5,
+      "height": 3392,
+      "minContrast": 5.71
+    },
+    {
+      "page": 1,
+      "width": 1280,
+      "errors": [],
+      "title": "Ein Brief an dich · AKG-Startseitenentwurf 1",
+      "sections": 5,
+      "height": 3693,
+      "minContrast": 5.71
+    },
+    {
+      "page": 1,
+      "width": 1440,
+      "errors": [],
+      "title": "Ein Brief an dich · AKG-Startseitenentwurf 1",
+      "sections": 5,
+      "height": 3736,
+      "minContrast": 5.71
+    },
+    {
+      "page": 1,
+      "width": 1920,
+      "errors": [],
+      "title": "Ein Brief an dich · AKG-Startseitenentwurf 1",
+      "sections": 5,
+      "height": 3736,
+      "minContrast": 5.71
+    },
+    {
+      "page": 2,
+      "width": 320,
+      "errors": [],
+      "title": "Dein Weg in die Gemeinde · AKG-Startseitenentwurf 2",
+      "sections": 5,
+      "height": 3982,
+      "minContrast": 5.71
+    },
+    {
+      "page": 2,
+      "width": 375,
+      "errors": [],
+      "title": "Dein Weg in die Gemeinde · AKG-Startseitenentwurf 2",
+      "sections": 5,
+      "height": 3813,
+      "minContrast": 5.71
+    },
+    {
+      "page": 2,
+      "width": 390,
+      "errors": [],
+      "title": "Dein Weg in die Gemeinde · AKG-Startseitenentwurf 2",
+      "sections": 5,
+      "height": 3849,
+      "minContrast": 5.71
+    },
+    {
+      "page": 2,
+      "width": 414,
+      "errors": [],
+      "title": "Dein Weg in die Gemeinde · AKG-Startseitenentwurf 2",
+      "sections": 5,
+      "height": 3804,
+      "minContrast": 5.71
+    },
+    {
+      "page": 2,
+      "width": 768,
+      "errors": [],
+      "title": "Dein Weg in die Gemeinde · AKG-Startseitenentwurf 2",
+      "sections": 5,
+      "height": 3212,
+      "minContrast": 5.71
+    },
+    {
+      "page": 2,
+      "width": 1280,
+      "errors": [],
+      "title": "Dein Weg in die Gemeinde · AKG-Startseitenentwurf 2",
+      "sections": 5,
+      "height": 2817,
+      "minContrast": 5.71
+    },
+    {
+      "page": 2,
+      "width": 1440,
+      "errors": [],
+      "title": "Dein Weg in die Gemeinde · AKG-Startseitenentwurf 2",
+      "sections": 5,
+      "height": 2948,
+      "minContrast": 5.71
+    },
+    {
+      "page": 2,
+      "width": 1920,
+      "errors": [],
+      "title": "Dein Weg in die Gemeinde · AKG-Startseitenentwurf 2",
+      "sections": 5,
+      "height": 3076,
+      "minContrast": 5.71
+    },
+    {
+      "page": 3,
+      "width": 320,
+      "errors": [],
+      "title": "Bilder vom Miteinander · AKG-Startseitenentwurf 3",
+      "sections": 5,
+      "height": 3520,
+      "minContrast": 5.71
+    },
+    {
+      "page": 3,
+      "width": 375,
+      "errors": [],
+      "title": "Bilder vom Miteinander · AKG-Startseitenentwurf 3",
+      "sections": 5,
+      "height": 3484,
+      "minContrast": 5.71
+    },
+    {
+      "page": 3,
+      "width": 390,
+      "errors": [],
+      "title": "Bilder vom Miteinander · AKG-Startseitenentwurf 3",
+      "sections": 5,
+      "height": 3520,
+      "minContrast": 5.71
+    },
+    {
+      "page": 3,
+      "width": 414,
+      "errors": [],
+      "title": "Bilder vom Miteinander · AKG-Startseitenentwurf 3",
+      "sections": 5,
+      "height": 3506,
+      "minContrast": 5.71
+    },
+    {
+      "page": 3,
+      "width": 768,
+      "errors": [],
+      "title": "Bilder vom Miteinander · AKG-Startseitenentwurf 3",
+      "sections": 5,
+      "height": 3218,
+      "minContrast": 5.71
+    },
+    {
+      "page": 3,
+      "width": 1280,
+      "errors": [],
+      "title": "Bilder vom Miteinander · AKG-Startseitenentwurf 3",
+      "sections": 5,
+      "height": 3753,
+      "minContrast": 5.71
+    },
+    {
+      "page": 3,
+      "width": 1440,
+      "errors": [],
+      "title": "Bilder vom Miteinander · AKG-Startseitenentwurf 3",
+      "sections": 5,
+      "height": 3959,
+      "minContrast": 5.71
+    },
+    {
+      "page": 3,
+      "width": 1920,
+      "errors": [],
+      "title": "Bilder vom Miteinander · AKG-Startseitenentwurf 3",
+      "sections": 5,
+      "height": 3995,
+      "minContrast": 5.71
+    },
+    {
+      "page": 4,
+      "width": 320,
+      "errors": [],
+      "title": "Raum für deine Fragen · AKG-Startseitenentwurf 4",
+      "sections": 5,
+      "height": 3807,
+      "minContrast": 5.71
+    },
+    {
+      "page": 4,
+      "width": 375,
+      "errors": [],
+      "title": "Raum für deine Fragen · AKG-Startseitenentwurf 4",
+      "sections": 5,
+      "height": 3655,
+      "minContrast": 5.71
+    },
+    {
+      "page": 4,
+      "width": 390,
+      "errors": [],
+      "title": "Raum für deine Fragen · AKG-Startseitenentwurf 4",
+      "sections": 5,
+      "height": 3691,
+      "minContrast": 5.71
+    },
+    {
+      "page": 4,
+      "width": 414,
+      "errors": [],
+      "title": "Raum für deine Fragen · AKG-Startseitenentwurf 4",
+      "sections": 5,
+      "height": 3677,
+      "minContrast": 5.71
+    },
+    {
+      "page": 4,
+      "width": 768,
+      "errors": [],
+      "title": "Raum für deine Fragen · AKG-Startseitenentwurf 4",
+      "sections": 5,
+      "height": 2786,
+      "minContrast": 5.71
+    },
+    {
+      "page": 4,
+      "width": 1280,
+      "errors": [],
+      "title": "Raum für deine Fragen · AKG-Startseitenentwurf 4",
+      "sections": 5,
+      "height": 3211,
+      "minContrast": 5.71
+    },
+    {
+      "page": 4,
+      "width": 1440,
+      "errors": [],
+      "title": "Raum für deine Fragen · AKG-Startseitenentwurf 4",
+      "sections": 5,
+      "height": 3352,
+      "minContrast": 5.71
+    },
+    {
+      "page": 4,
+      "width": 1920,
+      "errors": [],
+      "title": "Raum für deine Fragen · AKG-Startseitenentwurf 4",
+      "sections": 5,
+      "height": 3354,
+      "minContrast": 5.71
+    },
+    {
+      "page": 5,
+      "width": 320,
+      "errors": [],
+      "title": "Erst einmal ankommen · AKG-Startseitenentwurf 5",
+      "sections": 5,
+      "height": 4318,
+      "minContrast": 5.71
+    },
+    {
+      "page": 5,
+      "width": 375,
+      "errors": [],
+      "title": "Erst einmal ankommen · AKG-Startseitenentwurf 5",
+      "sections": 5,
+      "height": 4144,
+      "minContrast": 5.71
+    },
+    {
+      "page": 5,
+      "width": 390,
+      "errors": [],
+      "title": "Erst einmal ankommen · AKG-Startseitenentwurf 5",
+      "sections": 5,
+      "height": 4180,
+      "minContrast": 5.71
+    },
+    {
+      "page": 5,
+      "width": 414,
+      "errors": [],
+      "title": "Erst einmal ankommen · AKG-Startseitenentwurf 5",
+      "sections": 5,
+      "height": 4162,
+      "minContrast": 5.71
+    },
+    {
+      "page": 5,
+      "width": 768,
+      "errors": [],
+      "title": "Erst einmal ankommen · AKG-Startseitenentwurf 5",
+      "sections": 5,
+      "height": 2928,
+      "minContrast": 5.71
+    },
+    {
+      "page": 5,
+      "width": 1280,
+      "errors": [],
+      "title": "Erst einmal ankommen · AKG-Startseitenentwurf 5",
+      "sections": 5,
+      "height": 2863,
+      "minContrast": 5.71
+    },
+    {
+      "page": 5,
+      "width": 1440,
+      "errors": [],
+      "title": "Erst einmal ankommen · AKG-Startseitenentwurf 5",
+      "sections": 5,
+      "height": 2923,
+      "minContrast": 5.71
+    },
+    {
+      "page": 5,
+      "width": 1920,
+      "errors": [],
+      "title": "Erst einmal ankommen · AKG-Startseitenentwurf 5",
+      "sections": 5,
+      "height": 2923,
+      "minContrast": 5.71
+    }
+  ]
+}

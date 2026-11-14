@@ -1,0 +1,32 @@
+[
+  {
+    "number": 1,
+    "title": "Die offene Einladung",
+    "description": "Einladungsplakat mit großer persönlicher Ansprache, versetzten Bildern und einem ruhigen, vertrauten Gemeindeeinstieg.",
+    "structure": "Einladung → Gottesdienst → Gemeindeleben → Café Dreimaster → Aktuelles & Kontakt"
+  },
+  {
+    "number": 2,
+    "title": "Dein nächster Schritt",
+    "description": "Menschen zuerst: ein breites Gesprächsfoto und ein nativer Anliegenwegweiser führen direkt zum passenden Einstieg.",
+    "structure": "Menschen & Einladung → Anliegenwegweiser → Gottesdienst → Gemeindeleben → Café → Aktuelles & Kontakt"
+  },
+  {
+    "number": 3,
+    "title": "Kapitel des Miteinanders",
+    "description": "Blau, Weiß und Ink gliedern das Miteinander in große, bildgetragene Kapitel ohne Kartenraster.",
+    "structure": "Miteinander → Gottesdienst → Gespräch & Angebote → Café → Aktuelles & Kontakt"
+  },
+  {
+    "number": 4,
+    "title": "Mit offenen Fragen",
+    "description": "Ein typografisch mutiges Gottesdienst-Plakat verbindet offene Fragen mit einem großen Archivpanorama.",
+    "structure": "Gottesdienst-Einladung → Gemeinde → Besuchsfragen & Gespräch → Café → Aktuelles & Kontakt"
+  },
+  {
+    "number": 5,
+    "title": "Vom Café zur Gemeinde",
+    "description": "Eine schmale Navigationsspalte und ein Café-Panorama öffnen den Weg vom Dreimaster zur Kirchengemeinde.",
+    "structure": "Café-Panorama & Einladung → Dreimaster-Übergang → Gemeindeleben → Gottesdienst → Aktuelles & Kontakt"
+  }
+]

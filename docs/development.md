@@ -366,12 +366,15 @@ die tatsächlichen Preview-Bindings und die Ressourcenisolation prüfen. Der
 API-Token für die Einrichtung gehört nicht in Build-Variablen oder Laufzeit-Secrets.
 
 Der erste MVP-Preview-Push erfolgte am 26.10.2026 auf `t3/build-web-akg-mvp`.
-Die aktive Arbeit liegt jetzt in PR #4 auf `t3/akg-127-taste-redesign`; die alten
-übernommenen Remote-Branches wurden bereinigt. Build-Ergebnis, konkrete Version
-und HTTP-Abnahme werden in AKG-54 dokumentiert. Eine Trigger-Einrichtung allein
-ist kein erfolgreicher Remote-E2E-Build. Remote-`main` enthält weiterhin nur
-Dokumentation. Ein Merge nach `main` löst Production aus und benötigt einen
-eigenen Auftrag.
+PR #4 (`t3/akg-127-taste-redesign`) ist inzwischen gemergt; `main` enthält die
+Astro-Anwendung, nicht nur Dokumentation. Der anschließende Begegnungen-Stand
+(AKG-129) wurde vom Nutzer ebenfalls ausdrücklich zum Merge freigegeben.
+Vollständig übernommene Remote-Branches werden nach erfolgreicher Prüfung bereinigt;
+aktive fremde Worktrees und unveröffentlichte Arbeit bleiben erhalten. Build-Ergebnis,
+konkrete Version und HTTP-Abnahme stehen im jeweiligen Linear-Issue. Eine
+Trigger-Einrichtung allein ist kein erfolgreicher Remote-E2E-Build. Ein Merge nach
+`main` kann den bestehenden Production-Build auslösen und benötigt weiterhin einen
+eigenen Auftrag; automatischer Feature-Branch-Push allein autorisiert keinen Merge.
 
 `akg-kiel.de`, DNS, `SERVICES_APPROVED=false` und die Anwendungsschutzregeln bleiben
 unverändert. Auch Production-Builds bleiben bis zur gesonderten Launch-Freigabe

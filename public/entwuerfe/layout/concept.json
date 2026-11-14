@@ -1,0 +1,15 @@
+[
+  {
+    "id": "layout/1",
+    "skill": "layout",
+    "skillName": "Layoutstudie",
+    "model": "sol",
+    "modelName": "GPT-6.1 Sol",
+    "number": 1,
+    "title": "Layoutentwurf öffnen",
+    "description": "Figtree und Blau/Weiß bleiben. Fotoband und übergreifender Einstieg, klarer Gottesdienst-Zugang, gewichtet komponierte Inhaltsbereiche.",
+    "structure": "Gemeinsames Fotofeld → übergreifender Willkommensbereich und Gottesdienst-Zugang → Gemeindeleben → Informationen und Kontakt → Dreimaster",
+    "path": "/entwuerfe/layout/1.html",
+    "thumbnail": "/entwuerfe/layout/preview.webp"
+  }
+]

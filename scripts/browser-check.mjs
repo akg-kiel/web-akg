@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { chromium } from 'playwright-core';
 
 const require = createRequire(import.meta.url);
@@ -10,7 +11,10 @@ assert.equal(
 );
 const origin = new URL(process.argv[2] ?? 'http://127.0.0.1:8787');
 const fixtures = process.env.EXPECT_OFFER_FIXTURES === '1';
-const expectedPhotoCount = 3;
+const stockCredits = JSON.parse(await readFile('public/entwuerfe/neu/stock/credits.json', 'utf8'));
+const expectedPhotoCount = stockCredits.photos.length;
+const evidence = fixtures ? '/tmp/akg-begegnungen-fixture-qa' : '/tmp/akg-begegnungen-qa';
+await mkdir(evidence, { recursive: true });
 const routes = [
   '/',
   '/gottesdienste',
@@ -77,37 +81,82 @@ try {
         `${route}: overflow at ${width}px`
       );
       if (route === '/') {
-        // The settling image scales inside its clipped frame; measure the visible photo area.
-        const heroImage = await page.locator('.welcome-photo .photo-frame').boundingBox();
-        const hero = await page.locator('.welcome-hero').boundingBox();
-        assert.ok(hero, 'Homepage hero must be visible');
-        assert.ok(width < 768 || hero.height <= 600, 'Keep the invitation compact');
-        assert.ok(heroImage && heroImage.height <= 450, 'Community photograph stays compact');
+        const mosaic = await page.locator('.encounters-mosaic').boundingBox();
+        const hero = await page.locator('.encounters-hero').boundingBox();
+        assert.ok(hero && mosaic, 'Selected invitation and mosaic must be visible');
+        assert.ok(width < 768 || hero.height <= 680, 'Keep the invitation compact');
         if (width >= 768) {
-          const copy = await page.locator('.welcome-copy').boundingBox();
-          assert.ok(copy && copy.x + copy.width <= heroImage.x, 'Text must sit beside the photo');
-          assert.ok(heroImage.width <= width / 2, 'Hero photo uses at most half the desktop width');
+          const copy = await page.locator('.encounters-copy').boundingBox();
+          assert.ok(copy && copy.x + copy.width <= mosaic.x, 'Invitation sits beside the mosaic');
+          assert.ok(mosaic.width <= width / 2, 'Mosaic uses at most half the desktop width');
         }
+        assert.equal(await page.locator('.encounters-photo').count(), expectedPhotoCount);
+        for (const [index, photo] of stockCredits.photos.entries()) {
+          const figure = page.locator('.encounters-photo').nth(index);
+          assert.equal(await figure.locator('img').getAttribute('alt'), photo.alt);
+          assert.equal(await figure.locator('figcaption').innerText(), 'Symbolfoto');
+          assert.equal(await figure.locator('figcaption').isVisible(), true);
+          assert.equal(
+            await figure.locator('figcaption a').count(),
+            0,
+            'No per-photo credit links'
+          );
+        }
+        for (const route of [
+          '/gemeinde',
+          '/gottesdienste',
+          '/angebote',
+          '/kontakt',
+          '/aktuelles',
+          'https://cafe-dreimaster.de/'
+        ]) {
+          assert.ok(
+            await page.locator(`main a[href="${route}"]`).count(),
+            `Homepage visitor path: ${route}`
+          );
+        }
+        await page.screenshot({ path: `${evidence}/home-${width}.png`, fullPage: true });
         assert.equal(
           (await page.locator('h1').innerText()).replace(/\s+/g, ' '),
           'Schön, dass du da bist.'
         );
         assert.equal(
           await page
-            .locator('.welcome-hero')
+            .locator('.encounters-hero')
             .evaluate((element) => getComputedStyle(element).backgroundColor),
           'rgb(234, 243, 247)',
-          'Keep the pale-blue hero from the preferred MVP design'
+          'Use the previous main hero background without changing the Begegnungen layout'
+        );
+        assert.equal(
+          await page
+            .locator('.encounters-community')
+            .evaluate((element) => getComputedStyle(element).backgroundColor),
+          'rgb(232, 241, 239)'
+        );
+        assert.equal(
+          await page.locator('#miteinander').evaluate((element) => getComputedStyle(element).color),
+          'rgb(26, 118, 99)'
         );
         assert.equal(await page.locator('main img[src*="/images/petruskirche"]').count(), 0);
         assert.equal(
           await page
             .locator(
-              '.community-band a[href="/petruskirche"], .community-band a[href^="/gemeindehaus-"]'
+              '.encounters-cafe a[href="/petruskirche"], .encounters-cafe a[href^="/gemeindehaus-"]'
             )
             .count(),
           0,
           'The meeting section must not become a building directory'
+        );
+      }
+      if (route === '/' && fixtures) {
+        assert.equal(await page.locator('.service-item').count(), 1);
+        assert.equal(await page.locator('.offer-preview a').count(), 3);
+        assert.equal(await page.locator('.encounters-path .service-item h4').count(), 1);
+        assert.equal(await page.locator('.encounters-path .offer-teaser h4').count(), 3);
+        assert.equal(await page.locator('.news-item').count(), 3);
+        assert.match(
+          await page.locator('.news-item').nth(1).innerText(),
+          /<script>not executable<\/script>/
         );
       }
       if (width === 390 || width === 1440) {
@@ -133,6 +182,51 @@ try {
     }
   }
 
+  if (fixtures)
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ width, height: 900 });
+      for (const state of ['empty', 'unavailable', 'disabled', 'stale']) {
+        await page.goto(new URL(`/?__sourceState=${state}`, origin).href);
+        await page.evaluate(() => document.fonts.ready);
+        await page.locator('img').evaluateAll((images) =>
+          Promise.all(
+            images.map((image) => {
+              image.loading = 'eager';
+              return image.decode();
+            })
+          )
+        );
+        assert.equal(await page.locator(`[data-source-state="${state}"]`).count(), 3);
+        assert.equal(
+          await page.locator('.service-item,.offer-teaser,.news-item').count(),
+          state === 'stale' ? 7 : 0
+        );
+        assert.equal(await page.locator('.data-stamp time').count(), state === 'stale' ? 3 : 0);
+        assert.equal(
+          await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 1),
+          false
+        );
+        await page.screenshot({ path: `${evidence}/${state}-${width}.png`, fullPage: true });
+        await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
+        const findings = await page.evaluate(
+          async () =>
+            (
+              await window.axe.run(document, {
+                runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'] }
+              })
+            ).violations
+        );
+        violations.push(
+          ...findings.map(({ id, impact, nodes }) => ({
+            route: `/?__sourceState=${state}`,
+            width,
+            id,
+            impact,
+            targets: nodes.map((node) => node.target)
+          }))
+        );
+      }
+    }
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(origin.href);
   await page.evaluate(() => document.fonts.ready);
@@ -224,7 +318,7 @@ try {
     await noScriptOffers.close();
   }
   await page.bringToFront();
-  const primaryAction = await page.locator('.welcome-copy .button').boundingBox();
+  const primaryAction = await page.locator('.encounters-copy .button').boundingBox();
   assert.ok(
     primaryAction && primaryAction.y + primaryAction.height <= 844,
     'Primary invitation must fit the first mobile viewport'
@@ -233,17 +327,25 @@ try {
   assert.equal(await page.locator(':focus').innerText(), 'Zum Inhalt springen');
   await page.keyboard.press('Enter');
   assert.equal(await page.locator(':focus').getAttribute('id'), 'inhalt');
-  let lastHeroLinkY = -1;
-  for (const link of await page.locator('.welcome-hero a').all()) {
+  for (const link of await page.locator('.encounters-hero a').all()) {
     await page.keyboard.press('Tab');
     assert.equal(await link.evaluate((element) => element === document.activeElement), true);
-    const box = await link.boundingBox();
-    assert.ok(
-      box && box.y >= lastHeroLinkY - 1,
-      'Mobile hero tab order must follow the visual order'
+    assert.notEqual(
+      await link.evaluate((element) => getComputedStyle(element).outlineWidth),
+      '0px'
     );
-    lastHeroLinkY = box.y;
   }
+  await page.keyboard.press('Tab');
+  assert.equal(
+    await page.locator(':focus').getAttribute('href'),
+    '/gottesdienste',
+    'Tab skips decorative photos'
+  );
+  await page.locator('a[href="#dein-weg"]').focus();
+  await page.keyboard.press('Enter');
+  assert.equal(await page.locator(':focus').getAttribute('id'), 'dein-weg');
+  await page.keyboard.press('Tab');
+  assert.equal(await page.locator(':focus').getAttribute('href'), '/gottesdienste');
   await page.goto(new URL('/gottesdienste', origin).href);
   for (let i = 0; i < 3; i++) await page.keyboard.press('Tab');
   assert.equal(await page.locator(':focus').evaluate((node) => node.tagName), 'SUMMARY');
@@ -264,118 +366,19 @@ try {
   await page.waitForFunction(() => document.activeElement?.classList.contains('wordmark'));
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(origin.href);
-  await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });
-  const photoLinks = page.locator('[data-enlarge]');
-  assert.equal(await photoLinks.count(), expectedPhotoCount);
-  for (let index = 0; index < expectedPhotoCount; index++) {
-    const opener = photoLinks.nth(index);
-    const imageUrl = await opener.getAttribute('href');
-    await opener.focus();
-    await page.keyboard.press('Enter');
-    assert.equal(await page.locator('.photo-dialog').evaluate((dialog) => dialog.open), true);
-    assert.equal(
-      await page
-        .locator('.photo-dialog button')
-        .evaluate((button) => button === document.activeElement),
-      true
-    );
-    await page.locator('.photo-dialog img').evaluate((image) => image.decode());
-    assert.ok(
-      await page.locator('.photo-dialog img').evaluate((image) => {
-        const box = image.getBoundingClientRect();
-        return Math.abs(box.width / box.height - image.naturalWidth / image.naturalHeight) < 0.01;
-      }),
-      'Dialog image must preserve its natural ratio without blank letterboxing'
-    );
-    assert.equal(
-      await page.locator('.photo-dialog img').getAttribute('src'),
-      new URL(imageUrl, origin).href
-    );
-    assert.equal(
-      await page.locator('.photo-dialog .photo-credit').textContent(),
-      await opener.locator('..').locator('.photo-credit').textContent(),
-      'Photo viewer must preserve the complete source credit'
-    );
-    assert.equal(
-      await page.locator('[data-photo-file]').getAttribute('href'),
-      new URL(imageUrl, origin).href
-    );
-    const dialogFindings = await page.evaluate(
-      async () =>
-        (
-          await window.axe.run(document, {
-            runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'] }
-          })
-        ).violations
-    );
-    violations.push(
-      ...dialogFindings.map(({ id, impact }) => ({ route: '/', dialog: index, id, impact }))
-    );
-    for (let step = 0; step < 6; step++) {
-      await page.keyboard.press('Tab');
-      // Native dialogs may pass through browser chrome, never background page controls.
-      assert.equal(
-        await page.evaluate(
-          () =>
-            document.querySelector('.photo-dialog').contains(document.activeElement) ||
-            (document.activeElement === document.body && !document.hasFocus())
-        ),
-        true
-      );
-      if (
-        await page
-          .locator('.photo-dialog button')
-          .evaluate((button) => button === document.activeElement)
+  assert.equal(
+    await page
+      .locator(
+        'dialog, [data-enlarge], .photo-action, .encounters-photo a, .encounters-photo button, .encounters-photo [tabindex]'
       )
-        break;
-    }
-    assert.equal(
-      await page
-        .locator('.photo-dialog button')
-        .evaluate((button) => button === document.activeElement),
-      true
-    );
-    await page.keyboard.press('Shift+Tab');
-    assert.equal(
-      await page
-        .locator('.photo-dialog')
-        .evaluate((dialog) => dialog.contains(document.activeElement)),
-      true
-    );
-    await page.keyboard.press('Tab');
-    assert.equal(
-      await page
-        .locator('.photo-dialog button')
-        .evaluate((button) => button === document.activeElement),
-      true
-    );
-    if (index === 1) await page.keyboard.press('Enter');
-    else await page.keyboard.press('Escape');
-    assert.equal(await page.locator('.photo-dialog').evaluate((dialog) => dialog.open), false);
-    assert.equal(await opener.evaluate((link) => link === document.activeElement), true);
-  }
-
-  for (const viewport of [
-    { width: 390, height: 844 },
-    { width: 844, height: 390 }
-  ]) {
-    await page.setViewportSize(viewport);
-    await page.evaluate(() => {
-      document.documentElement.style.fontSize = '200%';
-    });
-    await photoLinks.nth(1).focus();
-    await page.keyboard.press('Enter');
-    assert.equal(
-      await page
-        .locator('.photo-dialog')
-        .evaluate((dialog) => dialog.scrollWidth > dialog.clientWidth + 1),
-      false,
-      'Dialog must reflow at 200% text size'
-    );
-    await page.keyboard.press('Escape');
-    await page.evaluate(() => {
-      document.documentElement.style.fontSize = '';
-    });
+      .count(),
+    0,
+    'Photos are content, not controls'
+  );
+  for (const photo of await page.locator('.encounters-photo img').all()) {
+    await photo.click();
+    assert.equal(page.url(), origin.href);
+    assert.equal(await page.locator('dialog').count(), 0);
   }
 
   await page.setViewportSize({ width: 320, height: 900 });
@@ -397,16 +400,27 @@ try {
     viewport: { width: 320, height: 844 }
   });
   const basic = await noJavaScript.newPage();
-  await basic.route('**/images/gemeinde-gespraech-*.webp', (route) => route.abort());
+  await basic.route('**/entwuerfe/neu/stock/11284053-*.webp', (route) => route.abort());
   await basic.goto(origin.href);
   assert.ok(
-    await basic.locator('.photo-conversation img').evaluate((image) => {
-      const box = image.getBoundingClientRect();
-      return box.height > 0 && Math.abs(box.width / box.height - 1.5) < 0.01;
-    }),
-    'Reserve the community photo ratio before the lazy image loads'
+    await basic
+      .locator('.encounters-photo')
+      .nth(2)
+      .locator('img')
+      .evaluate((image) => {
+        const box = image.getBoundingClientRect();
+        return (
+          box.width > 0 &&
+          box.height >= 100 &&
+          image.hasAttribute('width') &&
+          image.hasAttribute('height')
+        );
+      }),
+    'Reserve the mosaic slot even when its photo cannot load'
   );
-  await basic.unroute('**/images/gemeinde-gespraech-*.webp');
+  await basic.unroute('**/entwuerfe/neu/stock/11284053-*.webp');
+  await basic.locator('a[href="#dein-weg"]').click();
+  assert.equal(await basic.locator(':focus').getAttribute('id'), 'dein-weg');
   await basic.locator('summary').click();
   assert.equal(await basic.locator('nav[aria-label="Hauptnavigation mobil"] a').count(), 5);
   assert.equal(await basic.locator('nav[aria-label="Hauptnavigation mobil"]').isVisible(), true);
@@ -414,15 +428,13 @@ try {
   await basic.getByRole('link', { name: 'Zum Seitenanfang' }).focus();
   await basic.keyboard.press('Enter');
   await basic.waitForFunction(() => window.scrollY <= 1);
-  for (let index = 0; index < expectedPhotoCount; index++) {
-    await basic.goto(origin.href);
-    const link = basic.locator('[data-enlarge]').nth(index);
-    const imageUrl = new URL(await link.getAttribute('href'), origin).href;
-    await link.click();
-    await basic.waitForURL(imageUrl);
-    await basic.locator('img').evaluate((image) => image.decode());
-    assert.equal(await basic.locator('img').evaluate((image) => image.naturalWidth > 0), true);
-  }
+  await basic.goto(origin.href);
+  assert.equal(
+    await basic.locator('.encounters-photo a, .encounters-photo button, dialog').count(),
+    0
+  );
+  await basic.locator('.encounters-photo img').first().click();
+  assert.equal(basic.url(), origin.href);
   await noJavaScript.close();
 
   const reduced = await browser.newContext({
@@ -464,10 +476,13 @@ try {
         thirdPartyRequests: [...thirdPartyRequests],
         keyboard: 'passed',
         noJavaScriptMenu: 'passed',
-        photoViewerAndFallback: 'passed',
+        nonInteractivePhotos: 'passed',
         offerInteractions: offerCount > 0 ? 'passed' : 'disabled in public build',
         reducedMotion: 'passed',
-        textResize200: 'passed'
+        textResize200: 'passed',
+        homepageSourceStates: fixtures
+          ? ['ready', 'empty', 'unavailable', 'disabled', 'stale']
+          : 'real approval/configuration state'
       },
       null,
       2
@@ -477,5 +492,19 @@ try {
   assert.equal(errors.length, 0, 'Client exceptions');
   assert.equal(thirdPartyRequests.size, 0, 'Unexpected third-party resources');
 } finally {
+  await writeFile(
+    `${evidence}/report.json`,
+    JSON.stringify(
+      {
+        routes: routes.length,
+        widths,
+        violations,
+        errors,
+        thirdPartyRequests: [...thirdPartyRequests]
+      },
+      null,
+      2
+    )
+  );
   await browser.close();
 }

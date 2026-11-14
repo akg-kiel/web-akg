@@ -1,0 +1,28 @@
+[
+  {
+    "id": "neu/empfangstafel",
+    "skill": "revision",
+    "skillName": "Freie Korrekturskizze",
+    "model": "sol",
+    "modelName": "GPT-6.1 Sol",
+    "number": 1,
+    "title": "A · Empfangstafel",
+    "description": "Ein kompakter Empfang: große direkte Besuchswege statt einer langen Homepage mit wiederkehrenden Werbeblöcken.",
+    "structure": "Markenkopf → Anliegen-Tafel und ein begleitendes Gesprächsfoto → kompakter Abschluss",
+    "path": "/entwuerfe/neu/empfangstafel.html",
+    "thumbnail": "/entwuerfe/neu/empfangstafel.webp"
+  },
+  {
+    "id": "neu/einladung",
+    "skill": "revision",
+    "skillName": "Freie Korrekturskizze",
+    "model": "sol",
+    "modelName": "GPT-6.1 Sol",
+    "number": 2,
+    "title": "B · Ein Platz für dich",
+    "description": "Ein fotografischer Einladungsweg: erst Menschen und Miteinander spüren, dann Gemeinde, Angebote und Glauben entdecken.",
+    "structure": "Großer Bildauftakt → persönliche Einladung → Begegnung → Glauben mit offenen Fragen → Dreimaster und Abschluss",
+    "path": "/entwuerfe/neu/einladung.html",
+    "thumbnail": "/entwuerfe/neu/einladung.webp"
+  }
+]

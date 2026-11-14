@@ -1,0 +1,32 @@
+[
+  {
+    "number": 1,
+    "title": "Zusammen im Bild",
+    "description": "Ein fotografischer Auftakt und versetzte Bildpaare lassen zuerst Menschen sprechen; ruhige Textbänder führen zu Gottesdienst und Café.",
+    "structure": "Masthead → Einladung und großes Gottesdienstfoto → Gemeindeleben mit Bildpaar → Gottesdienst → Café → Aktuelles und Kontakt → kompakter Footer"
+  },
+  {
+    "number": 2,
+    "title": "Ein Brief an dich",
+    "description": "Eine persönliche Einladung in schmaler Lesespalte, leichte Figtree und einzelne fotografische Pausen nehmen dem Erstbesuch die Distanz.",
+    "structure": "Randheader mit Menü → persönlicher Brief → Gottesdienst mit Bildpause → Gemeindeleben → Café → Postskript mit Aktuelles → Briefschluss"
+  },
+  {
+    "number": 3,
+    "title": "Dein Weg in die Gemeinde",
+    "description": "Ein sichtbarer Wege-Index und eine ruhende Seitenleiste bedienen zielgerichtete Besuche; die fotografische Gemeindeerzählung folgt erst danach.",
+    "structure": "Seitennavigation → Wege-Index → Gottesdienst → Gemeindeleben mit versetzten Fotos → Café → Aktuelles → Kolophon"
+  },
+  {
+    "number": 4,
+    "title": "Mit offenen Fragen",
+    "description": "Kurze echte Fragen, vollständig geöffnete native Antworten und ein beschreibendes Übersichtsmenü machen den Erstbesuch zu einem Gespräch.",
+    "structure": "Übersichtsmenü → Einladung mit Gesprächsfoto → Gottesdienstfrage → Gemeinschaftsfrage → Caféfrage → Aktuelles und Kontaktfrage → Schlusssatz"
+  },
+  {
+    "number": 5,
+    "title": "Menschen machen Gemeinde",
+    "description": "Ein dunkelblaues typografisches Statement, ein kraftvoller Navigationsblock und große Bildfelder setzen die Menschen plakativ in den Mittelpunkt.",
+    "structure": "Navigationsblock → dunkelblaues Menschen-Statement mit Gottesdienstfoto → Glaube und Fragen → Gemeindeleben → Café → Aktuelles und Kontakt → Namensabschluss"
+  }
+]

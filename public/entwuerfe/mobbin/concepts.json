@@ -1,0 +1,50 @@
+[
+  {
+    "id": "mobbin/journal",
+    "skill": "mobbin",
+    "skillName": "Mobbin-Rekreation",
+    "model": "reference",
+    "modelName": "Layoutstudie",
+    "number": 1,
+    "title": "Gemeindejournal",
+    "description": "Redaktionell nach New York Times: zentraler Bildaufmacher, mehrere Textspalten und Besuchswege schon im ersten Bildschirm.",
+    "heading": "Miteinander leben.",
+    "path": "/entwuerfe/mobbin/journal.html",
+    "thumbnail": "/entwuerfe/mobbin/journal.webp",
+    "referenceName": "The New York Times",
+    "referenceUrl": "https://mobbin.com/screens/cb3938b3-d8af-4c12-a997-a7ecb83662f2?utm_source=other&utm_medium=ai-assistant&utm_source_platform=mcp",
+    "referenceFile": "docs/design-mobbin/assets/journal.webp"
+  },
+  {
+    "id": "mobbin/entdecken",
+    "skill": "mobbin",
+    "skillName": "Mobbin-Rekreation",
+    "model": "reference",
+    "modelName": "Layoutstudie",
+    "number": 2,
+    "title": "Gemeinde entdecken",
+    "description": "Bildkatalog nach Airbnb: kleine Einleitung, direkt wählbare Ziele und mobil eine seitlich scrollbare Entdeckerleiste.",
+    "heading": "Gemeinde entdecken.",
+    "path": "/entwuerfe/mobbin/entdecken.html",
+    "thumbnail": "/entwuerfe/mobbin/entdecken.webp",
+    "referenceName": "Airbnb",
+    "referenceUrl": "https://mobbin.com/screens/99e4c984-570e-4675-b8ec-e035c6298b2f?utm_source=other&utm_medium=ai-assistant&utm_source_platform=mcp",
+    "referenceFile": "docs/design-mobbin/assets/entdecken.webp"
+  },
+  {
+    "id": "mobbin/begegnung",
+    "skill": "mobbin",
+    "skillName": "Mobbin-Rekreation",
+    "model": "reference",
+    "modelName": "Layoutstudie",
+    "number": 3,
+    "title": "Begegnungen",
+    "description": "Fotomosaik nach OpenTable: große blaue Einladungsfläche mit drei unabhängigen Begegnungsmotiven und anschließend klaren Besuchswegen.",
+    "heading": "Schön, dass du da bist.",
+    "path": "/entwuerfe/mobbin/begegnung.html",
+    "thumbnail": "/entwuerfe/mobbin/begegnung.webp",
+    "referenceName": "OpenTable",
+    "referenceUrl": "https://mobbin.com/sites/sections/3a10c864-0f39-4ba7-8d32-f460f825bb8b?utm_source=other&utm_medium=ai-assistant&utm_source_platform=mcp",
+    "referenceFile": "docs/design-mobbin/assets/begegnung.webp"
+  }
+]

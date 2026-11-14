@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Ein Platz für dich · Apostel-Kirchengemeinde Kiel · Entwurf</title>
+    <style>
+      @font-face {
+        font-family: Figtree;
+        src: url('/fonts/figtree-latin-variable.woff2') format('woff2');
+        font-weight: 300 900;
+        font-display: swap;
+      }
+      :root {
+        --paper: #fff;
+        --ink: #173b50;
+        --blue: #006c9e;
+        --light: #eaf3f7;
+        --focus: #a23d08;
+        --gutter: clamp(20px, 3vw, 48px);
+        font-family: Figtree, sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.5;
+      }
+      h1,
+      h2,
+      p,
+      figure {
+        margin: 0;
+      }
+      a {
+        color: inherit;
+        text-underline-offset: 6px;
+        text-decoration-thickness: 1px;
+        touch-action: manipulation;
+      }
+      a:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 5px;
+      }
+      main:focus {
+        outline: none;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      a,
+      summary {
+        min-height: 44px;
+      }
+      .skip {
+        position: fixed;
+        z-index: 100;
+        top: 8px;
+        left: 8px;
+        padding: 12px 20px;
+        background: var(--paper);
+        color: var(--ink);
+        transform: translateY(-180%);
+      }
+      .skip:focus {
+        transform: none;
+      }
+      .site-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+        padding: 18px var(--gutter);
+      }
+      .brand {
+        display: block;
+        flex: none;
+      }
+      .brand img {
+        width: 144px;
+        height: auto;
+      }
+      .desktop-nav {
+        display: flex;
+        gap: clamp(20px, 2.8vw, 44px);
+        align-items: center;
+      }
+      .desktop-nav a,
+      .mobile-nav a {
+        display: inline-flex;
+        align-items: center;
+        font-size: 16px;
+      }
+      .mobile-nav {
+        display: none;
+      }
+      main {
+        max-width: 1800px;
+        margin-inline: auto;
+      }
+      .opening {
+        padding: 24px var(--gutter) 0;
+      }
+      .opening h1 {
+        font-size: clamp(50px, 7.8vw, 128px);
+        font-weight: 620;
+        line-height: 0.98;
+        letter-spacing: -0.06em;
+        margin-bottom: 32px;
+        text-wrap: balance;
+      }
+      .opening figure {
+        width: 100%;
+      }
+      .opening img {
+        width: 100%;
+        height: auto;
+      }
+      .credit {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0 6px;
+        font-size: 13px;
+        line-height: 1.4;
+        padding-block: 5px;
+      }
+      .credit a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+      }
+      .invitation {
+        padding: 100px var(--gutter) 130px;
+        max-width: 1020px;
+        margin-inline: auto;
+      }
+      .invitation p {
+        font-size: clamp(24px, 2.7vw, 37px);
+        line-height: 1.35;
+        letter-spacing: -0.025em;
+        text-wrap: pretty;
+      }
+      .text-link {
+        display: inline-flex;
+        gap: 20px;
+        align-items: center;
+        min-height: 52px;
+        font-size: 19px;
+        margin-top: 30px;
+      }
+      .text-link span {
+        font-size: 28px;
+        transition: transform 160ms;
+      }
+      .text-link:hover span {
+        transform: translateX(6px);
+      }
+      .meeting {
+        display: grid;
+        grid-template-columns: 1fr 1.15fr;
+        gap: 8%;
+        padding: 0 var(--gutter) 144px;
+        align-items: center;
+      }
+      .meeting-copy {
+        max-width: 38ch;
+        padding-left: clamp(0px, 4vw, 70px);
+      }
+      .meeting h2 {
+        font-size: clamp(34px, 3.7vw, 58px);
+        font-weight: 500;
+        line-height: 1.04;
+        letter-spacing: -0.04em;
+        margin-bottom: 30px;
+        text-wrap: balance;
+      }
+      .meeting-copy p {
+        font-size: 21px;
+        line-height: 1.5;
+      }
+      .meeting figure img {
+        width: 100%;
+        height: auto;
+      }
+      .meeting .text-link {
+        font-size: 18px;
+      }
+      .belief {
+        background: var(--ink);
+        color: var(--paper);
+        padding: 90px clamp(24px, 7vw, 120px) 96px;
+        margin-inline: var(--gutter);
+      }
+      .belief h2 {
+        font-size: clamp(45px, 6.2vw, 92px);
+        font-weight: 510;
+        line-height: 1.02;
+        letter-spacing: -0.05em;
+        margin-bottom: 32px;
+        text-wrap: balance;
+      }
+      .belief p {
+        font-size: 23px;
+        line-height: 1.45;
+        max-width: 47ch;
+      }
+      .belief .text-link {
+        font-size: 20px;
+      }
+      .belief a:focus-visible {
+        outline-color: var(--paper);
+      }
+      .closing-links {
+        display: flex;
+        gap: 16px 40px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .everyday {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 30px;
+        padding: 52px var(--gutter) 66px;
+      }
+      .everyday p {
+        font-size: 22px;
+        max-width: 44ch;
+      }
+      .everyday a {
+        display: inline-flex;
+        align-items: center;
+        font-size: 22px;
+        gap: 14px;
+        white-space: nowrap;
+      }
+      .everyday small {
+        font-size: 13px;
+      }
+      .site-footer {
+        padding: 26px var(--gutter) 34px;
+        background: var(--light);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px 48px;
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .site-footer a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+      }
+      .site-footer .footer-links {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .footer-name {
+        font-size: 16px;
+        margin-bottom: 8px;
+      }
+      @media (max-width: 900px) {
+        .desktop-nav {
+          gap: 18px;
+        }
+        .desktop-nav a {
+          font-size: 14px;
+        }
+        .brand img {
+          width: 124px;
+        }
+        .meeting {
+          gap: 5%;
+          padding-bottom: 90px;
+        }
+        .meeting-copy {
+          padding-left: 0;
+        }
+        .meeting-copy p {
+          font-size: 18px;
+        }
+        .meeting h2 {
+          font-size: 38px;
+        }
+        .invitation {
+          padding-block: 72px 90px;
+        }
+        .belief {
+          padding: 66px 40px;
+        }
+        .everyday {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 16px;
+          padding-block: 40px 48px;
+        }
+        .everyday a {
+          white-space: normal;
+        }
+        .site-footer {
+          gap: 20px;
+        }
+      }
+      @media (max-width: 680px) {
+        .site-header {
+          position: relative;
+          gap: 20px;
+          padding-block: 14px;
+        }
+        .brand img {
+          width: 116px;
+        }
+        .desktop-nav {
+          display: none;
+        }
+        .mobile-nav {
+          display: block;
+        }
+        .mobile-nav summary {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+          font-size: 17px;
+          list-style: none;
+        }
+        .mobile-nav summary::after {
+          content: '+';
+          font-size: 24px;
+        }
+        .mobile-nav[open] summary::after {
+          content: '−';
+        }
+        .mobile-nav summary::-webkit-details-marker {
+          display: none;
+        }
+        .mobile-nav nav {
+          position: absolute;
+          z-index: 5;
+          top: 100%;
+          left: var(--gutter);
+          right: var(--gutter);
+          background: var(--light);
+          padding: 20px;
+          display: grid;
+          gap: 4px;
+        }
+        .mobile-nav a {
+          min-height: 48px;
+        }
+        .opening {
+          padding-top: 25px;
+        }
+        .opening h1 {
+          font-size: clamp(48px, 11.8vw, 78px);
+          line-height: 1.02;
+          margin-bottom: 24px;
+          max-width: 12ch;
+        }
+        .credit {
+          font-size: 12px;
+        }
+        .invitation {
+          padding-block: 52px 68px;
+        }
+        .invitation p {
+          font-size: 26px;
+          line-height: 1.4;
+        }
+        .text-link {
+          font-size: 18px;
+          gap: 16px;
+          margin-top: 24px;
+        }
+        .meeting {
+          display: flex;
+          flex-direction: column-reverse;
+          gap: 34px;
+          padding-bottom: 68px;
+          align-items: stretch;
+        }
+        .meeting-copy {
+          max-width: 42ch;
+        }
+        .meeting h2 {
+          font-size: 39px;
+          max-width: 18ch;
+          margin-bottom: 22px;
+        }
+        .meeting-copy p {
+          font-size: 19px;
+        }
+        .belief {
+          padding: 44px 24px 48px;
+        }
+        .belief h2 {
+          font-size: clamp(41px, 10vw, 60px);
+          margin-bottom: 26px;
+        }
+        .belief p {
+          font-size: 19px;
+        }
+        .belief .text-link {
+          font-size: 18px;
+        }
+        .closing-links {
+          gap: 0 24px;
+        }
+        .everyday {
+          padding-block: 34px 44px;
+        }
+        .everyday p,
+        .everyday a {
+          font-size: 20px;
+        }
+        .site-footer {
+          grid-template-columns: 1fr;
+          padding-block: 24px 30px;
+          gap: 8px;
+        }
+        .site-footer .footer-links {
+          gap: 20px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#inhalt">Zum Inhalt</a>
+    <header class="site-header">
+      <a class="brand" href="/"
+        ><img
+          src="/images/apostel-logo.png"
+          width="500"
+          height="272"
+          alt="Apostel-Kirchengemeinde Kiel"
+      /></a>
+      <nav class="desktop-nav" aria-label="Hauptnavigation">
+        <a href="/gottesdienste">Gottesdienste</a><a href="/aktuelles">Aktuelles</a
+        ><a href="/angebote">Angebote</a><a href="/gemeinde">Gemeinde</a
+        ><a href="/kontakt">Kontakt</a>
+      </nav>
+      <details class="mobile-nav">
+        <summary>Menü</summary>
+        <nav aria-label="Mobile Hauptnavigation">
+          <a href="/gottesdienste">Gottesdienste</a><a href="/aktuelles">Aktuelles</a
+          ><a href="/angebote">Angebote</a><a href="/gemeinde">Gemeinde</a
+          ><a href="/kontakt">Kontakt</a>
+        </nav>
+      </details>
+    </header>
+    <main id="inhalt" tabindex="-1">
+      <section class="opening" aria-labelledby="einladung">
+        <h1 id="einladung">Ein Platz für dich.</h1>
+        <figure>
+          <img
+            src="/entwuerfe/neu/stock/8570926-1280.webp"
+            srcset="
+              /entwuerfe/neu/stock/8570926-640.webp   640w,
+              /entwuerfe/neu/stock/8570926-1280.webp 1280w
+            "
+            sizes="96vw"
+            width="1280"
+            height="853"
+            alt="Menschen unterhalten sich auf breiten Holzstufen und essen Pizza."
+            fetchpriority="high"
+          />
+          <figcaption class="credit">
+            Symbolfoto ·
+            <a
+              href="https://www.pexels.com/photo/photo-of-a-group-of-friends-talking-while-eating-pizza-8570926/"
+              >Ron Lach / Pexels</a
+            >
+            · Keine AKG-Aufnahme.
+          </figcaption>
+        </figure>
+      </section>
+      <div class="invitation">
+        <p>
+          Ob du zum ersten Mal vorbeischaust oder schon lange zur Gemeinde gehörst: Wir freuen uns
+          auf dich.
+        </p>
+        <a class="text-link" href="/gemeinde"
+          >Gemeinde kennenlernen <span aria-hidden="true">↗</span></a
+        >
+      </div>
+      <section class="meeting" aria-labelledby="miteinander">
+        <div class="meeting-copy">
+          <h2 id="miteinander">Einander begegnen.</h2>
+          <p>Wir möchten Menschen zusammenbringen – im Gottesdienst, im Gespräch und im Alltag.</p>
+          <a class="text-link" href="/angebote"
+            >Angebote &amp; Gruppen entdecken <span aria-hidden="true">↗</span></a
+          >
+        </div>
+        <figure>
+          <img
+            src="/entwuerfe/neu/stock/5638828-1280.webp"
+            srcset="
+              /entwuerfe/neu/stock/5638828-640.webp   640w,
+              /entwuerfe/neu/stock/5638828-1280.webp 1280w
+            "
+            sizes="(max-width:680px) 92vw, 50vw"
+            width="1280"
+            height="853"
+            alt="Menschen verschiedener Generationen sprechen beim gemeinsamen Essen miteinander."
+            loading="lazy"
+          />
+          <figcaption class="credit">
+            Symbolfoto ·
+            <a
+              href="https://www.pexels.com/photo/loving-family-chatting-during-dinner-in-garden-5638828/"
+              >Askar Abayev / Pexels</a
+            >
+          </figcaption>
+        </figure>
+      </section>
+      <section class="belief" aria-labelledby="glauben">
+        <h2 id="glauben">Glauben.<br />Mit Fragen.</h2>
+        <p>
+          Zur Ruhe kommen, gemeinsam glauben, neue Gedanken mitnehmen. Gottesdienst ist eine
+          Einladung – auch mit offenen Fragen.
+        </p>
+        <div class="closing-links">
+          <a class="text-link" href="/gottesdienste"
+            >Zu den Gottesdiensten <span aria-hidden="true">↗</span></a
+          ><a class="text-link" href="/kontakt"
+            >Kontakt aufnehmen <span aria-hidden="true">↗</span></a
+          >
+        </div>
+      </section>
+      <div class="everyday">
+        <p>Und im Alltag? Entdecke das Café Dreimaster auf seiner eigenen Website.</p>
+        <a href="https://cafe-dreimaster.de/"
+          >Zum Dreimaster <small>(extern)</small> <span aria-hidden="true">↗</span></a
+        >
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div>
+        <p class="footer-name">Apostel-Kirchengemeinde Kiel</p>
+        <div class="footer-links">
+          <a href="/aktuelles">Aktuelles</a><a href="/kontakt">Kontakt</a>
+        </div>
+      </div>
+      <div>
+        <p>
+          Gestaltungsskizze mit Stockfotos. Die Bilder zeigen keine AKG-Veranstaltung; eine
+          Zugehörigkeit oder Unterstützung durch abgebildete Personen wird nicht behauptet. Aktuelle
+          Meldungen und Termine sind nicht eingebunden.
+        </p>
+        <a href="https://www.pexels.com/license/">Pexels-Fotolizenz</a>
+      </div>
+    </footer>
+  </body>
+</html>

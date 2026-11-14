@@ -1,0 +1,57 @@
+[
+  {
+    "date": "2026-11-13",
+    "number": 5,
+    "macrostructure": "Manifesto",
+    "theme": "custom",
+    "theme_axes": "dark / display-heavy / cool",
+    "enrichment": "E8 approved archive photography, uncropped",
+    "nav": "N7",
+    "footer": "Ft1",
+    "brief": "Menschen machen Gemeinde"
+  },
+  {
+    "date": "2026-11-13",
+    "number": 4,
+    "macrostructure": "Conversational FAQ",
+    "theme": "custom",
+    "theme_axes": "light / geometric-sans / cool",
+    "enrichment": "E8 approved archive photography, uncropped",
+    "nav": "N11",
+    "footer": "Ft5",
+    "brief": "Mit offenen Fragen"
+  },
+  {
+    "date": "2026-11-13",
+    "number": 3,
+    "macrostructure": "Index-First",
+    "theme": "custom",
+    "theme_axes": "light / geometric-sans / cool",
+    "enrichment": "none in opening; archive photos below",
+    "nav": "N3",
+    "footer": "Ft4",
+    "brief": "Dein Weg in die Gemeinde"
+  },
+  {
+    "date": "2026-11-13",
+    "number": 2,
+    "macrostructure": "Letter",
+    "theme": "custom",
+    "theme_axes": "light / geometric-sans / cool",
+    "enrichment": "E8 approved archive photography, uncropped",
+    "nav": "N9",
+    "footer": "Ft6",
+    "brief": "Ein Brief an dich"
+  },
+  {
+    "date": "2026-11-13",
+    "number": 1,
+    "macrostructure": "Photographic",
+    "theme": "custom",
+    "theme_axes": "light / geometric-sans / cool",
+    "enrichment": "E8 approved archive photography, uncropped",
+    "nav": "N6",
+    "footer": "Ft2",
+    "brief": "Zusammen im Bild"
+  }
+]

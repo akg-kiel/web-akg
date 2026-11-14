@@ -1,0 +1,32 @@
+[
+  {
+    "number": 1,
+    "title": "Die offene Tür",
+    "description": "Eine vertraute Einladung mit Gesprächsfoto führt über einen großzügigen blauen Gottesdienstraum ins Gemeindeleben.",
+    "structure": "Einladung mit Gesprächsfoto → Gottesdienst mit Archivbild → Gemeindeleben → Café → Aktuelles → Kontakt"
+  },
+  {
+    "number": 2,
+    "title": "Dein erster Schritt",
+    "description": "Ein klarer Wegweiser nach Anliegen verbindet direkten Zugang mit ruhigen Bild- und Informationsabschnitten.",
+    "structure": "Einladung und drei Besuchseinstiege → Gottesdienst und native Termininformation → Gemeinde → Café → Meldungen und Kontakt"
+  },
+  {
+    "number": 3,
+    "title": "Nah dran",
+    "description": "Große redaktionelle Typografie und eine asymmetrische Fotodoppelseite machen Begegnung zum ersten Eindruck.",
+    "structure": "Editorial-Einladung und Bilddoppelseite → Gottesdienstimpuls → Gemeinde-Statement → Café → Aktuelles → Kontakt"
+  },
+  {
+    "number": 4,
+    "title": "Zeit zum Ankommen",
+    "description": "Ein zentrierter, luftiger Einstieg und eine gelassene Lesefolge geben Gottesdienst und Begegnung viel Raum.",
+    "structure": "Ruhige Einladung mit Gottesdienstfoto → Gottesdienstgedanken → Gemeindeleben mit versetzten Bildern → Café → Aktuelles → Kontakt"
+  },
+  {
+    "number": 5,
+    "title": "Mitten im Miteinander",
+    "description": "Eine blaue Plakatfläche und die seitliche Desktopnavigation eröffnen eine kraftvolle, menschenbezogene Seitenfolge.",
+    "structure": "Plakative Einladung mit Gesprächsfoto → Miteinander → Gottesdienst → Dreimaster → Aktuelles → Kontakt"
+  }
+]

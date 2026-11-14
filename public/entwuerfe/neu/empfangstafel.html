@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Empfangstafel · Apostel-Kirchengemeinde Kiel · Entwurf</title>
+    <style>
+      @font-face {
+        font-family: Figtree;
+        src: url('/fonts/figtree-latin-variable.woff2') format('woff2');
+        font-weight: 300 900;
+        font-display: swap;
+      }
+      :root {
+        --paper: #fff;
+        --ink: #173b50;
+        --blue: #006c9e;
+        --light: #eaf3f7;
+        --focus: #a23d08;
+        --gutter: clamp(20px, 3.4vw, 56px);
+        color: var(--ink);
+        background: var(--paper);
+        font-family: Figtree, sans-serif;
+        color-scheme: light;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.5;
+      }
+      h1,
+      h2,
+      p,
+      figure {
+        margin: 0;
+      }
+      a {
+        color: inherit;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 5px;
+        touch-action: manipulation;
+      }
+      a:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 5px;
+      }
+      main:focus {
+        outline: none;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+      .skip {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        z-index: 10;
+        padding: 12px 20px;
+        background: var(--paper);
+        color: var(--ink);
+        transform: translateY(-180%);
+      }
+      .skip:focus {
+        transform: none;
+      }
+      .site-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+        padding: 20px var(--gutter);
+      }
+      .brand {
+        display: block;
+      }
+      .brand img {
+        width: 142px;
+        height: auto;
+      }
+      .site-name {
+        font-size: 16px;
+        max-width: 27ch;
+        line-height: 1.3;
+      }
+      .contact-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 44px;
+        font-size: 17px;
+      }
+      .header-note {
+        display: flex;
+        align-items: center;
+        gap: 48px;
+      }
+      main {
+        display: grid;
+        grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
+        margin: 8px var(--gutter) 0;
+      }
+      .directory {
+        background: var(--ink);
+        color: var(--paper);
+        padding: 36px clamp(24px, 4vw, 64px) 26px;
+      }
+      .directory h1 {
+        font-size: 25px;
+        font-weight: 450;
+        line-height: 1.25;
+        margin-bottom: 20px;
+      }
+      .routes {
+        display: flex;
+        flex-direction: column;
+      }
+      .route {
+        display: grid;
+        grid-template-columns: 1fr 38px;
+        gap: 4px 20px;
+        align-items: center;
+        padding: 16px 0;
+        text-decoration: none;
+      }
+      .route-name {
+        font-size: clamp(32px, 3.7vw, 59px);
+        font-weight: 570;
+        line-height: 1.06;
+        letter-spacing: -0.045em;
+      }
+      .route-description {
+        grid-column: 1;
+        font-size: 16px;
+        line-height: 1.4;
+      }
+      .route-arrow {
+        grid-column: 2;
+        grid-row: 1 / 3;
+        justify-self: end;
+        font-size: 34px;
+        transition: transform 160ms;
+      }
+      .route:hover .route-name {
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 8px;
+      }
+      .route:hover .route-arrow {
+        transform: translateX(5px);
+      }
+      .route:focus-visible {
+        outline-color: var(--paper);
+        outline-offset: 6px;
+      }
+      .route:last-child {
+        margin-bottom: 10px;
+      }
+      .external-path {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding-top: 22px;
+        margin-top: 12px;
+      }
+      .external-path a {
+        display: inline-flex;
+        gap: 12px;
+        align-items: center;
+        min-height: 48px;
+        font-size: 21px;
+      }
+      .external-path span {
+        font-size: 14px;
+      }
+      .welcome {
+        display: flex;
+        flex-direction: column;
+        background: var(--light);
+        padding: 28px;
+      }
+      .welcome figure {
+        width: 100%;
+      }
+      .welcome img {
+        width: 100%;
+      }
+      .welcome figcaption {
+        font-size: 13px;
+        line-height: 1.4;
+        padding-block: 12px 24px;
+      }
+      .welcome figcaption a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+      }
+      .welcome-copy {
+        padding: 0 12px 20px;
+      }
+      .welcome h2 {
+        font-size: clamp(30px, 3vw, 44px);
+        font-weight: 500;
+        line-height: 1.08;
+        letter-spacing: -0.035em;
+        margin-bottom: 20px;
+      }
+      .welcome-copy p {
+        font-size: 20px;
+        line-height: 1.5;
+        max-width: 30ch;
+      }
+      .welcome-copy a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 48px;
+        margin-top: 22px;
+        font-size: 17px;
+      }
+      .welcome .photo-note {
+        margin-top: auto;
+        padding: 28px 12px 0;
+        font-size: 13px;
+        line-height: 1.45;
+        max-width: 48ch;
+      }
+      .site-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px 40px;
+        flex-wrap: wrap;
+        margin: 0 var(--gutter);
+        padding: 24px 0 28px;
+        font-size: 13px;
+      }
+      .site-footer a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+      }
+      .prototype-links {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      @media (min-width: 1600px) {
+        main {
+          max-width: 1600px;
+          margin-inline: auto;
+        }
+        .site-header,
+        .site-footer {
+          max-width: 1712px;
+          margin-inline: auto;
+        }
+      }
+      @media (max-width: 900px) {
+        main {
+          grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+        }
+        .directory {
+          padding: 30px 26px;
+        }
+        .route-name {
+          font-size: 36px;
+        }
+        .route {
+          padding-block: 17px;
+        }
+        .welcome {
+          padding: 22px;
+        }
+        .welcome-copy {
+          padding-inline: 0;
+        }
+        .welcome-copy p {
+          font-size: 18px;
+        }
+        .welcome .photo-note {
+          padding-inline: 0;
+        }
+        .header-note {
+          gap: 24px;
+        }
+        .site-name {
+          display: none;
+        }
+      }
+      @media (max-width: 620px) {
+        .site-header {
+          padding-block: 16px;
+        }
+        .brand img {
+          width: 120px;
+        }
+        .header-note {
+          gap: 0;
+        }
+        .contact-link {
+          font-size: 16px;
+        }
+        main {
+          display: block;
+          margin-top: 0;
+        }
+        .directory {
+          padding: 26px 24px 22px;
+        }
+        .directory h1 {
+          font-size: 23px;
+          margin-bottom: 18px;
+        }
+        .route {
+          padding-block: 17px;
+          gap: 6px 12px;
+        }
+        .route-name {
+          font-size: clamp(29px, 7.5vw, 43px);
+        }
+        .route-description {
+          font-size: 15px;
+        }
+        .route-arrow {
+          font-size: 28px;
+        }
+        .external-path {
+          padding-top: 16px;
+          margin-top: 10px;
+          gap: 10px;
+        }
+        .external-path a {
+          font-size: 20px;
+        }
+        .external-path span {
+          font-size: 13px;
+        }
+        .welcome {
+          padding: 24px;
+        }
+        .welcome figure {
+          max-width: 560px;
+        }
+        .welcome figcaption {
+          padding-bottom: 18px;
+        }
+        .welcome-copy {
+          padding-bottom: 0;
+        }
+        .welcome h2 {
+          font-size: 34px;
+        }
+        .welcome-copy p {
+          max-width: 42ch;
+        }
+        .welcome .photo-note {
+          padding-top: 24px;
+        }
+        .site-footer {
+          padding-top: 16px;
+          gap: 4px;
+        }
+        .prototype-links {
+          gap: 20px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#inhalt">Zum Inhalt</a>
+    <header class="site-header">
+      <a class="brand" href="/"
+        ><img
+          src="/images/apostel-logo.png"
+          width="500"
+          height="272"
+          alt="Apostel-Kirchengemeinde Kiel"
+      /></a>
+      <div class="header-note">
+        <p class="site-name">Apostel-Kirchengemeinde<br />Kiel</p>
+        <a class="contact-link" href="/kontakt">Kontakt <span aria-hidden="true">↗</span></a>
+      </div>
+    </header>
+    <main id="inhalt" tabindex="-1">
+      <section class="directory" aria-labelledby="wegetitel">
+        <h1 id="wegetitel">Wohin möchtest du?</h1>
+        <nav class="routes" aria-label="Dein Weg in die Gemeinde">
+          <a class="route" href="/gottesdienste"
+            ><span class="route-name">Gottesdienste</span
+            ><span class="route-description">Zur Ruhe kommen. Gemeinsam glauben.</span
+            ><span class="route-arrow" aria-hidden="true">↗</span></a
+          >
+          <a class="route" href="/gemeinde"
+            ><span class="route-name">Gemeinde</span
+            ><span class="route-description">Die Apostel-Kirchengemeinde kennenlernen.</span
+            ><span class="route-arrow" aria-hidden="true">↗</span></a
+          >
+          <a class="route" href="/angebote"
+            ><span class="route-name">Angebote &amp; Gruppen</span
+            ><span class="route-description">Menschen begegnen. Miteinander leben.</span
+            ><span class="route-arrow" aria-hidden="true">↗</span></a
+          >
+          <a class="route" href="/aktuelles"
+            ><span class="route-name">Aktuelles</span
+            ><span class="route-description">Zu den Meldungen aus der Gemeinde.</span
+            ><span class="route-arrow" aria-hidden="true">↗</span></a
+          >
+          <a class="route" href="/kontakt"
+            ><span class="route-name">Kontakt</span
+            ><span class="route-description">Mit uns ins Gespräch kommen.</span
+            ><span class="route-arrow" aria-hidden="true">↗</span></a
+          >
+        </nav>
+        <div class="external-path">
+          <a href="https://cafe-dreimaster.de/">Café Dreimaster <span aria-hidden="true">↗</span></a
+          ><span>Eigene Website</span>
+        </div>
+      </section>
+      <aside class="welcome" aria-labelledby="willkommen">
+        <figure>
+          <img
+            src="/entwuerfe/neu/stock/11284053-1280.webp"
+            srcset="
+              /entwuerfe/neu/stock/11284053-640.webp   640w,
+              /entwuerfe/neu/stock/11284053-1280.webp 1280w
+            "
+            sizes="(max-width:620px) 90vw, 35vw"
+            width="1280"
+            height="853"
+            alt="Zwei Männer unterhalten sich bei einem Getränk vor einem Café."
+          />
+          <figcaption>
+            Symbolfoto ·
+            <a
+              href="https://www.pexels.com/photo/two-men-sitting-in-bar-cafe-patio-talking-and-drinking-coffee-11284053/"
+              >Centre for Ageing Better / Pexels</a
+            >
+          </figcaption>
+        </figure>
+        <div class="welcome-copy">
+          <h2 id="willkommen">Schön, dass du<br />da bist.</h2>
+          <p>
+            Ob du zum ersten Mal vorbeischaust oder schon lange zur Gemeinde gehörst: Wir freuen uns
+            auf dich.
+          </p>
+          <a href="/gemeinde">Die Gemeinde kennenlernen <span aria-hidden="true">&nbsp;↗</span></a>
+        </div>
+        <p class="photo-note">
+          Das Stockfoto vermittelt die Bildidee. Es zeigt weder die AKG noch das Café Dreimaster;
+          eine Zugehörigkeit der abgebildeten Personen wird nicht behauptet.
+        </p>
+      </aside>
+    </main>
+    <footer class="site-footer">
+      <p>Apostel-Kirchengemeinde Kiel · Gestaltungsskizze, keine aktuellen Termine eingebunden.</p>
+      <div class="prototype-links"><a href="https://www.pexels.com/license/">Fotolizenz</a></div>
+    </footer>
+  </body>
+</html>

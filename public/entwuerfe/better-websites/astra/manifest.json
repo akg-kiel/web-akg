@@ -1,0 +1,32 @@
+[
+  {
+    "number": 1,
+    "title": "Offene Einladung",
+    "description": "Persönlicher Gesprächseinstieg auf Hellblau mit großzügigem Wechsel zwischen Bild und Text.",
+    "structure": "Einladung mit Gesprächsfoto → Gottesdienst → Gemeindeleben → Café → Aktuelles → Kontakt"
+  },
+  {
+    "number": 2,
+    "title": "Gemeindejournal",
+    "description": "Redaktionelle Doppelseite mit großem Titel, fotografischer Leitgeschichte und eigenständigen Themenrubriken.",
+    "structure": "Titel und Einblicke → Gemeindeleben → Gottesdienst-Doppelseite → Café → Meldungen → Kontakt"
+  },
+  {
+    "number": 3,
+    "title": "Dein erster Schritt",
+    "description": "Ein Besuchereinstieg über drei klare Wege, gefolgt von Begegnungen und nativ aufklappbarer Orientierung.",
+    "structure": "Begrüßung und Wegauswahl → Gespräch → Gottesdienst mit Details → Angebote → Café → Aktuelles und nächster Schritt"
+  },
+  {
+    "number": 4,
+    "title": "Zeit füreinander",
+    "description": "Ruhige zentrierte Einladung mit fotografischem Doppelbild, schmalem Leseraum und großzügigem Seitenrhythmus.",
+    "structure": "Einladung und Doppelbild → Gottesdienst-Leseraum → Gemeindeleben → Café-Bildstrecke → Aktuelles → Kontakt"
+  },
+  {
+    "number": 5,
+    "title": "Mitten im Miteinander",
+    "description": "Plakative blau-weiße Inhaltsflächen mit eigenständiger Desktop-Seitennavigation und unmittelbarem Menschenbezug.",
+    "structure": "Seitennavigation und Einladung → Gemeindeleben → Gottesdienst → Café → Aktuelles und Verbindung → Kontakt"
+  }
+]

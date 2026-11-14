@@ -1,0 +1,52 @@
+[
+  {
+    "number": 5,
+    "macrostructure": "Conversational FAQ",
+    "theme": "custom AKG brand-locked",
+    "theme_axes": "light / geometric-sans / cool",
+    "nav": "custom compact disclosure with persistent service link",
+    "footer": "Ft2 Inline single line",
+    "enrichment": "four approved archival photos",
+    "brief": "Erst einmal ankommen"
+  },
+  {
+    "number": 4,
+    "macrostructure": "Manifesto",
+    "theme": "custom AKG brand-locked",
+    "theme_axes": "light+ink panels / display-heavy / cool",
+    "nav": "N7 Slab, original logo",
+    "footer": "Ft5 Statement",
+    "enrichment": "four approved archival photos",
+    "brief": "Raum für deine Fragen"
+  },
+  {
+    "number": 3,
+    "macrostructure": "Photographic",
+    "theme": "custom AKG brand-locked",
+    "theme_axes": "light / geometric-sans / cool",
+    "nav": "N6 Masthead",
+    "footer": "Ft1 Mast-headed",
+    "enrichment": "four approved archival photos",
+    "brief": "Bilder vom Miteinander"
+  },
+  {
+    "number": 2,
+    "macrostructure": "Index-First",
+    "theme": "custom AKG brand-locked",
+    "theme_axes": "light / geometric-sans / cool",
+    "nav": "N3 Side-rail, upright original logo",
+    "footer": "Ft4 Dense typographic",
+    "enrichment": "four approved archival photos",
+    "brief": "Dein Weg in die Gemeinde"
+  },
+  {
+    "number": 1,
+    "macrostructure": "Letter",
+    "theme": "custom AKG brand-locked",
+    "theme_axes": "light / geometric-sans / cool",
+    "nav": "N9 Edge-aligned, native disclosure",
+    "footer": "Ft6 Letter close",
+    "enrichment": "four approved archival photos",
+    "brief": "Ein Brief an dich"
+  }
+]

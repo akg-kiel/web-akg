@@ -1,0 +1,32 @@
+[
+  {
+    "number": 1,
+    "title": "Augenblicke",
+    "description": "Ein ruhiger Fotoessay mit versetzten Originalbildern, persönlicher Einladung und einem blauen Gottesdienstkapitel.",
+    "structure": "Einladung & Fotoabzüge → Gottesdienst → Angebote & erster Besuch → Dreimaster → Aktuelles & Kontakt"
+  },
+  {
+    "number": 2,
+    "title": "Glaube trifft Alltag",
+    "description": "Eine redaktionelle Doppelseite mit prägnanter Satzachse, großem Gottesdienstfoto und wechselnden Bild- und Textstrecken.",
+    "structure": "Glauben & Einladung → Gottesdienste → Gemeinde & Angebote → Café → Aktuelles & Kontakt"
+  },
+  {
+    "number": 3,
+    "title": "Post für dich",
+    "description": "Eine persönliche Einladung auf weißen Papierflächen vor Blau, mit bildreichen Innenseiten und einer kompakten Rückseite.",
+    "structure": "Einladungskarte → Gottesdienstblatt → Gemeindeleben → Café-Einladung → Aktuelles & Kontakt"
+  },
+  {
+    "number": 4,
+    "title": "Gemeinde sind wir",
+    "description": "Ein Originalfoto wird zum Bildwort im großen Auftaktsatz; Gespräch, Glaube und Café führen den Gedanken in wechselnden Maßstäben weiter.",
+    "structure": "Bildsatz & Einladung → Gespräch & Angebote → Gottesdienst → Café → persönlicher Einstieg & Aktuelles"
+  },
+  {
+    "number": 5,
+    "title": "Dein nächster Schritt",
+    "description": "Ein markanter blau-weißer Wegweiser mit großen lesbaren Kapiteln, die sich ohne JavaScript öffnen und schließen lassen.",
+    "structure": "Typografischer Wegweiser → Gottesdienstkapitel → Gemeinde & Angebote → Café-Kapitel → Aktuelles & Kontakt"
+  }
+]

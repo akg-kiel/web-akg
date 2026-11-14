@@ -1,0 +1,9 @@
+{
+  "scope": "AKG-129 Website AKG / Milestone 3 / hallmark/astra only",
+  "font": "Figtree local; src/styles/globals.css:3–13",
+  "palette": "brand anchors; src/styles/globals.css:14–21",
+  "spacing": "src/styles/globals.css:23–29, extended on 4px base",
+  "framework": "Astro + Tailwind; package.json:19–38; standalone HTML for exploration",
+  "motion": "cut; no installed motion library",
+  "priority": "User brief overrides font-pairing, theme-hue rotation, root exports, image cropping and checkpoints. No other agent outputs inspected."
+}

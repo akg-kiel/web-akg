@@ -1,7 +1,7 @@
 ---
 import { detailPath, formatServiceTime } from '../lib/site';
 import type { EventItem } from '../lib/server/churchtools';
-interface Props { items: EventItem[]; headingLevel?: 'h2' | 'h3' }
+interface Props { items: EventItem[]; headingLevel?: 'h2' | 'h3' | 'h4' }
 const { items, headingLevel: Heading = 'h2' } = Astro.props;
 ---
 <ul class="service-list">

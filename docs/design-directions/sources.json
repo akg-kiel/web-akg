@@ -1,0 +1,63 @@
+{
+  "purpose": "Referenztafel zur Auswahl einer neuen Gestaltungswelt, keine Website-Implementierung und keine neuen AKG-Personenbilder.",
+  "retrievedAt": "2026-11-13",
+  "references": [
+    {
+      "direction": "plakat",
+      "id": "cac3b53a-8f30-4dfa-9627-7285c9cba0d6",
+      "site": "Oatly",
+      "imageSource": "https://mobbin.com/api/mcp/short/z3OwpsTv",
+      "source": "https://mobbin.com/sites/sections/cac3b53a-8f30-4dfa-9627-7285c9cba0d6?utm_source=other&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "local": "assets/plakat-reference.webp",
+      "rights": "Website-Screenshot zur gestalterischen Referenz; sämtliche Marken und Inhalte gehören ihren jeweiligen Rechteinhabern. Keine offene Lizenz und keine Übernahme dieser Assets in die AKG-Website."
+    },
+    {
+      "direction": "journal",
+      "id": "6fcb8f5c-0595-4c0e-adce-fa3e4090fb52",
+      "site": "Kinfolk",
+      "imageSource": "https://mobbin.com/api/mcp/short/4bnbBcoQ",
+      "source": "https://mobbin.com/sites/sections/6fcb8f5c-0595-4c0e-adce-fa3e4090fb52?utm_source=other&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "local": "assets/journal-reference.webp",
+      "rights": "Website-Screenshot zur gestalterischen Referenz; sämtliche Marken und Inhalte gehören ihren jeweiligen Rechteinhabern. Keine offene Lizenz und keine Übernahme dieser Assets in die AKG-Website."
+    },
+    {
+      "direction": "treffpunkt",
+      "id": "f0e283a8-0425-44b5-b3ef-de1d7973a652",
+      "site": "Headspace",
+      "imageSource": "https://mobbin.com/api/mcp/short/nD8MEpaY",
+      "source": "https://mobbin.com/sites/sections/f0e283a8-0425-44b5-b3ef-de1d7973a652?utm_source=other&utm_medium=ai-assistant&utm_source_platform=mcp",
+      "local": "assets/treffpunkt-reference.webp",
+      "rights": "Website-Screenshot zur gestalterischen Referenz; sämtliche Marken und Inhalte gehören ihren jeweiligen Rechteinhabern. Keine offene Lizenz und keine Übernahme dieser Assets in die AKG-Website."
+    }
+  ],
+  "fonts": [
+    {
+      "family": "Anton",
+      "sha256": "d0fa07ff63dd60cbc0e2f58e29c802dca2a5ae0276c999f59c6111ab7bbaec3b",
+      "weight": 400,
+      "file": "assets/anton.woff2",
+      "source": "https://cdn.jsdelivr.net/fontsource/fonts/anton@latest/latin-400-normal.woff2",
+      "license": "assets/OFL-anton.txt"
+    },
+    {
+      "family": "Newsreader",
+      "sha256": "e66067814f1c672d33a457e4f4d102c818b481420e2234cf685ebdbf2f443904",
+      "weight": 400,
+      "file": "assets/newsreader.woff2",
+      "source": "https://cdn.jsdelivr.net/fontsource/fonts/newsreader@latest/latin-400-normal.woff2",
+      "license": "assets/OFL-newsreader.txt"
+    },
+    {
+      "family": "Bricolage Grotesque",
+      "sha256": "4c373ce3c1cca41c864eb3e27c059a59fc6310547ab9c9b6cd780d387ba24206",
+      "weight": 700,
+      "file": "assets/bricolage-grotesque.woff2",
+      "source": "https://cdn.jsdelivr.net/fontsource/fonts/bricolage-grotesque@latest/latin-700-normal.woff2",
+      "license": "assets/OFL-bricolage-grotesque.txt"
+    }
+  ],
+  "logo": {
+    "path": "../../public/images/apostel-logo.png",
+    "rule": "Original unverändert, unbeschnitten, ohne Filter und auf weißem Grund."
+  }
+}

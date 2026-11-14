@@ -9,7 +9,7 @@ const weekdays = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Fr
     <li>
       {preview ? (
         <article class="offer-teaser">
-          <h3><a href={`/angebote?angebot=${encodeURIComponent(item.id)}#angebot-${item.id}`}>{item.name}<span aria-hidden="true"> →</span></a></h3>
+          <h4><a href={`/angebote?angebot=${encodeURIComponent(item.id)}#angebot-${item.id}`}>{item.name}<span aria-hidden="true"> →</span></a></h4>
           {item.description && <p>{item.description.length > 180 ? item.description.slice(0, 180).replace(/\s+\S*$/, '') + '…' : item.description}</p>}
         </article>
       ) : (
