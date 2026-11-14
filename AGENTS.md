@@ -6,6 +6,7 @@
 - Confirm the issue belongs to **Website AKG**; the AKG team also contains unrelated website projects.
 - Keep changes focused on one issue and preserve unrelated work.
 - Update Linear when work starts, reaches review, or is completed.
+- After successful checks, commit and push task-related changes to the active feature/preview branch without asking again, unless the user explicitly requests local-only work. Verify the automatic preview and share its URL; report blockers rather than leaving delivery silently local. This standing authorization does not cover pushes to `main`, merges, production deployments, or unrelated work.
 - Never merge, deploy to production, change DNS, or close an issue without the requested finish line and successful checks.
 
 ## Project boundaries

@@ -20,6 +20,52 @@ test('the original Apostel logo is preserved byte-for-byte', async () => {
   );
 });
 
+test('the extended brand palette retains its source values and readable color pairs', async () => {
+  const css = await readFile(new URL('../src/styles/globals.css', import.meta.url), 'utf8');
+  const palette = {
+    ink: '#173b50',
+    blue: '#006c9e',
+    paper: '#ffffff',
+    wash: '#eaf3f7',
+    muted: '#50616c',
+    green: '#1a7663',
+    'green-wash': '#e8f1ef',
+    cream: '#fbf1d9',
+    sun: '#f2d38b',
+    rust: '#aa420d'
+  };
+  for (const [name, hex] of Object.entries(palette))
+    assert.ok(css.includes(`--color-${name}: ${hex};`), name);
+  const luminance = (hex) =>
+    hex
+      .slice(1)
+      .match(/../g)
+      .reduce((sum, channel, index) => {
+        const value = parseInt(channel, 16) / 255;
+        return (
+          sum +
+          [0.2126, 0.7152, 0.0722][index] *
+            (value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4)
+        );
+      }, 0);
+  for (const [foreground, background] of [
+    ['green', 'paper'],
+    ['green', 'green-wash'],
+    ['ink', 'green-wash'],
+    ['muted', 'green-wash'],
+    ['blue', 'green-wash'],
+    ['paper', 'green'],
+    ['rust', 'cream'],
+    ['ink', 'sun'],
+    ['paper', 'blue']
+  ]) {
+    const [light, dark] = [luminance(palette[foreground]), luminance(palette[background])].sort(
+      (a, b) => b - a
+    );
+    assert.ok((light + 0.05) / (dark + 0.05) >= 4.5, `${foreground} on ${background}`);
+  }
+});
+
 test('navigation and stable source identifiers do not depend on titles', () => {
   assert.equal(currentPage('/aktuelles', '/aktuelles'), 'page');
   assert.equal(currentPage('/aktuelles/example', '/aktuelles'), 'location');

@@ -29,16 +29,13 @@ const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
         <div class="encounters-mosaic" role="group" aria-label="Drei unabhängige Symbolfotos von Begegnungen">
           {stockCredits.photos.map((photo, index) => (
             <figure class:list={['encounters-photo', { 'encounters-photo-lead': index === 0 }]}>
-              <a class="photo-frame" href={`/entwuerfe/neu/stock/${photo.id}-1280.webp`} data-enlarge aria-label={`Foto ansehen: ${photo.alt}`}>
-                <img
-                  src={`/entwuerfe/neu/stock/${photo.id}-640.webp`}
-                  srcset={`/entwuerfe/neu/stock/${photo.id}-640.webp 640w, /entwuerfe/neu/stock/${photo.id}-1280.webp 1280w`}
-                  sizes={index === 0 ? '(min-width: 1440px) 624px, (min-width: 621px) 46vw, 90vw' : '(min-width: 1440px) 305px, (min-width: 621px) 23vw, 45vw'}
-                  width="1280" height="853" alt={photo.alt}
-                  loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} decoding="async"
-                />
-                <span class="photo-action" aria-hidden="true">+</span>
-              </a>
+              <img
+                src={`/entwuerfe/neu/stock/${photo.id}-640.webp`}
+                srcset={`/entwuerfe/neu/stock/${photo.id}-640.webp 640w, /entwuerfe/neu/stock/${photo.id}-1280.webp 1280w`}
+                sizes={index === 0 ? '(min-width: 1440px) 624px, (min-width: 621px) 46vw, 90vw' : '(min-width: 1440px) 305px, (min-width: 621px) 23vw, 45vw'}
+                width="1280" height="853" alt={photo.alt}
+                loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} decoding="async"
+              />
               <figcaption class="photo-credit">Symbolfoto</figcaption>
             </figure>
           ))}
@@ -93,40 +90,7 @@ const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
     </section>
     <p class="container encounters-photo-note">Die Symbolfotos zeigen keine AKG-Veranstaltung. Eine Zugehörigkeit oder Unterstützung durch die abgebildeten Personen wird nicht behauptet. <a href={stockCredits.licenseURL}>Fotolizenz: {stockCredits.license}</a>.</p>
   </div>
-
-  <dialog class="photo-dialog" aria-label="Symbolfoto ansehen">
-    <div class="photo-dialog-actions">
-      <a class="text-link" data-photo-file>Bilddatei öffnen <span aria-hidden="true">→</span></a>
-      <form method="dialog"><button class="button" autofocus>Schließen</button></form>
-    </div>
-    <figure data-photo-content></figure>
-  </dialog>
 </Layout>
-
-<script>
-  const dialog = document.querySelector<HTMLDialogElement>('.photo-dialog');
-  const content = dialog?.querySelector('[data-photo-content]');
-  const fileLink = dialog?.querySelector<HTMLAnchorElement>('[data-photo-file]');
-  if (dialog && content && fileLink && typeof dialog.showModal === 'function') {
-    document.querySelectorAll<HTMLAnchorElement>('[data-enlarge]').forEach((link) => {
-      link.addEventListener('click', (event) => {
-        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-        const original = link.querySelector('img');
-        const caption = link.closest('figure')?.querySelector('figcaption');
-        if (!original || !caption) return;
-        event.preventDefault();
-        const image = original.cloneNode() as HTMLImageElement;
-        image.removeAttribute('srcset');
-        image.removeAttribute('sizes');
-        image.loading = 'eager';
-        image.src = link.href;
-        content.replaceChildren(image, caption.cloneNode(true));
-        fileLink.href = link.href;
-        dialog.showModal();
-      });
-    });
-  }
-</script>
 
 <style>
   /* Keep the chosen homepage composition isolated from the existing subpages. */
@@ -149,16 +113,14 @@ const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
   .text-link:hover { text-decoration: underline; }
   .encounters-mosaic { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .875rem; }
   .encounters-photo { position: relative; min-width: 0; border-radius: .75rem; background: var(--color-paper); color: var(--color-ink); --focus: var(--color-ink); }
-  .encounters-photo .photo-frame { border-radius: inherit; }
-  .encounters-photo img { width: 100%; height: 11.25rem; object-fit: cover; }
+  .encounters-photo img { width: 100%; height: 11.25rem; object-fit: cover; border-radius: inherit; }
   .encounters-photo-lead { grid-column: 1 / -1; }
   .encounters-photo-lead img { height: 13.75rem; object-position: center 30%; }
-  .encounters-photo .photo-action { padding: .25rem; min-width: 2.75rem; justify-content: center; border-radius: .3125rem 0 0 0; font-size: 1.25rem; }
   .encounters-photo .photo-credit { position: absolute; top: .5rem; left: .5rem; max-width: calc(100% - 1rem); padding: .125rem .375rem; border-radius: .25rem; font-size: .75rem; line-height: 1.5; overflow-wrap: anywhere; color: var(--color-ink); background: var(--color-paper); pointer-events: none; }
-  .encounters-community { background: var(--color-wash); padding-block: 2.75rem; }
+  .encounters-community { background: var(--color-green-wash); padding-block: 2.75rem; }
   .encounters-panel { background: var(--color-paper); border-radius: 1.5rem; padding: 3rem 3rem 2.25rem; }
   .encounters-heading { text-align: center; max-width: 46.25rem; margin-inline: auto; }
-  .encounters-heading h2 { font-size: 2.75rem; margin-bottom: 1.375rem; }
+  .encounters-heading h2 { color: var(--color-green); font-size: 2.75rem; margin-bottom: 1.375rem; }
   .encounters-heading p { font-size: 1.25rem; }
   .encounters-paths { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; margin-top: 2.5rem; }
   .encounters-paths:focus { outline: 3px solid var(--color-focus); outline-offset: .5rem; }

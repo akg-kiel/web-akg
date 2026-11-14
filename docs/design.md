@@ -16,11 +16,11 @@ Alle HTML-Seiten behalten `noindex, nofollow`; der Worker setzt `X-Robots-Tag: n
 
 Gestaltungsablauf: blaue Einladung mit Drei-Foto-Mosaik → heller, abgerundeter Gemeinschaftsbereich mit Gottesdienst, Angeboten und Kontakt → tatsächliche Meldungen oder ehrlicher Quellenzustand → separater Dreimaster-Abzweig → bestehender Footer mit allen Zielen. Datenkomponenten werden wiederverwendet: ein Gottesdienst, bis zu drei Angebote und drei Meldungen; keine Beispieldaten in der Anwendung. `/angebote` behält serverseitige Suche und native aufklappbare Abschnitte, einschließlich No-JS-Teaser-Verlinkung. Die öffentlichen Freigabeschalter bleiben unverändert. Bestehende Unterseiten bleiben erreichbar; keine neue Kirchen- oder Konzertdomain wird geraten.
 
-Desktop/Tablet: große helle Einladung neben einem breiten und zwei kleineren Bildfenstern auf Blau. Mobil: Text und Aktionen vor dem Zwei-Reihen-Mosaik; anschließend linear angeordnete Besuchswege. Fotofenster verwenden proportionales `object-fit: cover`, der Bilddialog zeigt die vollständigen Fotos. Original-Logo bleibt unbeschnitten auf Weiß. Zusätzliche Entwurfshinweise, Datenzustände und der vorhandene vollständige Footer bleiben bei der Übertragung aus dem Prototyp bewusst erhalten.
+Desktop/Tablet: große helle Einladung neben einem breiten und zwei kleineren Bildfenstern auf Blau. Mobil: Text und Aktionen vor dem Zwei-Reihen-Mosaik; anschließend linear angeordnete Besuchswege. Fotofenster verwenden proportionales `object-fit: cover`. Auf ausdrücklichen Folgeauftrag sind Fotos reine Inhalte: keine Links, Plus-Symbole, Vergrößerung oder Lightbox. Original-Logo bleibt unbeschnitten auf Weiß. Zusätzliche Entwurfshinweise, Datenzustände und der vorhandene vollständige Footer bleiben bei der Übertragung aus dem Prototyp bewusst erhalten.
 
 ## Marke, Medien und Quellen
 
-[brand-spec.md](brand-spec.md) dokumentiert Bestandsfotos und die vorläufige Stockfoto-Ausnahme getrennt: Herkunft, bekannte Credits, Bearbeitung und offene Rechte-/Personenfreigaben. Die drei Symbolfotos der gewählten Richtung werden lokal wiederverwendet; Autor, Quelle und Alternativtext bleiben in `public/entwuerfe/neu/stock/credits.json` dokumentiert. Auf ausdrücklichen Folgeauftrag sind Autoren-/Quellenzeilen von der Startseite und ihrem Bilddialog entfernt; die Pexels-Lizenz verlangt keine Namensnennung. Ein kompaktes „Symbolfoto“-Label bleibt auf jedem Foto, zusätzlich wird ausdrücklich keine AKG-Zugehörigkeit oder Unterstützung behauptet. Erforderliche Commons-Nachweise auf Unterseiten sind unverändert. Stockfotos bleiben vorläufige Gestaltungsmittel, nicht rechtlich für Produktion abgenommen. Die konkrete Auslieferungsfreigabe des Nutzers für Vorschau und Produktivbetrieb ist oben dokumentiert; daraus wird keine neue offene Lizenz abgeleitet. Historische Fotos sind entsprechend beschriftet. Quellen-/gegebenenfalls Lizenzlinks bleiben auch im Bildbetrachter erhalten. Keine externen Ressourcen, Hotlinks oder Embeds.
+[brand-spec.md](brand-spec.md) dokumentiert Bestandsfotos und die vorläufige Stockfoto-Ausnahme getrennt: Herkunft, bekannte Credits, Bearbeitung und offene Rechte-/Personenfreigaben. Die drei Symbolfotos der gewählten Richtung werden lokal wiederverwendet; Autor, Quelle und Alternativtext bleiben in `public/entwuerfe/neu/stock/credits.json` dokumentiert. Auf ausdrücklichen Folgeauftrag sind Autoren-/Quellenzeilen von der Startseite und ihrem Bilddialog entfernt; die Pexels-Lizenz verlangt keine Namensnennung. Ein kompaktes „Symbolfoto“-Label bleibt auf jedem Foto, zusätzlich wird ausdrücklich keine AKG-Zugehörigkeit oder Unterstützung behauptet. Erforderliche Commons-Nachweise auf Unterseiten sind unverändert. Stockfotos bleiben vorläufige Gestaltungsmittel, nicht rechtlich für Produktion abgenommen. Die konkrete Auslieferungsfreigabe des Nutzers für Vorschau und Produktivbetrieb ist oben dokumentiert; daraus wird keine neue offene Lizenz abgeleitet. Historische Fotos sind entsprechend beschriftet. Erforderliche Quellen-/Lizenzlinks bleiben unter den Bestandsfotos erhalten; einen Bildbetrachter gibt es nicht mehr. Keine externen Ressourcen, Hotlinks oder Embeds.
 
 Die früher gesichteten Mobbin-Referenzen bleiben Kompositionsreferenzen:
 
@@ -34,21 +34,19 @@ Frühere Planung, Draw und Baseline liegen lokal unter `.taste-skill/` (ignorier
 
 Basis: `src/styles/globals.css`; ausgewählte Homepage-Komposition als isolierte Styles in `src/pages/index.astro`, ohne Unterseiten umzugestalten.
 
-- Figtree; Weiß `#ffffff`, Ink `#173b50`, Aktionsblau `#006c9e`, helle Fläche `#eaf3f7`.
+- Figtree; Weiß `#ffffff`, Ink `#173b50`, Aktionsblau `#006c9e`, helle Fläche `#eaf3f7`. Die erweiterte Palette aus dem vom Nutzer referenzierten Brand-Thread ergänzt Grün `#1a7663`, Hellgrün `#e8f1ef` und die dokumentierten warmen Farben Creme `#fbf1d9`, Sonnengelb `#f2d38b`, Rostorange `#aa420d` als benannte Tokens. Auf der Startseite erhält nur der Gemeinschaftsbereich Hellgrün mit grüner Überschrift; die Einladung bleibt blau, Aktionen bleiben blau/weiß. Nicht alle Ausdrucksfarben gleichzeitig einsetzen.
 - Größenrollen der Homepage: Credits 12 px, Statushinweise 14–15 px, Fließtext 17 px, Einleitung 18–20 px, Abschnittstitel 28–44 px, H1 38–68 px. Relative Einheiten erlauben Textvergrößerung; Unterseiten behalten ihre bestehende Skala.
 - Homepage: Seitenränder 20–80 px, Inhaltsbreite maximal 80 rem; schmale Leseabsätze behalten ihr eigenes Maß.
-- Referenztypische gerundete Bildfenster und ein weißer Gemeinschaftsbereich auf Wash; feine Linien gliedern Besuchswege. Keine Verläufe, Schatten oder Scrims.
-- Blaues Einladungsfeld, Ink-Footer, weißer Hauptbutton mit kleiner Rundung. Sichtbarer 3-px-Fokus, auf Blau weiß; Credits und Bildlinks erhalten Ink-Fokus auf Weiß.
+- Referenztypische gerundete Bildfenster und ein weißer Gemeinschaftsbereich auf Hellgrün; feine Linien gliedern Besuchswege. Keine Verläufe, Schatten oder Scrims.
+- Blaues Einladungsfeld, Ink-Footer, weißer Hauptbutton mit kleiner Rundung. Sichtbarer 3-px-Fokus, auf Blau weiß; die Fotos selbst sind nicht fokussierbar. Rostorange bleibt über `--color-focus` die bestehende Fokusfarbe.
 
 ## Interaktion und Zugänglichkeit
 
 - Genau fünf slashlose Hauptziele: Gottesdienste, Aktuelles, Angebote, Gemeinde, Kontakt.
 - Native Links und `details/summary` im Dokumentfluss. Escape und Breakpoint-Fokus bleiben erhalten; keine clientseitige Routerpflicht.
 - Skip-Link, ein `main`, `aria-current`, keine positiven Tabindices. Ziele grundsätzlich mindestens 44 px; Bildnachweise bleiben normale Textlinks.
-- Galerie: normale Bildlinks mit progressiver Erweiterung zu `dialog.showModal()`. Beschriftung „Foto ansehen“ statt eines auf kleinen Geräten falschen Vergrößerungsversprechens.
-- Dialog: proportional eingepasstes Bild, Symbolfoto-Kennzeichnung, Schließen und „Bilddatei öffnen“ für browsernative Detailvergrößerung. Native Fokusbegrenzung/Escape; Fokusrückgabe zum Auslöser. Nur bei offenem Dialog wird Hintergrundscrollen gesperrt.
-- Ohne JS bzw. ohne Dialogunterstützung öffnet der Link direkt die lokale große Bildvariante (1280 px bei den Bestandsfotos). Modifizierte Klicks werden nicht abgefangen.
-- Keine neue Eintrittsanimation, kein Scroll-Hijacking oder Dauerloop. Inhalte sind standardmäßig sichtbar; native Anker, Menüs und Dialoge. `prefers-reduced-motion` bleibt einschließlich Umschaltung getestet. Keine neue Bibliothek.
+- Fotos: native `img`/`figure` mit Alternativtext und unveränderter Symbolfoto-Kennzeichnung; keine Foto-Links, zusätzlichen Tabstopps, Plus-Indikatoren, Zoom-Hover oder Dialoge. Das gilt mit und ohne JavaScript. Lightbox-Script, Dialog-Stile und ungenutzte Vergrößerungsoption des gemeinsamen Fotobausteins sind entfernt.
+- Keine neue Eintrittsanimation, kein Scroll-Hijacking oder Dauerloop. Inhalte sind standardmäßig sichtbar; native Anker und Menüs. `prefers-reduced-motion` bleibt einschließlich Umschaltung getestet. Keine neue Bibliothek.
 - Textvergrößerung, lange Titel und fehlende Daten dürfen wachsen; kein Text-Clipping als Ersatz für Layoutkorrektur.
 
 ## Unveränderte Daten- und Freigabegrenzen
@@ -67,7 +65,7 @@ Externe Ziele bleiben zentral in `src/lib/site.ts`: Dreimaster, YouTube-Kanal, I
 
 ## Prüfung
 
-`pnpm quality` und `pnpm test:preview` bleiben die technischen Gates. Browserregression: zwölf Routen, fünf Breiten, axe bei 390/1440 px, Tastatur, Menü ohne JS, Bilder, 200-%-Text. Ergänzt: mobile Hero-Fokusfolge, Dialog-Fokus/Escape/Schließen, axe im offenen Dialog, proportionaler Bildraum, alle drei No-JS-Bildlinks und reduzierte Bewegung einschließlich Umschaltung.
+`pnpm quality` und `pnpm test:preview` bleiben die technischen Gates. Browserregression: zwölf Routen, fünf Breiten, axe bei 390/1440 px, Tastatur, Menü ohne JS, Bilder, 200-%-Text. Ergänzt: mobile Hero-Fokusfolge ohne Foto-Tabstopps, unveränderter Seitenaufruf beim Klick auf Fotos mit/ohne JS, fehlende Dialoge/Foto-Links/Plus-Indikatoren, reservierter Bildraum und reduzierte Bewegung einschließlich Umschaltung. Der kleine Farbtest sichert die zehn Brand-HEX-Werte und mindestens 4,5:1 für die dokumentierten Text-/Flächenpaare; axe prüft die tatsächlich gerenderte Seite.
 
 Sichtprüfung des lokalen Builds bei 1440/768/390 px gegen den ausgewählten Prototyp, zusätzlich fünf Breiten im Browsergate. Die bestehende wegwerfbare Fixture-Kopie prüft gefüllte Gottesdienst-/Angebots-/Newsbereiche, escaped News-Text sowie empty/unavailable/disabled/stale einschließlich Warnung und Zeitstempel. Keine Fixtures oder Testschalter gelangen in die reale App. Mosaik, Geometrie, alle Besucherziele, sichtbare Symbolfoto-Kennzeichnung und das Fehlen der per-Foto-Autorenlinks sind abgesichert. Ergebnisse und offene Punkte im [aktuellen Prüfstand](design-mobbin/README.md). Technische Sichtprüfung ist keine Nutzerabnahme.
 

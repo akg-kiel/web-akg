@@ -90,6 +90,21 @@ Auf ausdrücklichen Wunsch entfallen die sichtbaren Autoren-/Quellenzeilen an de
 
 Die [Pexels-Lizenz](https://www.pexels.com/license/) verlangt keine Namensnennung; [Pexels-Hilfe zur Attribution](https://help.pexels.com/hc/en-us/articles/360042790533-What-s-the-appropriate-way-to-give-credit-to-the-photographer) bestätigt das. Diese Ausnahme gilt nicht für erforderliche Commons-/CC-BY-SA-Nachweise auf Unterseiten. Keine Bilddatei, Rechtezuordnung oder Bestandsfreigabe geändert. Der Nutzer autorisiert jetzt ausdrücklich Commit/Push auf den bestehenden Feature-Branch für die automatische Vorschau, nicht Produktion oder Merge.
 
+## Aktueller Folgeauftrag · statische Fotos und erweiterte Palette
+
+Der Nutzer verzichtet ausdrücklich auf klickbare Fotos und Lightbox. Die Startseitenbilder bleiben normale Bilder mit Alternativtext und Symbolfoto-Label. Foto-Links, Plus-Symbole, Dialog und zugehörige JS-/Zoom-/Dialog-Stile sind entfernt; benötigte Commons-/Archivnachweise und Bilddateien bleiben unverändert.
+
+Farbquelle: vom Nutzer referenzierter Thread [Brand Design erstellen](t3-thread://v1/daf8d6f2-1e42-476a-b655-41e51669b14d), abschließende Eintrage-Liste für das AKG Brand Kit. Keine Änderung am anderen Thread oder an Canva; insbesondere wird keine erfolgte Brand-Kit-Speicherung behauptet. Das Grün war dort aus der tatsächlichen Canva-Gottesdienst-Story-Vorschau abgelesen, nicht als nativer Farbwählerwert bestätigt; Hellgrün ist die dazu vorgeschlagene Ableitung.
+
+| Ergänzung / benannte Rolle | HEX       | Website-Token und Einsatz                                                                     |
+| -------------------------- | --------- | --------------------------------------------------------------------------------------------- |
+| Grün                       | `#1A7663` | `--color-green`; Überschrift „Miteinander leben.“                                             |
+| Hellgrün                   | `#E8F1EF` | `--color-green-wash`; ruhiger Hintergrund des Gemeinschaftsbereichs                           |
+| Creme                      | `#FBF1D9` | `--color-cream`; verfügbar für warme Flächen, nicht zusätzlich in den grünen Bereich gemischt |
+| Rostorange                 | `#AA420D` | `--color-rust`; bestehender `--color-focus` verweist unverändert auf diesen Wert              |
+
+Dunkelblau, Aktionsblau, Weiß, Hellblau, Blaugrau und Sonnengelb bleiben unverändert. Figtree und Original-Logo ebenfalls. Die neue Palette erweitert Begegnungen, ersetzt weder die gewählte blaue Einladung noch Aktionsfarben durch Grün und macht Grün nicht automatisch zu einer Erfolgs-/Gruppenkategorie. Geeignete deckende Paare: Grün auf Weiß/Hellgrün, Ink auf Hellgrün, Weiß auf kräftigem Grün; mindestens 4,5:1 im Farbtest. Keine Farbfilter auf Fotos.
+
 ## Gestalterische Ableitung · bisheriger Entwurf
 
 Originales Logo-Blau bleibt unverändert im Bild. UI-Aktionsblau `#006c9e`, Ink `#173b50`, Weiß und ein heller Blauton `#eaf3f7`. Wärme kommt aus echten Begegnungen, Gemeindefotografie und der persönlichen Sprache, nicht aus einer beigefarbenen Serifenschrift-Vorlage. Die Oxidrot-/Source-Sans-Empfehlung des unabhängigen Art-Direction-Reviews wurde abgewogen; gewählt wurden die engere Ableitung vom tatsächlichen blauen Logo und die bereits lizenzgeprüfte Figtree. Die strukturellen Kritikpunkte des Reviews werden umgesetzt.

@@ -44,6 +44,18 @@ Dieser Folgeauftrag erweitert die vorherige lokale Finish Line um Commit/Push au
 
 Prüfstand vor dem Preview-Push: Full Quality mit 38 Tests bestanden; vollständiger Preview-/Browsercheck mit zwölf Routen bei fünf Breiten und privater Datenfixture bestanden. Neue Assertions prüfen sichtbare Symbolfoto-Labels und fehlende per-Foto-Autorenlinks, auch im Dialog. Ein beim 200-%-Texttest gefundener Überlauf der kompakten Kennzeichnung wurde mit umbrechbarem Text behoben; erneuter vollständiger Lauf ohne gemeldete axe-Verletzungen, Seitenfehler oder externe Ressourcenrequests. Desktop und Mobil visuell geprüft. Logs: `/tmp/akg-preview-push-quality.log`, `/tmp/akg-preview-push-browser.log`.
 
+## Aktueller Folgeauftrag · ohne Lightbox, mit Grün-Ergänzung
+
+Die Startseitenfotos sind jetzt nicht interaktiv: keine Foto-Links, Plus-Symbole, Vergrößerung, Lightbox oder zugehörige Skripte. Der ungenutzte Vergrößerungspfad des gemeinsamen Fotobausteins und ausschließlich zugehörige globale Stile sind ebenfalls entfernt; Unterseitenbilder bleiben optisch unverändert. Bilddateien, Symbolfoto-Kennzeichnung, Alternativtexte und erforderliche Nachweise bleiben erhalten.
+
+Der vollständig gelesene Nutzerverweis [Brand Design erstellen](t3-thread://v1/daf8d6f2-1e42-476a-b655-41e51669b14d) ergänzt Grün `#1A7663` und Hellgrün `#E8F1EF` neben der bestehenden Blau-/Warm-Palette. Die Farben sind echte CSS-Tokens und werden im Gemeinschaftsbereich verwendet (Hellgrün außen, weiße Inhaltsfläche, grüne Überschrift), nicht nur in Dokumentation aufgeführt. Creme und Rostorange sind benannt verfügbar; Fokus-Rostorange, Sonnengelb und sämtliche bisherigen Basisfarben bleiben gleich. Kein Rebranding und keine neue Mischung mit den anderen Layoutvarianten. Herkunft und Grenzen: [brand-spec.md](../brand-spec.md).
+
+Regression: ursprüngliche Lightbox-Tests durch Prüfungen auf nicht-interaktive Bilder ersetzt; Klicks mit/ohne JavaScript bleiben auf derselben Seite, Tab überspringt das Mosaik, keine versteckten Foto-Steuerelemente oder Dialoge. Ein Farbtest sichert die zehn HEX-Werte und geeignete Kontrastpaare. Der volle Browsercheck behält zwölf Routen, fünf Breiten, axe, Tastatur, No-JS-Menü, 200-%-Text, reduzierte Bewegung und alle Quellenzustände bei. Historische Entwürfe bleiben unverändert.
+
+Prüfergebnis: kleinster Testlauf (Website/Fotos) 8 Tests bestanden; Full Quality 39 Tests, Format/Lint, Astro, Build und Cloudflare-Grenzen bestanden. Voller Preview-/Browsercheck inklusive isolierter Datenfixtures bestanden, keine gemeldeten axe-Verletzungen, Seitenfehler oder externen Ressourcenrequests. Desktop/Mobil visuell geprüft; Kontrasttest und tatsächliche grüne Farbwerte im Browser abgesichert. Logs: `/tmp/akg-static-photos-palette-quality.log`, `/tmp/akg-static-photos-palette-browser.log`; Screenshots weiterhin `/tmp/akg-begegnungen-qa/` und `/tmp/akg-begegnungen-fixture-qa/`. Kein vollständiger WCAG-/Realgeräte-/Screenreader-Nachweis.
+
+Der Nutzer hat anschließend klargestellt, dass geprüfte Änderungen künftig immer auf den aktiven Feature-/Preview-Branch gepusht werden sollen. Diese dauerhafte Lieferfreigabe ist in `AGENTS.md` festgehalten; der vorliegende Stand wird deshalb nicht mehr nur lokal übergeben. Kein Eingriff in den referenzierten Thread, kein Push auf `main`, Merge, Produktionsdeploy oder Issue-Abschluss.
+
 ## Tatsächliche Recherche
 
 **Sechs Aufrufe von `search_screens` mit `mode: deep`, Plattform web**, anschließend zwei ergänzende `search_sections`-Aufrufe. Die Section-Suche besitzt keinen Deep-Modus; OpenTable wird nicht fälschlich als Deep-Search-Treffer ausgegeben.
