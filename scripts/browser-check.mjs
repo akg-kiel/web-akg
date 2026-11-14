@@ -124,8 +124,8 @@ try {
           await page
             .locator('.encounters-hero')
             .evaluate((element) => getComputedStyle(element).backgroundColor),
-          'rgb(0, 108, 158)',
-          'Preserve the selected Begegnungen blue invitation'
+          'rgb(234, 243, 247)',
+          'Use the previous main hero background without changing the Begegnungen layout'
         );
         assert.equal(
           await page

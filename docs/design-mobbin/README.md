@@ -56,6 +56,12 @@ Prüfergebnis: kleinster Testlauf (Website/Fotos) 8 Tests bestanden; Full Qualit
 
 Der Nutzer hat anschließend klargestellt, dass geprüfte Änderungen künftig immer auf den aktiven Feature-/Preview-Branch gepusht werden sollen. Diese dauerhafte Lieferfreigabe ist in `AGENTS.md` festgehalten; der vorliegende Stand wird deshalb nicht mehr nur lokal übergeben. Kein Eingriff in den referenzierten Thread, kein Push auf `main`, Merge, Produktionsdeploy oder Issue-Abschluss.
 
+## Abschlussauftrag · Hero aus main, Layout behalten
+
+Ausdrücklicher Nutzerauftrag: Hintergrund des bisherigen Produktions-/main-Heros übernehmen, das bessere Begegnungen-Layout behalten, nach bestandenen Checks mergen und zugehörige vollständig gemergte Branches aufräumen. Quelle ist `.welcome-hero` in main `f438f18`: `--color-wash` (`#EAF3F7`). Die Anwendung nutzt deshalb Hellblau, Ink-Text, blauen CTA mit Weiß und bestehenden Rost-Fokus. Kein neues Layout; Grünbereich, Bildmosaik, statische Fotos, Figtree und Logo unverändert. Historische Varianten einschließlich blauem Begegnungen-Prototyp werden nicht umgeschrieben.
+
+Bestehender automatischer main-Build ist Teil des Merge-Auftrags; kein zusätzlicher Domain-Cutover, keine CT-Gate-/Secret-Änderungen und keine pauschale rechtliche Launchfreigabe. Entfernt werden nur zugehörige vollständig gemergte Branches; andere Worktrees und unveröffentlichte Arbeit bleiben bestehen. Endgültige Commit-/PR-/Build-/Prüfnachweise werden in AKG-129 erfasst. Die vorherigen Beschränkungen auf lokale bzw. Branch-Preview-Lieferung beschreiben die jeweiligen früheren Schritte und sind für diesen Merge ausdrücklich erweitert.
+
 ## Tatsächliche Recherche
 
 **Sechs Aufrufe von `search_screens` mit `mode: deep`, Plattform web**, anschließend zwei ergänzende `search_sections`-Aufrufe. Die Section-Suche besitzt keinen Deep-Modus; OpenTable wird nicht fälschlich als Deep-Search-Treffer ausgegeben.

@@ -57,7 +57,10 @@ test('the extended brand palette retains its source values and readable color pa
     ['paper', 'green'],
     ['rust', 'cream'],
     ['ink', 'sun'],
-    ['paper', 'blue']
+    ['paper', 'blue'],
+    ['ink', 'wash'],
+    ['paper', 'ink'],
+    ['rust', 'wash']
   ]) {
     const [light, dark] = [luminance(palette[foreground]), luminance(palette[background])].sort(
       (a, b) => b - a

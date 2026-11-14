@@ -99,15 +99,15 @@ const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
   :global(body:has(.encounters) .wordmark img) { width: 8rem; }
   :global(body:has(.encounters) .site-footer) { background: var(--color-ink); }
   .encounters { line-height: 1.5; }
-  .encounters-hero { background: var(--color-blue); color: var(--color-paper); --focus: var(--color-paper); }
+  .encounters-hero { background: var(--color-wash); color: var(--color-ink); }
   .encounters-opening { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 4rem; align-items: center; padding-block: 2.75rem; }
   .encounters-copy { padding-block: 1.875rem; }
   .encounters-identity { font-size: 1rem; margin-bottom: 1.5rem; }
   .encounters-copy h1 { font-size: clamp(3rem, 4.7vw, 4.25rem); line-height: 1.04; letter-spacing: -.04em; text-wrap: initial; margin-bottom: 1.75rem; }
   .encounters-intro { font-size: 1.25rem; max-width: 38ch; }
   .encounters-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .625rem 1.5rem; margin-top: 1.875rem; }
-  .encounters-actions .button { background: var(--color-paper); color: var(--color-blue); border-radius: .3125rem; min-height: 3.25rem; }
-  .encounters-actions .button:hover { background: var(--color-wash); color: var(--color-ink); }
+  .encounters-actions .button { border-radius: .3125rem; min-height: 3.25rem; }
+  .encounters-actions .button:hover { background: var(--color-ink); color: var(--color-paper); }
   .encounters-actions .text-link { font-size: 1rem; }
   .text-link { text-decoration: none; }
   .text-link:hover { text-decoration: underline; }

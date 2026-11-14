@@ -105,6 +105,12 @@ Farbquelle: vom Nutzer referenzierter Thread [Brand Design erstellen](t3-thread:
 
 Dunkelblau, Aktionsblau, Weiß, Hellblau, Blaugrau und Sonnengelb bleiben unverändert. Figtree und Original-Logo ebenfalls. Die neue Palette erweitert Begegnungen, ersetzt weder die gewählte blaue Einladung noch Aktionsfarben durch Grün und macht Grün nicht automatisch zu einer Erfolgs-/Gruppenkategorie. Geeignete deckende Paare: Grün auf Weiß/Hellgrün, Ink auf Hellgrün, Weiß auf kräftigem Grün; mindestens 4,5:1 im Farbtest. Keine Farbfilter auf Fotos.
 
+## Finale Layoutentscheidung und Merge-Auftrag
+
+Der Nutzer bevorzugt das Begegnungen-Layout, wünscht aber den Hero-Hintergrund des bisherigen Produktions-/main-Standes zurück. Verbindlicher Quellwert: `.welcome-hero` in main `f438f18` nutzt `--color-wash` = `#EAF3F7`. Daher hellblaue Fläche mit Ink-Text, blauem Hauptbutton/weißer Schrift und bestehendem rostfarbenem Fokus. Raster, Abstände, Typografie, Fotomosaik, statische Bilder und grüner Gemeinschaftsbereich bleiben unverändert. Der blaue Prototyp bleibt als historische Auswahlquelle erhalten.
+
+Nach erfolgreichen Checks ist nun ausdrücklich der Merge nach `main` einschließlich bestehender automatischer Auslieferung und das Aufräumen vollständig gemergter zugehöriger Branches beauftragt. Nicht umfasst: fremde/unveröffentlichte Arbeit, DNS, Datenfreigaben oder ein pauschaler Abschluss offener Rechts-/Medienfragen. Danach steht ChurchTools im Fokus; in diesem Designabschluss keine CT-Änderungen.
+
 ## Gestalterische Ableitung · bisheriger Entwurf
 
 Originales Logo-Blau bleibt unverändert im Bild. UI-Aktionsblau `#006c9e`, Ink `#173b50`, Weiß und ein heller Blauton `#eaf3f7`. Wärme kommt aus echten Begegnungen, Gemeindefotografie und der persönlichen Sprache, nicht aus einer beigefarbenen Serifenschrift-Vorlage. Die Oxidrot-/Source-Sans-Empfehlung des unabhängigen Art-Direction-Reviews wurde abgewogen; gewählt wurden die engere Ableitung vom tatsächlichen blauen Logo und die bereits lizenzgeprüfte Figtree. Die strukturellen Kritikpunkte des Reviews werden umgesetzt.
