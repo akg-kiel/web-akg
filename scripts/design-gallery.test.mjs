@@ -4,7 +4,11 @@ import { readFile, access } from 'node:fs/promises';
 import test from 'node:test';
 import { buildCatalog } from './build-design-gallery.mjs';
 
-test('regeneration preserves the formatted, unchanged fallback links', async () => {
+test('committed catalog is current and regeneration preserves unchanged fallback links', async () => {
+  assert.deepEqual(
+    JSON.parse(await readFile('public/entwuerfe/catalog.json', 'utf8')),
+    await buildCatalog()
+  );
   const before = await readFile('public/entwuerfe/index.html', 'utf8');
   execFileSync(process.execPath, ['scripts/build-design-gallery.mjs']);
   assert.equal(await readFile('public/entwuerfe/index.html', 'utf8'), before);
@@ -14,7 +18,6 @@ test('50 independently attributed designs form a complete local, noindex gallery
   const catalog = await buildCatalog();
   assert.equal(catalog.length, 50);
   assert.equal(new Set(catalog.map((design) => design.id)).size, 50);
-  assert.deepEqual(JSON.parse(await readFile('public/entwuerfe/catalog.json', 'utf8')), catalog);
   for (const design of catalog) {
     const html = await readFile(`public${design.path}`, 'utf8');
     assert.match(html, /<!doctype html>/i, design.id);

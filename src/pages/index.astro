@@ -55,7 +55,7 @@ const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
             <p>Zur Ruhe kommen, gemeinsam glauben, neue Gedanken mitnehmen. Gottesdienst ist eine Einladung – auch mit offenen Fragen.</p>
             <a class="text-link" href="/gottesdienste">Zu den Gottesdiensten <span aria-hidden="true">→</span></a>
             <SourceState status={services.status} kind="services" updatedAt={services.updatedAt} compact />
-            {services.items.length > 0 && <ServiceList items={services.items.slice(0, 1)} headingLevel="h3" />}
+            {services.items.length > 0 && <ServiceList items={services.items.slice(0, 1)} headingLevel="h4" />}
           </section>
           <section class="encounters-path" aria-labelledby="gemeindeleben">
             <h3 id="gemeindeleben">Gemeinde erleben.</h3>
@@ -130,10 +130,10 @@ const cafe = externalLinks.find((link) => link.label === 'Café Dreimaster');
   .encounters-path :global(.source-state) { padding-block: .75rem 0; font-size: .875rem; }
   .encounters-path :global(.state-title) { font-weight: 450; }
   .encounters-path :global(.service-item) { padding-block: 1rem 0; }
-  .encounters-path :global(.service-item h3) { font-size: 1.25rem; }
+  .encounters-path :global(.service-item h4) { font-size: 1.25rem; }
   .encounters-path :global(.offer-preview) { margin-block: .5rem 0; }
   .encounters-path :global(.offer-teaser) { grid-template-columns: minmax(0, 1fr); gap: .25rem; padding-block: .625rem; }
-  .encounters-path :global(.offer-teaser h3) { font-size: 1.125rem; }
+  .encounters-path :global(.offer-teaser h4) { font-size: 1.125rem; }
   .encounters-path :global(.offer-teaser p) { font-size: 1rem; }
   .encounters-news { padding-block: 3rem; }
   .encounters-news-heading { display: flex; justify-content: space-between; align-items: center; gap: 2rem; }

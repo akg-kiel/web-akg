@@ -151,6 +151,8 @@ try {
       if (route === '/' && fixtures) {
         assert.equal(await page.locator('.service-item').count(), 1);
         assert.equal(await page.locator('.offer-preview a').count(), 3);
+        assert.equal(await page.locator('.encounters-path .service-item h4').count(), 1);
+        assert.equal(await page.locator('.encounters-path .offer-teaser h4').count(), 3);
         assert.equal(await page.locator('.news-item').count(), 3);
         assert.match(
           await page.locator('.news-item').nth(1).innerText(),
