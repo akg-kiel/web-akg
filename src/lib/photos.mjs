@@ -63,6 +63,16 @@ export const photos = {
     source: 'https://akg-kiel.de/wp-content/uploads/2022/05/Gemeindefest-22-XII.jpg',
     caption: 'Zeit miteinander · Gemeindefest 2022'
   },
+  concert: {
+    publicApproved: true,
+    name: 'konzert-petruskirche',
+    height: 641,
+    large: 1280,
+    alt: 'Konzertpublikum vor der beleuchteten Bühne im Kirchenschiff der Petruskirche.',
+    source: 'https://petruskirche.events/kontakt',
+    author: 'Yosua Pandelaki',
+    caption: 'Konzert in der Petruskirche · Archivfoto'
+  },
   cafe: {
     publicApproved: true,
     name: 'cafe-dreimaster',

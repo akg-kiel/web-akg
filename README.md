@@ -3,6 +3,9 @@
 Lokaler MVP der neuen Gemeindewebsite. Noch keine veröffentlichungsfähige oder
 rechtlich freigegebene Website. Konzerte und Dreimaster bleiben getrennte Produkte.
 
+Der [Gemeindebrief-Entwurf](docs/design.md) beschreibt die aktuelle Gestaltung,
+[PRODUCT.md](PRODUCT.md) die Zielgruppe und Freigabegrenzen.
+
 Technische Basis: der finalisierte `web-konzerte`-Stand `48c64ea`;
 [Stack-Entscheidung](docs/stack-decision.md), [Entwicklung und Prüfungen](docs/development.md).
 

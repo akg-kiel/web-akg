@@ -164,19 +164,19 @@ oder Cloudflare-Zugangsdaten in GitHub Actions. Automatische Deployments überni
 separat Cloudflare Workers Builds. Dessen Vite+-Build prüft Framework-Typen und
 Worker-/Asset-Grenzen; Tests, Format/Lint und Browser-Prüfung liegen im GitHub-PR-Gate.
 
-### Review-Regressionsgate (2026-11-13)
+### Review-Regressionsgate
 
 `test:preview` prüft zuerst den unveränderten öffentlichen Build: fehlende Tokens,
-geschlossene Datenfreigaben und alle 24 Varianten der acht vom Nutzer für Vorschau
-und Produktiv freigegebenen Fotos. Alle Bilder müssen 200/image-webp und den
-Indexierungsschutz liefern. Fotodialog, Quellenübernahme und No-JS-Dateilinks laufen
-jetzt auch im normalen öffentlichen Browser-Gate.
+geschlossene Datenfreigaben und alle zur Ausgabe vorgesehenen Fotovarianten aus
+`src/lib/photos.mjs`. Alle Bilder müssen 200/image-webp und den Indexierungsschutz
+liefern. Fotos haben Nachweise, aber keine Vergrößerung und keine eigenen Tabstopps.
+Das Browser-Gate prüft zwölf Seiten auf fünf Breiten, axe bei 390 und 1440 px,
+Tastatur, funktionierendes Menü ohne JavaScript, Bildausfall und 200-%-Textvergrößerung.
 Danach wird dieser Server beendet. `scripts/check-offer-preview.mjs` kopiert nur
 explizit benannte Quell-/Konfigurationsdateien in ein wegwerfbares Tempverzeichnis;
 keine `.dev.vars`, Secrets, Repository-Metadaten oder vorhandenen Build-Artefakte.
 
-Nur diese Kopie erhält drei synthetische Angebote; eine Foto-Freigabeüberschreibung
-ist nicht mehr nötig. Ihr Worker hat einen separaten Namen, deaktivierte Preview-URLs
+Nur diese Kopie erhält synthetische Gottesdienste, Meldungen und Angebote – jeweils mehr als die Startseite anzeigt, damit ihre Anzeigegrenzen tatsächlich geprüft werden. Eine Foto-Freigabeüberschreibung ist nicht nötig. Ihr Worker hat einen separaten Namen, deaktivierte Preview-URLs
 und einen ausschließlich an `127.0.0.1:8788` gebundenen Server. Die echten Quellen und
 Deployment-Artefakte bleiben unverändert; die Kopie wird nach der Prüfung gelöscht.
 Keine Fixtures oder Testschalter im produktiven Inhaltspfad. Der zweite Browserlauf

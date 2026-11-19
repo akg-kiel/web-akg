@@ -3,6 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { siteName, siteOrigin } from '../lib/site';
 import '../styles/globals.css';
+import '../styles/inside.css';
 
 interface Props {
   title: string;
@@ -37,7 +38,7 @@ const pageTitle = `${title} · ${siteName}`;
     <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
     <div class="preview-banner">
       <div class="container">
-        <span>Website-Entwurf · Inhalte und Rechtstexte noch nicht zur Veröffentlichung freigegeben.</span>
+        <span>Website-Entwurf · Inhalte noch nicht freigegeben.</span>
       </div>
     </div>
     <Header />

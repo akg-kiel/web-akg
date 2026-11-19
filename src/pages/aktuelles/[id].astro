@@ -15,15 +15,22 @@ Astro.response.headers.set('Cache-Control', 'no-store');
 if (unavailable) Astro.response.headers.set('Retry-After', '1800');
 const title = item?.title ?? (unavailable ? 'Meldung gerade nicht abrufbar' : 'Meldung nicht gefunden');
 ---
-<Layout title={title} description="Meldung aus der Apostel-Kirchengemeinde Kiel. Nicht öffentliche Vorschau." canonicalPath={item ? detailPath('aktuelles', item.id) : undefined}>
-  <PageIntro title={title} />
+<Layout title={title} description="Meldung aus der Apostel-Kirchengemeinde Kiel." canonicalPath={item ? detailPath('aktuelles', item.id) : undefined}>
   {item ? (
-    <article class="container narrow section-end">
-      <SourceState status={news.status} kind="news" updatedAt={news.updatedAt} />
-      <p class="article-meta">Veröffentlicht am <time datetime={item.publishedAt}>{formatDate(item.publishedAt)}</time></p>
-      {item.updatedAt && item.updatedAt !== item.publishedAt && <p class="small-note">Bearbeitet am <time datetime={item.updatedAt}>{formatDate(item.updatedAt)}</time></p>}
-      {item.body ? <div class="article-body">{item.body}</div> : <p class="article-body">Zu dieser Meldung ist kein weiterer Text veröffentlicht.</p>}
-      <a class="button" href="/aktuelles">Alle Meldungen <span aria-hidden="true">→</span></a>
+    <article>
+      <PageIntro title={title} parent={{ href: '/aktuelles', label: 'Aktuelles' }} />
+      <div class="container section-end">
+        <div class="journal-reading">
+          <SourceState status={news.status} kind="news" updatedAt={news.updatedAt} />
+          <p class="article-meta">Veröffentlicht am <time datetime={item.publishedAt}>{formatDate(item.publishedAt)}</time></p>
+          {item.updatedAt && item.updatedAt !== item.publishedAt && <p class="small-note">Bearbeitet am <time datetime={item.updatedAt}>{formatDate(item.updatedAt)}</time></p>}
+          <div class="article-body">{item.body || 'Zu dieser Meldung ist kein weiterer Text veröffentlicht.'}</div>
+          <a class="text-link" href="/aktuelles">Alle Meldungen <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
     </article>
-  ) : <DetailMissing unavailable={unavailable} section="aktuelles" />}
+  ) : <>
+    <PageIntro title={title} />
+    <DetailMissing unavailable={unavailable} section="aktuelles" />
+  </>}
 </Layout>

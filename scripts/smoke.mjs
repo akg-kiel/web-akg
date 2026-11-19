@@ -48,9 +48,10 @@ for (const route of routes) {
     !html.includes('Authorization:') && !html.includes('CHURCHTOOLS_TOKEN'),
     `${route}: server configuration exposed`
   );
-  assert.ok(
-    !html.includes('konzerte-petruskirche.de'),
-    `${route}: unresolvable concert domain must remain unlinked`
+  assert.doesNotMatch(
+    html,
+    /href="(?:https?:)?\/\/(?:www\.)?konzerte-petruskirche\.de(?:[/?#"])/i,
+    `${route}: do not link to the superseded concert address`
   );
   for (const match of html.matchAll(/href="(\/[^"#?]*)(?:[?#][^"]*)?"/g)) {
     const target = match[1];

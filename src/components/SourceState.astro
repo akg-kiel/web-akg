@@ -7,36 +7,29 @@ interface Props {
   compact?: boolean;
 }
 const { status, kind, updatedAt, compact = false } = Astro.props;
-const service = kind === 'services';
-const groups = kind === 'groups';
+const subject = { services: 'Gottesdiensttermine', groups: 'Angebote', news: 'Meldungen' }[kind];
 const messages = {
   disabled: {
-    title: groups ? 'Angebote sind in dieser Vorschau noch nicht freigeschaltet.' : service ? 'Termine sind in dieser Vorschau noch nicht freigeschaltet.' : 'Meldungen sind in dieser Vorschau noch nicht freigeschaltet.',
-    body: groups ? 'Die Gruppenübersicht wird vor der Veröffentlichung fachlich geprüft.' : service
-      ? 'Die Gottesdiensttermine werden vor der Anzeige geprüft. In dieser Vorschau sind sie noch nicht freigeschaltet.'
-      : 'Die Meldungen sind in dieser Vorschau noch nicht freigeschaltet.'
+    title: `${subject} sind in dieser Vorschau noch nicht freigeschaltet.`
   },
   empty: {
-    title: groups ? 'Derzeit keine Angebote veröffentlicht' : service ? 'Derzeit keine kommenden Gottesdienste veröffentlicht' : 'Derzeit keine Meldungen veröffentlicht',
-    body: groups ? 'Neue Angebote erscheinen hier, sobald sie freigegeben sind.' : service
-      ? 'Zurzeit sind keine kommenden Termine veröffentlicht. Schau später gern noch einmal vorbei.'
-      : 'Neue, freigegebene Beiträge erscheinen hier, sobald sie veröffentlicht werden.'
+    title: kind === 'services' ? 'Für die nächste Zeit sind keine Gottesdiensttermine veröffentlicht.' : `Zurzeit sind keine ${subject} veröffentlicht.`
   },
   unavailable: {
-    title: groups ? 'Angebote gerade nicht erreichbar' : service ? 'Termine gerade nicht erreichbar' : 'Meldungen gerade nicht erreichbar',
-    body: 'Versuche es später noch einmal. Die anderen Bereiche der Website kannst du weiterhin besuchen.'
+    title: `${subject} lassen sich gerade nicht laden.`,
+    body: 'Bitte versuche es später noch einmal.'
   },
   stale: {
     title: 'Zuletzt bestätigter Stand',
-    body: 'Die Quelle ist gerade nicht erreichbar. Diese Angaben stammen aus dem letzten erfolgreichen Abruf und können inzwischen geändert worden sein.'
+    body: 'Die aktuellen Angaben lassen sich gerade nicht abrufen. Seit diesem Stand kann sich etwas geändert haben.'
   }
 };
 const message = status === 'ready' ? undefined : messages[status];
 ---
 {message && (
-  <div class:list={['source-state', { 'source-state-stale': status === 'stale' }]} data-source-state={status}>
+  <div class:list={['source-state', { 'source-state-stale': status === 'stale', 'source-state-compact': compact }]} data-source-state={status}>
     <p class="state-title">{message.title}</p>
-    {(!compact || status === 'stale') && <p>{message.body}</p>}
+    {'body' in message && (!compact || status === 'stale') && <p>{message.body}</p>}
     {status === 'stale' && updatedAt && (
       <p class="data-stamp">Stand: <time datetime={updatedAt}>{formatUpdated(updatedAt)}</time> (Europe/Berlin)</p>
     )}

@@ -7,6 +7,7 @@ const intern = externalLinks.find((link) => link.label === 'Intern (ChurchTools)
   <div class="container masthead">
     <a class="wordmark" href="/" aria-label="AKG · Apostel-Kirchengemeinde Kiel · Startseite">
       <img src="/images/apostel-logo.png" width="250" height="136" alt="Apostel – Ev.-Luth. Apostel-Kirchengemeinde Kiel" />
+      <span class="parish-name" aria-hidden="true">Apostel-Kirchengemeinde <br />Kiel</span>
     </a>
     <nav class="desktop-nav" aria-label="Hauptnavigation">
       <ul>
@@ -17,7 +18,7 @@ const intern = externalLinks.find((link) => link.label === 'Intern (ChurchTools)
     </nav>
     {intern && (
       <a class="header-utility" href={intern.href}>
-        Intern <span class="sr-only">(ChurchTools)</span><span class="external-label">extern ↗</span>
+        Intern <span class="sr-only">(ChurchTools, externe Website)</span><span aria-hidden="true">↗</span>
       </a>
     )}
     <details class="mobile-menu" data-mobile-menu>

@@ -1,4 +1,13 @@
-# Marke und Medien · AKG-127
+# Marke und Medien
+
+## Ergänzungen für AKG-130
+
+- Der Auftraggeber hat für diesen Website-Entwurf auf die gemeinsamen AKG-Fotos verwiesen und vorläufige Motive bis zur nächsten Fotoproduktion erlaubt. Für den öffentlichen PR-Preview wird **ein** neues Motiv daraus verwendet: `BILDER - KONZERTE/L1130730.jpg`, Innenansicht bei einem Konzert. Motiv und Bildkontext entsprechen der [Kontaktseite des Konzertauftritts](https://petruskirche.events/kontakt). Nicht als Gottesdienst oder aktuelle Veranstaltung kennzeichnen.
+- Fotograf **Yosua Pandelaki** laut eingebettetem XMP-Feld `dc:creator`. Aus dem bereitgestellten Original (8305 × 5542) proportional mit Sharp auf 640/960/1280 px und WebP Q77 reduziert, ohne EXIF/XMP in den Varianten. Sichtbarer Credit und Archivkennzeichnung in `src/lib/photos.mjs`; keine offene Lizenz behauptet. Der Hinweis auf die gemeinsamen Fotos gilt dem beauftragten Entwurf, nicht einer pauschalen Rechteabnahme der Sammlung oder einem Produktionsdeploy. Beim Ersatzmotiv Freigabe, Alttext, Bildmaß und Credit gemeinsam prüfen.
+- Die Startseite nutzt das bereits freigegebene Gesprächsfoto vom Gemeindefest 2022 und das Café-Archivfoto. Die Pexels-Symbolfotos gehören nur noch zu früheren Entwürfen. Keine KI-Bilder, keine extern geladenen Bild- oder Schriftdienste.
+- Source Serif 4: unveränderte Latin-Subset-WOFF2 (variable Gewichte, normal/kursiv) aus [@fontsource-variable/source-serif-4 5.3.1](https://www.npmjs.com/package/@fontsource-variable/source-serif-4/v/5.3.1); SIL OFL 1.1, Lizenz in `public/fonts/OFL-Source-Serif-4.txt`. Figtree und Original-Logo bleiben erhalten. Der gezeichnete Poststempel ist dekorativ und ersetzt nicht das Logo.
+
+## Bestand aus AKG-127
 
 Stand 2026-10-28. Gestaltungsvorschau, keine Produktions-/Inhaltsabnahme. Quellenrecherche: [redesign-content-research.md](redesign-content-research.md).
 

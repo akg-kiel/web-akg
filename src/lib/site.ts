@@ -15,9 +15,16 @@ export const places = [
   { href: '/gemeindehaus-wik', label: 'Gemeindehaus Wik' }
 ] as const;
 
-// Inventory targets checked on 2026-10-26; no external resources are loaded by these links.
+// Confirmed by the parish. The forthcoming building website has no approved URL yet.
+export const concertSite = {
+  href: 'https://petruskirche.events/',
+  label: 'Konzerte in der Petruskirche'
+} as const;
+export const cafeSite = { href: 'https://cafe-dreimaster.de/', label: 'Café Dreimaster' } as const;
+
 export const externalLinks = [
-  { href: 'https://cafe-dreimaster.de/', label: 'Café Dreimaster' },
+  concertSite,
+  cafeSite,
   {
     href: 'https://www.youtube.com/channel/UCXlzBLKlUkgAXdd-gPjKZRw',
     label: 'YouTube-Kanal'

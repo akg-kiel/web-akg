@@ -1,6 +1,6 @@
 ---
 import { photos } from '../lib/photos.mjs';
-interface Props { view?: 'outside' | 'ceiling' | 'portal' | 'side' | 'service' | 'conversation' | 'gathering' | 'cafe'; hero?: boolean }
+interface Props { view?: keyof typeof photos; hero?: boolean }
 const { view = 'outside', hero = false } = Astro.props;
 
 const photo = photos[view];

@@ -9,19 +9,16 @@ export const prerender = false;
 const news = await loadNews();
 Astro.response.headers.set('Cache-Control', 'no-store');
 ---
-<Layout title="Aktuelles" description="Neuigkeiten und Hinweise aus der Apostel-Kirchengemeinde Kiel.">
-  <PageIntro title="Aktuelles aus der Gemeinde" description="Was gibt es Neues? Hier ist Platz für Nachrichten und Hinweise aus dem Gemeindeleben." />
-  <section class="container content-split section-end" aria-label="Aktuelle Meldungen">
-    <div>
+<Layout title="Aktuelles" description="Nachrichten und Hinweise aus der Apostel-Kirchengemeinde Kiel.">
+  <PageIntro title="Aktuelles" description="Nachrichten und Hinweise aus dem Leben der Apostel-Kirchengemeinde." />
+  <div class="container section-end journal-spread">
+    <section aria-label="Meldungen">
       <SourceState status={news.status} kind="news" updatedAt={news.updatedAt} />
       {news.items.length > 0 && <NewsList items={news.items} />}
-    </div>
-    <aside class="editorial-note">
-      <h2>Du suchst einen Gottesdienst?</h2>
-      <p>Die Gottesdiensttermine haben ihren eigenen Platz. Dort findest du auch eine kurze Einladung für deinen ersten Besuch.</p>
-      <a class="text-link" href="/gottesdienste">Zu den Gottesdiensten <span aria-hidden="true">→</span></a>
-      <a class="text-link" href="/gemeinde">Die Gemeinde kennenlernen <span aria-hidden="true">→</span></a>
-      <p class="small-note">Ein Kalender für weitere Veranstaltungen ist in dieser Vorschau noch nicht verfügbar.</p>
+    </section>
+    <aside class="journal-margin journal-margin-copy">
+      <h2>Gottesdiensttermine</h2>
+      <a class="text-link" href="/gottesdienste">Zur Gottesdienstübersicht <span aria-hidden="true">→</span></a>
     </aside>
-  </section>
+  </div>
 </Layout>
