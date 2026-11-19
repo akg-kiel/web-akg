@@ -76,19 +76,19 @@
   margin-top: 0.8rem;
 }
 .in-band {
-  background: var(--sand);
+  background: var(--surface);
 }
 .in-tint {
   background: var(--sky);
 }
 .in-panel {
-  background: var(--sand);
+  background: var(--surface);
   padding: clamp(1.5rem, 4vw, 3rem);
   border-radius: 1.25rem;
 }
 .in-notice {
   padding: 1.1rem 1.35rem;
-  background: var(--mint);
+  background: var(--sky);
   border-radius: 0.75rem;
 }
 .in-notice p + p {
@@ -121,7 +121,7 @@
 }
 .in-side-feature {
   padding: clamp(1rem, 2vw, 1.5rem);
-  background: var(--sand);
+  background: var(--surface);
   border-radius: 1.2rem;
 }
 .in-side-feature h2 {
@@ -132,7 +132,7 @@
   margin-top: 0.3rem;
 }
 .in-side-nav {
-  background: var(--sand);
+  background: var(--surface);
   border-radius: 1rem;
   padding: clamp(1.3rem, 3vw, 2rem);
 }
@@ -162,7 +162,7 @@
 }
 .in-history dt {
   font-size: 1.45rem;
-  color: var(--blue);
+  color: var(--ink);
   font-weight: 700;
 }
 .in-detail {
@@ -175,7 +175,7 @@
   margin-top: 1.5rem;
 }
 .in-detail .in-panel {
-  background: var(--mint);
+  background: var(--sky);
 }
 .in-article-body,
 .offer-description {
@@ -205,7 +205,7 @@
   padding: 1.2rem 0.25rem;
 }
 .in-entry-link:hover {
-  background: var(--sand);
+  background: var(--surface);
 }
 .in-directory h3 {
   font-size: clamp(1.3rem, 2.4vw, 1.75rem);
@@ -266,7 +266,7 @@
   border-bottom: 1px solid var(--line);
 }
 .in-offer[open] {
-  background: var(--sand);
+  background: var(--surface);
 }
 .in-offer summary {
   display: flex;
@@ -282,7 +282,7 @@
   display: none;
 }
 .in-offer summary:hover {
-  background: var(--mint);
+  background: var(--sky);
 }
 .in-offer-body {
   padding: 0.1rem 0.75rem 1.2rem;
@@ -294,7 +294,7 @@
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: var(--mint);
+  background: var(--sky);
   color: var(--blue);
 }
 .in-plus::before,
@@ -308,9 +308,7 @@
 .in-plus::after {
   transform: rotate(90deg);
 }
-.in-offer[open] .in-plus {
-  background: var(--sun);
-}
+
 .in-offer[open] .in-plus::after {
   display: none;
 }

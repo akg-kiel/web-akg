@@ -249,6 +249,20 @@ async function checkHome(page) {
   assert.ok(await title.isVisible(), 'Visible homepage title');
   assert.equal((await title.innerText()).replace(/\s+/g, ' ').trim(), 'Moin, wir sind Apostel.');
   const actions = heroActions(page);
+  // These are the agreed UI colors, not samples from the original logo artwork.
+  const color = (locator, property) =>
+    locator.evaluate((el, prop) => getComputedStyle(el).getPropertyValue(prop), property);
+  const people = page.getByRole('region', { name: /Menschen/ });
+  for (const [locator, property, expected] of [
+    [hero(page), 'background-color', 'rgb(234, 243, 247)'],
+    [title, 'color', 'rgb(23, 59, 80)'],
+    [actions.first(), 'background-color', 'rgb(0, 108, 158)'],
+    [actions.first(), 'color', 'rgb(255, 255, 255)'],
+    [people, 'background-color', 'rgb(232, 241, 239)'],
+    [people.getByRole('heading', { level: 2 }), 'color', 'rgb(26, 118, 99)']
+  ]) {
+    assert.equal(await color(locator, property), expected, `${locator}: brand role ${property}`);
+  }
   for (const [index, path] of ['/besuch', '/gemeinde'].entries()) {
     const action = actions.nth(index);
     assert.ok(await action.isVisible(), `Visible hero action to ${path}`);

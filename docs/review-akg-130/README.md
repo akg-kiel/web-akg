@@ -11,7 +11,7 @@ Aufnahmen des tatsächlichen Astro-/Worker-Builds ohne Live-Token. Die WebP-Date
 
 Bei der Sichtprüfung standen nicht die früheren Entwürfe, sondern die Wege zwischen den Seiten im Vordergrund. So bekam der Besuchsweg einen direkten Verweis auf die Gemeindeorte; in der Vorschau führen klar beschriftete Links auch zu den Angaben auf der aktuellen Website. Ein Bildquellenlink ist bedienbar, das Foto selbst kein versteckter Button. Nach dem Sprung zum Hauptinhalt ist die erste Aktion der Besuchsweg und nicht der Fotografennachweis.
 
-Nach der Farbrückmeldung führen das gemessene Logo-Blau und seine Abstufungen durch die Seiten; Mint und Gelb bleiben als Akzente. Die Kontraste liegen bei 5,80:1 für Weiß auf Logo-Blau, 4,81:1 für Logo-Blau auf Mint und 7,75:1 für Gelb auf Dunkelblau.
+Die Farbprüfung folgt den bestehenden AKG-Rollen: dunkelblaue Einladung auf Hellblau (10,50:1), weißer Text auf dem aktionsblauen Besuchsbutton (5,77:1) und eine grüne Überschrift auf Hellgrün im räumlich getrennten Gemeinschaftsabschnitt (4,79:1). Die Aufnahmen zeigen alle drei Anwendungen im Seitenzusammenhang.
 
 Die Schlussprüfung zeigte, dass das aufgeklappte mobile Menü ohne JavaScript den nächsten Tastaturfokus verdeckte. Es schiebt den Inhalt jetzt nach unten; der Browsertest tabbt bis zum Link „Startseite“ hinter dem Menü und prüft, dass er nicht verdeckt ist. Im befüllten Test findet die Gruppensuche auch den vollständigen angezeigten Namen mit einem Zeilenumbruch in der Quelle. Ein lokaler Worker-Test rendert den Besuchsweg, Kontakt und Spenden für beide künftigen Produktionshosts, ohne die heutige Website aufzurufen: Die temporären Verweise sind dort nicht vorhanden.
 

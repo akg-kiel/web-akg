@@ -35,7 +35,7 @@ const next = services.items[0];
     </div>
   </section>
 
-  <section class="wrap together" aria-labelledby="miteinander">
+  <section class="community" aria-labelledby="miteinander"><div class="wrap together">
     <div class="together-picture"><Picture view="conversation" /></div>
     <div class="together-text">
       <h2 id="miteinander">Menschen <br />kennen<wbr />lernen.</h2>
@@ -47,7 +47,7 @@ const next = services.items[0];
       <FeedNote result={groups} subject="Gruppen" />
       {groups.items.length > 0 && <ul role="list" class="group-samples">{groups.items.slice(0,3).map(g => <li><h3><a href={`/angebote?angebot=${encodeURIComponent(g.id)}#angebot-${g.id}`}>{g.name}</a></h3></li>)}</ul>}
     </div>
-  </section>
+  </div></section>
 
   <section class="updates" aria-labelledby="nachrichten"><div class="wrap">
     <div class="update-intro"><h2 id="nachrichten">Neues aus der Gemeinde</h2><a class="route-link" href="/aktuelles">Alle Meldungen <Arrow /></a></div>

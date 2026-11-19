@@ -7,7 +7,11 @@
 
 ## Farbe
 
-Das Blau der Wortmarke (`#0C68B0`, aus der Logo-Datei gemessen) führt bei Links, aktiver Navigation und Schaltflächen. Einladung und Fußzeile verwenden die dunklere Website-Abstufung `#124675`, die Besuchsseite einen hellen Blauton. Mint kennzeichnet den Gottesdienststreifen und Datenhinweise; warmes Gelb hebt auf Dunkelblau „Apostel.“ und „Mein erster Besuch“ hervor. Die Abstufungen sind für diese Website gewählt, nicht als allgemein verbindliche Markenwerte ausgegeben.
+Quelle sind die Farbrollen aus [Brand Design erstellen](t3-thread://v1/daf8d6f2-1e42-476a-b655-41e51669b14d) und die [Farbentscheidung des früheren Umbaus](https://github.com/akg-kiel/web-akg/blob/f438f18/src/styles/globals.css). Logo und UI haben bewusst unterschiedliche Blautöne. Die Website nutzt pro Abschnitt einen Modus, nicht die gesamte Palette gleichzeitig:
+
+- **Einladung und Besuchsweg:** Titel und Lesetext in Dunkelblau `#173B50` auf Hellblau `#EAF3F7` oder Weiß. Die wichtigste Handlung ist weiß auf Aktionsblau `#006C9E`; weitere Wege bleiben Textlinks. Nachweise und Begleittext sind blaugrau `#50616C`.
+- **Gemeinschaft:** Grün `#1A7663` auf Hellgrün `#E8F1EF` nur bei „Menschen kennenlernen“. Es ist kein Statuscode für Termine oder Quellenfreigaben.
+- **Warme Farben:** Sonnengelb `#F2D38B` für Textauswahl und den Fokus auf dunklem Grund, Rostorange `#AA420D` für den Fokus auf hellen Flächen. Kein zusätzlicher warmer Titel, Button oder Seitenhintergrund im blauen Modus.
 
 ## Fotos: Herkunft und Auslieferungsentscheidung
 

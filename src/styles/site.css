@@ -9,16 +9,16 @@
 }
 :root {
   --display: Figtree, system-ui, sans-serif;
-  --ink: #172f46;
-  --deep: #124675;
-  --blue: #0c68b0;
-  --sky: #e6f1fa;
-  --mint: #dceee8;
-  --sand: #faf7ef;
-  --sun: #ffe39c;
-  --muted: #4a6175;
-  --line: #c6d5df;
-  --focus: #ac4216;
+  --ink: #173b50;
+  --blue: #006c9e;
+  --sky: #eaf3f7;
+  --green: #1a7663;
+  --green-wash: #e8f1ef;
+  --surface: #f4f7f8;
+  --sun: #f2d38b;
+  --muted: #50616c;
+  --line: #cfdbdf;
+  --focus: #aa420d;
   --space: clamp(3rem, 6vw, 6rem);
   --gutter: clamp(16px, 4.7vw, 4.5rem);
   --measure: 76rem;
@@ -124,7 +124,7 @@ main:focus {
   border: 1px solid transparent;
 }
 .action:hover {
-  background: var(--deep);
+  background: var(--ink);
 }
 .route-link {
   color: var(--blue);
@@ -165,8 +165,8 @@ a svg {
   z-index: 3;
 }
 .mast-status {
-  background: var(--sand);
-  border-bottom: 1px solid #e6e4da;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.8125rem;
   line-height: 1.45;
@@ -256,13 +256,13 @@ a svg {
 }
 .intern-link:hover,
 .menu summary:hover {
-  background: var(--mint);
+  background: var(--sky);
 }
 .menu {
   display: none;
 }
 .colophon {
-  background: var(--deep);
+  background: var(--ink);
   color: #fff;
   --focus: var(--sun);
   padding-block: clamp(2.5rem, 5vw, 4rem) 1.2rem;
@@ -277,7 +277,7 @@ a svg {
 }
 .foot-head {
   padding-bottom: 1.6rem;
-  border-bottom: 1px solid #7194b4;
+  border-bottom: 1px solid var(--muted);
 }
 .foot-head p {
   font-weight: 680;
@@ -296,7 +296,7 @@ a svg {
 .foot-columns h2 {
   font: 650 0.9rem/1.4 var(--display);
   letter-spacing: 0;
-  color: #c3ddf3;
+  color: var(--sky);
   margin-bottom: 0.45rem;
 }
 .foot-columns a {
@@ -306,10 +306,10 @@ a svg {
   width: 0.8em;
 }
 .foot-end {
-  border-top: 1px solid #7194b4;
+  border-top: 1px solid var(--muted);
   padding-top: 1rem;
   font-size: 0.8125rem;
-  color: #e0edf7;
+  color: var(--sky);
 }
 .foot-end nav {
   flex-wrap: wrap;
@@ -351,7 +351,7 @@ a svg {
     background: white;
     color: var(--ink);
     border-block: 1px solid var(--line);
-    box-shadow: 0 1.5rem 2rem -1.2rem #14395d50;
+    box-shadow: 0 1.5rem 2rem -1.2rem color-mix(in srgb, var(--ink) 22%, transparent);
   }
   .menu-sheet > .wrap {
     padding-block: 0.7rem 1.2rem;
