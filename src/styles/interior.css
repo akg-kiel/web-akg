@@ -41,7 +41,7 @@
   margin-top: var(--space);
 }
 .in-visit {
-  background: var(--mint);
+  background: var(--sky);
   padding-block: clamp(1.75rem, 4.7vw, 4rem);
 }
 .in-visit .parish-photo img {
@@ -79,7 +79,7 @@
   background: var(--sand);
 }
 .in-tint {
-  background: var(--mint);
+  background: var(--sky);
 }
 .in-panel {
   background: var(--sand);
@@ -162,7 +162,7 @@
 }
 .in-history dt {
   font-size: 1.45rem;
-  color: var(--sea);
+  color: var(--blue);
   font-weight: 700;
 }
 .in-detail {
@@ -224,7 +224,7 @@
   margin-top: 0.4rem;
 }
 .in-news-row h3 a {
-  color: var(--sea);
+  color: var(--blue);
 }
 .in-news-row h3 svg {
   display: inline;
@@ -295,7 +295,7 @@
   place-items: center;
   border-radius: 50%;
   background: var(--mint);
-  color: var(--sea);
+  color: var(--blue);
 }
 .in-plus::before,
 .in-plus::after {

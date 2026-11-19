@@ -64,7 +64,7 @@
   max-width: 40ch;
   font-size: clamp(1.12rem, 1.55vw, 1.34rem);
   line-height: 1.45;
-  color: #eff7f4;
+  color: #f0f6fb;
 }
 .welcome-actions {
   display: flex;
@@ -162,7 +162,7 @@
   border-top: 1px solid var(--line);
   text-decoration: none;
   font-weight: 680;
-  color: var(--sea);
+  color: var(--blue);
 }
 .together-choices a:hover,
 .update-list a:hover {
@@ -184,7 +184,7 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  color: var(--sea);
+  color: var(--blue);
 }
 .updates {
   background: var(--sand);

@@ -503,11 +503,7 @@ async function checkNoScriptOffers(offerCount) {
     for (const decoration of copy.querySelectorAll('[aria-hidden="true"]')) decoration.remove();
     return copy.textContent.trim();
   });
-  const nameQuery = name
-    .split(/[\r\n]+/u)
-    .map((line) => line.trim())
-    .find(Boolean)
-    ?.slice(0, 100);
+  const nameQuery = name.replace(/\s+/gu, ' ').trim().slice(0, 100);
   assert.ok(nameQuery, 'A searchable offer title');
   const description = (await selected.locator('.offer-description').allTextContents()).join(' ');
   const descriptionWord = fixtures
@@ -610,6 +606,21 @@ async function checkNoScriptFallback() {
     new URL(page.url()).pathname,
     '/gottesdienste',
     'A mobile menu link navigates without JavaScript'
+  );
+  await page.setViewportSize({ width: 390, height: 844 });
+  await tabTo(page, menu.locator('summary'));
+  await page.keyboard.press('Enter');
+  await tabTo(page, menu.getByRole('link').last());
+  const breadcrumb = page
+    .getByRole('navigation', { name: 'Brotkrumennavigation' })
+    .getByRole('link', { name: 'Startseite' });
+  await tabTo(page, breadcrumb, 1);
+  assert.ok(
+    await breadcrumb.evaluate((link) => {
+      const r = link.getBoundingClientRect();
+      return link.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2));
+    }),
+    'Tabbing past the open menu must leave the breadcrumb visibly focused without JS'
   );
   await goto(page, '/');
   const toTop = page.getByRole('contentinfo').locator('a[href^="#"]');

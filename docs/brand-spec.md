@@ -5,6 +5,10 @@
 - [Apostel-Logo](../public/images/apostel-logo.png): unveränderte [Wort-/Bildmarke von akg-kiel.de](https://akg-kiel.de/wp-content/uploads/2019/09/logo-akg-500px.png), 500 × 272 px. Auf ausdrücklichen Nutzerwunsch beibehalten. Auf hellem Grund im Originalverhältnis zeigen, nicht nachzeichnen, umfärben oder beschneiden. Es ist keine offene Lizenz dokumentiert.
 - **Figtree ist die einzige Webschrift.** Die [lokale variable Latin-WOFF2](../public/fonts/figtree-latin-variable.woff2) stammt von [Fontsource/Figtree](https://fontsource.org/fonts/figtree), Snapshot vom 26.10.2026 (`latin-wght-normal.woff2`, SHA-256 `4ba7d3d096695818fe0686be4f1e82c6b05134e18a22260336130335027462dd`). Die [SIL Open Font License 1.1](../public/fonts/OFL-Figtree.txt) liegt bei. Keine externen Schriftdienste laden.
 
+## Farbe
+
+Das Blau der Wortmarke (`#0C68B0`, aus der Logo-Datei gemessen) führt bei Links, aktiver Navigation und Schaltflächen. Einladung und Fußzeile verwenden die dunklere Website-Abstufung `#124675`, die Besuchsseite einen hellen Blauton. Mint kennzeichnet den Gottesdienststreifen und Datenhinweise; warmes Gelb hebt auf Dunkelblau „Apostel.“ und „Mein erster Besuch“ hervor. Die Abstufungen sind für diese Website gewählt, nicht als allgemein verbindliche Markenwerte ausgegeben.
+
 ## Fotos: Herkunft und Auslieferungsentscheidung
 
 [Das Bildregister](../src/lib/photos.mjs) führt pro Motiv die Originalquelle, den Alternativtext, bekannte Urheber, Lizenz bzw. Archivkennzeichnung und `publicApproved`. Die WebP-Varianten liegen in [`public/images/`](../public/images/). Bilder lokal ausliefern, nicht von WordPress, Commons oder einem Bilddienst nachladen.

@@ -13,10 +13,12 @@ export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'no-store');
 const groups = await loadGroups();
 const query = (Astro.url.searchParams.get('q') ?? '').trim().slice(0, 100);
-const term = query.toLocaleLowerCase('de');
+// HTML collapses whitespace in feed titles and descriptions; search them as displayed.
+const searchable = (text: string) => text.replace(/\s+/gu, ' ').trim().toLocaleLowerCase('de');
+const term = searchable(query);
 const selected = Astro.url.searchParams.get('angebot');
 const matches = groups.items.filter(offer =>
-  [offer.name, offer.description, offer.type].some(field => field?.toLocaleLowerCase('de').includes(term))
+  [offer.name, offer.description, offer.type].some(field => field && searchable(field).includes(term))
 );
 const byType = new Map<string, GroupOffer[]>();
 for (const offer of matches) {

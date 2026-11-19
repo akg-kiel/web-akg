@@ -9,14 +9,15 @@
 }
 :root {
   --display: Figtree, system-ui, sans-serif;
-  --ink: #183a3e;
-  --deep: #103e41;
-  --sea: #095f60;
+  --ink: #172f46;
+  --deep: #124675;
+  --blue: #0c68b0;
+  --sky: #e6f1fa;
   --mint: #dceee8;
   --sand: #faf7ef;
   --sun: #ffe39c;
-  --muted: #4d6668;
-  --line: #c8d6d1;
+  --muted: #4a6175;
+  --line: #c6d5df;
   --focus: #ac4216;
   --space: clamp(3rem, 6vw, 6rem);
   --gutter: clamp(16px, 4.7vw, 4.5rem);
@@ -114,7 +115,7 @@ main:focus {
   line-height: 1.3;
 }
 .action {
-  background: var(--sea);
+  background: var(--blue);
   color: white;
   text-decoration: none;
   border-radius: 100vmax;
@@ -126,7 +127,7 @@ main:focus {
   background: var(--deep);
 }
 .route-link {
-  color: var(--sea);
+  color: var(--blue);
   padding-block: 0.5em;
 }
 a svg {
@@ -242,7 +243,7 @@ a svg {
 }
 .wide-nav a[aria-current],
 .menu a[aria-current] {
-  color: var(--sea);
+  color: var(--blue);
   text-decoration-thickness: 2px;
 }
 .intern-link,
@@ -276,7 +277,7 @@ a svg {
 }
 .foot-head {
   padding-bottom: 1.6rem;
-  border-bottom: 1px solid #608080;
+  border-bottom: 1px solid #7194b4;
 }
 .foot-head p {
   font-weight: 680;
@@ -295,7 +296,7 @@ a svg {
 .foot-columns h2 {
   font: 650 0.9rem/1.4 var(--display);
   letter-spacing: 0;
-  color: #bddbd4;
+  color: #c3ddf3;
   margin-bottom: 0.45rem;
 }
 .foot-columns a {
@@ -305,10 +306,10 @@ a svg {
   width: 0.8em;
 }
 .foot-end {
-  border-top: 1px solid #608080;
+  border-top: 1px solid #7194b4;
   padding-top: 1rem;
   font-size: 0.8125rem;
-  color: #dce9e5;
+  color: #e0edf7;
 }
 .foot-end nav {
   flex-wrap: wrap;
@@ -332,13 +333,25 @@ a svg {
   .menu summary::-webkit-details-marker {
     display: none;
   }
-  .menu-sheet {
+  /* Only overlay content when focus-exit dismissal has been installed. */
+  .menu[open]:not([data-overlay]) {
+    flex-basis: 100%;
+  }
+  .menu[open]:not([data-overlay]) summary {
+    width: fit-content;
+  }
+  .menu[open]:not([data-overlay]) .wrap {
+    width: 100%;
+  }
+  .menu[data-overlay] .menu-sheet {
     position: absolute;
     inset: 100% 0 auto;
+  }
+  .menu-sheet {
     background: white;
     color: var(--ink);
     border-block: 1px solid var(--line);
-    box-shadow: 0 1.5rem 2rem -1.2rem #123a4050;
+    box-shadow: 0 1.5rem 2rem -1.2rem #14395d50;
   }
   .menu-sheet > .wrap {
     padding-block: 0.7rem 1.2rem;
