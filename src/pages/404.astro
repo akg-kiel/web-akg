@@ -1,16 +1,14 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PageIntro from '../components/PageIntro.astro';
+import Interior from '../ui/interior/Interior.astro';
+import Go from '../ui/interior/Go.astro';
 export const prerender = true;
 ---
-<Layout title="Seite nicht gefunden" description="Diese Seite konnten wir nicht finden. Entdecke die Apostel-Kirchengemeinde über die Startseite oder die Gottesdienstübersicht." canonicalPath="/404">
-  <PageIntro title="404 – Seite nicht gefunden" description="Vielleicht hat sich die Adresse geändert oder der Link ist nicht mehr aktuell. Schön, dass du trotzdem da bist." />
-  <section class="container section-end" aria-label="Weiter zur Gemeinde">
-    <div class="prose">
-      <p>Auf der Startseite findest du einen neuen Einstieg. Oder möchtest du direkt mehr über die Gemeinde und unsere Gottesdienste erfahren?</p>
-      <a class="button" href="/">Zur Startseite <span aria-hidden="true">→</span></a>
-      <p><a class="text-link" href="/gemeinde">Die Gemeinde kennenlernen <span aria-hidden="true">→</span></a></p>
-      <p><a class="text-link" href="/gottesdienste">Zu den Gottesdiensten <span aria-hidden="true">→</span></a></p>
+<Interior title="Seite nicht gefunden" description="Unter dieser Adresse gibt es keine Seite. Über die Startseite oder den Besuchswegweiser findest du weiter." canonicalPath="/404">
+  <div class="wrap in-detail">
+    <h1>Seite nicht gefunden</h1>
+    <div class="in-prose">
+      <p class="in-lead">Unter dieser Adresse gibt es keine Seite. Vielleicht hat sich der Link geändert.</p>
+      <div class="in-actions"><Go href="/" primary>Zur Startseite</Go><Go href="/besuch">Deinen Besuch planen</Go></div>
     </div>
-  </section>
-</Layout>
+  </div>
+</Interior>

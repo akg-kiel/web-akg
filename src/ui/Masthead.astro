@@ -1,0 +1,52 @@
+---
+import PrimaryLinks from './PrimaryLinks.astro';
+import Arrow from './Arrow.astro';
+import { externalLinks } from '../lib/site';
+const intern = externalLinks.find(link => link.label === 'Intern (ChurchTools)');
+---
+<header class="mast">
+  <div class="mast-status"><div class="wrap"><span>Evangelisch-lutherisch in Kiel</span><span>Website-Vorschau</span></div></div>
+  <div class="wrap mast-row">
+    <a href="/" class="brand" aria-label="Apostel-Kirchengemeinde Kiel – Startseite"><img src="/images/apostel-logo.png" width="500" height="272" alt="Apostel" /><span>Apostel-Kirchengemeinde Kiel</span></a>
+    <nav class="wide-nav" aria-label="Hauptnavigation"><PrimaryLinks /></nav>
+    {intern && <a class="intern-link" href={intern.href}>Intern <Arrow external /></a>}
+    <details class="menu" data-menu>
+      <summary><svg width="20" height="18" viewBox="0 0 20 18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 5h16M2 12h16" /></svg>Menü</summary>
+      <div class="menu-sheet">
+        <div class="wrap">
+          <nav aria-label="Hauptnavigation mobil"><PrimaryLinks /></nav>
+          <nav class="menu-extra" aria-label="Weitere Ziele"><ul role="list">
+            <li><a href="/besuch">Zum ersten Besuch <Arrow /></a></li>
+            <li><a href="/spenden">Spenden <Arrow /></a></li>
+            {externalLinks.map(({href,label}) => <li><a href={href}>{label} <Arrow external /></a></li>)}
+          </ul></nav>
+        </div>
+      </div>
+    </details>
+  </div>
+</header>
+<script>
+  // Native disclosure also works without JS. Enhancements dismiss the sheet and preserve focus.
+  const menu = document.querySelector<HTMLDetailsElement>('[data-menu]');
+  if (menu) {
+    const summary = menu.querySelector('summary');
+    let focusInside = false;
+    document.addEventListener('focusin', (event) => {
+      focusInside = event.target instanceof Node && menu.contains(event.target);
+      if (!focusInside && menu.open) menu.open = false;
+    });
+    document.addEventListener('keydown', (event) => {
+      if (menu.open && event.key === 'Escape') { menu.open = false; summary?.focus(); }
+    });
+    document.addEventListener('pointerdown', (event) => {
+      if (menu.open && event.target instanceof Node && !menu.contains(event.target)) menu.open = false;
+    });
+    matchMedia('(min-width: 64rem)').addEventListener('change', ({matches}) => {
+      if (matches && menu.open) {
+        menu.open = false;
+        if (focusInside) document.querySelector<HTMLAnchorElement>('.brand')?.focus();
+      }
+    });
+    menu.dataset.overlay = '';
+  }
+</script>

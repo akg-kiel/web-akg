@@ -1,4 +1,14 @@
 import { handle } from '@astrojs/cloudflare/handler';
+import { publishedPhotoPaths } from './lib/photos.mjs';
+
+// Astro's dev route matcher can return its HTML 404 before consulting ASSETS.
+// Only hand reviewed media to the dev binding: dev has no build-time photo filter.
+const devMedia = new Set([
+  'images/apostel-logo.png',
+  'fonts/figtree-latin-variable.woff2',
+  'fonts/OFL-Figtree.txt',
+  ...publishedPhotoPaths
+]);
 
 // Worker-first routing also applies these headers to prerendered pages and assets.
 export default {
@@ -13,7 +23,13 @@ export default {
         response = Response.redirect(url, 308);
       } else {
         stage = 'handler';
-        response = await handle(request, env, context);
+        if (import.meta.env?.DEV && /^\/(images|fonts)\//.test(url.pathname)) {
+          response = devMedia.has(url.pathname.slice(1))
+            ? await env.ASSETS.fetch(request)
+            : new Response(null, { status: 404 });
+        } else {
+          response = await handle(request, env, context);
+        }
       }
     } catch (error) {
       // Classify by built-in type only; thrown properties and request data may contain secrets.

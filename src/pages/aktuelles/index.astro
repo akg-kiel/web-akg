@@ -1,27 +1,32 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import PageIntro from '../../components/PageIntro.astro';
-import SourceState from '../../components/SourceState.astro';
-import NewsList from '../../components/NewsList.astro';
+import Interior from '../../ui/interior/Interior.astro';
+import ContentState from '../../ui/interior/ContentState.astro';
+import CurrentSiteLink from '../../ui/interior/CurrentSiteLink.astro';
+import NewsRows from '../../ui/interior/NewsRows.astro';
+import Go from '../../ui/interior/Go.astro';
 import { loadNews } from '../../lib/content';
 
 export const prerender = false;
-const news = await loadNews();
 Astro.response.headers.set('Cache-Control', 'no-store');
+const news = await loadNews();
 ---
-<Layout title="Aktuelles" description="Neuigkeiten und Hinweise aus der Apostel-Kirchengemeinde Kiel.">
-  <PageIntro title="Aktuelles aus der Gemeinde" description="Was gibt es Neues? Hier ist Platz für Nachrichten und Hinweise aus dem Gemeindeleben." />
-  <section class="container content-split section-end" aria-label="Aktuelle Meldungen">
-    <div>
-      <SourceState status={news.status} kind="news" updatedAt={news.updatedAt} />
-      {news.items.length > 0 && <NewsList items={news.items} />}
-    </div>
-    <aside class="editorial-note">
-      <h2>Du suchst einen Gottesdienst?</h2>
-      <p>Die Gottesdiensttermine haben ihren eigenen Platz. Dort findest du auch eine kurze Einladung für deinen ersten Besuch.</p>
-      <a class="text-link" href="/gottesdienste">Zu den Gottesdiensten <span aria-hidden="true">→</span></a>
-      <a class="text-link" href="/gemeinde">Die Gemeinde kennenlernen <span aria-hidden="true">→</span></a>
-      <p class="small-note">Ein Kalender für weitere Veranstaltungen ist in dieser Vorschau noch nicht verfügbar.</p>
+<Interior title="Aktuelles" description="Meldungen und Hinweise aus dem Leben der Apostel-Kirchengemeinde Kiel.">
+  <header class="in-band"><div class="wrap in-head">
+    <h1>Aktuelles</h1>
+    <p class="in-lead">Was ist los in der Gemeinde? Hier findest du unsere Nachrichten und Hinweise.</p>
+  </div></header>
+  <div class="wrap in-section in-columns">
+    <section class="in-prose" aria-labelledby="meldungen">
+      <h2 id="meldungen">Meldungen</h2>
+      <ContentState result={news} subject="Meldungen">
+        <CurrentSiteLink to="news">Aktuelles lesen</CurrentSiteLink>
+      </ContentState>
+      {news.items.length > 0 && <NewsRows items={news.items} />}
+    </section>
+    <aside class="in-side-nav">
+      <h2>Du suchst Termine?</h2>
+      <Go href="/gottesdienste">Zu den Gottesdiensten</Go>
+      <Go href="/angebote">Zu den Angeboten und Gruppen</Go>
     </aside>
-  </section>
-</Layout>
+  </div>
+</Interior>

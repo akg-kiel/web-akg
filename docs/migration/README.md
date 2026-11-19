@@ -72,6 +72,8 @@ Enthält nur die Kerninformationen der Kirchengemeinde: Gottesdienste, Aktuelles
 
 ### Website Konzerte
 
+Nachtrag AKG-130 (19.11.2026): Der Auftraggeber bestätigt `https://petruskirche.events/` als aktuellen Konzertauftritt. Die folgenden Angaben und die CSV dokumentieren den ursprünglichen Erfassungsstand, nicht das aktuelle Laufzeitziel. Die Website verwendet `concertSite` aus `src/lib/site.ts`.
+
 Konzertprogramm, Konzertarchiv und SHMF bleiben im separaten Produkt. Alte Konzertbeiträge werden nicht in Website AKG kopiert, sondern auf die Programm-/Archivübersicht verwiesen. Das Ziel `https://konzerte-petruskirche.de` ist im Quellprojekt Website Konzerte deklariert, war zum Erfassungszeitpunkt aber noch nicht per DNS erreichbar; AKG-69 muss das Ziel vor Veröffentlichung bestätigen.
 
 ### Website Dreimaster

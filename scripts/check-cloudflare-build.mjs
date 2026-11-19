@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { access, readFile, readdir } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import { assertPreviewRobots } from './preview-headers.mjs';
-import { photos, withheldPhotoNames } from '../src/lib/photos.mjs';
+import { publishedPhotoPaths, withheldPhotoNames } from '../src/lib/photos.mjs';
 
 const source = JSON.parse(await readFile('wrangler.jsonc', 'utf8'));
 const built = JSON.parse(await readFile('dist/server/wrangler.json', 'utf8'));
@@ -34,14 +34,10 @@ assert(
   publicFiles.some((path) => path.endsWith('.html')),
   'Expected prerendered public pages'
 );
-const publishedPhotoPaths = Object.values(photos)
-  .filter((photo) => photo.publicApproved === true)
-  .flatMap((photo) =>
-    [640, 960, photo.large ?? 1440].map((width) => `images/${photo.name}-${width}.webp`)
-  );
 for (const path of publishedPhotoPaths)
   assert(publicFiles.includes(path), `${path}: approved photo missing from public build`);
 for (const path of publicFiles) {
+  assert.doesNotMatch(path, /(?:^|\/)entwuerfe\b/i, `${path}: retired design gallery`);
   assert(
     !withheldPhotoNames.some((name) => path.startsWith(`images/${name}-`)),
     `${path}: unapproved photo in public build`
@@ -50,6 +46,7 @@ for (const path of publicFiles) {
   if (/\.(?:html|js|css|json|map|txt|xml)$/.test(path)) {
     const content = await readFile(join('dist', path), 'utf8');
     assert.doesNotMatch(content, /CHURCHTOOLS_TOKEN/, path);
+    assert.doesNotMatch(content, /\/entwuerfe\//, `${path}: reference to retired prototypes`);
     for (const name of withheldPhotoNames)
       assert(!content.includes(`/images/${name}-`), `${path}: unapproved photo reference`);
     if (path.endsWith('.html')) {
@@ -69,6 +66,7 @@ const origin = process.argv.find((arg) => arg.startsWith('--origin='))?.slice(9)
 if (origin) {
   const asset = publicFiles.find((path) => path.startsWith('_astro/') && path.endsWith('.css'));
   assert(asset, 'Expected a built stylesheet for asset-header coverage');
+  const missingPaths = ['/__missing__', '/sitemap.xml', '/entwuerfe', '/.dev.vars', '/.env'];
   for (const path of [
     '/',
     '/gottesdienste',
@@ -76,14 +74,11 @@ if (origin) {
     '/angebote',
     '/angebote/?q=preview',
     '/' + asset,
-    '/__missing__',
-    '/sitemap.xml',
+    ...missingPaths,
     '/robots.txt',
     ...publishedPhotoPaths.map((path) => '/' + path),
     '/server/wrangler.json',
     '/server/.dev.vars',
-    '/.dev.vars',
-    '/.env',
     ...withheldPhotoNames.flatMap((name) =>
       [640, 960, 1280].map((width) => `/images/${name}-${width}.webp`)
     )
@@ -108,7 +103,7 @@ if (origin) {
       assert.equal(location.search, '?q=preview');
     }
     if (
-      ['/__missing__', '/sitemap.xml', '/.dev.vars', '/.env'].includes(path) ||
+      missingPaths.includes(path) ||
       path.startsWith('/server/') ||
       withheldPhotoNames.some((name) => path.startsWith(`/images/${name}-`))
     )
@@ -118,11 +113,9 @@ if (origin) {
       assert.match(response.headers.get('content-type') ?? '', /^image\/webp\b/, path);
     }
     if (response.headers.get('content-type')?.includes('text/html')) {
-      assert.match(
-        await response.text(),
-        /<main\b/,
-        `${path}: runtime must render HTML, not stringify an iterable`
-      );
+      const html = await response.text();
+      assert.doesNotMatch(html, /href="\/entwuerfe\//, `${path}: retired gallery link`);
+      assert.match(html, /<main\b/, `${path}: runtime must render HTML, not stringify an iterable`);
     } else {
       await response.body?.cancel();
     }

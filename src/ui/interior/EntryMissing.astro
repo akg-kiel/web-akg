@@ -1,0 +1,9 @@
+---
+import Go from './Go.astro';
+interface Props { unavailable: boolean; href: string; label: string }
+const { unavailable, href, label } = Astro.props;
+---
+<p>{unavailable
+  ? 'Die Angaben lassen sich gerade nicht abrufen. Bitte versuche es später noch einmal.'
+  : 'Unter dieser Adresse gibt es keinen veröffentlichten Eintrag. Die Übersicht führt dich zu den verfügbaren Einträgen.'}</p>
+<Go href={href}>{label}</Go>

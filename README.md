@@ -3,6 +3,8 @@
 Lokaler MVP der neuen Gemeindewebsite. Noch keine veröffentlichungsfähige oder
 rechtlich freigegebene Website. Konzerte und Dreimaster bleiben getrennte Produkte.
 
+Die neue Oberfläche startet bei [akg-kiel.de](https://akg-kiel.de/), nicht bei den früheren Prototypen. [Gestaltungsentscheidung](docs/design.md) · [Screenshots und Prüfung](docs/review-akg-130/README.md).
+
 Technische Basis: der finalisierte `web-konzerte`-Stand `48c64ea`;
 [Stack-Entscheidung](docs/stack-decision.md), [Entwicklung und Prüfungen](docs/development.md).
 

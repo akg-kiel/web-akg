@@ -1,0 +1,17 @@
+---
+import type { GroupOffer } from '../../lib/server/churchtools';
+import Go from './Go.astro';
+interface Props { offer: GroupOffer; selected: boolean }
+const { offer, selected } = Astro.props;
+const weekdays = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+const meeting = [offer.weekday !== undefined ? weekdays[offer.weekday] : undefined, offer.meetingTime].filter(Boolean).join(' · ');
+---
+<details id={`angebot-${offer.id}`} class="in-offer" open={selected}>
+  <summary>{offer.name}<span class="in-plus" aria-hidden="true"></span></summary>
+  <div class="in-offer-body in-prose">
+    {offer.description && <p class="offer-description">{offer.description}</p>}
+    {meeting && <p><strong>Treffen:</strong> {meeting}</p>}
+    {offer.contactUrl && <Go external href={offer.contactUrl}>Zur Website des Angebots</Go>}
+    {!offer.description && !meeting && !offer.contactUrl && <p>Zu diesem Angebot sind keine weiteren Angaben veröffentlicht.</p>}
+  </div>
+</details>

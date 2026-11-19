@@ -1,0 +1,5 @@
+---
+import { navigation, currentPage } from '../lib/site';
+const path = Astro.url.pathname;
+---
+<ul role="list">{navigation.map(({href, label}) => <li><a href={href} aria-current={currentPage(path, href)}>{label}</a></li>)}</ul>

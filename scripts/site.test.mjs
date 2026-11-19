@@ -20,55 +20,6 @@ test('the original Apostel logo is preserved byte-for-byte', async () => {
   );
 });
 
-test('the extended brand palette retains its source values and readable color pairs', async () => {
-  const css = await readFile(new URL('../src/styles/globals.css', import.meta.url), 'utf8');
-  const palette = {
-    ink: '#173b50',
-    blue: '#006c9e',
-    paper: '#ffffff',
-    wash: '#eaf3f7',
-    muted: '#50616c',
-    green: '#1a7663',
-    'green-wash': '#e8f1ef',
-    cream: '#fbf1d9',
-    sun: '#f2d38b',
-    rust: '#aa420d'
-  };
-  for (const [name, hex] of Object.entries(palette))
-    assert.ok(css.includes(`--color-${name}: ${hex};`), name);
-  const luminance = (hex) =>
-    hex
-      .slice(1)
-      .match(/../g)
-      .reduce((sum, channel, index) => {
-        const value = parseInt(channel, 16) / 255;
-        return (
-          sum +
-          [0.2126, 0.7152, 0.0722][index] *
-            (value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4)
-        );
-      }, 0);
-  for (const [foreground, background] of [
-    ['green', 'paper'],
-    ['green', 'green-wash'],
-    ['ink', 'green-wash'],
-    ['muted', 'green-wash'],
-    ['blue', 'green-wash'],
-    ['paper', 'green'],
-    ['rust', 'cream'],
-    ['ink', 'sun'],
-    ['paper', 'blue'],
-    ['ink', 'wash'],
-    ['paper', 'ink'],
-    ['rust', 'wash']
-  ]) {
-    const [light, dark] = [luminance(palette[foreground]), luminance(palette[background])].sort(
-      (a, b) => b - a
-    );
-    assert.ok((light + 0.05) / (dark + 0.05) >= 4.5, `${foreground} on ${background}`);
-  }
-});
-
 test('navigation and stable source identifiers do not depend on titles', () => {
   assert.equal(currentPage('/aktuelles', '/aktuelles'), 'page');
   assert.equal(currentPage('/aktuelles/example', '/aktuelles'), 'location');
@@ -87,20 +38,12 @@ test('navigation and stable source identifiers do not depend on titles', () => {
   }
 });
 
-test('the footer uses native document-top navigation and preserves the content skip link', async () => {
-  const footer = await readFile(new URL('../src/components/Footer.astro', import.meta.url), 'utf8');
-  const layout = await readFile(new URL('../src/layouts/Layout.astro', import.meta.url), 'utf8');
-  assert.match(footer, /<a href="#">Zum Seitenanfang <span aria-hidden="true">↑<\/span><\/a>/);
-  assert.match(layout, /class="skip-link" href="#inhalt"/);
-  assert.match(layout, /<main id="inhalt" tabindex="-1">/);
-});
-
-test('search engines can crawl every route to read the global noindex instruction', async () => {
+test('the robots endpoint allows crawlers to reach page-level noindex instructions', async () => {
   const { GET } = await import('../src/pages/robots.txt.ts');
   const robots = await GET({});
+  assert.match(robots.headers.get('content-type'), /^text\/plain\b/);
+  // smoke.mjs checks the complementary noindex instructions on the actual served pages.
   assert.equal(await robots.text(), 'User-agent: *\nDisallow:\n');
-  const layout = await readFile(new URL('../src/layouts/Layout.astro', import.meta.url), 'utf8');
-  assert.match(layout, /<meta name="robots" content="noindex, nofollow"\s*\/>/);
 });
 
 test('news excerpts count Unicode code points without splitting supplementary characters', () => {

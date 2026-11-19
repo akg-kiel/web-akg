@@ -1,0 +1,19 @@
+---
+import Interior from '../ui/interior/Interior.astro';
+import Picture from '../ui/Picture.astro';
+import Go from '../ui/interior/Go.astro';
+import { concertSite } from '../lib/site';
+
+export const prerender = true;
+---
+<Interior title="Petruskirche" description="Die Petruskirche in Kiel-Wik: Gottesdienste der Apostel-Kirchengemeinde und der Weg zum separaten Konzertprogramm." parent={{ href: '/gemeinde#orte', label: 'Unsere Orte' }}>
+  <div class="wrap in-head in-split">
+    <div class="in-copy">
+      <h1>Petruskirche</h1>
+      <p class="in-lead">Seit 2016 ist die Petruskirche in Kiel-Wik ein Zuhause unserer Gemeinde. In ihrem Kirchenschiff wird nicht nur Gottesdienst gefeiert: Hier finden auch Konzerte statt.</p>
+      <div class="in-actions"><Go href="/gottesdienste" primary>Gottesdienste</Go><Go href={concertSite.href} external>Konzerte auf petruskirche.events</Go></div>
+      <p>Fragen zum Weg oder zum Zugang? <a href="/kontakt">Zum Gemeindebüro</a></p>
+    </div>
+    <Picture view="concert" priority />
+  </div>
+</Interior>

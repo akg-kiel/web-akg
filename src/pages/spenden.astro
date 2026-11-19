@@ -1,0 +1,17 @@
+---
+import Interior from '../ui/interior/Interior.astro';
+import CurrentSiteLink from '../ui/interior/CurrentSiteLink.astro';
+import Go from '../ui/interior/Go.astro';
+export const prerender = false;
+Astro.response.headers.set('Cache-Control', 'no-store');
+---
+<Interior title="Spenden" description="Du möchtest die Apostel-Kirchengemeinde Kiel unterstützen? Hier findest du den Weg zu Spendeninformationen und zum Gemeindebüro.">
+  <div class="wrap in-detail">
+    <h1>Spenden</h1>
+    <div class="in-prose">
+      <p class="in-lead">Danke, dass du die Arbeit der Gemeinde unterstützen möchtest.</p>
+      <p>In dieser Vorschau ist keine Zahlung möglich. Wenn du wissen möchtest, wie du spenden kannst oder ob du eine Bescheinigung bekommst, hilft dir das Gemeindebüro weiter.</p>
+      <div class="in-actions"><CurrentSiteLink to="donations">Spendeninformationen</CurrentSiteLink><Go href="/kontakt">Zum Gemeindebüro</Go></div>
+    </div>
+  </div>
+</Interior>

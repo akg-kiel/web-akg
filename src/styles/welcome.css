@@ -1,0 +1,274 @@
+.welcome {
+  display: flex;
+  flex-direction: column;
+  background: var(--sky);
+}
+.welcome > .parish-photo {
+  order: -1;
+  position: relative;
+}
+.welcome > .parish-photo img {
+  width: 100%;
+  height: clamp(14rem, 26.5vw, 28rem);
+  object-fit: cover;
+  object-position: center 49%;
+}
+.welcome > .parish-photo figcaption {
+  position: absolute;
+  right: max(var(--gutter), calc((100% - var(--measure)) / 2));
+  bottom: 0.7rem;
+  max-width: calc(100% - var(--gutter)*2);
+  --focus: var(--sun);
+  background: var(--ink);
+  color: white;
+  padding: 0.26rem 0.6rem;
+  margin: 0;
+  font-size: 0.75rem;
+}
+.welcome-band {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6.5vw, 7rem);
+  align-items: center;
+  padding-block: 1.85rem 2.75rem;
+}
+.welcome-band h1 {
+  position: relative;
+  isolation: isolate;
+  font-size: clamp(2.3rem, 4.3vw, 4.25rem);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+.welcome-band::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: calc((100% - 100vw) / 2);
+  width: calc((100vw - 100%) / 2 + 42%);
+  height: 2.15rem;
+  background: var(--sky);
+  border-top-right-radius: 4rem;
+}
+.welcome-band h1 strong {
+  display: block;
+  font-weight: 750;
+  font-size: clamp(3.8rem, 7.9vw, 7rem);
+  line-height: 0.98;
+}
+.welcome-invite p {
+  max-width: 40ch;
+  font-size: clamp(1.12rem, 1.55vw, 1.34rem);
+  line-height: 1.45;
+}
+.welcome-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1.3rem;
+  margin-top: 1.15rem;
+}
+.welcome-actions .route-link {
+  color: var(--ink);
+}
+.sunday-line {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr) auto;
+  gap: 0.5rem 2rem;
+  align-items: center;
+  padding-block: 1.45rem;
+}
+.sunday h2 {
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  letter-spacing: -0.02em;
+}
+.sunday h3 {
+  font-size: 1.24rem;
+  letter-spacing: -0.01em;
+  margin-top: 0.25rem;
+}
+.sunday time {
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+.feed-note {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+.feed-note[data-source-state='stale'] {
+  padding-block: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--ink);
+  font-weight: 580;
+}
+.community {
+  background: var(--green-wash);
+}
+.together {
+  padding-block: var(--space);
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(2rem, 7.5vw, 8rem);
+  align-items: center;
+}
+.together-picture {
+  position: relative;
+  isolation: isolate;
+  padding: 0 1.25rem 0 0;
+}
+.together-picture:has(img)::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 1.3rem 0 1.8rem 1.25rem;
+  background: white;
+  border-start-end-radius: clamp(3rem, 8vw, 7.5rem);
+}
+.together-picture img {
+  border-start-end-radius: clamp(3rem, 8vw, 7.5rem);
+}
+.together-text h2 {
+  color: var(--green);
+  font-size: clamp(2.2rem, 4.5vw, 4.3rem);
+}
+.together-text > p {
+  margin-top: 1rem;
+  max-width: 40ch;
+  font-size: clamp(1.02rem, 1.4vw, 1.2rem);
+}
+.together-choices {
+  margin-block: 1.35rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+.together-choices a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  min-height: 48px;
+  border-top: 1px solid var(--line);
+  text-decoration: none;
+  font-weight: 680;
+  color: var(--ink);
+}
+.together-choices a:hover,
+.update-list a:hover {
+  text-decoration: underline;
+}
+.together-text .feed-note {
+  font-size: 0.9rem;
+}
+.group-samples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.2rem;
+}
+.group-samples h3 {
+  font-size: 1.0625rem;
+  letter-spacing: 0;
+}
+.group-samples a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--blue);
+}
+.updates {
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+}
+.update-intro {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.4rem 1rem;
+  margin-bottom: 1.25rem;
+}
+.update-intro h2 {
+  font-size: clamp(1.9rem, 3vw, 2.75rem);
+}
+.update-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+  gap: 0.5rem 2rem;
+  border-top: 1px solid var(--line);
+  padding-block: 1.3rem;
+}
+.update-list time {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.update-list a {
+  display: inline-flex;
+  gap: 0.55rem;
+  align-items: baseline;
+  min-height: 44px;
+  text-decoration: none;
+}
+.update-list p {
+  max-width: 65ch;
+}
+@media (width < 64rem) {
+  .sunday-line {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  }
+  .sunday-line > .route-link {
+    grid-column: 2;
+    justify-self: start;
+  }
+  .together {
+    gap: 2.3rem;
+  }
+}
+@media (width < 48rem) {
+  .welcome > .parish-photo img {
+    height: clamp(11rem, 43vw, 18rem);
+  }
+  .welcome > .parish-photo figcaption {
+    right: 0.55rem;
+    bottom: 0.45rem;
+  }
+  .welcome-band {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    padding-block: 1.45rem 2rem;
+  }
+  .welcome-band h1 {
+    font-size: clamp(2.15rem, 7.5vw, 3.5rem);
+  }
+  .welcome-band::before {
+    display: none;
+  }
+  .welcome-band h1 strong {
+    font-size: clamp(2.2rem, calc(1.1rem + 8vw), 5rem);
+  }
+  .sunday-line,
+  .together,
+  .update-list li {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .sunday-line {
+    padding-block: 1.35rem;
+    gap: 0.35rem;
+  }
+  .sunday-line > .route-link {
+    grid-column: auto;
+  }
+  .together {
+    gap: 1.5rem;
+  }
+  .together-text h2 {
+    font-size: clamp(1.7rem, calc(1.1rem + 4vw), 2.2rem);
+  }
+  .together-text h2 br {
+    display: none;
+  }
+  .together-picture {
+    padding-right: 0.75rem;
+  }
+  .together-picture::before {
+    inset-inline-start: 0.75rem;
+  }
+}

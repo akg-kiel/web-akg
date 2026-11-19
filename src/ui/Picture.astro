@@ -1,0 +1,16 @@
+---
+import { photos } from '../lib/photos.mjs';
+interface Props { view: keyof typeof photos; priority?: boolean; sizes?: string }
+const { view, priority = false, sizes = '(min-width: 80rem) 38rem, (min-width: 50rem) 48vw, 100vw' } = Astro.props;
+const photo = photos[view];
+const widths = [640, 960, 'large' in photo ? photo.large : 1440];
+---
+{photo.publicApproved && <figure class="parish-photo">
+  <img src={`/images/${photo.name}-960.webp`} srcset={widths.map(w => `/images/${photo.name}-${w}.webp ${w}w`).join(', ')} sizes={sizes}
+    width="960" height={photo.height} alt={photo.alt} loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding={priority ? 'auto' : 'async'} />
+  <figcaption>
+    {'caption' in photo && <>{photo.caption} · </>}
+    {'author' in photo ? 'Foto: ' : 'Quelle: '}<a href={photo.source}>{'author' in photo ? photo.author : 'akg-kiel.de'}</a>
+    {'license' in photo && <> · <a href={`https://creativecommons.org/licenses/by-sa/${photo.license}/`}>CC BY-SA {photo.license}</a> · Ausschnitt, komprimiert</>}
+  </figcaption>
+</figure>}

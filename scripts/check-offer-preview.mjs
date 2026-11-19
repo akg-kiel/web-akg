@@ -43,19 +43,23 @@ try {
   await writeFile(
     join(fixture, 'src/lib/content.ts'),
     `
+    // One surplus item per feed proves the homepage limits without truncating the full listings.
     const items = [
-      { id: 'synthetic-alpha', name: 'Synthetic Alpha', type: 'Synthetic category', description: 'quasaronly description search' },
+      { id: 'synthetic-alpha', name: 'Synthetic Alpha\\nChor', type: 'Synthetic category', description: 'quasaronly description search' },
       { id: 'synthetic-beta', name: 'Synthetic Beta', type: 'Synthetic category', description: 'nebulaonly description search' },
-      { id: 'synthetic-gamma', name: 'Synthetic Gamma', type: 'Synthetic category' }
+      { id: 'synthetic-gamma', name: 'Synthetic Gamma', type: 'Synthetic category' },
+      { id: 'synthetic-delta', name: 'Synthetic Delta', type: 'Synthetic category' }
     ];
     export async function loadGroups() { return { status: 'ready' as const, items }; }
     export async function loadServices() { return { status: 'ready' as const, items: [
-      { id: 'synthetic-service', title: 'Synthetic service with a long title for responsive layout testing', start: '2099-01-25T09:00:00Z', end: '2099-01-25T10:00:00Z', allDay: false }
+      { id: 'synthetic-service', title: 'Synthetic service with a long title for responsive layout testing', start: '2099-01-25T09:00:00Z', end: '2099-01-25T10:00:00Z', allDay: false },
+      { id: 'synthetic-second-service', title: 'Synthetic second service', start: '2099-02-01T09:00:00Z', end: '2099-02-01T10:00:00Z', allDay: false }
     ] }; }
     export async function loadNews() { return { status: 'ready' as const, items: [
-      { id: 'synthetic-news-a', title: 'Synthetic news with a long heading for the homepage', body: 'Synthetic text for layout testing only. '.repeat(12), publishedAt: '2026-01-01T10:00:00Z' },
-      { id: 'synthetic-news-b', title: 'Synthetic second news item', body: '<script>not executable</script>', publishedAt: '2026-01-02T10:00:00Z' },
-      { id: 'synthetic-news-c', title: 'Synthetic third news item', body: '', publishedAt: '2026-01-03T10:00:00Z' }
+      { id: 'synthetic-news-a', title: 'Synthetic news with a long heading for the homepage', body: 'Synthetic text for layout testing only. '.repeat(12), publishedAt: '2026-01-04T10:00:00Z' },
+      { id: 'synthetic-news-b', title: 'Synthetic second news item', body: '<script>not executable</script>', publishedAt: '2026-01-03T10:00:00Z' },
+      { id: 'synthetic-news-c', title: 'Synthetic third news item', body: '', publishedAt: '2026-01-02T10:00:00Z' },
+      { id: 'synthetic-news-d', title: 'Synthetic fourth news item', body: '', publishedAt: '2026-01-01T10:00:00Z' }
     ] }; }
   `
   );
@@ -101,6 +105,8 @@ try {
     await setTimeout(1000);
   }
   assert(ready, 'Private fixture preview did not become ready');
+  // Unlike a preview with closed data gates, the ready fixture can confirm a missing detail (404).
+  await run(['scripts/smoke.mjs', origin], root);
   await run(['scripts/browser-check.mjs', origin], root, {
     ...process.env,
     EXPECT_OFFER_FIXTURES: '1',

@@ -1,0 +1,13 @@
+---
+import FeedNote from '../FeedNote.astro';
+import type { ContentResult } from '../../lib/server/churchtools';
+interface Props {
+  result: Pick<ContentResult<unknown>, 'status' | 'updatedAt'>;
+  subject: string;
+}
+const { result, subject } = Astro.props;
+---
+{result.status !== 'ready' && <div class="in-notice">
+  <FeedNote result={result} subject={subject} />
+  <slot />
+</div>}

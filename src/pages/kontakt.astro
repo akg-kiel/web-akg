@@ -1,0 +1,26 @@
+---
+import Interior from '../ui/interior/Interior.astro';
+import Go from '../ui/interior/Go.astro';
+import CurrentSiteLink from '../ui/interior/CurrentSiteLink.astro';
+import { places } from '../lib/site';
+
+export const prerender = false;
+Astro.response.headers.set('Cache-Control', 'no-store');
+---
+<Interior title="Kontakt" description="So erreichst du das Gemeindebüro der Apostel-Kirchengemeinde Kiel mit Fragen zu deinem Besuch oder einem Anliegen.">
+  <header class="wrap in-head">
+    <h1>Kontakt</h1>
+    <p class="in-lead">Du hast eine Frage und weißt nicht, an wen du dich wenden kannst? Das Gemeindebüro ist deine erste Anlaufstelle.</p>
+  </header>
+  <div class="wrap in-columns">
+    <section id="gemeindebuero" class="in-panel in-prose">
+      <h2>Das Gemeindebüro erreichen</h2>
+      <p>Für einen Anruf, eine E-Mail oder einen Besuch im Büro brauchst du die aktuellen Kontaktdaten und Sprechzeiten. Diese Angaben stehen noch nicht in der Vorschau.</p>
+      <CurrentSiteLink to="office">Kontaktdaten und Sprechzeiten</CurrentSiteLink>
+    </section>
+    <section class="in-side-nav">
+      <h2>Du suchst einen Ort?</h2>
+      <ul role="list">{places.map(place => <li><Go href={place.href}>{place.label}</Go></li>)}</ul>
+    </section>
+  </div>
+</Interior>

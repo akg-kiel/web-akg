@@ -1,0 +1,22 @@
+---
+import Site from '../../layouts/Site.astro';
+import '../../styles/interior.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  parent?: { href: string; label: string };
+}
+const { parent, ...meta } = Astro.props;
+---
+<Site {...meta}>
+  <div class="interior">
+    <nav class="wrap in-trail" aria-label="Brotkrumennavigation">
+      <a href="/">Startseite</a>
+      {parent && <><span aria-hidden="true">/</span><a href={parent.href}>{parent.label}</a></>}
+      <span aria-hidden="true">/</span><span aria-current="page">{meta.title}</span>
+    </nav>
+    <slot />
+  </div>
+</Site>
