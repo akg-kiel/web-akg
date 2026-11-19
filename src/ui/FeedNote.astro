@@ -1,0 +1,10 @@
+---
+import { formatUpdated } from '../lib/site';
+import type { ContentResult } from '../lib/server/churchtools';
+interface Props { result: Pick<ContentResult<unknown>, 'status' | 'updatedAt'>; subject: string }
+const { result: { status, updatedAt }, subject } = Astro.props;
+const copy = { empty: `Zurzeit sind keine ${subject} veröffentlicht.`, disabled: `In dieser Vorschau sind noch keine ${subject} freigegeben.`, unavailable: `${subject} lassen sich gerade nicht laden. Bitte versuche es später erneut.`, stale: 'Die Quelle ist gerade nicht erreichbar. Du siehst den zuletzt bestätigten Stand.' };
+---
+{status !== 'ready' && <div class="feed-note" data-source-state={status}><p>{copy[status]}</p>
+  {status === 'stale' && updatedAt && <p>Stand: <time datetime={updatedAt}>{formatUpdated(updatedAt)}</time></p>}
+</div>}

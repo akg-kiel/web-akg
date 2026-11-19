@@ -1,6 +1,6 @@
-# Redesign: Logo, Bilder und belastbare Textentwürfe
+# Quellenrecherche: Logo, Bilder und Gemeindetexte
 
-Recherche: **2026-10-26** · Projekt **Website AKG** · Nur Recherche, keine Veröffentlichungsfreigabe.
+Recherche: **2026-10-26** · Projekt **Website AKG**. Die Befunde, Ticketstände und Empfehlungen dokumentieren die damalige Inhaltsrecherche, keine Veröffentlichungsfreigabe. Die später getroffenen Entscheidungen zu den tatsächlich verwendeten Medien stehen im [Mediennachweis](brand-spec.md).
 
 ## Ergebnis und Freigabegrenze
 
@@ -159,7 +159,7 @@ Basis: [inventarisierte FAQ](https://akg-kiel.de/faq-items/was-ist-die-taufe). N
 - **Personen/Porträts:** weiterhin vollständig aus; auch historische Mitarbeiterangaben nicht als aktuelles Gemeindebild wiederverwenden.
 - **Konzerte/Dreimaster:** externe Produkte bleiben extern. Keine Öffnungszeiten, Kalender oder Kontaktkopien; Ziele gemäß AKG-69 prüfen.
 
-## 6. Kleinste brauchbare Empfehlung
+## 6. Empfehlung zum Recherchezeitpunkt (Oktober 2026)
 
 **Jetzt:** Original-Logo im Entwurf beibehalten; Einladung, Gemeinde-/Leitbildtext, zwei historische Daten und einen kurzen Architekturtext zur redaktionellen Abstimmung verwenden. Mit der Commons-Außenaufnahme A lässt sich ein konkretes lokales Bildkonzept entwickeln, ohne generische Stockkirche oder erfundene Gemeindefotos. Lizenzbedingungen auch in einer geteilten Vorschau beachten; öffentliche Medienabnahme nicht vorwegnehmen.
 

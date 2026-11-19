@@ -72,6 +72,8 @@ VP-Binary. `vp install` und `vp env` werden nicht verwendet; zusätzlicher Task-
 wird nicht eingeschaltet. Es gibt keinen zweiten JavaScript-Build-Graphen in Nix.
 Das Öffnen einer Shell löst weiterhin keine Installation aus.
 
+Der lokale Worker liefert registrierte, freigegebene Fotos, Logo und Schrift direkt aus dem Assets-Binding: Der Astro-Dev-Router kann sonst für vorhandene Bilder eine HTML-404 liefern. Im gebauten Worker bleibt die normale Astro-/Cloudflare-Assetbehandlung maßgeblich.
+
 Der Server bindet an `127.0.0.1` und erhält einen freien Port ab 4321; die URL steht
 im Serverlog. Ctrl+C beendet den Vordergrund-Stack, `devenv processes down` einen
 mit `devenv up -d` gestarteten Hintergrund-Stack. Der Entwicklungsprozess ist bei
@@ -146,7 +148,9 @@ gezielt `pnpm exec vp fmt <Dateien>` verwenden.
 
 Der Build-Check prüft unter anderem den Worker-Namen `web-akg`, geschlossene
 Freigaben, fehlende Produktionsrouten/Mail-Bindings, Ausschluss von `server/`
-aus Assets und fehlende Token-Bindings im öffentlichen Build. Das ist kein
+aus Assets und fehlende Token-Bindings im öffentlichen Build. Er verwirft auch
+die frühere Entwurfsgalerie, ihre Exporte und die zugehörigen Stockfoto-Dateien.
+Die frühere Galerie-URL muss im HTTP-Test mit 404 antworten. Das ist kein
 Nachweis einer vollständigen Geheimnisprüfung oder fachlichen Freigabe.
 
 Die GitHub-Action läuft nur für Pull Requests nach `main`, wie in der Referenz:
@@ -170,7 +174,7 @@ Worker-/Asset-Grenzen; Tests, Format/Lint und Browser-Prüfung liegen im GitHub-
 geschlossene Datenfreigaben und alle zur Ausgabe vorgesehenen Fotovarianten aus
 `src/lib/photos.mjs`. Alle Bilder müssen 200/image-webp und den Indexierungsschutz
 liefern. Fotos haben Nachweise, aber keine Vergrößerung und keine eigenen Tabstopps.
-Das Browser-Gate prüft zwölf Seiten auf fünf Breiten, axe bei 390 und 1440 px,
+Das Browser-Gate prüft die öffentlichen Seiten auf fünf Breiten, axe bei 390 und 1440 px,
 Tastatur, funktionierendes Menü ohne JavaScript, Bildausfall und 200-%-Textvergrößerung.
 Danach wird dieser Server beendet. `scripts/check-offer-preview.mjs` kopiert nur
 explizit benannte Quell-/Konfigurationsdateien in ein wegwerfbares Tempverzeichnis;
@@ -280,7 +284,7 @@ Browser, Fonts und Bibliotheken stehen bereits in der Nix-Umgebung zur Verfügun
 Port 8787 muss frei sein. Der Test beendet seinen Server auch bei Fehlern. `playwright-core` und `axe-core` sind ausschließlich
 Entwicklungsabhängigkeiten; weder Browser noch Auditbibliothek gelangen in die Website.
 
-`pnpm exec vp run test:browser <URL>` prüft zwölf Seiten bei 320/390/768/1024/1440 px, axe WCAG
+`pnpm exec vp run test:browser <URL>` prüft die öffentlichen Seiten bei 320/390/768/1024/1440 px, axe WCAG
 2.2 A/AA auf Mobil/Desktop, Skip-Link, Menütastatur, Escape, Fokus bei Breakpointwechsel,
 200-%-Textgröße, JavaScript-freie Navigation und das Ausbleiben externer Requests.
 Mit lokalen Live-Daten zusätzlich `EXPECT_LIVE_CHURCHTOOLS=1 pnpm exec vp run test:preview`:
@@ -367,8 +371,8 @@ API-Token für die Einrichtung gehört nicht in Build-Variablen oder Laufzeit-Se
 
 Der erste MVP-Preview-Push erfolgte am 26.10.2026 auf `t3/build-web-akg-mvp`.
 PR #4 (`t3/akg-127-taste-redesign`) ist inzwischen gemergt; `main` enthält die
-Astro-Anwendung, nicht nur Dokumentation. Der anschließende Begegnungen-Stand
-(AKG-129) wurde vom Nutzer ebenfalls ausdrücklich zum Merge freigegeben.
+Astro-Anwendung, nicht nur Dokumentation. Der anschließende Merge-Auftrag
+für AKG-129 war ebenfalls auf den damaligen PR beschränkt.
 Vollständig übernommene Remote-Branches werden nach erfolgreicher Prüfung bereinigt;
 aktive fremde Worktrees und unveröffentlichte Arbeit bleiben erhalten. Build-Ergebnis,
 konkrete Version und HTTP-Abnahme stehen im jeweiligen Linear-Issue. Eine

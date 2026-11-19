@@ -1,59 +1,59 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PageIntro from '../components/PageIntro.astro';
-import GroupList from '../components/GroupList.astro';
-import Photo from '../components/Photo.astro';
-import SourceState from '../components/SourceState.astro';
+import Interior from '../ui/interior/Interior.astro';
+import OfferDetails from '../ui/interior/OfferDetails.astro';
+import ContentState from '../ui/interior/ContentState.astro';
+import CurrentSiteLink from '../ui/interior/CurrentSiteLink.astro';
+import Picture from '../ui/Picture.astro';
+import Go from '../ui/interior/Go.astro';
 import { loadGroups } from '../lib/content';
 import { cafeSite } from '../lib/site';
+import type { GroupOffer } from '../lib/server/churchtools';
+
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'no-store');
 const groups = await loadGroups();
 const query = (Astro.url.searchParams.get('q') ?? '').trim().slice(0, 100);
-const selectedId = Astro.url.searchParams.get('angebot') ?? '';
-const filtered = groups.items.filter((item) =>
-  [item.name, item.type, item.description ?? ''].join(' ').toLocaleLowerCase('de').includes(query.toLocaleLowerCase('de'))
+const term = query.toLocaleLowerCase('de');
+const selected = Astro.url.searchParams.get('angebot');
+const matches = groups.items.filter(offer =>
+  [offer.name, offer.description, offer.type].some(field => field?.toLocaleLowerCase('de').includes(term))
 );
-const types = [...new Set(filtered.map((item) => item.type))].sort((a, b) => a.localeCompare(b, 'de'));
+const byType = new Map<string, GroupOffer[]>();
+for (const offer of matches) {
+  const category = byType.get(offer.type);
+  if (category) category.push(offer);
+  else byType.set(offer.type, [offer]);
+}
+const categories = Array.from(byType).sort(([a], [b]) => a.localeCompare(b, 'de'));
 ---
-<Layout title="Angebote & Gruppen" description="Entdecke Angebote und Gruppen der Apostel-Kirchengemeinde Kiel.">
-  <PageIntro title="Angebote & Gruppen" description="Gemeinde lebt auch zwischen den Sonntagen. Wo möchtest du mitmachen?" />
-  <section class="container section-end" aria-label="Angebote und Gruppen">
-    <SourceState status={groups.status} kind="groups" updatedAt={groups.updatedAt} />
-    {groups.items.length > 0 && (
-      <>
-        <form action="/angebote" method="get" role="search" class="offer-search">
-          <label for="angebot-suche">Angebote suchen</label>
-          <div class="offer-search-fields">
-            <input id="angebot-suche" name="q" type="search" value={query} maxlength="100" />
-            <button class="button" type="submit">Suchen</button>
-          </div>
+<Interior title="Angebote & Gruppen" description="Suche nach Angeboten und Gruppen der Apostel-Kirchengemeinde Kiel und finde heraus, wie du mitmachen kannst.">
+  <header class="in-tint"><div class="wrap in-head">
+    <h1>Angebote &amp; Gruppen</h1>
+    <p class="in-lead">Gemeinsam etwas unternehmen, beten oder über den Glauben sprechen: Was interessiert dich?</p>
+  </div></header>
+  <div class="wrap in-section in-columns">
+    <section aria-label="Gruppen finden" class="in-prose">
+      <ContentState result={groups} subject="Gruppenangebote">
+        <CurrentSiteLink to="groups">Angebote und Gruppen</CurrentSiteLink>
+      </ContentState>
+      {groups.items.length > 0 && <>
+        <form role="search" action="/angebote" method="get" class="in-search">
+          <label for="gruppensuche">Gruppe oder Thema suchen</label>
+          <div><input type="search" name="q" id="gruppensuche" maxlength="100" value={query} /><button type="submit" class="action">Suchen</button></div>
         </form>
-        <p class="offer-results">{filtered.length} {filtered.length === 1 ? 'Angebot' : 'Angebote'}{query && <> für „{query}“ · <a href="/angebote">Alle anzeigen</a></>}</p>
-        {filtered.length === 0 ? <p>Kein passendes Angebot gefunden. Versuche einen anderen Suchbegriff.</p> : (
-          <>
-            {types.length > 1 && <nav aria-label="Angebotsarten" class="offer-types">
-              {types.map((type, index) => <a class="text-link" href={`#typ-${index}`}>{type}</a>)}
-            </nav>}
-            {types.map((type, index) => (
-              <section class="offer-category" aria-labelledby={`typ-${index}`}>
-                <h2 id={`typ-${index}`}>{type}</h2>
-                <GroupList items={filtered.filter((item) => item.type === type)} selectedId={selectedId} />
-              </section>
-            ))}
-          </>
-        )}
-      </>
-    )}
-  </section>
-  <aside class="container section-end" aria-labelledby="dreimaster-titel">
-    <div class="journal-feature">
-      <div class="journal-reading">
-        <h2 id="dreimaster-titel">{cafeSite.label}</h2>
-        <p>Du möchtest im Café vorbeischauen? Informationen für deinen Besuch findest du auf der Dreimaster-Website.</p>
-        <a class="text-link" href={cafeSite.href}>Zur Dreimaster-Website <span aria-hidden="true">↗</span></a>
-      </div>
-      <Photo view="cafe" />
-    </div>
-  </aside>
-</Layout>
+        <p class="in-meta">{matches.length} {matches.length === 1 ? 'Angebot' : 'Angebote'}{query && <> für „{query}“ · <a href="/angebote">Alle anzeigen</a></>}</p>
+        {categories.length === 0 && <p>Kein passendes Angebot gefunden. Versuche es mit einem anderen Suchbegriff.</p>}
+        {categories.map(([type, offers]) => <section class="in-offer-set">
+          <h2>{type}</h2>
+          {offers.map(offer => <OfferDetails offer={offer} selected={selected === offer.id} />)}
+        </section>)}
+      </>}
+    </section>
+    <aside class="in-side-feature">
+      <Picture view="cafe" />
+      <h2>{cafeSite.label}</h2>
+      <p>Lieber bei einer Tasse Kaffee ins Gespräch kommen? Plane deinen Besuch auf der eigenen Website des Cafés.</p>
+      <Go href={cafeSite.href} external>Zum Café Dreimaster</Go>
+    </aside>
+  </div>
+</Interior>

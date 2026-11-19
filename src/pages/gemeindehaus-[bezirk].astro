@@ -1,0 +1,25 @@
+---
+import Interior from '../ui/interior/Interior.astro';
+import Go from '../ui/interior/Go.astro';
+import { places } from '../lib/site';
+
+export const prerender = true;
+export function getStaticPaths() {
+  const prefix = '/gemeindehaus-';
+  return places.filter(place => place.href.startsWith(prefix)).map(place => ({
+    params: { bezirk: place.href.slice(prefix.length) }, props: { name: place.label }
+  }));
+}
+interface Props { name: string }
+const { name } = Astro.props;
+---
+<Interior title={name} description={`Dein Weg zum ${name}: Wohin du dich vor deinem Besuch mit Fragen zu Anschrift und Zugang wenden kannst.`} parent={{ href: '/gemeinde#orte', label: 'Unsere Orte' }}>
+  <div class="wrap in-detail">
+    <h1>{name}</h1>
+    <div class="in-prose">
+      <p class="in-lead">Du hast eine Einladung ins {name}? Schau für den Treffpunkt zuerst in deiner Einladung nach.</p>
+      <p>Wenn dir die Anschrift fehlt oder du vorab etwas über den Zugang wissen möchtest, frag bitte beim Gemeindebüro nach.</p>
+      <div class="in-actions"><Go href="/kontakt" primary>Zum Gemeindebüro</Go><Go href="/gemeinde#orte">Alle Orte der Gemeinde</Go></div>
+    </div>
+  </div>
+</Interior>

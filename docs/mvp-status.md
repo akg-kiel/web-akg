@@ -1,10 +1,6 @@
 # MVP-Arbeitsstand und Freigabegrenzen
 
-Arbeitsbranch der Gestaltung: `t3/akg-127-taste-redesign` (auf dem MVP-Branch aufgebaut). Umsetzung im Auftrag vom 2026-10-26. Keine Produktion, kein Merge, keine DNS-Änderung. Technischer Fortschritt ist keine redaktionelle oder rechtliche Freigabe.
-
-## Aktuelle Taste-Runde · 2026-10-28
-
-Der Architekturentwurf wurde auf Nutzerwunsch als `95c79dd` separat committet; sein [Taste-Review](redesign-taste-review.md) ist historisch. Die anschließende Nutzerkorrektur verkleinert den Hero und zeigt Menschen/Gemeindeleben statt einer Gebäude-Galerie. Vier Bestandsfotos aus akg-kiel.de sind ausschließlich im lokalen Entwurf ausgewählt; öffentliche Nutzung ist bis zur Rechte-/Personenfreigabe gesperrt. Aktuelle Prüfdetails: [Menschen und kompakter Hero](redesign-people-review.md). Die Menschenfassung ist inzwischen als `e02f40b` committet. Noch uncommittet: Rückkehr zum vom Nutzer bevorzugten hellblauen MVP-Hero mit Gemeindefoto und Entfernung der Gebäudeliste aus „Orte der Begegnung“. Kein neuer Commit/Push/Deploy. Der gewünschte Angebots-Sneak-Peek wartet auf eine konkrete fachliche Auswahl/Freigabe; AKG-74 wurde erneut geprüft und steht weiterhin im Backlog.
+Historischer Stand des MVP vom Oktober 2026, ergänzt um die Medienentscheidung vom 13.11.2026. Die folgenden Arbeitspakete und Prüfergebnisse dokumentieren die damalige Umsetzung, nicht den aktuellen Ticketstatus oder eine Launch-Freigabe. Für den Betrieb gilt die [Entwicklungsdokumentation](development.md), für Bildquellen und Nutzungsgrenzen der [Mediennachweis](brand-spec.md).
 
 ## Gruppen und Live-Anbindung · AKG-63 · 2026-10-28
 
@@ -45,18 +41,9 @@ Version-Previews sind keine Secret-/Ressourcenisolation.
 Nach Worker-Umbenennung: `pnpm quality` mit 17 Tests und Deployment-Dry-run erfolgreich.
 Befehle, Toolversionen und Grenzen: [development.md](development.md#cloudflare-workers-builds).
 
-## Gestalterische Iteration · AKG-127
+## Redaktioneller Stand · AKG-127
 
-Der ursprüngliche Entwurf wurde vom Nutzer abgelehnt und grundlegend überarbeitet. Struktur und Datenverträge bleiben bestehen.
-
-- Originales blaues Apostel-Logo unverändert im Header/Favicon; Byte-Identität durch SHA-256-Test geschützt. Keine erfundene Ersatzmarke.
-- Visuell gesichtete Mobbin-Referenzen, lokale Figtree, echte CC-BY-SA-Fotos der Petruskirche; Quellen und Rechte in [brand-spec.md](brand-spec.md).
-- Startseite neu komponiert, mobile Länge in den geprüften Runden von 4570 auf 3312 px reduziert; Statusinformationen nicht länger Hauptmotiv. Bilder und Schrift werden ausschließlich lokal geladen.
-- Gemeinde/Leitbild, ausgewählte Geschichte und Petruskirche mit konkreten quellenbelegten **Textentwürfen**, nicht als fachlich freigegebene Veröffentlichung. Kontakt, Angebote, Termine, Ortszugang und Rechtliches bleiben ehrlich begrenzt. Keine WordPress-News-/Gruppenkopie.
-- Fünf Subagent-Beiträge: Recherche, Art Direction, Unterseitenumsetzung, unabhängiges v1-Review und v2-Nachprüfung. [v1](redesign-review-v1.md): sieben konkrete Befunde; [v2](redesign-review-v2.md): keine bestätigten P0/P1, ein H2-Override als P2. Auch dieser Override wurde entfernt.
-- Die Nachprüfung des verzögert geladenen Gemeindefotos erfolgt nach tatsächlichem Scrollen und Bilddekodierung; es wird vollständig gerendert. Die frühere leere Screenshotfläche war ein Aufnahmeproblem.
-- 200-%-Textprüfung fand intrinsische Grid-/Flex-Mindestbreiten; an den gemeinsamen Layoutregeln korrigiert. Regression jetzt auf **allen zwölf Routen** statt nur einer Seite.
-- Baseline, v1, v2 und finale Mobil-/Desktopaufnahmen sowie DOM-Messungen lokal unter `/tmp/akg-{before,v1,v2,final}-*`. Nutzerabnahme bleibt unabhängig vom positiven Review offen.
+Die [Inhaltsrecherche](redesign-content-research.md) belegt Quellen für Leitbild, Gemeindegeschichte und Baugeschichte der Petruskirche. Die daraus erarbeiteten Texte waren keine fachliche Freigabe. WordPress-News und Gruppenlisten wurden nicht übernommen.
 
 ## Vor Veröffentlichung erforderlich
 
@@ -64,7 +51,7 @@ Der ursprüngliche Entwurf wurde vom Nutzer abgelehnt und grundlegend überarbei
 - **AKG-59/54:** Eingeschränkter ChurchTools-Token inzwischen lokal vorhanden; keine Remote-Secrets eingerichtet. Lokalen Live-Nachweis siehe Gruppenintegration. Ohne Token werden keine vermeintlich leeren Live-Listen behauptet.
 - **AKG-75:** Termin „in Planung“ in ChurchTools korrigieren oder intern setzen. Erst nach Bestätigung `SERVICES_APPROVED` aktivieren. Kalender 1 bleibt unabhängig davon deaktiviert.
 - **AKG-74:** Fachliche Angebotsfreigabe vor öffentlicher Aktivierung. Die ausdrücklich beauftragte private lokale Sichtprüfung ist möglich; `GROUPS_APPROVED=false` bleibt in der eingecheckten Konfiguration.
-- **AKG-78:** Personen-/Einwilligungsfreigabe. Bis dahin keine ChurchTools-Personenprofile, Rollen oder Personenfotos laden/veröffentlichen. Die auf Nutzerwunsch ausgewählten alten Gemeindefotos bleiben ein lokaler Gestaltungsentwurf, keine Ausnahme von der öffentlichen Einwilligungsfreigabe.
+- **AKG-78:** Personen-/Einwilligungsfreigabe. Bis dahin keine ChurchTools-Personenprofile, Rollen oder Personenfotos laden/veröffentlichen. Die gesonderte Entscheidung über vier Archivfotos (siehe AKG-77/67) ist keine Freigabe für Personenprofile.
 - **AKG-79/64:** Bestätigte Ortsprofile, Anfahrt und gegebenenfalls Barrierefreiheitsangaben. Keine Ableitung aus historischen Texten.
 - **AKG-61/72:** Kontakt, Zahlungsdaten, Impressum und Datenschutz durch die zuständigen Stellen bestätigen. Die Vorschauseiten sind ausdrücklich keine gültigen Rechtstexte.
 - **AKG-77/67:** Medienrechte und Alternativtexte. Original-Logo unverändert; Commons-Fotos lizenzdokumentiert. Der Nutzer hat die vier ausgewählten Gemeindefotos am 13.11.2026 ausdrücklich auch für öffentliche Vorschau und Produktiv erlaubt, ohne zusätzlichen Zugangsschutz. Diese Auslieferungsentscheidung, Credits, offene weitergehende Rechtsdokumentation und Quellen stehen in [brand-spec.md](brand-spec.md). Alle Seiten und Bilddateien bleiben per noindex von unterstützenden Suchmaschinen ausgeschlossen; kein Produktionsdeploy beauftragt.
@@ -82,7 +69,7 @@ Der ursprüngliche Entwurf wurde vom Nutzer abgelehnt und grundlegend überarbei
 - `pnpm test:preview`: erfolgreich; selbst gestartete lokale Vorschau, Header-/Slash-/Assetgrenzen, zwölf Routen, interne Links, 404, 503/Retry-After, robots und keine freigegebenen Server-Dateien.
 - Chromium: zwölf Seiten bei 320/390/768/1024/1440 px ohne horizontalen Overflow. axe 4.14.0 auf 390/1440 px: keine automatisierten A/AA-Fundstellen. Skip-Link, Menü, Escape, Fokusrückgabe und Breakpointwechsel, 200-%-Textgröße sowie Menü ohne JavaScript bestanden.
 - Keine Browser-Ausnahmen und keine Drittanbieterrequests. Bilder auf allen geprüften Routen dekodiert, unverzerrte Darstellung und Original-Logo geprüft; Hauptaktion im ersten mobilen Viewport sichtbar. 200-%-Textprüfung auf allen zwölf Routen erfolgreich.
-- Zusätzlicher DOM-Detektorlauf auf Startseite/Gottesdienste/Gemeinde/Kontakt bei 390/768/1440 px: keine unbeabsichtigte Überlappung, kein Clipping, keine unsichtbaren Inhalte, defekten/verzerrten Bilder oder rechnerischen Kontrastbefunde. Die drei bildfüllenden Hero-Randkontakte sind beabsichtigt.
+- Zusätzlicher DOM-Detektorlauf auf Startseite/Gottesdienste/Gemeinde/Kontakt bei 390/768/1440 px: keine unbeabsichtigte Überlappung, kein Clipping, keine unsichtbaren Inhalte, defekten/verzerrten Bilder oder rechnerischen Kontrastbefunde. Die Bewertung bezog sich auf den damaligen Seitenstand.
 - `wrangler deploy --dry-run` mit erzeugter Konfiguration: erfolgreich, **kein Upload/Deployment**.
 - Zusätzliches unabhängiges Code-/Sicherheitsreview: keine weiteren umsetzbaren Korrektheits-/Sicherheitsbefunde nach den Korrekturen. Die zwei zuvor gefundenen Cache-Fehler (teilweiser Freigabeentzug und mehrseitige Cache-Größe) sind durch Regressionstests abgedeckt.
 - GitHub-Workflow ergänzt Quality und Browser-/HTTP-Gates; noch kein entfernter GitHub-CI-Lauf ausgelöst. Agent-eigene Prüfserver sind beendet; der bereits vorhandene Nutzer-Devserver wurde nicht beendet.

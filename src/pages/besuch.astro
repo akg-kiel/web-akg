@@ -1,0 +1,53 @@
+---
+import Interior from '../ui/interior/Interior.astro';
+import Picture from '../ui/Picture.astro';
+import Go from '../ui/interior/Go.astro';
+import CurrentSiteLink from '../ui/interior/CurrentSiteLink.astro';
+import { externalLinks } from '../lib/site';
+
+export const prerender = false;
+Astro.response.headers.set('Cache-Control', 'no-store');
+const youtube = externalLinks.find(({ label }) => label === 'YouTube-Kanal');
+---
+<Interior title="Dein erster Besuch" description="Zum ersten Mal bei der Apostel-Kirchengemeinde Kiel? Finde einen Gottesdienst, kläre Fragen zur Anfahrt und lerne Menschen aus der Gemeinde kennen.">
+  <header class="in-visit">
+    <div class="wrap in-split">
+      <div class="in-copy">
+        <h1>Dein erster Besuch</h1>
+        <p class="in-lead">Du musst hier niemanden kennen. Ob du schon lange glaubst oder einfach neugierig bist: Wir laden dich ein, mit uns Gottesdienst zu feiern.</p>
+        <Go href="/gottesdienste" primary>Gottesdienst finden</Go>
+      </div>
+      <Picture view="conversation" priority />
+    </div>
+  </header>
+  <div class="wrap in-section in-journey">
+    <section>
+      <h2>Vor dem Losgehen</h2>
+      <div>
+        <p>Wann beginnt der Gottesdienst? Und wo findet er statt? Schau vor deinem Besuch nach dem konkreten Termin. Wenn du zur Anfahrt oder zum Zugang eine Frage hast, wende dich an unser Gemeindebüro.</p>
+        <div class="in-actions"><CurrentSiteLink to="worship">Gottesdienstinfos</CurrentSiteLink><Go href="/gemeinde#orte">Kirche und Gemeindehäuser</Go><Go href="/kontakt">Zum Gemeindebüro</Go></div>
+      </div>
+    </section>
+    <section>
+      <h2>Erst mal zuhören</h2>
+      <div>
+        <p>Vielleicht möchtest du dir in Ruhe ein Bild machen. Auf unserem YouTube-Kanal kannst du Gottesdienste und Predigten von zu Hause aus anschauen.</p>
+        {youtube && <Go href={youtube.href} external>Auf YouTube reinschauen</Go>}
+      </div>
+    </section>
+    <section>
+      <h2>Vor Ort ankommen</h2>
+      <div>
+        <p>Du kannst erst einmal einfach mitfeiern. Wenn du jemanden kennenlernen möchtest, sag nach dem Gottesdienst ruhig, dass du zum ersten Mal da bist. Auch wer noch Fragen zum Glauben hat, ist willkommen.</p>
+        <CurrentSiteLink to="newcomers">„Neu hier“ lesen</CurrentSiteLink>
+      </div>
+    </section>
+    <section>
+      <h2>Leute kennenlernen</h2>
+      <div>
+        <p>In einer kleineren Runde fällt es oft leichter, Namen zu behalten oder eine Frage zu stellen. Entdecke die Gruppen und schau, welches Thema dich interessiert.</p>
+        <div class="in-actions"><Go href="/angebote">Gruppen entdecken</Go><Go href="/gemeinde">Unser Glaube und unsere Gemeinde</Go></div>
+      </div>
+    </section>
+  </div>
+</Interior>

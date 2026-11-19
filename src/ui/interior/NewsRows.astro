@@ -1,0 +1,18 @@
+---
+import type { NewsItem } from '../../lib/server/churchtools';
+import { detailPath, formatDate, formatNewsExcerpt } from '../../lib/site';
+import Arrow from '../Arrow.astro';
+interface Props { items: NewsItem[] }
+const { items } = Astro.props;
+---
+<ul class="in-directory" role="list">
+  {items.map(item => <li>
+    <article class="in-news-row">
+      <time datetime={item.publishedAt}>{formatDate(item.publishedAt)}</time>
+      <div>
+        <h3><a href={detailPath('aktuelles', item.id)}>{item.title} <Arrow /></a></h3>
+        {item.body && <p>{formatNewsExcerpt(item.body)}</p>}
+      </div>
+    </article>
+  </li>)}
+</ul>

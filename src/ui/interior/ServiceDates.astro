@@ -1,0 +1,14 @@
+---
+import type { EventItem } from '../../lib/server/churchtools';
+import { detailPath, formatServiceTime } from '../../lib/site';
+import Arrow from '../Arrow.astro';
+interface Props { items: EventItem[] }
+const { items } = Astro.props;
+---
+<ul class="in-directory" role="list">
+  {items.map(item => <li>
+    <a class="in-entry-link" href={detailPath('gottesdienste', item.id)}>
+      <div><time datetime={item.start}>{formatServiceTime(item)}</time><h3>{item.title}</h3></div><Arrow />
+    </a>
+  </li>)}
+</ul>

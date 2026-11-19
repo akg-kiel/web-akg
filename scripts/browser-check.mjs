@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { createRequire } from 'node:module';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { chromium } from 'playwright-core';
+import sharp from 'sharp';
 import { photos } from '../src/lib/photos.mjs';
 
 const require = createRequire(import.meta.url);
@@ -16,7 +17,16 @@ const evidence = fixtures ? '/tmp/akg-130-fixture-qa' : '/tmp/akg-130-qa';
 await mkdir(evidence, { recursive: true });
 const primaryPaths = ['/gottesdienste', '/aktuelles', '/angebote', '/gemeinde', '/kontakt'];
 const placePaths = ['/petruskirche', '/gemeindehaus-mitte', '/gemeindehaus-wik'];
-const routes = ['/', ...primaryPaths, '/spenden', '/impressum', '/datenschutz', ...placePaths];
+const routes = [
+  '/',
+  '/besuch',
+  ...primaryPaths,
+  '/spenden',
+  '/impressum',
+  '/datenschutz',
+  ...placePaths,
+  ...(fixtures ? ['/gottesdienste/synthetic-service', '/aktuelles/synthetic-news-b'] : [])
+];
 const cafe = 'https://cafe-dreimaster.de/';
 const concerts = 'https://petruskirche.events/';
 const churchTools = 'https://akg-kiel.church.tools/?q=login#/';
@@ -29,11 +39,14 @@ const assetFailures = [];
 const thirdPartyRequests = new Set();
 const screenshots = [];
 const report = { routes: routes.length, widths, violations, errors, assetFailures, screenshots };
-const hero = (page) => page.locator('main .edition-hero');
+const hero = (page) => page.locator('main section.welcome');
 const heroActions = (page) => hero(page).getByRole('link').and(page.locator('a:not(figcaption a)'));
 const homeOffers = (page) => page.locator('main a[href^="/angebote?angebot="]');
 const offerDetails = (page) => page.locator('main details[id^="angebot-"]');
-const goto = (page, path) => page.goto(new URL(path, origin).href);
+async function goto(page, path) {
+  const response = await page.goto(new URL(path, origin).href);
+  assert.equal(response?.status(), 200, `${path}: expected a rendered page`);
+}
 
 async function observedContext(options) {
   const context = await browser.newContext(options);
@@ -75,8 +88,41 @@ async function readyForInspection(page) {
 }
 
 async function capture(page, name, { fullPage = true } = {}) {
-  await page.screenshot({ path: `${evidence}/${name}.png`, fullPage });
-  screenshots.push(`${name}.png`);
+  // decode() can finish before Chromium paints an async image. Do not archive a
+  // flat placeholder as photographic evidence. Ignore deliberate failed-image cases.
+  const regions = fullPage
+    ? await page.locator('main figure img').evaluateAll((images) =>
+        images
+          .filter((im) => im.naturalWidth > 0)
+          .map((im) => {
+            const r = im.getBoundingClientRect();
+            return {
+              left: Math.floor(scrollX + r.left + r.width / 4),
+              // Credits may overlay the lower half. Sample photo, not caption text.
+              top: Math.floor(scrollY + r.top + r.height / 8),
+              width: Math.max(1, Math.floor(r.width / 2)),
+              height: Math.max(1, Math.floor(r.height / 4))
+            };
+          })
+      )
+    : [];
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const png = await page.screenshot({ path: `${evidence}/${name}.png`, fullPage });
+    const painted = await Promise.all(
+      regions.map(async (region) => {
+        const pixels = await sharp(png).extract(region).resize(8, 8).greyscale().raw().toBuffer();
+        return Math.max(...pixels) - Math.min(...pixels) > 3;
+      })
+    );
+    if (painted.every(Boolean)) {
+      screenshots.push(`${name}.png`);
+      return;
+    }
+    await page.evaluate(
+      () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))
+    );
+  }
+  assert.fail(`${name}: photograph missing from the painted screenshot`);
 }
 
 async function checkReflow(page, label) {
@@ -116,6 +162,19 @@ async function checkLinks(scope, paths, label) {
     assert.ok(available.includes(path), `${label}: missing accessible link to ${path}`);
 }
 
+async function checkPrimaryNavigation(header, path) {
+  const nav = header.getByRole('navigation', { name: /hauptnavigation/i });
+  await checkLinks(nav, primaryPaths, 'Primary navigation');
+  assert.equal(await nav.getByRole('link').count(), primaryPaths.length);
+  const active = primaryPaths.find((href) => path === href || path.startsWith(href + '/'));
+  const marked = nav.locator('[aria-current]:not([aria-current="false"])');
+  assert.equal(await marked.count(), active ? 1 : 0, `${path}: active primary destination`);
+  if (active) {
+    assert.equal(await marked.getAttribute('href'), active);
+    assert.equal(await marked.getAttribute('aria-current'), active === path ? 'page' : 'location');
+  }
+}
+
 async function checkImages(page, label) {
   assert.equal(
     await page.locator('header a[href="/"] img').getAttribute('src'),
@@ -137,6 +196,11 @@ async function checkImages(page, label) {
       .map((image) => image.currentSrc)
   );
   assert.deepEqual(distorted, [], `${label}: broken or distorted images`);
+  assert.equal(
+    await page.locator('main img:not(figure img)').count(),
+    0,
+    `${label}: photo without a credit figure`
+  );
   for (const figure of await page.locator('main figure:has(img)').all()) {
     const img = figure.locator('img');
     const filename = await img.evaluate((image) => new URL(image.currentSrc).pathname);
@@ -180,23 +244,30 @@ async function checkImages(page, label) {
 }
 
 async function checkHome(page) {
-  assert.ok(
-    await hero(page)
-      .getByRole('heading', { level: 1, name: 'Glaube trifft Alltag.', exact: true })
-      .isVisible(),
-    'Accessible homepage title'
-  );
-  const actions = await heroActions(page).evaluateAll((links) =>
-    links.map((link) => link.getAttribute('href'))
-  );
-  assert.deepEqual(actions.slice(0, 2), ['/gottesdienste', '/gemeinde'], 'First two hero actions');
+  assert.equal(await hero(page).count(), 1, 'One welcome hero');
+  const title = hero(page).getByRole('heading', { level: 1 });
+  assert.ok(await title.isVisible(), 'Visible homepage title');
+  assert.equal((await title.innerText()).replace(/\s+/g, ' ').trim(), 'Moin, wir sind Apostel.');
+  const actions = heroActions(page);
+  for (const [index, path] of ['/besuch', '/gemeinde'].entries()) {
+    const action = actions.nth(index);
+    assert.ok(await action.isVisible(), `Visible hero action to ${path}`);
+    assert.equal(await action.getAttribute('href'), path, `Hero action ${index + 1}`);
+  }
   await checkLinks(
     page.getByRole('main'),
-    [...primaryPaths, concerts, cafe],
-    'Homepage visitor paths'
+    ['/gottesdienste', '/angebote', '/aktuelles'],
+    'Full listings'
   );
   const figure = hero(page).locator('figure:has(img)');
+  assert.equal(
+    await hero(page).locator('img').count(),
+    1,
+    'One service archive photograph, not a gallery'
+  );
   assert.equal(await figure.count(), 1, 'An archival hero figure');
+  await checkLinks(figure.locator('figcaption'), [photos.service.source], 'Service archive hero');
+  assert.equal(await figure.locator('img').getAttribute('alt'), photos.service.alt);
   const caption = figure.locator('figcaption');
   assert.match(
     await caption.innerText(),
@@ -204,8 +275,9 @@ async function checkHome(page) {
     'Distinguish the archive from a current event'
   );
   await checkLinks(
-    page.getByRole('contentinfo'),
+    page.locator('main, footer'),
     [
+      '/besuch',
       ...primaryPaths,
       ...placePaths,
       '/spenden',
@@ -216,50 +288,98 @@ async function checkHome(page) {
       churchTools,
       youtube
     ],
-    'Footer'
+    'Homepage visitor destinations in the content or footer'
+  );
+}
+
+async function checkVisit(page) {
+  const main = page.getByRole('main');
+  const preview =
+    origin.hostname.endsWith('.workers.dev') ||
+    ['localhost', '127.0.0.1', '[::1]'].includes(origin.hostname);
+  const currentSite = preview
+    ? ['https://akg-kiel.de/gottesdienste', 'https://akg-kiel.de/angebote-und-gruppen/neu-hier']
+    : [];
+  await checkLinks(
+    main,
+    ['/gottesdienste', '/kontakt', '/angebote', '/gemeinde', youtube, ...currentSite],
+    'Practical first-visit handoffs'
+  );
+  // No approved building website, contact details, map, office hours or address yet (AKG-79).
+  const destinations = await main
+    .locator('a[href]:not(figcaption a)')
+    .evaluateAll((links) => links.map((link) => link.href));
+  for (const href of destinations)
+    assert.ok(
+      new URL(href).origin === origin.origin ||
+        [concerts, cafe, youtube, churchTools, ...currentSite].includes(href),
+      `Unapproved first-visit destination: ${href}`
+    );
+  assert.equal(await main.locator('form, iframe').count(), 0, 'No contact, booking or map embed');
+  const copy = await main.innerText();
+  assert.doesNotMatch(
+    copy,
+    /\b24\d{3}\s+Kiel\b|\b\d{1,2}(?:[:.]\d{2})?\s*Uhr\b/iu,
+    'Unconfirmed address or scheduled time'
+  );
+  assert.doesNotMatch(
+    copy,
+    /[\w.+-]+@[\w.-]+\.[a-z]{2,}|(?:\+49|\b0431)[\d ()/-]{4,}\d/iu,
+    'Unconfirmed contact details'
+  );
+  assert.doesNotMatch(
+    copy,
+    /\b(?:ist|sind)\s+(?:vollständig\s+)?(?:barrierefrei|stufenlos)\b/iu,
+    'Unconfirmed accessibility claim'
   );
 }
 
 async function checkHomePreviews(page, populated) {
-  for (const [prefix, limit] of [
-    ['/gottesdienste/', 1],
-    ['/angebote?angebot=', 3],
-    ['/aktuelles/', 3]
+  for (const [prefix, fixtureIds] of [
+    ['/gottesdienste/', ['synthetic-service']],
+    ['/angebote?angebot=', ['synthetic-alpha', 'synthetic-beta', 'synthetic-gamma']],
+    ['/aktuelles/', ['synthetic-news-a', 'synthetic-news-b', 'synthetic-news-c']]
   ]) {
     const links = page.locator(`main a[href^="${prefix}"]`);
-    assert.equal(await links.count(), populated ? limit : 0, `${prefix}: home preview count`);
-    // Visitors using heading navigation must hear a section title, then the linked item titles one level below.
-    const outline = await links.evaluateAll((nodes) =>
+    const count = await links.count();
+    assert.ok(count <= fixtureIds.length, `${prefix}: too many homepage previews`);
+    const named = links.and(page.getByRole('link', { name: /\S/ }));
+    assert.equal(await named.count(), count, `${prefix}: every preview needs a named link`);
+    // Keep a navigable section/item heading outline without prescribing cards, lists or wrappers.
+    const invalidHeadings = await named.evaluateAll((nodes) =>
+      nodes
+        .filter((link) => {
+          const headings = 'h1,h2,h3,h4,h5,h6';
+          const title = link.closest(headings) ?? link.querySelector(headings);
+          const sectionTitle = link.closest('section')?.querySelector(headings);
+          return (
+            !sectionTitle?.textContent.trim() ||
+            Number(title?.tagName.slice(1)) !== Number(sectionTitle.tagName.slice(1)) + 1
+          );
+        })
+        .map((link) => link.href)
+    );
+    assert.deepEqual(invalidHeadings, [], `${prefix}: invalid section/item outline`);
+    if (!fixtures) continue;
+    const destinations = await named.evaluateAll((nodes) =>
       nodes.map((link) => {
-        const headings = 'h1,h2,h3,h4,h5,h6';
-        const title = link.closest(headings);
-        const list = link.closest('ul,ol,[role="list"]');
-        const section = list?.closest('section, article, aside, [role="region"]');
-        const parent = [...(section?.querySelectorAll(headings) ?? [])]
-          .filter(
-            (heading) => heading.compareDocumentPosition(list) & Node.DOCUMENT_POSITION_FOLLOWING
-          )
-          .at(-1);
-        return {
-          name: link.innerText.trim(),
-          level: Number(title?.tagName.slice(1)),
-          parent: Number(parent?.tagName.slice(1)),
-          section: parent?.innerText.trim()
-        };
+        const url = new URL(link.href);
+        return url.searchParams.get('angebot') ?? url.pathname.split('/').at(-1);
       })
     );
-    for (const item of outline)
-      assert.ok(
-        item.name && item.section && item.parent >= 2 && item.level === item.parent + 1,
-        `${prefix}: invalid section/item outline ${JSON.stringify(item)}`
-      );
+    assert.deepEqual(destinations, populated ? fixtureIds : [], `${prefix}: homepage destinations`);
   }
-  if (populated)
+  if (!fixtures) return;
+  if (populated) {
+    assert.ok(
+      await page.locator('main time[datetime="2099-01-25T09:00:00Z"]').isVisible(),
+      'Date of the next service'
+    );
     assert.ok(
       await page.getByText('<script>not executable</script>', { exact: true }).isVisible(),
-      'Render source markup as text'
+      'Render the news excerpt as text'
     );
-  else
+  } else
     assert.doesNotMatch(
       await page.getByRole('main').innerText(),
       /synthetic/i,
@@ -278,18 +398,28 @@ async function checkStaticPhotos(page) {
   }
 }
 
-async function checkFocus(link) {
-  assert.ok(
-    await link.evaluate((element) => element === document.activeElement),
-    'Keyboard focus follows visible links'
-  );
-  assert.ok(
-    await link.evaluate((element) => {
-      const style = getComputedStyle(element);
-      return parseFloat(style.outlineWidth) > 0 || style.boxShadow !== 'none';
-    }),
-    'Keyboard focus needs a visible indicator'
-  );
+async function indicator(control) {
+  return control.evaluate((el) => {
+    const css = getComputedStyle(el);
+    return { outline: css.outline, width: parseFloat(css.outlineWidth), shadow: css.boxShadow };
+  });
+}
+
+async function tabTo(page, control, maxTabs = 12) {
+  const resting = await indicator(control);
+  for (let i = 0; i < maxTabs; i++) {
+    await page.keyboard.press('Tab');
+    if (await control.evaluate((el) => el === document.activeElement)) {
+      const focused = await indicator(control);
+      assert.ok(
+        (focused.width > 0 && focused.outline !== resting.outline) ||
+          (focused.shadow !== 'none' && focused.shadow !== resting.shadow),
+        'Focus must add a visible indicator'
+      );
+      return;
+    }
+  }
+  assert.fail(`Control not reached by Tab: ${control}`);
 }
 
 async function checkKeyboard(page) {
@@ -307,19 +437,18 @@ async function checkKeyboard(page) {
   await page.keyboard.press('Enter');
   assert.equal(await page.locator(':focus').getAttribute('id'), 'inhalt');
   for (const link of await hero(page).getByRole('link').all()) {
-    await page.keyboard.press('Tab');
-    await checkFocus(link);
+    await tabTo(page, link, 1);
   }
   await checkStaticPhotos(page);
   await goto(page, '/gottesdienste');
   const menu = page.locator('header details');
   const summary = menu.locator('summary');
-  for (let i = 0; i < 3; i++) await page.keyboard.press('Tab');
-  assert.ok(await summary.evaluate((el) => el === document.activeElement));
+  await tabTo(page, summary);
   await page.keyboard.press('Enter');
-  await page.keyboard.press('Tab');
-  await checkFocus(menu.locator('a[href="/gottesdienste"][aria-current="page"]'));
+  await tabTo(page, menu.locator('a[href="/gottesdienste"][aria-current="page"]'), 1);
+  await checkPrimaryNavigation(menu, '/gottesdienste');
   await capture(page, 'menu-open-390', { fullPage: false });
+  await checkAxe(page, '/gottesdienste (open menu)', 390);
   await page.keyboard.press('Escape');
   assert.equal(await menu.getAttribute('open'), null);
   assert.ok(await summary.evaluate((el) => el === document.activeElement));
@@ -331,7 +460,8 @@ async function checkKeyboard(page) {
   await page.waitForFunction(() => document.activeElement?.matches('header a[href="/"]'));
   assert.equal(await menu.getAttribute('open'), null);
   assert.equal(await summary.isVisible(), false, 'Desktop navigation at 64rem');
-  await checkLinks(page.getByRole('banner'), [...primaryPaths, churchTools], 'Desktop header');
+  await checkPrimaryNavigation(page.getByRole('banner'), '/gottesdienste');
+  await checkLinks(page.getByRole('banner'), [churchTools], 'Desktop header utility');
 }
 
 async function checkNoScriptOffers(offerCount) {
@@ -373,12 +503,23 @@ async function checkNoScriptOffers(offerCount) {
     for (const decoration of copy.querySelectorAll('[aria-hidden="true"]')) decoration.remove();
     return copy.textContent.trim();
   });
-  const nameQuery = name.slice(0, 100);
+  const nameQuery = name
+    .split(/[\r\n]+/u)
+    .map((line) => line.trim())
+    .find(Boolean)
+    ?.slice(0, 100);
   assert.ok(nameQuery, 'A searchable offer title');
   const description = (await selected.locator('.offer-description').allTextContents()).join(' ');
-  const descriptionWord = description
-    .match(/[\p{L}\p{N}]{5,}/gu)
-    ?.find((word) => !name.toLocaleLowerCase('de').includes(word.toLocaleLowerCase('de')));
+  const descriptionWord = fixtures
+    ? 'quasaronly'
+    : description
+        .match(/[\p{L}\p{N}]{5,}/gu)
+        ?.find((word) => !name.toLocaleLowerCase('de').includes(word.toLocaleLowerCase('de')));
+  if (fixtures)
+    assert.ok(
+      (await selected.innerText()).includes(descriptionWord),
+      'Render the source description'
+    );
   await capture(page, 'offer-selected-no-js-390');
   await summary.focus();
   await page.keyboard.press('Enter');
@@ -388,8 +529,9 @@ async function checkNoScriptOffers(offerCount) {
   const input = page.getByRole('searchbox', { name: /\S/ });
   async function search(term) {
     await input.fill(term);
+    const submitted = await input.inputValue();
     await Promise.all([
-      page.waitForURL((url) => url.searchParams.get('q') === term),
+      page.waitForURL((url) => url.searchParams.get('q') === submitted),
       input.press('Enter')
     ]);
   }
@@ -397,10 +539,7 @@ async function checkNoScriptOffers(offerCount) {
   const containsSelected = () =>
     details.evaluateAll((offers, id) => offers.some((offer) => offer.id === id), selectedId);
   assert.ok(await containsSelected(), 'A name search finds the selected offer');
-  if (fixtures) {
-    assert.equal(await details.count(), 1, 'The fixture name identifies one offer');
-    assert.ok(descriptionWord, 'Fixture needs a description-only search term');
-  }
+  if (fixtures) assert.equal(await details.count(), 1, 'The fixture name identifies one offer');
   if (descriptionWord) {
     await search(descriptionWord);
     assert.ok(await containsSelected(), 'Description-only matches survive the SSR search');
@@ -457,25 +596,29 @@ async function checkNoScriptFallback() {
   await checkStaticPhotos(page);
   const menu = page.locator('header details');
   await menu.locator('summary').click();
-  const primaryNav = menu.getByRole('navigation', { name: /hauptnavigation/i });
-  await checkLinks(primaryNav, primaryPaths, 'No-JS primary navigation');
-  assert.equal(await primaryNav.getByRole('link').count(), primaryPaths.length);
+  await checkPrimaryNavigation(menu, '/');
   await checkLinks(
     menu,
     [cafe, concerts, youtube, churchTools, '/spenden'],
     'No-JS mobile utilities'
   );
-  await menu.locator('summary').click();
-  const toTop = page.getByRole('contentinfo').getByRole('link', { name: /seitenanfang/i });
+  await menu
+    .getByRole('navigation', { name: 'Hauptnavigation mobil' })
+    .getByRole('link', { name: 'Gottesdienste', exact: true })
+    .click();
+  assert.equal(
+    new URL(page.url()).pathname,
+    '/gottesdienste',
+    'A mobile menu link navigates without JavaScript'
+  );
+  await goto(page, '/');
+  const toTop = page.getByRole('contentinfo').locator('a[href^="#"]');
   await toTop.focus();
   await page.keyboard.press('Enter');
   await page.waitForFunction(() => window.scrollY <= 1);
   await heroActions(page).first().click();
-  assert.equal(
-    new URL(page.url()).pathname,
-    '/gottesdienste',
-    'Primary journey works without JavaScript'
-  );
+  assert.equal(new URL(page.url()).pathname, '/besuch', 'Primary journey works without JavaScript');
+  await checkVisit(page);
   await context.close();
 }
 
@@ -505,10 +648,29 @@ try {
       await readyForInspection(page);
       await checkImages(page, `${route} at ${width}px`);
       await checkReflow(page, `${route}: overflow at ${width}px`);
+      if (width === 1440) await checkPrimaryNavigation(page.getByRole('banner'), route);
       if (route === '/') {
         await checkHome(page);
-        if (fixtures) await checkHomePreviews(page, true);
+        await checkHomePreviews(page, true);
       }
+      if (route === '/besuch') await checkVisit(page);
+      if (fixtures && route === '/gottesdienste')
+        await checkLinks(
+          page.getByRole('main'),
+          ['/gottesdienste/synthetic-second-service'],
+          'Full service listing'
+        );
+      if (fixtures && route === '/aktuelles')
+        await checkLinks(
+          page.getByRole('main'),
+          ['/aktuelles/synthetic-news-d'],
+          'Full news listing'
+        );
+      if (route === '/aktuelles/synthetic-news-b')
+        assert.ok(
+          await page.getByText('<script>not executable</script>', { exact: true }).isVisible(),
+          'Render source markup as text at the actual news destination'
+        );
       if (route === '/gemeinde')
         await checkLinks(page.getByRole('main'), placePaths, 'Local place directory');
       if (route === '/petruskirche')
@@ -518,7 +680,7 @@ try {
           'Separate worship and concert listings'
         );
       if (route === '/' || width === 390 || width === 1440)
-        await capture(page, `${route.slice(1) || 'home'}-${width}`);
+        await capture(page, `${route.slice(1).replaceAll('/', '-') || 'home'}-${width}`);
       if (width === 390 || width === 1440) await checkAxe(page, route, width);
     }
   }
@@ -537,7 +699,12 @@ try {
             (await message.isVisible()) && (await message.innerText()).trim(),
             `Explain the ${state} source state`
           );
-          assert.equal(await message.locator('time[datetime]').count(), state === 'stale' ? 1 : 0);
+          const timestamp = message.locator('time[datetime]');
+          assert.equal(await timestamp.count(), state === 'stale' ? 1 : 0);
+          if (state === 'stale') {
+            assert.equal(await timestamp.getAttribute('datetime'), '2026-01-04T10:00:00Z');
+            assert.ok((await timestamp.isVisible()) && (await timestamp.innerText()).trim());
+          }
         }
         await checkHomePreviews(page, state === 'stale');
         await checkReflow(page, `${state}: overflow at ${width}px`);
@@ -578,13 +745,12 @@ try {
     await readyForInspection(page);
     await checkReflow(page, `${route}: 200% text resize overflow`);
     if (route === '/') {
-      const logo = await page.locator('header a[href="/"] img').boundingBox();
-      const menu = await page.locator('header summary').boundingBox();
-      assert.ok(
-        logo && menu && (logo.x + logo.width <= menu.x || logo.y + logo.height <= menu.y),
-        'Enlarged menu must not cover the original logo'
-      );
+      // Hit-test the controls themselves: enlarged text must not cover either click target.
       await capture(page, 'home-text-200-320');
+      for (const control of [page.locator('header a[href="/"]'), page.locator('header summary')]) {
+        await tabTo(page, control);
+        await control.click({ trial: true, timeout: 3000 });
+      }
     }
   }
   await checkNoScriptFallback();

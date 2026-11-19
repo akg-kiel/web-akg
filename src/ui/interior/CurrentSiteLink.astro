@@ -1,0 +1,20 @@
+---
+import Go from './Go.astro';
+import { siteOrigin } from '../../lib/site';
+
+// Render only on a request-time preview route. These temporary directions must
+// not point visitors back at the same site after the canonical domain moves.
+const paths = {
+  worship: '/gottesdienste',
+  office: '/kontakt#gemeindebuero',
+  newcomers: '/angebote-und-gruppen/neu-hier',
+  groups: '/angebote-gruppen-seite',
+  news: '/aktuelles',
+  donations: '/spenden',
+} as const;
+interface Props { to: keyof typeof paths }
+const { to } = Astro.props;
+const host = Astro.url.hostname;
+const preview = host.endsWith('.workers.dev') || ['localhost', '127.0.0.1', '[::1]'].includes(host);
+---
+{preview && <Go href={new URL(paths[to], siteOrigin).href} external><slot /> auf akg-kiel.de</Go>}

@@ -38,12 +38,12 @@ test('navigation and stable source identifiers do not depend on titles', () => {
   }
 });
 
-test('search engines can crawl every route to read the global noindex instruction', async () => {
+test('the robots endpoint allows crawlers to reach page-level noindex instructions', async () => {
   const { GET } = await import('../src/pages/robots.txt.ts');
   const robots = await GET({});
+  assert.match(robots.headers.get('content-type'), /^text\/plain\b/);
+  // smoke.mjs checks the complementary noindex instructions on the actual served pages.
   assert.equal(await robots.text(), 'User-agent: *\nDisallow:\n');
-  const layout = await readFile(new URL('../src/layouts/Layout.astro', import.meta.url), 'utf8');
-  assert.match(layout, /<meta name="robots" content="noindex, nofollow"\s*\/>/);
 });
 
 test('news excerpts count Unicode code points without splitting supplementary characters', () => {

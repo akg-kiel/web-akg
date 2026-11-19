@@ -1,85 +1,30 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PageIntro from '../components/PageIntro.astro';
-import Photo from '../components/Photo.astro';
-import { concertSite, places } from '../lib/site';
+import Interior from '../ui/interior/Interior.astro';
+import Go from '../ui/interior/Go.astro';
 
 export const prerender = true;
 export function getStaticPaths() {
-  const pages = [
-    { slug: 'kontakt', title: 'Kontakt', intro: 'Telefon, E-Mail und Sprechzeiten des Gemeindebüros sind noch nicht bestätigt.' },
-    { slug: 'spenden', title: 'Spenden', intro: 'Danke, dass du die Arbeit der Gemeinde unterstützen möchtest.' },
-    { slug: 'impressum', title: 'Impressum', intro: 'Für diese Vorschau liegt noch kein gültiges Impressum vor.' },
-    { slug: 'datenschutz', title: 'Datenschutz', intro: 'Für diese Vorschau liegt noch keine freigegebene Datenschutzerklärung vor.' },
-    ...places.map(({ href, label }) => ({
-      slug: href.slice(1),
-      title: label,
-      intro: href === '/petruskirche'
-        ? 'Du möchtest die Petruskirche in Kiel-Wik besuchen? Gottesdienste und Konzerte haben jeweils eine eigene Terminübersicht.'
-        : 'Für deinen Besuch fehlen noch bestätigte Angaben zur Anschrift, Anfahrt und Zugänglichkeit.'
-    }))
+  return [
+    { params: { page: 'impressum' }, props: {
+      title: 'Impressum', description: 'Für diese Vorschau liegt noch kein freigegebenes Impressum vor.',
+      note: 'Die verbindlichen Angaben zum Anbieter fehlen noch.'
+    }},
+    { params: { page: 'datenschutz' }, props: {
+      title: 'Datenschutz', description: 'Für diese Vorschau liegt noch keine freigegebene Datenschutzerklärung vor.',
+      note: 'Die Erklärung zur Datenverarbeitung auf dieser Website muss noch fachlich geprüft werden.'
+    }}
   ];
-  return pages.map((page) => ({ params: { page: page.slug }, props: { page } }));
 }
-
-interface Props {
-  page: { slug: string; title: string; intro: string };
-}
-const { page } = Astro.props;
-const place = places.some(({ href }) => href === '/' + page.slug);
-const placeIndex = { href: '/gemeinde#orte', label: 'Gemeinde & Orte' };
+interface Props { title: string; description: string; note: string }
+const { title, description, note } = Astro.props;
 ---
-<Layout title={page.title} description={page.intro}>
-  {page.slug === 'petruskirche' ? (
-    <PageIntro title={page.title} description={page.intro} parent={placeIndex}>
-      <Photo slot="photo" view="concert" hero />
-    </PageIntro>
-  ) : (
-    <PageIntro title={page.title} description={page.intro} parent={place ? placeIndex : undefined} />
-  )}
-
-  <div class="container section-end">
-    {page.slug === 'petruskirche' ? (
-      <div class="journal-spread">
-        <section class="journal-reading" aria-labelledby="besuch-titel">
-          <h2 id="besuch-titel">Vor deinem Besuch</h2>
-          <p>Adresse, Anfahrt, Öffnungszeiten und Angaben zur Zugänglichkeit sind noch nicht bestätigt. Bitte beachte: Nicht jeder Termin der Gemeinde ist diesem Ort zugeordnet.</p>
-          <p>Für das Kirchengebäude ist eine eigene Website geplant.</p>
-        </section>
-        <nav class="journal-margin" aria-labelledby="termine-titel">
-          <h2 class="journal-heading" id="termine-titel">Termine finden</h2>
-          <ul class="place-links" role="list">
-            <li><a href="/gottesdienste">Gottesdienste der Gemeinde <span aria-hidden="true">→</span></a></li>
-            <li><a href={concertSite.href}>{concertSite.label} (eigene Website) <span aria-hidden="true">↗</span></a></li>
-          </ul>
-        </nav>
-      </div>
-    ) : page.slug === 'kontakt' ? (
-      <div class="journal-reading">
-        <p>Es gibt hier kein Kontaktformular. Über diese Vorschau kannst du dem Gemeindebüro keine Nachricht schicken.</p>
-        <a class="text-link" href="/gemeinde#orte">Kirche und Gemeindehäuser <span aria-hidden="true">→</span></a>
-      </div>
-    ) : page.slug === 'spenden' ? (
-      <section class="journal-reading" aria-labelledby="spenden-titel">
-        <h2 id="spenden-titel">Spendeninformationen stehen noch aus</h2>
-        <p>Die Gemeinde hat Zahlungswege, Spendenzwecke und Hinweise zu Spendenbescheinigungen für diese Website noch nicht bestätigt. Über die Vorschau kannst du nicht spenden.</p>
-        <a class="text-link" href="/gemeinde">Unsere Gemeinde <span aria-hidden="true">→</span></a>
-      </section>
-    ) : page.slug === 'impressum' || page.slug === 'datenschutz' ? (
-      <section class="journal-reading" aria-labelledby="rechtliches-titel">
-        <h2 id="rechtliches-titel">Rechtliche Freigabe ausstehend</h2>
-        <p>{page.slug === 'impressum'
-          ? 'Die verbindlichen Anbieterangaben fehlen noch.'
-          : 'Die Erklärung muss die tatsächliche Datenverarbeitung auf dieser Website beschreiben und fachlich geprüft werden.'}</p>
-        <p><strong>Bis zur Freigabe bleibt die Veröffentlichung der Website gesperrt.</strong></p>
-        <a class="text-link" href="/">Zur Startseite <span aria-hidden="true">→</span></a>
-      </section>
-    ) : (
-      <div class="journal-reading">
-        <h2>Gottesdienste</h2>
-        <p>Du suchst einen Termin? Die Übersicht zeigt die veröffentlichten Termine der Gemeinde. Ob ein Gottesdienst in diesem Gemeindehaus stattfindet, ist hier nicht bestätigt.</p>
-        <a class="text-link" href="/gottesdienste">Zur Gottesdienstübersicht <span aria-hidden="true">→</span></a>
-      </div>
-    )}
+<Interior title={title} description={description}>
+  <div class="wrap in-detail">
+    <h1>{title}</h1>
+    <div class="in-prose">
+      <p class="in-lead">{description}</p>
+      <p>{note} Bis zur Freigabe bleibt die Veröffentlichung der Website gesperrt.</p>
+      <Go href="/">Zur Startseite</Go>
+    </div>
   </div>
-</Layout>
+</Interior>

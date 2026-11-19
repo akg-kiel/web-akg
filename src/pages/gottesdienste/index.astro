@@ -1,32 +1,37 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import PageIntro from '../../components/PageIntro.astro';
-import Photo from '../../components/Photo.astro';
-import SourceState from '../../components/SourceState.astro';
-import ServiceList from '../../components/ServiceList.astro';
+import Interior from '../../ui/interior/Interior.astro';
+import ContentState from '../../ui/interior/ContentState.astro';
+import CurrentSiteLink from '../../ui/interior/CurrentSiteLink.astro';
+import ServiceDates from '../../ui/interior/ServiceDates.astro';
+import Go from '../../ui/interior/Go.astro';
+import Picture from '../../ui/Picture.astro';
 import { loadServices } from '../../lib/content';
 import { externalLinks } from '../../lib/site';
 
 export const prerender = false;
-const services = await loadServices();
 Astro.response.headers.set('Cache-Control', 'no-store');
-const youtube = externalLinks.find((link) => link.label === 'YouTube-Kanal');
+const services = await loadServices();
+const youtube = externalLinks.find(({ label }) => label === 'YouTube-Kanal');
 ---
-<Layout title="Gottesdienste" description="Gottesdienste der Apostel-Kirchengemeinde Kiel: eine Einladung und die Übersicht der nächsten Termine.">
-  <PageIntro title="Gottesdienste" description="Ob dir der Gottesdienst vertraut ist oder du zum ersten Mal kommst: Du bist willkommen, auch mit deinen Fragen." />
-  <div class="container section-end journal-spread">
-    <section aria-labelledby="termine-titel">
-      <h2 class="journal-heading" id="termine-titel">Die nächsten Gottesdienste</h2>
-      <SourceState status={services.status} kind="services" updatedAt={services.updatedAt} />
-      {services.items.length > 0 && <>
-        <p class="small-note journal-caption">Die Uhrzeiten gelten für Kiel. Ort und Ablauf sind noch nicht bestätigt.</p>
-        <ServiceList items={services.items} headingLevel="h3" />
-      </>}
-      {services.items.length === 0 && <p class="journal-caption"><a class="text-link" href="/gemeinde">Unsere Gemeinde kennenlernen <span aria-hidden="true">→</span></a></p>}
+<Interior title="Gottesdienste" description="Feiere Gottesdienst mit der Apostel-Kirchengemeinde Kiel. Hier findest du Termine und den Weg zu Gottesdiensten auf YouTube.">
+  <header class="wrap in-head">
+    <h1>Gottesdienste</h1>
+    <p class="in-lead">Wir kommen zusammen, um zu beten, zu singen und auf Gottes Wort zu hören. Du bist eingeladen, auch wenn dir Gottesdienst noch nicht vertraut ist.</p>
+  </header>
+  <div class="wrap in-columns">
+    <section class="in-prose" aria-labelledby="termine">
+      <h2 id="termine">Nächste Termine</h2>
+      <ContentState result={services} subject="Gottesdiensttermine">
+        <CurrentSiteLink to="worship">Gottesdienstinfos</CurrentSiteLink>
+      </ContentState>
+      {services.items.length > 0 && <><p class="in-meta">Ortszeit Kiel (Europe/Berlin)</p><ServiceDates items={services.items} /></>}
+      <Go href="/besuch">Tipps für deinen ersten Besuch</Go>
     </section>
-    <aside class="journal-margin" aria-label="Einblick in den Gottesdienst">
-      <Photo view="service" />
-      {youtube && <p class="journal-caption"><a class="text-link" href={youtube.href}>Zum YouTube-Kanal der Gemeinde <span aria-hidden="true">↗</span></a></p>}
+    <aside class="in-side-feature">
+      <Picture view="service" priority />
+      <h2>Zu Hause mitfeiern</h2>
+      <p>Gottesdienste und Predigten kannst du auf unserem YouTube-Kanal ansehen.</p>
+      {youtube && <Go href={youtube.href} external>Zum YouTube-Kanal</Go>}
     </aside>
   </div>
-</Layout>
+</Interior>

@@ -1,0 +1,18 @@
+---
+import { navigation, externalLinks, places, siteName } from '../lib/site';
+import Arrow from './Arrow.astro';
+const groups = [
+  { title: 'In der Gemeinde', links: [{href:'/besuch',label:'Erster Besuch'}, ...navigation] },
+  { title: 'Unsere Orte', links: places },
+  { title: 'Weitere Websites', links: externalLinks }
+];
+---
+<footer class="colophon">
+  <div class="wrap">
+    <div class="foot-head"><p>{siteName}</p><a href="#">Zum Seitenanfang <span aria-hidden="true">↑</span></a></div>
+    <div class="foot-columns">{groups.map(({title,links}) => <nav aria-label={title + ' im Footer'}>
+      <h2>{title}</h2><ul role="list">{links.map(({href,label}) => <li><a href={href}>{label}{href.startsWith('https:') && <Arrow external />}</a></li>)}</ul>
+    </nav>)}</div>
+    <div class="foot-end"><p>Website-Entwurf · Inhalte und Rechtstexte sind noch in Prüfung.</p><nav aria-label="Weitere Informationen"><a href="/spenden">Spenden</a><a href="/impressum">Impressum</a><a href="/datenschutz">Datenschutz</a></nav></div>
+  </div>
+</footer>

@@ -1,41 +1,42 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import PageIntro from '../components/PageIntro.astro';
-import Photo from '../components/Photo.astro';
+import Interior from '../ui/interior/Interior.astro';
+import Go from '../ui/interior/Go.astro';
+import Picture from '../ui/Picture.astro';
 import { places } from '../lib/site';
+
 export const prerender = true;
 ---
-<Layout title="Gemeinde & Orte" description="Was die Apostel-Kirchengemeinde Kiel verbindet: Glaube, Geschichte und die Orte unserer Gemeinde.">
-  <PageIntro title="Unsere Gemeinde" description="Wir sind die Apostel-Kirchengemeinde in Kiel. Was uns verbindet, ist der Wunsch, Glauben und Alltag miteinander zu teilen.">
-    <Photo slot="photo" view="gathering" hero />
-  </PageIntro>
-
-  <div class="container section-end">
-    <div class="journal-spread">
-      <section id="leitbild" class="journal-reading" aria-labelledby="leitbild-titel">
-        <h2 id="leitbild-titel">Was uns verbindet</h2>
-        <p>Jesus Christus steht im Mittelpunkt unseres Glaubens. Wir möchten ihm folgen und seine Liebe weitergeben – durch das, was wir sagen, und durch das, was wir tun.</p>
-        <p>In unserem Leitbild heißt das: Menschen mit unterschiedlichen Erfahrungen und Begabungen haben Platz. Wir wollen miteinander beten, einander achten und barmherzig mit Fehlern umgehen.</p>
-        <p class="small-note">Text zum Leitbild · redaktionelle Abnahme steht noch aus.</p>
+<Interior title="Unsere Gemeinde" description="Lerne die Apostel-Kirchengemeinde Kiel kennen: die Menschen, unseren Glauben an Jesus Christus und die Geschichte unserer Orte.">
+  <header class="in-band"><div class="wrap in-head in-split">
+    <div class="in-copy">
+      <h1>Unsere Gemeinde</h1>
+      <p class="in-lead">Wir sind Menschen aus Kiel, die der Glaube an Jesus Christus verbindet. Wenn du deinen Glauben teilst oder Fragen mitbringst: Du bist bei uns willkommen.</p>
+      <Go href="/besuch">Zum ersten Mal hier?</Go>
+    </div>
+    <Picture view="gathering" priority />
+  </div></header>
+  <div class="wrap in-section in-columns">
+    <div class="in-chapters">
+      <section id="leitbild" class="in-prose">
+        <h2>Woran wir glauben</h2>
+        <p>Wir möchten Jesus nachfolgen. Für uns heißt das: nicht nur von seiner Liebe erzählen, sondern sie auch im Alltag zeigen. Wir beten miteinander, achten einander und wollen barmherzig mit Fehlern umgehen.</p>
       </section>
-      <section id="orte" class="journal-margin" aria-labelledby="orte-titel">
-        <h2 class="journal-heading" id="orte-titel">Unsere Orte</h2>
-        <ul class="place-links" role="list">
-          {places.map(({ href, label }) => (
-            <li><a href={href}>{label}<span aria-hidden="true">→</span></a></li>
-          ))}
-        </ul>
-        <p class="small-note journal-caption">Adressen, Anfahrt und Zugänglichkeit sind noch nicht bestätigt.</p>
+      <section class="in-prose">
+        <h2>Wer hier mitmacht</h2>
+        <p>Jung und Alt bringen unterschiedliche Fragen und Begabungen mit. Beim Gottesdienst und in kleineren Gruppen wird daraus Gemeinschaft. Wenn du magst, komm dazu.</p>
+        <Go href="/angebote">Angebote und Gruppen entdecken</Go>
+      </section>
+      <section id="geschichte" class="in-prose">
+        <h2>Wie Apostel entstand</h2>
+        <dl class="in-history">
+          <div><dt>2008</dt><dd>Die Gemeinden Petrus-Süd und Jakobi-West schließen sich zur Apostel-Kirchengemeinde Kiel zusammen.</dd></div>
+          <div><dt>2016</dt><dd>Im März zieht die Gemeinde in die Petruskirche in der Wik ein.</dd></div>
+        </dl>
       </section>
     </div>
-
-    <section class="journal-history" aria-labelledby="geschichte-titel">
-      <h2 id="geschichte-titel">Wie alles anfing</h2>
-      <dl class="history-dates">
-        <div><dt>2008</dt><dd>Aus Petrus-Süd und Jakobi-West wird die Apostel-Kirchengemeinde.</dd></div>
-        <div><dt>2016</dt><dd>Im März zieht die Gemeinde in die Petruskirche ein.</dd></div>
-      </dl>
-      <p class="small-note">Angaben zur Gemeindegeschichte · redaktionelle Abnahme steht noch aus.</p>
+    <section id="orte" class="in-side-nav">
+      <h2>Unsere Orte</h2>
+      <ul role="list">{places.map(place => <li><Go href={place.href}>{place.label}</Go></li>)}</ul>
     </section>
   </div>
-</Layout>
+</Interior>

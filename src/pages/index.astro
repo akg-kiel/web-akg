@@ -1,74 +1,60 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Photo from '../components/Photo.astro';
-import KielPostmark from '../components/KielPostmark.astro';
-import GroupList from '../components/GroupList.astro';
-import SourceState from '../components/SourceState.astro';
-import ServiceList from '../components/ServiceList.astro';
-import NewsList from '../components/NewsList.astro';
+import Site from '../layouts/Site.astro';
+import Picture from '../ui/Picture.astro';
+import Arrow from '../ui/Arrow.astro';
+import FeedNote from '../ui/FeedNote.astro';
 import { loadGroups, loadNews, loadServices } from '../lib/content';
-import { cafeSite, concertSite } from '../lib/site';
-import '../styles/edition.css';
+import { detailPath, formatDate, formatNewsExcerpt, formatServiceTime } from '../lib/site';
+import '../styles/welcome.css';
 
 export const prerender = false;
 const [services, news, groups] = await Promise.all([loadServices(), loadNews(), loadGroups()]);
 Astro.response.headers.set('Cache-Control', 'no-store');
+const next = services.items[0];
 ---
-<Layout title="Willkommen" description="Lerne die Apostel-Kirchengemeinde Kiel kennen. Hier geht es zu Gottesdiensten, Gruppen und Nachrichten aus dem Gemeindeleben.">
-  <section class="edition-hero" aria-labelledby="willkommen">
-    <div class="container edition-spread">
-      <div class="edition-welcome">
-        <h1 id="willkommen">Glaube trifft <em>Alltag.</em></h1>
-        <p>Wir sind die Apostel-Kirchengemeinde Kiel. Hier feiern wir Gottesdienst, teilen unseren Glauben und kommen ins Gespräch.</p>
-        <div class="edition-actions">
-          <a class="button" href="/gottesdienste">Zu den Gottesdiensten <span aria-hidden="true">→</span></a>
-          <a class="text-link" href="/gemeinde">Gemeinde kennenlernen</a>
-        </div>
-      </div>
-      <div class="edition-print"><Photo view="conversation" hero /><KielPostmark /></div>
-    </div>
-  </section>
-
-  <section class="container edition-directory" aria-labelledby="gemeindeleben">
-    <div class="edition-lead">
-      <h2 id="gemeindeleben">Mitmachen und <em>mitfeiern.</em></h2>
-      <p>Vielleicht suchst du eine Gruppe. Vielleicht möchtest du erst einmal im Gottesdienst zuhören. Beides hat hier Platz.</p>
-    </div>
-    <div class="edition-index">
-      <section aria-labelledby="feiern">
-        <h3 id="feiern"><a href="/gottesdienste">Gottesdienste <span aria-hidden="true">→</span></a></h3>
-        <SourceState status={services.status} kind="services" updatedAt={services.updatedAt} compact />
-        {services.items.length > 0 && <ServiceList items={services.items.slice(0, 1)} headingLevel="h4" />}
-      </section>
-      <section aria-labelledby="gruppen">
-        <h3 id="gruppen"><a href="/angebote">Angebote &amp; Gruppen <span aria-hidden="true">→</span></a></h3>
-        <SourceState status={groups.status} kind="groups" updatedAt={groups.updatedAt} compact />
-        {groups.items.length > 0 && <GroupList items={groups.items.slice(0, 3)} preview />}
-      </section>
-      <section aria-labelledby="kontakt">
-        <h3 id="kontakt"><a href="/kontakt">Kontakt <span aria-hidden="true">→</span></a></h3>
-        <p>Angaben zum Gemeindebüro sind noch in Prüfung.</p>
-      </section>
-    </div>
-  </section>
-
-  <section class="edition-news" aria-labelledby="neuigkeiten">
-    <div class="container edition-news-spread">
-      <div class="edition-lead"><h2 id="neuigkeiten">Nachrichten aus der Gemeinde.</h2><a class="text-link" href="/aktuelles">Alle Nachrichten <span aria-hidden="true">→</span></a></div>
-      <div class="edition-feed">
-        <SourceState status={news.status} kind="news" updatedAt={news.updatedAt} />
-        {news.items.length > 0 && <NewsList items={news.items.slice(0, 3)} headingLevel="h3" />}
+<Site title="Willkommen" description="Willkommen in der Apostel-Kirchengemeinde Kiel. Plane deinen ersten Besuch, entdecke Gottesdienste und lerne Menschen aus der Gemeinde kennen.">
+  <section class="welcome" aria-labelledby="moin">
+    <div class="wrap welcome-band">
+      <h1 id="moin">Moin, wir sind <strong>Apostel.</strong></h1>
+      <div class="welcome-invite">
+        <p>Bei uns in Kiel kommen Menschen zusammen, um Gottesdienst zu feiern und ihren Glauben zu teilen. Du bist eingeladen.</p>
+        <div class="welcome-actions"><a class="action" href="/besuch">Mein erster Besuch <Arrow /></a><a class="route-link" href="/gemeinde">Unsere Gemeinde</a></div>
       </div>
     </div>
+    <Picture view="service" priority sizes="100vw" />
   </section>
 
-  <section class="container edition-neighbours" aria-labelledby="nebenan">
-    <Photo view="cafe" />
-    <div>
-      <h2 id="nebenan">Im Café <em>Dreimaster.</em></h2>
-      <p>Ein Blick ins Café: Was dich dort erwartet, erfährst du auf der eigenen Website.</p>
-      <a class="text-link" href={cafeSite.href}>Zum Café Dreimaster <span aria-hidden="true">↗</span></a>
-      <p class="edition-crosslink">Du suchst das Konzertprogramm? <a href={concertSite.href}>Zu petruskirche.events <span aria-hidden="true">↗</span></a></p>
+  <section class="sunday" aria-labelledby="gottesdienste">
+    <div class="wrap sunday-line">
+      <h2 id="gottesdienste">{next ? 'Nächster Gottesdienst' : 'Gottesdienste'}</h2>
+      <div class="sunday-when">
+        <FeedNote result={services} subject="Gottesdiensttermine" />
+        {next && <ul role="list"><li><time datetime={next.start}>{formatServiceTime(next)}</time><h3><a href={detailPath('gottesdienste', next.id)}>{next.title}</a></h3></li></ul>}
+      </div>
+      <a class="route-link" href="/gottesdienste">Zur Gottesdienstübersicht <Arrow /></a>
     </div>
   </section>
-</Layout>
+
+  <section class="wrap together" aria-labelledby="miteinander">
+    <div class="together-picture"><Picture view="conversation" /></div>
+    <div class="together-text">
+      <h2 id="miteinander">Menschen <br />kennen<wbr />lernen.</h2>
+      <p>Gemeinde ist mehr als der Gottesdienst. In unseren Gruppen teilen Menschen, was sie beschäftigt – im Glauben und im Alltag.</p>
+      <div class="together-choices">
+        <a href="/angebote">Angebote &amp; Gruppen <Arrow /></a>
+        <a href="/kontakt">Zum Gemeindebüro <Arrow /></a>
+      </div>
+      <FeedNote result={groups} subject="Gruppen" />
+      {groups.items.length > 0 && <ul role="list" class="group-samples">{groups.items.slice(0,3).map(g => <li><h3><a href={`/angebote?angebot=${encodeURIComponent(g.id)}#angebot-${g.id}`}>{g.name}</a></h3></li>)}</ul>}
+    </div>
+  </section>
+
+  <section class="updates" aria-labelledby="nachrichten"><div class="wrap">
+    <div class="update-intro"><h2 id="nachrichten">Neues aus der Gemeinde</h2><a class="route-link" href="/aktuelles">Alle Meldungen <Arrow /></a></div>
+    <FeedNote result={news} subject="Meldungen" />
+    {news.items.length > 0 && <ul role="list" class="update-list">{news.items.slice(0,3).map(item => <li>
+      <time datetime={item.publishedAt}>{formatDate(item.publishedAt)}</time>
+      <div><h3><a href={detailPath('aktuelles', item.id)}>{item.title} <Arrow /></a></h3>{item.body && <p>{formatNewsExcerpt(item.body)}</p>}</div>
+    </li>)}</ul>}
+  </div></section>
+</Site>

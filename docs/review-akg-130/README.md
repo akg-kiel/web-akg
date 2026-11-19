@@ -1,13 +1,14 @@
-# Sichtprüfung des Gemeindebriefs
+# Der neue Besuchsweg in Chromium
 
-Aufnahmen mit Chromium vom lokalen Astro-/Worker-Build, ohne Live-Token. Kein Mockup. Die PNG-Originale entstehen bei `pnpm exec vp run test:preview`; die hier verlinkten WebP-Kopien sind für die PR-Ansicht verkleinert.
+Aufnahmen des tatsächlichen Astro-/Worker-Builds ohne Live-Token. Die WebP-Dateien sind aus den Browser-Screenshots verkleinert, keine Mockups.
 
-| Geprüfter Weg                                              | Aufnahme                                                                |
-| ---------------------------------------------------------- | ----------------------------------------------------------------------- |
-| Einstieg und Reihenfolge der Besuchswege                   | [Startseite · 1440 px](start-desktop.webp) · [390 px](start-mobil.webp) |
-| Ohne veröffentlichte Termine einen nächsten Schritt finden | [Gottesdienste · 1440 px](gottesdienste.webp)                           |
-| Gemeindetermine und externes Konzertprogramm unterscheiden | [Petruskirche · 390 px](ortsprofil.webp)                                |
+| Besuchsaufgabe                                             | Ansicht                                                                       |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Gemeinde erkennen und zum ersten Besuch gelangen           | [Startseite auf 1440 px](start-desktop.webp) · [auf 390 px](start-mobil.webp) |
+| Vor dem Losgehen Gottesdienst, Ort und Gemeindebüro finden | [Erster Besuch auf 390 px](besuch-mobil.webp)                                 |
+| Ohne veröffentlichte Termine weiterkommen                  | [Gottesdienste auf 1440 px](gottesdienste.webp)                               |
+| Gemeindetermine vom externen Konzertprogramm unterscheiden | [Petruskirche auf 390 px](ortsprofil.webp)                                    |
 
-In der ersten Runde lief die Chronik bei 320 px und 200 % Schrift über die Seite. Die Jahreszahlen und Beschreibungen dürfen jetzt untereinander stehen. Die unabhängige Sichtkritik führte außerdem zu einem lesbaren mobilen Gemeindenamen, einem internen Ausweg bei fehlenden Gottesdienstterminen und präziseren Verweisen auf Meldungen und Termine. Die kontrollierte Vergrößerungsansicht zeigte eine Kollision zwischen Logo und Menü; bei sehr wenig Platz bekommt das Menü eine eigene Zeile. Das Browser-Gate prüft die Kollision zusätzlich zum horizontalen Überlauf.
+Bei der Sichtprüfung standen nicht die früheren Entwürfe, sondern die Wege zwischen den Seiten im Vordergrund. So bekam der Besuchsweg einen direkten Verweis auf die Gemeindeorte; in der Vorschau führen klar beschriftete Links auch zu den Angaben auf der aktuellen Website. Ein Bildquellenlink ist bedienbar, das Foto selbst kein versteckter Button. Nach dem Sprung zum Hauptinhalt ist die erste Aktion der Besuchsweg und nicht der Fotografennachweis.
 
-Die hier gezeigten Freigabehinweise sind Teil des Entwurfs. Gefüllte Ansichten und leere, gesperrte, nicht erreichbare und veraltete Quellen werden separat im Wegwerf-Build getestet; die Beispiele sind keine Gemeindedaten.
+`pnpm exec vp run test:preview` prüft die Hauptwege mit und ohne JavaScript, bei Bildausfall und vergrößerter Schrift. Der getrennte Fixture-Build prüft auch gefüllte Listen, Detailseiten und den Unterschied zwischen gesperrten, leeren, nicht erreichbaren und veralteten Quellen. Diese Daten landen nicht in der Vorschau.

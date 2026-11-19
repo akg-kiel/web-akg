@@ -84,6 +84,12 @@ export const photos = {
   }
 };
 
+export const publishedPhotoPaths = Object.values(photos)
+  .filter((photo) => photo.publicApproved === true)
+  .flatMap((photo) =>
+    [640, 960, photo.large ?? 1440].map((width) => `images/${photo.name}-${width}.webp`)
+  );
+
 export const withheldPhotoNames = Object.values(photos)
   .filter((photo) => photo.publicApproved !== true)
   .map((photo) => photo.name);
