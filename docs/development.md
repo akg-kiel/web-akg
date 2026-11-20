@@ -306,7 +306,7 @@ Produktions-Asset-Routing-Regeln nicht.
 Lokales Deployment-Paket prüfen, **ohne Upload oder Bereitstellung**:
 
 ```sh
-devenv shell -- ./node_modules/.bin/vp run deploy --dry-run --outdir .wrangler/dry-run
+devenv shell -- pnpm exec wrangler deploy --dry-run --outdir .wrangler/dry-run
 ```
 
 `dist/` und `.wrangler/` sind generiert und werden nicht eingecheckt. Kein
@@ -321,30 +321,28 @@ Die HTTP-Checks verlangen 404 auch für `/server/.dev.vars`, `/.dev.vars` und `/
 
 Seit der Einrichtung am 2026-10-26: Worker `web-akg`, Production-Branch `main`
 und automatische Branch-Previews. Es gibt kein zweites Produkt `web-akg-preview`
-und kein Cloudflare-Pages-Projekt. Die Tabelle beschreibt die Soll-Konfiguration
-für die Vite+-Aufgaben, nicht die aktuell im Dashboard gespeicherten Werte.
+und kein Cloudflare-Pages-Projekt. Die Tabelle beschreibt die Soll-Konfiguration,
+nicht die aktuell im Dashboard gespeicherten Werte.
 
-| Einstellung         | Wert                                                                          |
-| ------------------- | ----------------------------------------------------------------------------- |
-| Repository          | `akg-kiel/web-akg`                                                            |
-| Root directory      | `/`                                                                           |
-| Production: Build   | Nur `main`; `./node_modules/.bin/vp run build` mit automatischer Installation |
-| Production: Deploy  | `./node_modules/.bin/vp run deploy` (startet das lokale `wrangler deploy`)    |
-| Preview             | Alle Branches außer `main`; `pnpm exec wrangler preview`                      |
-| Toolchain           | `PNPM_VERSION=11.27.0`; Node 22 passend zur Projektumgebung, dort 22.23.4     |
-| Build-Cache         | aktiviert                                                                     |
-| Worker-Hauptadresse | `workers_dev=false`, keine Domain/Route angebunden                            |
-| Version-URLs        | `preview_urls=true`                                                           |
+| Einstellung         | Wert                                                                      |
+| ------------------- | ------------------------------------------------------------------------- |
+| Repository          | `akg-kiel/web-akg`                                                        |
+| Root directory      | `/`                                                                       |
+| Production: Build   | Nur `main`; `pnpm exec vp run build` mit automatischer Installation       |
+| Production: Deploy  | `pnpm exec wrangler deploy`                                               |
+| Preview             | Alle Branches außer `main`; `pnpm exec wrangler preview`                  |
+| Toolchain           | `PNPM_VERSION=11.27.0`; Node 22 passend zur Projektumgebung, dort 22.23.4 |
+| Build-Cache         | aktiviert                                                                 |
+| Worker-Hauptadresse | `workers_dev=false`, keine Domain/Route angebunden                        |
+| Version-URLs        | `preview_urls=true`                                                       |
 
-Für den Production-Trigger zuerst sicherstellen, dass die Aufgabe `deploy` auf
-`main` vorhanden ist. Dann in Cloudflare unter **Settings → Build** die oben
-stehenden Production-Befehle setzen und `SKIP_DEPENDENCY_INSTALL` für diesen
-Build entfernen. Die Preview-Befehle nicht ändern. Eine eventuell gemeinsam
-verwendete Build-Variable nicht ungeprüft für beide Pfade ändern; wenn sie
-bestehen bleiben muss, den Production-Build explizit installieren lassen:
+Die Befehle werden in Cloudflare unter **Settings → Build** gesetzt. Falls
+`SKIP_DEPENDENCY_INSTALL` dort gesetzt ist, entweder die automatische Installation
+wieder aktivieren oder die Installation im Build-Befehl ausdrücklich ausführen.
+Eine mit Previews geteilte Build-Variable nicht ungeprüft ändern:
 
 ```sh
-pnpm install --frozen-lockfile && ./node_modules/.bin/vp run build
+pnpm install --frozen-lockfile && pnpm exec vp run build
 ```
 
 Ein wiederhergestellter Cache ersetzt keine Installation. Der fehlgeschlagene Lauf
@@ -360,10 +358,9 @@ Cloudflare verwendet seine eigene Build-Umgebung, nicht devenv; die Worker-Runti
 bleibt workerd. Nach erfolgreichem Astro-Build findet Wrangler automatisch
 `dist/server/wrangler.json` über `.wrangler/deploy/config.json`. Ein explizites
 `--config` ist nicht erforderlich; ungebündeltes `src/worker.ts` ist kein Ersatz.
-Die Aufgabe `deploy` veröffentlicht den bereits gebauten Worker; sie baut nicht
-neu und ist nicht für Feature-Branches gedacht. Der Cloudflare-Preview-Befehl
-bleibt `pnpm exec wrangler preview`. Die Projektaufgabe `preview` startet
-stattdessen nur einen lokalen Astro-Server.
+Cloudflare führt Wrangler nach dem Build direkt aus, ohne separate Projektaufgabe
+für den Deploy. Für Feature-Branches ist stattdessen `pnpm exec wrangler preview`
+vorgesehen. Die Projektaufgabe `preview` startet nur einen lokalen Astro-Server.
 
 Der vorhandene, vom Nutzer gewählte Cloudflare-Build-Token bleibt in Cloudflare;
 keine Kopie in GitHub, Quelltext oder öffentlichen Build-Artefakten.
