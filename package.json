@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "vp run types && astro dev",
     "build": "vp run types && astro check && astro build && node scripts/check-cloudflare-build.mjs",
+    "deploy": "wrangler deploy",
     "preview": "vp run types && astro preview",
     "test": "node --experimental-strip-types --test scripts/*.test.mjs",
     "test:smoke": "node scripts/smoke.mjs",
